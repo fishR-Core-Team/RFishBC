@@ -6,7 +6,7 @@ Description: A possible replacement for the fishBC software distributed by the A
 URL: https://github.com/droglenc/RFishBC
 BugReports: https://github.com/droglenc/RFishBC/issues
 Encoding: UTF-8
-License: GPL (>= 3)
+License: MIT + file LICENSE
 LazyData: true
 Depends: R (>= 3.2.0)
 Imports:
