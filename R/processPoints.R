@@ -37,9 +37,11 @@ processPoints <- function(fname,pts,ID,read,edgeIsAnnulus,
   ##   and output a data.frame
   n <- nrow(pts)-1
   ageCap <- ifelse(edgeIsAnnulus,n,n-1)
-  radii <- data.frame(ID=rep(ID,n),read=rep(read,n),
+  radii <- data.frame(ID=as.character(rep(ID,n)),
+                      read=as.character(rep(read,n)),
                       ageCap=rep(ageCap,n),
-                      ann=1:n,rad=sqrt(((pts$x[2:(n+1)]-pts$x[1])^2)+((pts$y[2:(n+1)]-pts$y[1])^2)))
+                      ann=1:n,rad=sqrt(((pts$x[2:(n+1)]-pts$x[1])^2)+((pts$y[2:(n+1)]-pts$y[1])^2)),
+                      stringsAsFactors=FALSE)
   radii$radCap <- rep(radii$rad[n],n)
   ## Save all the data for later processing
   dat <- list(description=description,ID=ID,
