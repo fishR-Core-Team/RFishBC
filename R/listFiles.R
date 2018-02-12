@@ -2,8 +2,8 @@
 #' 
 #' @description This returns a vector with all file names with the \code{ext} extension in the \code{path} folder/directory. In \pkg{RfishBC} this is used primarily to create a list of image file names over which the user will loop or R data object names that can be given to \code{combineFiles}. 
 #' 
-#' @param path A string that contains the full path name for the folder/directory for which to list files. Defaults to the current working directory (see \code{\link{getwd}} result).
 #' @param ext A string that contains the file extension pattern to match. The string should include the period.
+#' @param path A string that contains the full path name for the folder/directory for which to list files. Defaults to the current working directory (see \code{\link{getwd}} result).
 #' @param ignore.case A logical for where pattern matching should be case sensitive (\code{=FALSE}) or not (\code{TRUE}; DEFAULT).
 #' @param \dots Parameters to be given to \code{\link{list.files}}.
 #' 
@@ -20,7 +20,7 @@
 #' @examples
 #' ## None yet
 #' 
-listFiles <- function(path=".",ext=".RData",
+listFiles <- function(ext=".RData",path=".",
                       ignore.case=TRUE,...) {
   ## Some checks
   if (length(path)!=1) stop("'path' can take only one string.",
