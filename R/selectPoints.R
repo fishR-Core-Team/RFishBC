@@ -18,8 +18,8 @@
 #' ## None yet
 #' 
 selectPoints <- function(pch=3,col.pts="red",cex.pts=1.25) {
-  message("Remember to select the focus of the structure first.\n\n")
-  message("Remember to indicated that you are done selecting points\nwhen you have selected the structure edge.\nFinish selecting points by pressing the ESCape key in Windows or OS X.\n")
+  message("Remember to select the focus of the structure first.\n")
+  message("Remember to indicate that you are done selecting points\n  when you have selected the structure edge.\n  Finish selecting points by pressing ESCape in Windows or OS X.\n")
   tmp <- as.data.frame(graphics::locator(type="p",pch=pch,
                        col=col.pts,cex=cex.pts))
   message(nrow(tmp)," points were selected.\n")
