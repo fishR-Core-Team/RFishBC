@@ -2,8 +2,8 @@
 #' 
 #' @description Combines the radii data that were created with \code{processPoints} and saved to an R object file from multiple R object files into one data.frame. This data.frame can then be post-processed.
 #'  
-#' @param path A string that contains the full path name for the folder/directory for which to list files. Defaults to the current working directory (see \code{\link{getwd}} result).
 #' @param fnames A character vector of file names (without the path) from which the radii data should be extracted and combined to form one synthetic data.frame. The files should all be in one folder/directory as given in \code{path}.
+#' @param path A string that contains the full path name for the folder/directory for which to list files. Defaults to the current working directory (see \code{\link{getwd}} result).
 #'
 #' @details None yet.
 #' 
@@ -16,7 +16,7 @@
 #' @examples 
 #' ## None yet
 #' 
-combineRadiiData <- function(path='.',fnames) {
+combineRadiiData <- function(fnames,path='.') {
   ## Some checks
   if (length(path)!=1) stop("'path' can take only one string.",
                             call.=FALSE)

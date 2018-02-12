@@ -4,12 +4,12 @@
 \alias{combineRadiiData}
 \title{Combines radii data from multiple files into one data.frame}
 \usage{
-combineRadiiData(path = ".", fnames)
+combineRadiiData(fnames, path = ".")
 }
 \arguments{
-\item{path}{A string that contains the full path name for the folder/directory for which to list files. Defaults to the current working directory (see \code{\link{getwd}} result).}
-
 \item{fnames}{A character vector of file names (without the path) from which the radii data should be extracted and combined to form one synthetic data.frame. The files should all be in one folder/directory as given in \code{path}.}
+
+\item{path}{A string that contains the full path name for the folder/directory for which to list files. Defaults to the current working directory (see \code{\link{getwd}} result).}
 }
 \value{
 A data.frame that contains the radii data created with \code{processPoints} for all files given in \code{fnames}.
