@@ -11,9 +11,12 @@ LazyData: true
 Depends: R (>= 3.2.0)
 Imports:
     graphics,
-    readbitmap
+    readbitmap,
+    withr
 Suggests:
     FSA,
     testthat,
-    rmarkdown
+    rmarkdown,
+    knitr
 RoxygenNote: 6.0.1
+VignetteBuilder: knitr

@@ -24,7 +24,7 @@ combineRadiiData <- function(fnames,path='.') {
   if (path==".") path <- getwd()
   fnames <- file.path(path,fnames)
   ## Start the resultant data.frame with the data from the first file
-  dat <- NULL # try to avoid "no visile binding" note
+  dat <- NULL # try to avoid "no visible binding" note
   load(fnames[1])
   d <- dat$radii
   ## Now rbind to this with data from the remaining files, if more than

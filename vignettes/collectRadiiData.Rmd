@@ -1,0 +1,154 @@
+---
+title: "Collect radial measurements from a calcified structure by interactively selecting annuli"
+author: "Derek H. Ogle"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+    fig_caption: yes
+vignette: >
+  %\VignetteIndexEntry{Collect radial measurements from a calcified structure by interactively selecting annuli}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Background
+blah-blah-blah
+
+```{r message=FALSE}
+library(RFishBC)
+library(dplyr)    # for mutate(), inner_join()
+```
+
+
+# Single Structure Process
+## Collecting the Radiii Data
+The `collectRadiiData()` function is used to
+
+* Load an image (JPG, PNG, or BMP) of a structure.
+* Optionally provide a scale for the image.
+* Optionally add a transect to that image to aid selecting annuli.
+* Interactively select annuli on the structure image.
+* Create an R data object file (i.e., ".Rdata" file) that contains, among other things, the radial measurements between the selected annuli.
+
+For example, the line below loads the structure image in "Scale_1.png" (in the current working directory), asks the user to add the linear transect (this is default behavior), asks the user to select points that represent annuli (noting that the edge is not considered to be an annulus; this is default behavior), and saves the results in an R data object file called "Scale_1_DHO.Rdata". Note that the radial measurements will be recorded as proportions of the image scale (i.e., 0 to 1) because no magnification was given or scale bar was processed.
+
+```{r eval=FALSE}
+fn <- collectRadiiData("Scale_1.png",ID="1",reading="DHO")
+```
+
+As this process requires interactive input from the user it is not shown in this static vignette. It should be noted, however, that reminders for the user are printed in the console at each step of the process.
+
+Given the number of tasks required of `collectRadiiData()` it has many arguments. These are discussed in more detail below.
+
+### The Basics
+The first five arguments are required and are related to information about the structure. The first argument is the image file name, which must be fully pathed if the image file is not in the current working directory. If this argument is not supplied then a dialog box will be provided from which the file can be selected.
+
+A unique identifier for the fish/structure must be given in `ID=` and a unique label for the readings (used when the structure is read more than once) must be given in `reading=`. There are no defaults for these two arguments so they must be given by the user in `collectRadiiData()`.
+
+The R data object that will ultimately be created by `collectRadiiData()` will have the same name as the image file (from the first argument described above) but with a suffix derived from the string in `reading=` and, *optionally*, any additional strings given in `suffix=`. For example, if the sructure image file was named "Scale_1.png" then the resultant R data object file will be named "Scale_1_DHO.Rdata" if `reading="DHO"` or "Scale_1_A_DHO.Rdata" if `reading="A"` and `suffix="DHO"`.
+
+The user may *optionally* provide more description for the structure in `description=`, which will be saved in the R data file object. For example, one may use `description="Ruffe scale read once by Ogle on 22-Apr-18"` to provide more information about the structure reading.
+
+### Adding a Transect to the Image (Optional)
+A linear transect may be added to the image to provide a landmark on which the user will mark annuli. The user will be asked to add a transect by default, but this behavior can be turned off (e.g., the image already has a transect on it) with `addTransect=FALSE`. If not turned off, then the user will be prompted in the console window to add the transect to the image by clicking (with the first mouse button) on the structure focus and then on the structure margin. The linear transect will then be drawn between these two points. The color, width, and type of the transect can be modified with `col.transect=`, `lwd.transect=`, and `lty.transect=`, respectively.
+
+### Setting the Scale on the Image
+SCALE BAR and MAGNIFICATION DESCRIBED HERE
+
+### Selecting Annuli on the Image
+Finally, the user will be asked to select points on the structure image that represent annuli. The point that represents the focus must be selected (with the first (left) mouse) first, followed successively by each annulus,[^1] and then the structure edge (if it is not an annulus). When the last point has been selected, the user must press the ESCape key in Windows or with Mac OS X (or right-click on the image and select STOP in Windows). The plotting character, color, and relative size of the selected points can be changed from the default settings with `pch.annuli=`, `col.annuli=`, and `cex.annuli=`.
+
+It is important that the last point selected above is the structure margin because several back-calculation techniques require knowing the "structure size" at the time of capture. If the fish was captured during a growing season, the growth on the structure between the last annulus and the margin will not represent complete annual growth. To assure proper processing of the selected points, use `edgeIsAnnulus=TRUE` to identify that the margin of the structure is an annulus (i.e., annual growth completed) or `edgeIsAnnulus=FALSE` (the default) to identify that the margin of the structure is NOT an annulus.
+
+
+## Examining the Radii Data
+### Data.frame of Radii
+The result from the previous section is an R object data file in the current working directory. Among other things, this data file contains a data.frame of radial measurements to successive annuli. This data.frame can be extracted from the data file with `combineRadiiData()` using the name of the R object data file as the first argument. The name of the R object data file could be entered as string or be the object saved from `collectRadiiData()`. For example, both lines below would produce the same result (because `fn2` was saved from `collectRadiiData()` in the previous section).
+```{r eval=FALSE}
+df <- combineRadiiData("Scale_1_DHO.RData")
+df <- combineRadiiData(fn)
+```
+```{r echo=FALSE}
+## This loads the file from the external data folder
+fn <- "Scale_1_DHO.RData"
+load(fn)
+df <- combineRadiiData(fn)
+```
+```{r}
+df
+```
+
+The `combineRadiiData()` function is more interesting when considering multiple structures (see next section).
+
+### View the Annular Markings
+One can review the markings on the structure with `showAnnuli()`, which only requires the name of an R data file object created with `combineRadiiData()` as the first object. This file name can be typed as a string, given as the name of an object returned from `combineRadiiData()`, or, if nothing is given, a dialog box will appear from which the data file can be selected. The color, width, and type of the "transect" (actually, just a line connecting the first and last points) may be changed with `col.transect=`, `lwd.transect=`, and `lty.transect=`. The "transect" can be excluded with `showTransect=FALSE`. The plotting character, color, and relative size of the selected points may be changed with `pch.annuli=`, `col.annuli=`, and `cex.annuli=`.
+
+```{r}
+showAnnuli(fn)
+```
+
+
+# Examining Data from Multiple Reads of the Same Structure
+In some instances, one may be interested in visually comparing the selected points from multiple reads of the same structure. For example, the code below collects a second set of points for the "Scale_1.png" image (used in the first section above). Note the diffrent value in `read=`.
+```{r eval=FALSE}
+collectRadiiData("Scale_1.png",ID="1",reading="DHO2")
+```
+
+As shown above, `showAnnuli()` can be used to overlay the selected points onto the structure image. A second set of points can be overlaid onto the active plot by including `add=TRUE` in a second call to `showAnnuli()` with a second R object data file constructed from the same image. For example, the first line of code below overlays the annuli from the first selections onto the image. The second line then overlays the annuli from the second selections onto this (because `add=TRUE`) and uses a different color for the transect and points.
+```{r}
+showAnnuli("Scale_1_DHO.RData")
+showAnnuli("Scale_1_DHO2.RData",add=TRUE,
+           col.transect="green",col.annuli="blue")
+```
+
+
+# Combining Data from Multiple Structures
+Of course, most analyses will consist of collecting radial measurements from structures from many fish. In this section, I demonstrate how to combine measurements from multiple structures. This demonstration assumes that all structure image files of interest are in a single directory.
+
+The `listFiles()` function can be used to identify all of the filenames in the current working directory that have a particular file extension, which is given as the first argument.
+```{r}
+( fns <- listFiles("png") )
+```
+
+The user would then cycle through each of these individual structure image files using the same process described in the first section above to collect the radii data from each structure. The only difference below is that the filename is extrated from the vector of filenames returned by `listFiles()` and the name of the saved R object data file is not saved (i.e., the value returned from `collectRadiiData()` was not assigned to an object as above).
+```{r eval=FALSE}
+collectRadiiData(fns[1],ID="1",reading="DHO2")
+collectRadiiData(fns[2],ID="1",reading="DHO2")
+```
+
+Once all structured image files have been processed, the radial measurements can be combined into one data.frame with `combineRadiiData()`. This function can take a first argument that is a vector of R object file names. The easiest way to construct that vector is to use `listFiles()` using the `.RData` extension (the extension used for R object file names).
+```{r results='hide'}
+( fns2 <- listFiles("RData") )
+```
+```{r echo=FALSE}
+fns2 <- fns2[-2]
+fns2
+```
+```{r}
+dfrad <- combineRadiiData(fns2)
+dfrad
+```
+
+Other information about the fish (e.g., location of capture, length, sex) is likely held in a separate file. Below, example "other" data are loaded into the `dffish` data.frame. Note that the `ID` and `reading` variables created from processing the image points are characters. In this case, `read.csv()` reads the `ID` variable from the external data file as a numeric (because the unique IDs were simple numbers). The second line of code converts these numeric IDs to characters so that this data.frame can be joined with the radial measurements data.frame from above.
+```{r}
+dffish <- read.csv("FishData.csv") %>%
+  mutate(ID=as.character(ID)) %>% 
+  inner_join(dfrad,by="ID")
+dffish
+```
+
+
+
+
+----
+
+# Footnotes
+
+[^1]: When the structure image is in the "Plots" pane of RStudio, the points will not be visible until after you have finished selecting all points.
