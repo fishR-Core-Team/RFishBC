@@ -5,10 +5,12 @@
 \title{Collect radial measurements from a calcified structure by interactively selecting annuli.}
 \usage{
 collectRadiiData(fname = file.choose(), ID, reading, suffix = reading,
-  description = NULL, magnification = NULL, useScaleBar = FALSE,
-  addTransect = TRUE, col.transect = "yellow", lwd.transect = 2,
-  lty.transect = 1, pch.annuli = 3, col.annuli = "red",
-  cex.annuli = 1.25, edgeIsAnnulus = FALSE, sepWindow = TRUE)
+  description = NULL, scaleBar = FALSE, scaleBarLength = NULL,
+  col.scalebar = "red", lwd.scalebar = 2, lty.scalebar = 1,
+  scalingFactor = 1, addTransect = TRUE, col.transect = "yellow",
+  lwd.transect = 2, lty.transect = 1, pch.annuli = 3,
+  col.annuli = "red", cex.annuli = 1.25, edgeIsAnnulus = FALSE,
+  sepWindow = TRUE)
 }
 \arguments{
 \item{fname}{A string that indicates the image (must be PNG, JPG, or BMP) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (will look for this file in the current working directory unless a fully pathed name is given).}
@@ -21,9 +23,17 @@ collectRadiiData(fname = file.choose(), ID, reading, suffix = reading,
 
 \item{description}{A string that possibly contains a short description for the read of this structure.}
 
-\item{magnification}{XXX}
+\item{scaleBar}{A logical that indicates whether the user will be prompted to select the endpoints of a \sQuote{scale bar} on the structure image. If \code{TRUE} then must use \code{scaleBarLength}. If \code{FALSE} then consider using \code{scalingFactor}.}
 
-\item{useScaleBar}{XXX}
+\item{scaleBarLength}{A single numeric that represents the actual length of the \sQuote{scale bar}. Ignored if \code{scaleBar=FALSE}.}
+
+\item{col.scalebar}{The color of the scale bar line if \code{scalebar=TRUE}.}
+
+\item{lwd.scalebar}{The line width of the scale bar line if \code{scalebar=TRUE}.}
+
+\item{lty.scalebar}{The line type of the scale bar line if \code{scalebar=TRUE}.}
+
+\item{scalingFactor}{A single numeric that is used to convert measurements on the structure image to actual measurements on the structure. Measurements on the structure image will be multiplied by this value. Ignored if \code{scaleBar=TRUE}.}
 
 \item{addTransect}{A logical that indicates whether the user will be prompted to add a linear transect to the structure image by selecting a point at the focus and a point on the margin of the structure. Adding a transect is not required, but may be useful when identifying annuli on the structure.}
 

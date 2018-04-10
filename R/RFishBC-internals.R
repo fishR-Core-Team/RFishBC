@@ -4,7 +4,7 @@
 #'
 #' @rdname FSA-internals
 #' @keywords internal
-#' @aliases .onAttach iReadImage iAddTransect iSelectAnnuli iProcessAnnuli
+#' @aliases .onAttach iReadImage iScaleBar iAddTransect iSelectAnnuli iProcessAnnuli
 
 
 ########################################################################
@@ -29,7 +29,7 @@ iReadImage <- function(fname=file.choose(),
                        sepWindow=TRUE,titleMsg=NULL) {
   img <- readbitmap::read.bitmap(fname)
   if (sepWindow & grDevices::dev.interactive())
-    graphics::dev.new(rescale="fit",noRStudioGD=TRUE,
+    grDevices::dev.new(rescale="fit",noRStudioGD=TRUE,
                       title=paste(titleMsg,fname))
   withr::local_par(list(mar=c(0,0,0,0)))
   graphics::plot.new()
@@ -38,6 +38,24 @@ iReadImage <- function(fname=file.choose(),
   invisible(fname)
 }
 
+
+########################################################################
+## Compute a scaling factor from a scale bar on the structure image.
+########################################################################
+iScaleBar <- function(knownlength,col,lwd,lty) {
+  message("\n\n2. Find scaling factor from scale bar.\n",
+          "   * Select endpoints on the scale bar.")
+  tmp <- as.data.frame(graphics::locator(n=2,type="p",pch=3))
+  if (nrow(tmp)<2) {
+    warning("Two endpoints were not selected for the scale bar;\n thus, no scaling factor was computed.",call.=FALSE)
+    scalingFactor <- 1
+  } else {
+    lines(y~x,data=tmp,col=col,lwd=lwd,lty=lty)
+    maglength <- sqrt(((tmp$x[2]-tmp$x[1])^2)+((tmp$y[2]-tmp$y[1])^2))
+    scalingFactor <- knownlength/maglength
+  }
+  scalingFactor
+}
 
 ########################################################################
 ## Adds a linear transect to the structure image.
@@ -49,7 +67,6 @@ iAddTransect <- function(col,lwd,lty) {
                                          col=col,lwd=lwd,lty=lty))
   if (nrow(tmp)<2) warning("Two points were not selected for the transect;\n thus, no transect was added to the image.",call.=FALSE)
 }
-
 
 ########################################################################
 ## Allows the user to interactively select points on a plot by clicking
@@ -81,27 +98,27 @@ iSelectAnnuli <- function(pch,col,cex) {
 ## information into an R object data file in the current working
 ## directory.
 ########################################################################
-iProcessAnnuli <- function(fname,pts,ID,reading,suffix=reading,
-                           description=NULL,edgeIsAnnulus) {
-  ## Convert point locations to radial measurements, create data.frame
-  ##   and output a data.frame
+iProcessAnnuli <- function(fname,pts,ID,reading,suffix,description,
+                           edgeIsAnnulus,scalingFactor) {
+  ## Convert point locations to radial measurements, 
   n <- nrow(pts)-1
-  ageCap <- ifelse(edgeIsAnnulus,n,n-1)
+  rad <- sqrt(((pts$x[2:(n+1)]-pts$x[1])^2)+
+              ((pts$y[2:(n+1)]-pts$y[1])^2))*scalingFactor
+  ## Sort the radii to be in increasing order (allows user to select
+  ##   them in any order)
+  rad <- rad[order(rad)]
+  ## create data.frame with radii information
   radii <- data.frame(ID=as.character(rep(ID,n)),
                       reading=as.character(rep(reading,n)),
-                      ageCap=rep(ageCap,n),
+                      ageCap=ifelse(edgeIsAnnulus,n,n-1),
                       ann=seq_len(n),
-                      rad=sqrt(((pts$x[2:(n+1)]-pts$x[1])^2)+
-                                 ((pts$y[2:(n+1)]-pts$y[1])^2)),
+                      rad=rad,radCap <- max(rad),
                       stringsAsFactors=FALSE)
-  radii$radCap <- rep(radii$rad[n],n)
-  ## Save all the data for later processing
-  dat <- list(description=description,ID=ID,
-              image=fname,pts=pts,radii=radii)
-  fnout <- paste0(tools::file_path_sans_ext(fname),
-                  ifelse(!is.null(suffix),"_",""),
-                  suffix,".RData")
-  save(dat,file=fnout)
-  message("5. All results written to ",fnout)
-  invisible(fnout)
+  ## Organize all results for later processing
+  dat <- list(description=description,ID=ID,image=fname,
+              fn=paste0(tools::file_path_sans_ext(fname),
+                        ifelse(!is.null(suffix),"_",""),
+                        suffix,".RData"),
+              pts=pts,radii=radii,scalingFactor=scalingFactor)
+  dat
 }

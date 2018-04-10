@@ -9,12 +9,16 @@
 #' @param reading Identifies the reading for this structure. Typically this can simply be set to \sQuote{1} if the structure will not be read multiple times. If the structure is read multiple times then this should be used to identify which time (which read) this one is. Will be coerced to a character.
 #' @param description A string that possibly contains a short description for the read of this structure.
 #' @param suffix A string that will be added to the R object data file (see Details). This defaults to the same string (possibly coerced) in \code{reading}.
+#' @param scaleBar A logical that indicates whether the user will be prompted to select the endpoints of a \sQuote{scale bar} on the structure image. If \code{TRUE} then must use \code{scaleBarLength}. If \code{FALSE} then consider using \code{scalingFactor}.
+#' @param scaleBarLength A single numeric that represents the actual length of the \sQuote{scale bar}. Ignored if \code{scaleBar=FALSE}.
+#' @param col.scalebar The color of the scale bar line if \code{scalebar=TRUE}.
+#' @param lwd.scalebar The line width of the scale bar line if \code{scalebar=TRUE}.
+#' @param lty.scalebar The line type of the scale bar line if \code{scalebar=TRUE}.
+#' @param scalingFactor A single numeric that is used to convert measurements on the structure image to actual measurements on the structure. Measurements on the structure image will be multiplied by this value. Ignored if \code{scaleBar=TRUE}.
 #' @param addTransect A logical that indicates whether the user will be prompted to add a linear transect to the structure image by selecting a point at the focus and a point on the margin of the structure. Adding a transect is not required, but may be useful when identifying annuli on the structure.
 #' @param col.transect The color of the transect line if \code{addTransect=TRUE}.
 #' @param lwd.transect The line width of the transect line if \code{addTransect=TRUE}.
 #' @param lty.transect The line type of the transect line if \code{addTransect=TRUE}.
-#' @param useScaleBar XXX
-#' @param magnification XXX
 #' @param pch.annuli The plotting character of points for selected annuli.
 #' @param col.annuli The color of points for selected annuli.
 #' @param cex.annuli The character expansion value of points for selected annuli.
@@ -44,7 +48,9 @@
 #' 
 collectRadiiData <- function(fname=file.choose(),ID,reading,
                              suffix=reading,description=NULL,
-                             magnification=NULL,useScaleBar=FALSE,
+                             scaleBar=FALSE,scaleBarLength=NULL,
+                             col.scalebar="red",lwd.scalebar=2,
+                             lty.scalebar=1,scalingFactor=1,
                              addTransect=TRUE,col.transect="yellow",
                              lwd.transect=2,lty.transect=1,
                              pch.annuli=3,col.annuli="red",
@@ -55,19 +61,26 @@ collectRadiiData <- function(fname=file.choose(),ID,reading,
                         call.=FALSE)
   if (missing(reading)) stop("You must enter an identifier in 'reading'.",
                              call.=FALSE)
+  if (scaleBar & is.null(scaleBarLength)) stop("Must provide a 'scaleBarLength' when 'scaleBar=TRUE'.",call.=FALSE)
   ## Loads image given in fname
   fn <- iReadImage(fname,sepWindow,"Selecting Annular Marks on")
   ## Allows the user to select a scaling bar to get a magnification
-
+  if (scaleBar) {
+    scalingFactor <- iScaleBar(scaleBarLength,col=col.scalebar,
+                               lwd=lwd.scalebar,lty=lty.scalebar)
+  } else message("\n\n2. Using the `scalingFactor` provided.")
   ## Allows user to add a transect to the image if desired
   if (addTransect) iAddTransect(col=col.transect,lwd=lwd.transect,
                                 lty=lty.transect)
+  else message("\n\n3. You chose not to add a transect to the image.")
   ## User selects annuli on the image
   pts <- iSelectAnnuli(pch=pch.annuli,col=col.annuli,cex=cex.annuli)
-  ## Converts the selected points to radial measurements and writes out
-  ## an R object to the working directory. R object filename is returned.
-  fn2 <- iProcessAnnuli(fn,pts,ID,reading,suffix,
-                        description,edgeIsAnnulus)
-  ## Invisibly return the filename
-  invisible(fn2)
+  ## Converts the selected points to radial measurements
+  dat <- iProcessAnnuli(fn,pts,ID,reading,suffix,description,
+                        edgeIsAnnulus,scalingFactor)
+  ## Write the dat object to R object filename in the working directory.
+  save(dat,file=dat$fn)
+  message("5. All results written to ",dat$fn)
+  ## Invisibly return the R object
+  invisible(dat)
 }

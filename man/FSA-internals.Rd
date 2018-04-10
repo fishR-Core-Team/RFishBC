@@ -3,6 +3,7 @@
 \name{.onAttach}
 \alias{.onAttach}
 \alias{iReadImage}
+\alias{iScaleBar}
 \alias{iAddTransect}
 \alias{iSelectAnnuli}
 \alias{iProcessAnnuli}
