@@ -19,6 +19,7 @@
 #' @param col.annuli The color of points for selected annuli.
 #' @param cex.annuli The character expansion value of points for selected annuli.
 #' @param edgeIsAnnulus A logical that indicates whether the point at the structure margin should be considered as an annulus (\code{TRUE}) or not (\code{FALSE}). Use \code{FALSE} if the last selected point represents an incomplete year's worth of growth (i.e., \sQuote{plus-growth}).
+#' @param sepWindow A logical that indicates whether the structure image should be opened in a new separate window (\code{=TRUE}) or not (\code{=FALSE}).
 #'
 #' @details This uses \code{\link[graphics]{locator}} which will suspend activity in the console until the user indicates that they are done selecting points. The user indicates that they are done selecting points by pressing the ESCape key or right-clicking on the image and selecting Stop in Windows, pressing any mouse button other than the first (left) in X11 devices, and pressing the ESCape key in Quartz or OS X devices.
 #'
@@ -47,14 +48,15 @@ collectRadiiData <- function(fname=file.choose(),ID,reading,
                              addTransect=TRUE,col.transect="yellow",
                              lwd.transect=2,lty.transect=1,
                              pch.annuli=3,col.annuli="red",
-                             cex.annuli=1.25,edgeIsAnnulus=FALSE) {
+                             cex.annuli=1.25,edgeIsAnnulus=FALSE,
+                             sepWindow=TRUE) {
   ## Some checks
   if (missing(ID)) stop("You must enter a unique identifier in 'ID'.",
                         call.=FALSE)
   if (missing(reading)) stop("You must enter an identifier in 'reading'.",
                              call.=FALSE)
   ## Loads image given in fname
-  fn <- iReadImage(fname)
+  fn <- iReadImage(fname,sepWindow,"Selecting Annular Marks on")
   ## Allows the user to select a scaling bar to get a magnification
 
   ## Allows user to add a transect to the image if desired

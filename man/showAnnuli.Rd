@@ -6,7 +6,7 @@
 \usage{
 showAnnuli(fname = file.choose(), pch.annuli = 3, col.annuli = "red",
   cex.annuli = 1.25, show.transect = TRUE, col.transect = "yellow",
-  lwd.transect = 2, lty.transect = 1, add = FALSE)
+  lwd.transect = 2, lty.transect = 1, add = FALSE, sepWindow = FALSE)
 }
 \arguments{
 \item{fname}{A string that indicates the R object file to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (will look for this file in the current working directory unless a fully pathed name is given).}
@@ -26,6 +26,8 @@ showAnnuli(fname = file.choose(), pch.annuli = 3, col.annuli = "red",
 \item{lty.transect}{The line type of the transect line.}
 
 \item{add}{A logical that indicates whether the the transect and points should be added to the active image. Generally, use \code{add=FALSE} when plotting the points for the first time. Use \code{add=TRUE} to create an image that has the transects and points from multiple reads of the same image.}
+
+\item{sepWindow}{A logical that indicates whether the structure image should be opened in a new separate window (\code{=TRUE}) or not (\code{=FALSE}).}
 }
 \value{
 None, but an image is plotted with the selected points, and possibly a putative transect, overlaid.

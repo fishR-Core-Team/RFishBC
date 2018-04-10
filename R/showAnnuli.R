@@ -11,6 +11,7 @@
 #' @param lwd.transect The line width of the transect line.
 #' @param lty.transect The line type of the transect line.
 #' @param add A logical that indicates whether the the transect and points should be added to the active image. Generally, use \code{add=FALSE} when plotting the points for the first time. Use \code{add=TRUE} to create an image that has the transects and points from multiple reads of the same image.
+#' @param sepWindow A logical that indicates whether the structure image should be opened in a new separate window (\code{=TRUE}) or not (\code{=FALSE}).
 #'
 #' @details None yet
 #'
@@ -27,12 +28,12 @@ showAnnuli <- function(fname=file.choose(),
                        pch.annuli=3,col.annuli="red",cex.annuli=1.25,
                        show.transect=TRUE,col.transect="yellow",
                        lwd.transect=2,lty.transect=1,
-                       add=FALSE) {
+                       add=FALSE,sepWindow=FALSE) {
   ## Load the data object
   dat <- NULL # try to avoid "no visile binding" note
   load(fname)
   ## Show image
-  if (!add) iReadImage(dat$image)
+  if (!add) iReadImage(dat$image,sepWindow)
   ## Show the putative transect
   if (show.transect) 
     graphics::lines(dat$pts[c(1,nrow(dat$pts)),],

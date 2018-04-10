@@ -25,10 +25,14 @@
 ## added the code for the dialog box for choosing the file and the use
 ## of withr.
 ########################################################################
-iReadImage <- function(fname=file.choose()) {
+iReadImage <- function(fname=file.choose(),
+                       sepWindow=TRUE,titleMsg=NULL) {
+  img <- readbitmap::read.bitmap(fname)
+  if (sepWindow & grDevices::dev.interactive())
+    graphics::dev.new(rescale="fit",noRStudioGD=TRUE,
+                      title=paste(titleMsg,fname))
   withr::local_par(list(mar=c(0,0,0,0)))
   graphics::plot.new()
-  img <- readbitmap::read.bitmap(fname)
   graphics::rasterImage(img,0,0,1,1)
   message("1. Working with the ",fname," image.")
   invisible(fname)

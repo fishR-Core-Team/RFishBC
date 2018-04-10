@@ -8,7 +8,7 @@ collectRadiiData(fname = file.choose(), ID, reading, suffix = reading,
   description = NULL, magnification = NULL, useScaleBar = FALSE,
   addTransect = TRUE, col.transect = "yellow", lwd.transect = 2,
   lty.transect = 1, pch.annuli = 3, col.annuli = "red",
-  cex.annuli = 1.25, edgeIsAnnulus = FALSE)
+  cex.annuli = 1.25, edgeIsAnnulus = FALSE, sepWindow = TRUE)
 }
 \arguments{
 \item{fname}{A string that indicates the image (must be PNG, JPG, or BMP) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (will look for this file in the current working directory unless a fully pathed name is given).}
@@ -40,6 +40,8 @@ collectRadiiData(fname = file.choose(), ID, reading, suffix = reading,
 \item{cex.annuli}{The character expansion value of points for selected annuli.}
 
 \item{edgeIsAnnulus}{A logical that indicates whether the point at the structure margin should be considered as an annulus (\code{TRUE}) or not (\code{FALSE}). Use \code{FALSE} if the last selected point represents an incomplete year's worth of growth (i.e., \sQuote{plus-growth}).}
+
+\item{sepWindow}{A logical that indicates whether the structure image should be opened in a new separate window (\code{=TRUE}) or not (\code{=FALSE}).}
 }
 \value{
 A string that contains the filename (with path) of an R data object (i.e., .RData file) written to the same directory/folder as the file in \code{fname} that contains the following items in a list:
