@@ -16,7 +16,7 @@
 #' @examples 
 #' ## None yet
 #' 
-combineRadiiData <- function(fnames,path='.') {
+combineData <- function(fnames,path='.') {
   ## Some checks
   if (length(path)!=1) stop("'path' can take only one string.",
                             call.=FALSE)

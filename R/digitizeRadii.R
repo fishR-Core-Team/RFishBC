@@ -18,10 +18,9 @@
 #' @param addTransect A logical that indicates whether the user will be prompted to add a linear transect to the structure image by selecting a point at the focus and a point on the margin of the structure. Adding a transect is not required, but may be useful when identifying annuli on the structure.
 #' @param col.transect The color of the transect line if \code{addTransect=TRUE}.
 #' @param lwd.transect The line width of the transect line if \code{addTransect=TRUE}.
-#' @param lty.transect The line type of the transect line if \code{addTransect=TRUE}.
-#' @param pch.annuli The plotting character of points for selected annuli.
-#' @param col.annuli The color of points for selected annuli.
-#' @param cex.annuli The character expansion value of points for selected annuli.
+#' @param pch.pts The plotting character of points for selected annuli.
+#' @param col.pts The color of points for selected annuli.
+#' @param cex.pts The character expansion value of points for selected annuli.
 #' @param edgeIsAnnulus A logical that indicates whether the point at the structure margin should be considered as an annulus (\code{TRUE}) or not (\code{FALSE}). Use \code{FALSE} if the last selected point represents an incomplete year's worth of growth (i.e., \sQuote{plus-growth}).
 #' @param sepWindow A logical that indicates whether the structure image should be opened in a new separate window (\code{=TRUE}) or not (\code{=FALSE}).
 #'
@@ -46,16 +45,15 @@
 #' @examples
 #' ## None yet
 #' 
-collectRadiiData <- function(fname=file.choose(),ID,reading,
-                             suffix=reading,description=NULL,
-                             scaleBar=FALSE,scaleBarLength=NULL,
-                             col.scalebar="red",lwd.scalebar=2,
-                             lty.scalebar=1,scalingFactor=1,
-                             addTransect=TRUE,col.transect="yellow",
-                             lwd.transect=2,lty.transect=1,
-                             pch.annuli=3,col.annuli="red",
-                             cex.annuli=1.25,edgeIsAnnulus=FALSE,
-                             sepWindow=TRUE) {
+digitizeRadii <- function(fname=file.choose(),ID,reading,
+                          suffix=reading,description=NULL,
+                          scaleBar=FALSE,scaleBarLength=NULL,
+                          col.scalebar="red",lwd.scalebar=2,
+                          lty.scalebar=1,scalingFactor=1,
+                          addTransect=TRUE,col.transect="yellow",
+                          lwd.transect=2,pch.pts=3,col.pts="red",
+                          cex.pts=1,edgeIsAnnulus=FALSE,
+                          sepWindow=TRUE) {
   ## Some checks
   if (missing(ID)) stop("You must enter a unique identifier in 'ID'.",
                         call.=FALSE)
@@ -63,24 +61,31 @@ collectRadiiData <- function(fname=file.choose(),ID,reading,
                              call.=FALSE)
   if (scaleBar & is.null(scaleBarLength)) stop("Must provide a 'scaleBarLength' when 'scaleBar=TRUE'.",call.=FALSE)
   ## Loads image given in fname
-  fn <- iReadImage(fname,sepWindow,"Selecting Annular Marks on")
-  ## Allows the user to select a scaling bar to get a magnification
+  fn <- iReadImage(fname,sepWindow,ID,reading,description)
+  message("1. Loaded the ",fn," image.")
+  ## Allows the user to select a scaling bar to get scaling factor
   if (scaleBar) {
-    scalingFactor <- iScaleBar(scaleBarLength,col=col.scalebar,
-                               lwd=lwd.scalebar,lty=lty.scalebar)
-  } else message("\n\n2. Using the `scalingFactor` provided.")
-  ## Allows user to add a transect to the image if desired
-  if (addTransect) iAddTransect(col=col.transect,lwd=lwd.transect,
-                                lty=lty.transect)
-  else message("\n\n3. You chose not to add a transect to the image.")
+    message("\n2. Find scaling factor from scale bar.\n",
+            "   * Select endpoints on the scale bar.")
+    SF <- iScaleBar(scaleBarLength,col=col.scalebar,
+                    lwd=lwd.scalebar,lty=lty.scalebar)
+  } else {
+    message("\n2. Using the `scalingFactor` provided.")
+    SF <- list(sbSource="Provided",sbPts=NULL,sbLength=NULL,
+               scalingFactor=scalingFactor)
+  }
   ## User selects annuli on the image
-  pts <- iSelectAnnuli(pch=pch.annuli,col=col.annuli,cex=cex.annuli)
+  pts <- iSelectAnnuli(pch.pts=pch.pts,col.pts=col.pts,
+                       cex.pts=cex.pts,addTransect=addTransect,
+                       col.trans=col.transect,lwd.trans=lwd.transect)
   ## Converts the selected points to radial measurements
   dat <- iProcessAnnuli(fn,pts,ID,reading,suffix,description,
-                        edgeIsAnnulus,scalingFactor)
+                        edgeIsAnnulus,SF$scalingFactor)
+  ## Add scaling factor information to dat list
+  dat <- c(dat,SF)
   ## Write the dat object to R object filename in the working directory.
-  save(dat,file=dat$fn)
-  message("5. All results written to ",dat$fn)
+  save(dat,file=dat$datobj)
+  message("4. All results written to ",dat$datobj)
   ## Invisibly return the R object
   invisible(dat)
 }

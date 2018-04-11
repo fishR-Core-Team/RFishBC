@@ -12,10 +12,10 @@ Depends: R (>= 3.2.0)
 Imports:
     graphics,
     grDevices,
+    FSA,
     readbitmap,
     withr
 Suggests:
-    FSA,
     testthat,
     prettydoc,
     rmarkdown,
