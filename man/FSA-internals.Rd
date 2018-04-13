@@ -2,11 +2,6 @@
 % Please edit documentation in R/RFishBC-internals.R
 \name{.onAttach}
 \alias{.onAttach}
-\alias{iReadImage}
-\alias{iScaleBar}
-\alias{iAddTransect}
-\alias{iSelectAnnuli}
-\alias{iProcessAnnuli}
 \title{Internal functions.}
 \usage{
 .onAttach(lib, pkg, ...)

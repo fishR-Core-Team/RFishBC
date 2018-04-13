@@ -14,12 +14,14 @@ Imports:
     grDevices,
     FSA,
     readbitmap,
+    settings,
     withr
 Suggests:
     testthat,
     prettydoc,
     rmarkdown,
     knitr,
-    dplyr
+    dplyr,
+    tidyr
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
