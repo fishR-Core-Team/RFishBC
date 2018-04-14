@@ -22,6 +22,7 @@
 #' @param col.sel See details in \code{\link{RFBCoptions}}.
 #' @param cex.sel See details in \code{\link{RFBCoptions}}.
 #' @param sepWindow See details in \code{\link{RFBCoptions}}.
+#' @param windowSize See details in \code{\link{RFBCoptions}}.
 #'
 #' @details This uses \code{\link[graphics]{locator}} which will suspend activity in the console until the user indicates that they are done selecting points. The user indicates that they are done selecting points by pressing the ESCape key or right-clicking on the image and selecting Stop in Windows, pressing any mouse button other than the first (left) in X11 devices, and pressing the ESCape key in Quartz or OS X devices.
 #'
@@ -49,7 +50,7 @@ digitizeRadii <- function(fname=file.choose(),ID,reading,suffix,
                           scaleBarLength,col.scaleBar,lwd.scaleBar,
                           scalingFactor,addTransect,col.transect,
                           lwd.transect,pch.sel,col.sel,cex.sel,
-                          sepWindow) {
+                          sepWindow,windowSize) {
   ## Process arguments
   if (missing(ID)) stop("You must enter a unique identifier in 'ID'.",
                         call.=FALSE)
@@ -72,10 +73,11 @@ digitizeRadii <- function(fname=file.choose(),ID,reading,suffix,
   if (missing(col.sel)) col.sel <- iGetopt("col.sel")
   if (missing(cex.sel)) cex.sel <- iGetopt("cex.sel")
   if (missing(sepWindow)) sepWindow <- iGetopt("sepWindow")
+  if (missing(windowSize)) windowSize <- iGetopt("windowSize")
 
   ## Loads image given in fname
-  fn <- iReadImage(fname,sepWindow,ID,reading,description)
-  message("1. Loaded the ",fn," image.")
+  windowSize <- iReadImage(fname,sepWindow,windowSize)
+  message("1. Loaded the ",fname," image.")
   ## Allows the user to select a scaling bar to get scaling factor
   if (scaleBar) {
     message("\n2. Find scaling factor from scale bar.\n",
@@ -91,10 +93,10 @@ digitizeRadii <- function(fname=file.choose(),ID,reading,suffix,
                        cex.pts=cex.sel,addTransect=addTransect,
                        col.trans=col.transect,lwd.trans=lwd.transect)
   ## Converts the selected points to radial measurements
-  dat <- iProcessAnnuli(fn,pts,ID,reading,suffix,description,
+  dat <- iProcessAnnuli(fname,pts,ID,reading,suffix,description,
                         edgeIsAnnulus,SF$scalingFactor)
-  ## Add scaling factor information to dat list
-  dat <- c(dat,SF)
+  ## Add windowSize and scaling factor information to dat list
+  dat <- c(dat,SF,windowSize)
   ## Write the dat object to R object filename in the working directory.
   save(dat,file=dat$datobj)
   message("4. All results written to ",dat$datobj)
@@ -146,8 +148,7 @@ showDigitizedImage <- function(fname=file.choose(),sepWindow,
   dat <- NULL # try to avoid "no visible binding" note
   load(fname[1])
   ## Show first image
-  iReadImage(dat$image,sepWindow,ID=dat$radii$ID[1],
-             reading=NULL,description=NULL)
+  iReadImage(dat$image,sepWindow,dat$windowSize)
   ## Show the putative transect ... assumes that the focus and margin
   ## are in the first two rows of dat$pts (as they should be)
   if (showTransect) 
@@ -288,6 +289,7 @@ listFiles <- function(ext,other=NULL,path=".",ignore.case=TRUE,...) {
 #' \item{\code{suffix}: }{A single character string that will be added to the R object data file name (see Details). If \code{NULL} and \code{reading} is not \code{NULL} then this will be replaced with the value in \code{reading}. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
 #' \item{\code{edgeIsAnnulus}: }{A single logical that indicates whether the point at the structure margin should be considered an annulus (\code{TRUE}) or not (\code{FALSE}). Use \code{FALSE} if the last selected point represents an incomplete year's worth of growth (i.e., \sQuote{plus-growth}). Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
 #' \item{\code{sepWindow}: }{A single logical that indicates whether the structure image should be opened in a separate window (\code{=TRUE}) or not (\code{=FALSE}). Defaults to \code{TRUE}. Used in \code{\link{digitizeRadii}}.}
+#' \item{\code{windowSize}: }{A single numeric that is used to set the size of the largest dimension for the window in which the structure image is opened if \code{sepWindow=TRUE}. This size will be the width for wider images and the height for taller images. The other dimension will be set relative to this so that the image is displayed in its native aspect ration. Defaults to 7 inches. Used in \code{\link{digitizeRadii}}.}
 #' \item{\code{scalingFactor}: }{A single numeric that is used to convert measurements on the structure image to actual measurements on the structure. Measurements on the structure image will be multiplied by this value. Ignored if \code{scaleBar=TRUE}. Defaults to \code{1}. Used in \code{\link{digitizeRadii}}.}
 #' \item{\code{scaleBar}: }{A single logical that indicates whether the user will be prompted to select the endpoints of a \sQuote{scale-bar} on the structure image. If \code{TRUE}, then must also use \code{scaleBarLength}. If \code{FALSE}, then consider using \code{scalingFactor}. Defaults to \code{FALSE}. Used in \code{\link{digitizeRadii}}.}
 #' \item{\code{scaleBarLength}: }{A single numeric that represents the actual length of the \sQuote{scale-bar}. Ignored if \code{scaleBar=FALSE}. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
@@ -332,7 +334,8 @@ RFBCoptions <- function(reset=FALSE,...) {
 # documented. However, this sets default options for the selecting and
 # showing of the radii.
 iRFBCopts <- settings::options_manager(reading=NULL,description=NULL,
-                        suffix=NULL,edgeIsAnnulus=NULL,sepWindow=TRUE,
+                        suffix=NULL,edgeIsAnnulus=NULL,
+                        sepWindow=TRUE,windowSize=7,
                         scalingFactor=1,scaleBar=FALSE,scaleBarLength=NULL,
                         col.scaleBar="red",lwd.scaleBar=2,
                         addTransect=TRUE,showTransect=TRUE,
@@ -341,6 +344,7 @@ iRFBCopts <- settings::options_manager(reading=NULL,description=NULL,
                         pch.show=19,col.show="red",cex.show=1,
                       .allowed=list(
                         sepWindow=settings::inlist(TRUE,FALSE),
+                        windowSize=settings::inrange(min=1,max=30),
                         scalingFactor=settings::inrange(min=1e-10,max=Inf),
                         scaleBar=settings::inlist(TRUE,FALSE),
                         lwd.scaleBar=settings::inrange(min=1,max=10),
@@ -381,28 +385,31 @@ iGetopt <- function(opt) {
 ## added the code for the dialog box for choosing the file and the use
 ## of withr.
 ########################################################################
-iReadImage <- function(fname=file.choose(),sepWindow,
-                       ID,reading,description) {
+iReadImage <- function(fname,sepWindow,windowSize) {
   img <- readbitmap::read.bitmap(fname)
+  ## Get window size so image displayed in its native aspect ratio.
+  ## Only needed if windowSize contains one value.
+  if (length(windowSize)==1) {
+    cf <- dim(img)[2:1]
+    windowSize <- windowSize*cf/max(cf) 
+  }
   if (sepWindow) {
     ## Hoping that this forces a new window that is device independent
     ## and does not get trapped into opening in the RStudio Plots pane.
     if (grDevices::dev.cur()==1) {
-      grDevices::dev.new(rescale="fixed",noRStudioGD=TRUE)
+      grDevices::dev.new(rescale="fixed",noRStudioGD=TRUE,
+                         width=windowSize[1],height=windowSize[2],
+                         title=paste0("Image: ",fname))
     } else if (names(grDevices::dev.cur())=="RStudioGD") {
-      grDevices::dev.new(rescale="fixed",noRStudioGD=TRUE)
+      grDevices::dev.new(rescale="fixed",noRStudioGD=TRUE,
+                         width=windowSize[1],height=windowSize[2],
+                         title=paste0("Image: ",fname))
     }
   }
-  withr::local_par(list(mar=c(0,0,0.5,0)))
+  withr::local_par(list(mar=c(0,0,0,0)))
   graphics::plot.new()
-  ttl <- paste0("Image: ",fname,";  ID:",ID)
-  if (!is.null(reading)) ttl <- paste0(ttl,";  Reading: ",reading)
-  graphics::mtext(ttl,line=-0.4,cex=0.9)
-  if (!is.null(description)) graphics::mtext(paste0("Description: ",
-                                                    description),
-                                             line=-1.2,cex=0.9)
   graphics::rasterImage(img,0,0,1,1)
-  invisible(fname)
+  invisible(list(windowSize=windowSize))
 }
 
 
