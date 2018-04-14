@@ -256,9 +256,10 @@
 <span class="co">#&gt; 11  2     DHO      5   5 0.4129914 0.4281902</span>
 <span class="co">#&gt; 12  2     DHO      5   6 0.4281902 0.4281902</span></code></pre></div>
 </div>
-<div id="output-data" class="section level3">
-<h3 class="hasAnchor">
-<a href="#output-data" class="anchor"></a>Output Data</h3>
+</div>
+<div id="output-data-file" class="section level1">
+<h1 class="hasAnchor">
+<a href="#output-data-file" class="anchor"></a>Output Data File</h1>
 <p>Other information about the fish (e.g., location of capture, length, sex) is likely held in a separate file. Below, example “other” data are loaded into the <code>dffish</code> data.frame. Note that the <code>ID</code> and <code>reading</code> variables created from processing the structure images above are characters. In this case, <code>read.csv()</code> reads the <code>ID</code> variable from the external data file as numeric (because the unique IDs were simple numbers). The second line of code below converts these numeric IDs to characters so that this data.frame can be joined with the radial measurements data.frame from above.<a href="#fn10" class="footnoteRef" id="fnref10"><sup>10</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dffish &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">"FishData.csv"</span>,<span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ID=</span><span class="kw">as.character</span>(ID)) <span class="op">%&gt;%</span><span class="st"> </span>
@@ -291,7 +292,6 @@ dffish2
 <p> </p>
 <p> </p>
 <hr>
-</div>
 </div>
 <div id="references" class="section level1">
 <h1 class="hasAnchor">
@@ -335,6 +335,7 @@ dffish2
       <li><a href="#assumptions">Assumptions</a></li>
       <li><a href="#measurereadii">Measure Radii</a></li>
       <li><a href="#multiplestructures">Combine Data from Multiple Structures</a></li>
+      <li><a href="#output-data-file">Output Data File</a></li>
       <li><a href="#references">References</a></li>
       <li><a href="#footnotes">Footnotes</a></li>
       </ul>

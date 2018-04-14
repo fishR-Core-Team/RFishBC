@@ -183,7 +183,7 @@ Finally, the data in these two files are combined and stored in `dfrad`.
 ( dfrad <- combineData(fns2) )
 ```
 
-### Output Data
+# Output Data File
 Other information about the fish (e.g., location of capture, length, sex) is likely held in a separate file. Below, example "other" data are loaded into the `dffish` data.frame. Note that the `ID` and `reading` variables created from processing the structure images above are characters. In this case, `read.csv()` reads the `ID` variable from the external data file as numeric (because the unique IDs were simple numbers). The second line of code below converts these numeric IDs to characters so that this data.frame can be joined with the radial measurements data.frame from above.[^wrongtypesinjoin]
 ```{r}
 dffish <- read.csv("FishData.csv",stringsAsFactors=FALSE) %>%
