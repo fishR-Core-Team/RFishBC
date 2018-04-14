@@ -152,9 +152,11 @@ showDigitizedImage <- function(fname=file.choose(),sepWindow,
   ## Show the putative transect ... assumes that the focus and margin
   ## are in the first two rows of dat$pts (as they should be)
   if (showTransect) 
-    graphics::lines(dat$pts[1:2,],lwd=lwd.transect,col=col.transect)
+    graphics::lines(dat$pts[1:2,],
+                    lwd=lwd.transect[1],col=col.transect[1])
   ## Show points
-  graphics::points(dat$pts,pch=pch.show,col=col.show,cex=cex.show)
+  graphics::points(dat$pts,
+                   pch=pch.show[1],col=col.show[1],cex=cex.show[1])
   ## Add other results
   num <- length(fname)
   if (num>1) {
@@ -257,17 +259,10 @@ listFiles <- function(ext,other=NULL,path=".",ignore.case=TRUE,...) {
   if (length(tmp)<1) stop("No files have a ",ext," extension.",call.=FALSE)
   ## Potentially reduce that list to those that match strings in other
   if (!is.null(other)) {
-    if (ignore.case) {
-      tmp <- unlist(lapply(other,
-                           FUN=function(f,lst) lst[grepl(tolower(f),
-                                                         tolower(lst))],
-                           lst=tmp))      
-    } else {
-      tmp <- unlist(lapply(other,
-                           FUN=function(f,lst) lst[grepl(f,lst)],
-                           lst=tmp))
+    for (i in seq_along(other)) {
+      if (ignore.case) tmp <- tmp[grepl(tolower(other[i]),tolower(tmp))]
+      else tmp <- tmp[grepl(tolower(other[i]),tolower(tmp))]
     }
-
     if (length(tmp)<1) stop("No files with ",ext," extension contain the patterns given in 'other'.",call.=FALSE)
     tmp <- unique(tmp)
   }
@@ -396,11 +391,21 @@ iReadImage <- function(fname,sepWindow,windowSize) {
   if (sepWindow) {
     ## Hoping that this forces a new window that is device independent
     ## and does not get trapped into opening in the RStudio Plots pane.
-    if (grDevices::dev.cur()==1) {
+    if (grDevices::dev.cur()==1) { 
+      ## no window open and not sending to RStudio
       grDevices::dev.new(rescale="fixed",noRStudioGD=TRUE,
                          width=windowSize[1],height=windowSize[2],
                          title=paste0("Image: ",fname))
     } else if (names(grDevices::dev.cur())=="RStudioGD") {
+      ## sending to RStudio, so try to avoid that
+      grDevices::dev.new(rescale="fixed",noRStudioGD=TRUE,
+                         width=windowSize[1],height=windowSize[2],
+                         title=paste0("Image: ",fname))
+    } else {
+      ## sending to an already open window, close it because it might
+      ## not be the correct window size for the images aspect ratio,
+      ## and then open a new one
+      grDevices::dev.off()
       grDevices::dev.new(rescale="fixed",noRStudioGD=TRUE,
                          width=windowSize[1],height=windowSize[2],
                          title=paste0("Image: ",fname))
@@ -416,13 +421,13 @@ iReadImage <- function(fname,sepWindow,windowSize) {
 ########################################################################
 ## Compute a scaling factor from a scale bar on the structure image.
 ########################################################################
-iScaleBar <- function(knownLength,col,lwd,lty) {
+iScaleBar <- function(knownLength,col,lwd) {
   tmp <- as.data.frame(graphics::locator(n=2,type="p",pch=3))
   if (nrow(tmp)<2) {
     warning("Two endpoints were not selected for the scale bar;\n thus, no scaling factor was computed.",call.=FALSE)
     scalingFactor <- 1
   } else {
-    graphics::lines(y~x,data=tmp,col=col,lwd=lwd,lty=lty)
+    graphics::lines(y~x,data=tmp,col=col,lwd=lwd)
     maglength <- sqrt(((tmp$x[2]-tmp$x[1])^2)+((tmp$y[2]-tmp$y[1])^2))
     scalingFactor <- knownLength/maglength
   }

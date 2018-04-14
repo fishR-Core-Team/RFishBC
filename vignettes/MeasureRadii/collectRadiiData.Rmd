@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 # Introduction
 The size of fish at a previous time in their life is often estimated through "back-calculation." Back-calculation of previous lengths requires accurate measurements of annual growth on calcified structures from individual fish and a suitable model that relates growth on the structure to growth of the fish.
 
-The [FishBC software](https://fisheries.org/bookstore/all-titles/software/70317/) is commonly used to measure lengths on a calcified structure and apply a back-calculation model to estimate length at previous ages. However, FishBC only works on out-dated computers, there are no plans to update it, and it is not open source. The functionality in the `RFishBC` package is meant to replace the FishBC software.  Methods for making measurements on images of calcified structures is demonstrated in this document. Using those measurements to back-calculate fish length at a previous age is demonstrated in [a separate vignette](backcalculation.html).
+The [FishBC software](https://fisheries.org/bookstore/all-titles/software/70317/) is commonly used to measure lengths on a calcified structure and apply a back-calculation model to estimate length at previous ages. However, FishBC only works on out-dated computers, there are no plans to update it, and it is not open source. The functionality in the `RFishBC` package is meant to replace the FishBC software. Methods for making measurements on images of calcified structures is demonstrated in this document. Using those measurements to back-calculate fish length at a previous age is demonstrated in [a separate vignette](backcalculation.html).
 
 \  
 
@@ -49,7 +49,7 @@ Generally, the user will "set" the current working directory in R to the directo
 setwd("c:/work/aging/Kiyi2014")
 ```
 
-Finally, note that the process described herein will produce one R data object files (.RData files; hereafter called "RData file") for each set of measurements made on a structure images. These data files will be saved in the same directory that has the structure image files. I suggest keeping the RData and corresponding structure image files together at all times as the RData file serves as an archive of the data collected from each image.
+Finally, note that the process described herein will produce one R data object files (.RData files; hereafter called "RData file") for each set of measurements made on a structure images. These data files will be saved in the current work directory that has the structure image files. I suggest keeping the RData and corresponding structure image files together at all times as the RData file serves as an archive of the data collected from an image.
 
 ### R Packages
 Finally, the methods described in this vignette require the following packages.
@@ -72,7 +72,7 @@ The `digitizeRadii()` function is used to
 1. Interactively select annuli on the structure image.
 1. Create an RData file that contains the radial measurements to selected annuli and other information about the structure and the data extraction process.
 
-For example (*but described thoroughly further below*), the line below identifies "Scale_1.jpg" as the structure image, this fish has an identification number of "1", this reading of the image should be labelled as "DHO", and edge should be considered as annulus. When this line is run it will open the image[^inwd], allow the user to select points that represent annuli, and save radial measurements in "Scale_1_DHO.Rdata".[^saveex1]
+For example (*but described thoroughly further below*), the line below identifies "Scale_1.jpg" as the structure image, this fish has an identification number of "1", this reading of the image should be labelled as "DHO", and structure margin or edge should not be considered as an annulus. When this line is run it will open the image[^inwd], allow the user to select points that represent annuli, and save radial measurements in "Scale_1_DHO.RData".[^saveex1]
 
 ```{r eval=FALSE}
 digitizeRadii("Scale_1.jpg",ID="1",reading="DHO",edgeIsAnnulus=FALSE)
@@ -83,43 +83,44 @@ Further specifics of `digitizeRadii()` and its many arguments are described belo
 ### Basics
 The first several arguments to `digitizeRadii()` are related to information about the structure.
 
-* `fname=`: File name for the structure image. This is just a file name if the file is in the current working directory, however may be the fully pathed name if the image file is not in the current working directory. If this argument is not given, then a dialog box will be provided from which the file can be selected.
+* `fname=`: File name for the structure image. This is just a file name if the file is in the current working directory. However it may be the fully pathed name if the image file is not in the current working directory. If this argument is not given, then a dialog box will be provided from which the file can be selected.
 * `ID=`: **Required** unique identifier for the fish/structure.
 * `reading=`: Optional label for the reading.[^readings]
 * `suffix=`: Optional additional label for the resultant RData file.
-* `description=`: Optional detailed description about the structure. This will be saved in the RData file and shown in various plots and tables. For example, one may use `description="Cisco scale read once by Ogle on 22-Apr-18"` to provide more information about the structure reading.
+* `description=`: Optional detailed description about the structure. This will be saved in the RData file and could be extracted in the future. For example, one may use `description="Cisco scale read once by Ogle on 22-Apr-18"` to provide more information about the structure reading.
 
-The RData file that will be created after the annuli have been selected will have the same name as the image file[^excludeextension] but including the suffix optionally provided in `suffix=`. If nothing is given in `suffix=`, then a suffix will be created from `reading=`. For example, if the structure image file was named "Scale_1.jpg", then the resultant RData file will be named "Scale_1_DHO.Rdata" if `reading="DHO"` or "Scale_1_TESTING.Rdata" if `reading="DHO"` and `suffix="TESTING"`.
+The RData file that will be created after the annuli have been selected will have the same name as the image file[^excludeextension] but including the suffix optionally provided in `suffix=`. If nothing is given in `suffix=`, then a suffix will be created from `reading=`. For example, if the structure image file was named "Scale_1.jpg", then the resultant RData file will be named "Scale_1_DHO.RData" if `reading="DHO"` or "Scale_1_TESTING.RData" if `reading="DHO"` and `suffix="TESTING"`.
 
-Some fish will be captured at a time of year when growth for the current season has not commenced and, thus, the margin of the structure is considered to be an annulus. Other fish may be captured when growth has commence for the season (but not yet completed) such that the structure margin is not considered to be an annulus. If the scale margin is considered an annulus, then use `edgeIsAnnulus=TRUE`. If the scale margin is not considered an annulus, then use `edgeIsAnnulus=FALSE`. Identifying whether the structure margin is an annulus or not is critical to properly recording radial measurements. As such, there is no default value for this argument (i.e., it **MUST** be set by the user).
+Some fish will be captured at a time of year when growth for the current season has not commenced and, thus, the margin of the structure is considered to be an annulus. Other fish may be captured when growth has commenced for the season (but is not yet completed) such that the structure margin is not considered to be an annulus. Use `edgeIsAnnulus=TRUE` if the structure margin is considered an annulus and `edgeIsAnnulus=FALSE` if it is not. Identifying whether the structure margin is an annulus or not is critical to properly recording radial measurements. As such, there is no default value for this argument (i.e., it **MUST** be set by the user).
 
 ### Setting the Scale
-If actual lengths, rather than arbitrary (but proportional) lengths are needed,[^actuallength] then a scaling factor must exist to convert measurements on the image to actual measurements on the structure. This scaling factor may be calculated from a scale-bar found on the image or provided by the user.
+If actual lengths, rather than arbitrary (but proportional) lengths are needed,[^actuallength] then a scaling factor is needed to convert measurements on the image to actual measurements on the structure. This scaling factor may be calculated from a scale-bar found on the image or provided by the user.
 
-**Scale-bar On Image:** If a scale-bar of known length exists on the image, then use `scaleBar=TRUE` with the actual length of the scale bar given in `scaleBarLength=`. You will then need to select the two end points of the scale-bar on the structure image prior to selecting points that represent annuli. An appropriate scaling factor will then be computed from your selections and the radial measurements will be converted to the actual scale (see further below).
+**Scale-bar On Image:** If a scale-bar of known length exists on the image, then use `scaleBar=TRUE` with the actual length of the scale bar given in `scaleBarLength=`. You will then need to select the two end points of the scale-bar on the structure image prior to selecting points that represent annuli. An appropriate scaling factor will then be computed from your selections and the radial measurements will be converted to actual lengths on the structure.
 
-**Separately Define Scaling Factor:** In applications where a scale-bar does not exist on the image, the user can provide a value to `scalingFactor=` which will be used to multiply lengths on the structure image to derived actual lengths. One way to derive this scaling factor values is to capture an image of the structure at a specific magnification on the microscope and then capture an image of an object of known length at that same magnification. A scaling factor may then be computed from the image with the object of known length and applied to the structure image. This scaling factor can be found by giving `findScalingFactor()` the file name with the object of known length and that known length in `knownLength=`. The value returned from `findScalingFactor()` can then be given to `scalingFactor=` in `digitizeRadii()`.[^sforder]
+**Separately Defined Scaling Factor:** In applications where a scale-bar does not exist on the image, the user can provide a value to `scalingFactor=` which will be used to multiply lengths on the structure image to derive actual lengths. One way to derive this scaling factor is to capture an image of the structure at a specific magnification on the microscope and then capture an image of an object of known length at that same magnification. A scaling factor may then be computed from the image with the object of known length and applied to the structure image. This scaling factor can be found by giving `findScalingFactor()` the file name with the object of known length and that known length in `knownLength=`. The value returned from `findScalingFactor()` can then be given to `scalingFactor=` in `digitizeRadii()`.[^sforder]
 
-If no `scalingFactor=` is given or derived from a scale-bar, then the radial measurements returned by `digitizeRadii()` are simply proportional to the unknown actual lengths on the structure.
+If no `scalingFactor=` is derived from a scale-bar or provided, then the radial measurements returned by `digitizeRadii()` are simply proportional to the unknown actual lengths on the structure.
 
 ### Selecting Annuli
-The user will then be asked to select points on the structure image that represent annuli. However, **the point that represents the focus must be selected first, followed by the structure margin/edge**.[^invisiblepoints] If `addTransect=TRUE` (the default behavior), then a line will be drawn between these two points to aid marking the annuli. When the last point has been selected, the user must press the ESCape key in Windows or with Mac OS X (or, in Windows, select STOP in the menu on the structure image window).
+The user will then be asked to select points on the structure image that represent annuli. However, **the point that represents the focus must be selected first, followed by the structure margin/edge**.[^invisiblepoints] If `addTransect=TRUE` (the default behavior), then a line will be drawn between these two points to aid marking the annuli. When the last point has been selected, the user must press the ESCape key in Windows or Mac OS X (or, in Windows, select STOP in the menu on the structure image window).
 
 
 ### Setting digitizeRadii() Arguments for Session {#setoptions1}
 
 The `digitizeRadii()` function has several optional arguments not discussed above. Some arguments that are likely to be commonly used are:
 
-* By default, each image file is opened in a separate window, which helps avoid issues with the RStudio Plots pane and is especially useful when working on a system with two monitors.[^twomonitors] This window is also configured so that when it is resized, the shape of the structure image (i.e., its aspect ratio) will not change. One can suppress showing the structure image in a separate window with `sepWindow=FALSE`.
+* By default, each image file is opened in a separate window, which helps avoid issues with the RStudio Plots pane and is especially useful when working on a system with two monitors.[^twomonitors] This window is also configured to match the aspect ratio of the original image, even if the window is resized.
+* The relative size of the separate window can be changed by including a value in `windowSize=`. This value will ultimately be the size of the window corresponding to the longest dimension of the image file. For example, if the image is wider than it is tall, then this value will be width of the window and the height will be adjusted to match the aspect ratio of the original image.
 * The color and width of the transect shown on the image can be modified with `col.transect=` and `lwd.transect=`, respectively.
 * The plotting character, color, and relative size of the selected points can be modified with `pch.sel=`, `col.sel=`, and `cex.sel=`, respectively.
 
-These and other arguments have default settings that are stored in an object that can be accessed with `RFBCoptions()`. Using this function without any arguments will show all of the arguments that can be set and what their default values are (not shown here because the list is long). The current value for one argument can be seen by appending the name of that argument to `RFBCoptions()` separated by a `$`. For example, the current setting for `addTransect` is `TRUE` as shown below.
+These and other arguments have default settings that are stored in an object that can be accessed with `RFBCoptions()`. Using this function without any arguments will show all of the arguments that can be set and what their default values are (not shown here because the list is long). The current value for one argument can be seen by appending the name of that argument to `RFBCoptions()` with a `$`. For example, the current setting for `addTransect` is `TRUE` as shown below.
 ```{r}
 RFBCoptions()$addTransect
 ```
 
-These "default" values for arguments can be changed so that they do not need to be included each time you call `digitizeRadii()`. For example, suppose that you want the "reading" label to say "DHO", the edge to not be considered an annulus, the width of the transect line to be thicker, and a scale-bar is present with a known length of 0.6 mm. You can set these items in `digitizeRadii()` as below.
+These default values for arguments can be changed so that they do not need to be included each time you call `digitizeRadii()`. For example, suppose that you want the "reading" label to say "DHO", the edge to not be considered an annulus, the width of the transect line to be thicker, and a scale-bar is present with a known length of 0.6 mm. You can set these items in `digitizeRadii()` as below.
 ```{r eval=FALSE}
 digitizeRadii("Scale_1.jpg",ID="1",reading="DHO",edgeIsAnnulus=FALSE,
               lwd.transect=3,scaleBar=TRUE,scaleBarLength=0.6)
@@ -131,68 +132,12 @@ RFBC(reading="DHO",edgeIsAnnulus=FALSE,edgeIsAnnulus=FALSE,
      lwd.transect=3,scaleBar=TRUE,scaleBarLength=0.6)
 ```
 
-With this, the last call to `digitizeRadii()` above could be simplified as shown below.
+With these changes to the default settings, the last call to `digitizeRadii()` above could be simplified as shown below.
 ```{r eval=FALSE}
 digitizeRadii("Scale_1.jpg",ID="1")
 ```
 
-Argument values can still be changed from these for a particular call to `digitizeRadii()` by including that argument in the specific call. For example if the edge was an annulus for only one of the structures then include `edgeIsAnnulus=TRUE` in `digitizeRadii()`.
-
-\  
-
-\  
-
-----
-
-# Examine Radii Data
-### Data.frame
-The result from `digitizeRadii()` (see [Measure Radii](#measurereadii)) is an RData file in the current working directory. Among other things, this data file contains a data.frame of radial measurements to successive annuli that can be extracted with `combineData()`.
-```{r}
-df <- combineData("Scale_1_DHO.RData")
-df
-```
-
-The `combineData()` function is more interesting when considering multiple structures (see [Combine Data](#multiplestructures)).
-
-### Visualize on Image
-One can review the markings on a structure with `showDigitizedImage()`, which requires only the name of an RData file.[^sdifilename] The plotting character, color, and relative size of the selected points may be changed with `pch.show=`, `col.show=`, and `cex.show=`. The color and width of the "transect" may be changed with `col.transect=` and `lwd.transect=` or excluded altogether with `showTransect=FALSE`. Defaults for these arguments can be set with `RFBCoptions()` as was demonstrated in [Setting Arguments](#setoptions1)
-
-```{r fig.height=4,fig.width=4*446/381}
-showDigitizedImage("Scale_1_DHO.RData")
-```
-
-\  
-
-\  
-
-----
-
-# Examine Multiple Readings
-In some instances, one may be interested in visually comparing the selected points from multiple readings of the same structure. For example, the code below was used to collect a second set of points for the "Scale_1.jpg" image.[^noteabove] Note the different value in `reading=`.
-```{r eval=FALSE}
-digitizeRadii("Scale_1.jpg",ID="1",reading="DHO2",edgeIsAnnulus=FALSE)
-```
-
-The `showDigitizedImage()` function described above can also used to overlay annular points from multiple readings of the same structure. This requires a vector of RData file names from the same structure as the first argument. The `listFiles()` function may be used to identify all filenames in the current working directory that have a the file extension given in the first argument. For example, all files with the "RData" extension are found below.
-```{r}
-listFiles("RData")
-```
-
-This list of names can be further filtered by including other key words for the filenames in `other=`. For example, all files with the "RData" extension that contain the keyword "Scale_1" are returned. For our purposes here, these filenames are saved into an object (e.g., `fns`).
-```{r}
-( fns <- listFiles("RData",other="Scale_1") )
-```
-
-The multiple readings of "Scale_1" can be seen by giving this set of filenames to `showDigitizedImage()`.
-```{r fig.height=4,fig.width=4*446/381}
-showDigitizedImage(fns)
-```
-
-Aspects of the transects and points may be controlled with arguments to `showDigitezedData()`. For example, the code below uses different colors for two transects and points and a thicker line for each transect.
-```{r fig.height=4,fig.width=4*446/381}
-showDigitizedImage(fns,col.transect=c("red","yellow"),
-                   col.show=c("yellow","red"),lwd.transect=2)
-```
+Argument values can still be changed from the defaults for a particular call to `digitizeRadii()` by including that argument in the specific call. For example if the edge was an annulus for only one of the structures then include `edgeIsAnnulus=TRUE` in `digitizeRadii()`.
 
 \  
 
@@ -202,14 +147,14 @@ showDigitizedImage(fns,col.transect=c("red","yellow"),
 
 # Combine Data from Multiple Structures {#multiplestructures}
 ### File Organization
-Of course, most analyses will consist of collecting radial measurements from structures from many fish. In this section, I demonstrate how to combine measurements from multiple structures. This demonstration assumes that all structure image files of interest are in the current working directory.[^workingdirectory]
+Of course, most analyses will consist of collecting radial measurements from structures from many fish. In this section, I demonstrate how to combine measurements from multiple structures. This demonstration assumes that all structure image files of interest are in the current working directory.
 
-The `listFiles()` function (described in the previous section) is used to identify file names with the "jpg" extension.
+The `listFiles()` function may be used to identify all filenames in the current working directory that have the file extension given in the first argument. For example, below finds all file with the "jpg" extension.
 ```{r}
 listFiles("jpg")
 ```
 
-In this case, however, this list needs to limited to only those files that  contain the keyword "Scale".
+This list of names can be further filtered by including other key words for the filenames in `other=`. In this case, this list needs to limited to only those files that contain the keyword "Scale".
 ```{r}
 ( fns <- listFiles("jpg",other="Scale") )
 ```
@@ -223,14 +168,14 @@ digitizeRadii(fns[2],ID="2")
 ```
 
 ### Combining Data
-Once all structure image files have been processed, the radial measurements can be combined into one data.frame with `combineData()`. The first argument to this function is a vector of RData file names, which can be constructed using `listFiles()` with the `.RData` extension.
+Once all structure image files have been processed, the radial measurements can be combined into one data.frame with `combineData()`. The first argument to this function is a vector of RData file names, which can be constructed using `listFiles()` with the `RData` extension.
 ```{r}
 listFiles("RData")
 ```
 
 However, I don't want the "DHO2" file in this case. Thus I restricted the list of files to those that have "DHO." in the name, but because the "." is a special character it had to be preceded by "\\".
 ```{r}
-( fns2 <- listFiles("RData",other="DHO\\.") )
+( fns2 <- listFiles("RData",other=c("Scale","DHO\\.")) )
 ```
 
 Finally, the data in these two files are combined and stored in `dfrad`.
@@ -286,22 +231,20 @@ CSV files are small, portable, and can be opened directly in most spreadsheet so
 
 [^saveex1]: Actually much more than the radial measurements are recorded in the RData file (discussed further below). Also note that the radii are on an arbitrary scale in this case because no scale-bar was available on the image.
 
-[^readings]: The `readings` item is primarily used when the structure is read more than once. However, it is a required component in this package, whether multiple reads of the same structure are planned or not.
+[^readings]: The `reading=` argument is primarily used when the structure is read more than once. However, I suggest giving a descriptive label to `reading=` even if there are no plans to read the structure again in the future.
 
 [^excludeextension]: The extension (e.g., "png" or "jpg") will not be included in the resultant R data object file.
 
 [^actuallength]: Some back-calculation methods require knowing the relationship between actual scale length and fish length. See [this vignette](backcalculation.html) for more details.
 
-[^twomonitors]: For example, you could have R/RStudio on one monitor and the window with the structure image on the other.
-
 [^sforder]: Thus, `findScalingFactor()` would be run prior to `digitizeRadii()`.
 
-[^invisiblepoints]: When the structure image is in the "Plots" pane of RStudio, the points will not be visible until after you have finished selecting all points.
+[^invisiblepoints]: When the structure image is in the "Plots" pane of RStudio, the points will not be visible until after you have finished selecting all points. This is one of the reasons why I prefer to use `sepWindow=TRUE`.
+
+[^twomonitors]: For example, you could have R/RStudio on one monitor and the window with the structure image on the other.
 
 [^sdifilename]: If no file name is given, then a dialog box will appear from which the data file can be selected.
 
 [^noteabove]: The first set of readings were made in the first section above.
-
-[^workingdirectory]: This process will be more efficient if not other image files of the same sort (e.g., ".jpg") are in this directory. The working directory may be seen with `getwd()` and set with `setwd()` or any of the items under the "Session" menu and "Set Working Directory" submenu items in RStudio.
 
 [^wrongtypesinjoin]: The two files cannot be joined by the "ID" variable if the "ID" variables are of different types (e.g., character and numeric) in the two files. Thus, as shown here, they must be coerced to be the same type. This line of code would no be needed if the "ID" variables were of the same type in the two files as would likely occur if the "ID" variable was not simply numbers.
