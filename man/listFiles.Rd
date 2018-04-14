@@ -4,14 +4,16 @@
 \alias{listFiles}
 \title{List files with a specific extension in a folder/directory}
 \usage{
-listFiles(ext = ".RData", path = ".", ignore.case = TRUE, ...)
+listFiles(ext, other = NULL, path = ".", ignore.case = TRUE, ...)
 }
 \arguments{
-\item{ext}{A string that contains the file extension pattern to match. The string should include the period.}
+\item{ext}{A string that contains the file extension pattern to match.}
+
+\item{other}{Other strings to match int eh file names that match the file extensin in \code{ext}.}
 
 \item{path}{A string that contains the full path name for the folder/directory for which to list files. Defaults to the current working directory (see \code{\link{getwd}} result).}
 
-\item{ignore.case}{A logical for where pattern matching should be case sensitive (\code{=FALSE}) or not (\code{TRUE}; DEFAULT).}
+\item{ignore.case}{A logical for whether pattern matching should be case sensitive (\code{=FALSE}) or not (\code{TRUE}; DEFAULT).}
 
 \item{\dots}{Parameters to be given to \code{\link{list.files}}.}
 }

@@ -206,9 +206,10 @@ combineData <- function(fnames,path='.') {
 #' 
 #' @description This returns a vector with all file names with the \code{ext} extension in the \code{path} folder/directory. In \pkg{RfishBC} this is used primarily to create a list of image file names over which the user will loop or R data object names that can be given to \code{combineFiles}. 
 #' 
-#' @param ext A string that contains the file extension pattern to match. The string should include the period.
+#' @param ext A string that contains the file extension pattern to match.
+#' @param other Other strings to match int eh file names that match the file extensin in \code{ext}.
 #' @param path A string that contains the full path name for the folder/directory for which to list files. Defaults to the current working directory (see \code{\link{getwd}} result).
-#' @param ignore.case A logical for where pattern matching should be case sensitive (\code{=FALSE}) or not (\code{TRUE}; DEFAULT).
+#' @param ignore.case A logical for whether pattern matching should be case sensitive (\code{=FALSE}) or not (\code{TRUE}; DEFAULT).
 #' @param \dots Parameters to be given to \code{\link{list.files}}.
 #' 
 #' @seealso \code{\link{list.files}} in base R.
@@ -224,8 +225,7 @@ combineData <- function(fnames,path='.') {
 #' @examples
 #' ## None yet
 #' 
-listFiles <- function(ext=".RData",path=".",
-                      ignore.case=TRUE,...) {
+listFiles <- function(ext,other=NULL,path=".",ignore.case=TRUE,...) {
   ## Some checks
   if (length(path)!=1) stop("'path' can take only one string.",
                             call.=FALSE)
@@ -234,8 +234,17 @@ listFiles <- function(ext=".RData",path=".",
   ## Add a dot to the extension if one does not exist
   if (!grepl("\\.",ext)) ext <- paste0(".",ext)
   ## Get the list of files in path that have the ext extension
-  list.files(path=path,pattern=paste0("\\",ext,"$"),
-             ignore.case=ignore.case,...)
+  tmp <- list.files(path=path,pattern=paste0("\\",ext,"$"),
+                    ignore.case=ignore.case,...)
+  if (length(tmp)<1) stop("No files have a ",ext," extension.",call.=FALSE)
+  ## Potentially reduce that list to those that match strings in other
+  if (!is.null(other)) {
+    tmp <- unlist(lapply(other,
+                         FUN=function(f,lst) lst[grepl(f,lst)],
+                         lst=tmp))
+    if (length(tmp)<1) stop("No files with ",ext," extension contain the patterns given in 'other'.",call.=FALSE)
+  }
+  tmp
 }
 
 
