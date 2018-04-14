@@ -1,0 +1,111 @@
+---
+title: "Visualize Points Selected on a Calcified Structure"
+author: "Derek H. Ogle"
+date: "`r Sys.Date()`"
+output: 
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: vignette
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+# Introduction
+A method for visualizing annular points that a user (or users) selected on a calcified structure is described in this vignette. This vignette assumes that you have an RData file or files created from selecting points on a calcified structure as described in [this vignette](collectRadiiData.html). It also assumes that you understand the language and functions introducted in that vignette.
+
+This vignette will use the following RData files:
+
+* "Scale_1_DHO.RData": annular points selected on the "Scale_1.jpg" file in [this vignette](collectRadiiData.html).
+* "Scale_1_DHO2.RData": a second set of annular points selected on the "Scale_1.jpg" file in [this vignette](collectRadiiData.html).
+* "Oto140306_DHO.RData": annular points selected on the "Oto140306.jpg" file. In contrast to the previous two images, this image had a 1-mm scale-bar. This RData file was created with the following.
+
+```{r eval=FALSE}
+digitizeRadii("Oto140306.jpg",ID="140306",reading="DHO",
+              description="Used to demonstrate use of scale-bar.",
+              scaleBar=TRUE,scaleBarLength=1,edgeIsAnnulus=TRUE)
+```
+
+Only the `RFishBC` package is needed for this vignette.
+```{r}
+library(RFishBC)
+```
+
+\  
+
+\  
+
+----
+
+# Visualize one Set of Annuli
+One can review the selected annuli on a structure with `showDigitizedImage()`, which requires only the name of an RData file.[^sdifilename] The plotting character, color, and relative size of the selected points may be changed with `pch.show=`, `col.show=`, and `cex.show=`. The color and width of the "transect" may be changed with `col.transect=` and `lwd.transect=` or excluded altogether with `showTransect=FALSE`. Defaults for these arguments can be set with `RFBCoptions()` as was demonstrated in the [Setting Arguments section of this vignette](collectRadiiData.html#setoptions1)
+
+```{r eval=FALSE}
+showDigitizedImage("Scale_1_DHO.RData")
+```
+```{r echo=FALSE,fig.height=5*381/446,fig.width=5}
+showDigitizedImage("Scale_1_DHO.RData",sepWindow=FALSE)
+```
+
+
+```{r eval=FALSE}
+showDigitizedImage("Oto140306_DHO.RData",pch.show="+",col.show="blue",
+                   col.transect="white",lwd.transect=2)
+```
+```{r echo=FALSE,fig.height=5*228/548,fig.width=5}
+showDigitizedImage("Oto140306_DHO.RData",pch.show="+",col.show="blue",
+                   col.transect="white",lwd.transect=2,sepWindow=FALSE)
+```
+
+\  
+
+\  
+
+----
+
+# Visualize Multiple Readings of Same Structure
+In some instances, one may be interested in visually comparing the selected points from multiple readings of the same structure. The `showDigitizedImage()` function can accomplish this when given a vector of RData file names created from the same structure as the first argument.
+
+The `listFiles()` function may be used to identify all filenames in the current working directory that have the file extension given in the first argument. For example, all files with the "RData" extension are found below.
+```{r}
+listFiles("RData")
+```
+
+This list of names can be further filtered by including other key words for the filenames in `other=`. For example, all files with the "RData" extension that contain the keyword "Scale_1" are returned below. For our purposes here, these filenames are saved into an object (e.g., `fns`).
+```{r}
+( fns <- listFiles("RData",other="Scale_1") )
+```
+
+The multiple readings of "Scale_1" can be seen by giving this set of filenames to `showDigitizedImage()`.
+```{r eval=FALSE}
+showDigitizedImage(fns)
+```
+```{r echo=FALSE,fig.height=5*381/446,fig.width=5}
+showDigitizedImage(fns,sepWindow=FALSE)
+```
+
+Aspects of the transects and points may be controlled with arguments to `showDigitezedData()`. For example, the code below uses different colors for two transects and points and a thicker line for each transect.
+```{r eval=FALSE}
+showDigitizedImage(fns,col.transect=c("red","yellow"),
+                   col.show=c("yellow","red"),lwd.transect=2)
+```
+```{r echo=FALSE, fig.height=5*381/446,fig.width=5}
+showDigitizedImage(fns,col.transect=c("red","yellow"),
+                   col.show=c("yellow","red"),lwd.transect=2,
+                   sepWindow=FALSE)
+```
+
+\  
+
+\  
+
+----
+
+# Footnotes
+
+[^sdifilename]: If no file name is given, then a dialog box will appear from which the data file can be selected.
