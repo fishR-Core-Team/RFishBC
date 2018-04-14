@@ -1,4 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 
-vignettes/
+^\.Rhistory
+^vignettes
+^docs
+^\.gitignore$
+^_pkgdown\.yml
+^README\.md
