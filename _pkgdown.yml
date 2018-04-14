@@ -34,5 +34,7 @@ navbar:
       menu:
         - text: Collect Radii Data
           href: articles/MeasureRadii/collectRadiiData.html
+        - text: Visualize Radii Data
+          href: articles/MeasureRadii/seeRadiiData.html
     - text: Reference
       href: reference/index.html
