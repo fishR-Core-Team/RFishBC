@@ -8,10 +8,6 @@ output:
     highlight: vignette
     toc: true
     number_sections: true
-vignette: >
-  %\VignetteIndexEntry{Collect radial measurements from a calcified structure by interactively selecting annuli}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r eval=FALSE, echo=FALSE}
@@ -45,7 +41,7 @@ The [FishBC software](https://fisheries.org/bookstore/all-titles/software/70317/
 ## Understand Back-Calculation
 This vignette assumes that you have a basic understanding of back-calculating fish length at previous ages. See [Vigliola and Meekan (2009)](https://www.researchgate.net/publication/226394736_The_Back-Calculation_of_Fish_Growth_From_Otoliths) and Section 11.2.3.1 in Shoup and Michaeletz (2017) for thorough introductions to this topic.
 
-You should be aware of two foundational definitions related to measuring radii on calcified structures. First, **calcified structures** are scales, spines, fin rays, otoliths, or other bones from fish that can be processed in such a way as to show marks that represent annuli, or yearly benchmarks. Hereafter, "structure" will refer to "calcified strucure." Second, **radii** are sequential measurements from the focus (i.e., center) of the structure to the annuli, usually along a linear transect from the focus to the margin (i.e., edge) of the structure. Radii are in contrast to increments, which are the distance between successive annuli along the transect.
+You should be aware of two foundational definitions related to measuring radii on calcified structures. First, **calcified structures** are scales, spines, fin rays, otoliths, or other bones from fish that can be processed in such a way as to show marks that represent annuli, or yearly benchmarks. Hereafter, "structure" will refer to "calcified structure." Second, **radii** are sequential measurements from the focus (i.e., center) of the structure to the annuli, usually along a linear transect from the focus to the margin (i.e., edge) of the structure. Radii are in contrast to increments, which are the distance between successive annuli along the transect.
 
 ## Static Structure Images
 This vignette also assumes that you can capture a static digital image of a structure. The image must be a jpeg (.jpg), portable network graphics (.png), or bitmap (.bmp) format. Images will usually be obtained from a camera mounted on a microscope and connected to a computer. Below is a sample image of a fish scale.
@@ -54,7 +50,7 @@ This vignette also assumes that you can capture a static digital image of a stru
 
 Ideally, but not necessarily, the image will also contain an object (e.g., a "scale-bar") of known length so that actual lengths on the structure can be found. If a scale-bar is absent, then the measured lengths will be on an arbitrary scale (i.e., the actual values will be meaningless but the proportion of the total structure radius to each annulus will be meaningful). Below is a sample image of a Kiyi otolith with a 1-mm scale-bar.
 
-![](figures/oto140306.jpg)
+![](oto140306.jpg)
 
 The process described herein requires that all images to be processed be stored in the same directory or folder. To be most efficient (and simple), this directory should contain ONLY image files related to a particular project (e.g., one species for one water body for one year) and all image files should be of the same type (e.g., png or jpg).
 
@@ -87,7 +83,7 @@ The `digitizeRadii()` function is used to
 1. Interactively select annuli on the structure image.
 1. Create an RData file that contains the radial measurements to selected annuli and other information about the structure and the data extraction process.
 
-For example (*but described thoroughly further below*), the line below identifies "Scale_1.jpg" as the structure image, this fish has an identification number of "1", this reading of the image should be labelled as "DHO", and edge should be considered as annulus. When this line is run it will open the image[^inwd], allow the user to select points that represent annuli, and save radial measurments in "Scale_1_DHO.Rdata".[^saveex1]
+For example (*but described thoroughly further below*), the line below identifies "Scale_1.jpg" as the structure image, this fish has an identification number of "1", this reading of the image should be labelled as "DHO", and edge should be considered as annulus. When this line is run it will open the image[^inwd], allow the user to select points that represent annuli, and save radial measurements in "Scale_1_DHO.Rdata".[^saveex1]
 
 ```{r eval=FALSE}
 digitizeRadii("Scale_1.jpg",ID="1",reading="DHO",edgeIsAnnulus=FALSE)
@@ -98,7 +94,7 @@ Further specifics of `digitizeRadii()` and its many arguments are described belo
 ## The Basics
 The first several arguments to `digitizeRadii()` are related to information about the structure.
 
-* `fname=`: File name for the structure image. This is just a file name if the file is in the current working direcotry, however may be the fully pathed name if the image file is not in the current working directory. If this argument is not given, then a dialog box will be provided from which the file can be selected.
+* `fname=`: File name for the structure image. This is just a file name if the file is in the current working directory, however may be the fully pathed name if the image file is not in the current working directory. If this argument is not given, then a dialog box will be provided from which the file can be selected.
 * `ID=`: **Required** unique identifier for the fish/structure.
 * `reading=`: Optional label for the reading.[^readings]
 * `suffix=`: Optional additional label for the resultant RData file.
@@ -113,7 +109,7 @@ If actual lengths, rather than arbitrary (but proportional) lengths are needed,[
 
 **Scale-bar On Image:** If a scale-bar of known length exists on the image, then use `scaleBar=TRUE` with the actual length of the scale bar given in `scaleBarLength=`. You will then need to select the two end points of the scale-bar on the structure image prior to selecting points that represent annuli. An appropriate scaling factor will then be computed from your selections and the radial measurements will be converted to the actual scale (see further below).
 
-**Separately Define Scaling Factor:** In applications where a scale-bar does not exist on the image, the user can provide a value to `scalingFactor=` which will be used to multiply lengths on the structure image to derived actual lengths. One way to derive this scaling factor values is to capture an image of the structure at a speficif magnification on the microscope and then capture an image of an object of known length at that same magnification. A scaling factor may then be computed from the image with the object of known length and applied to the structure image. This scaling factor can be found by giving `findScalingFactor()` the file name with the object of known length and that known length in `knownLength=`. The value returned from `findScalingFactor()` can then be given to `scalingFactor=` in `digitizeRadii()`.[^sforder]
+**Separately Define Scaling Factor:** In applications where a scale-bar does not exist on the image, the user can provide a value to `scalingFactor=` which will be used to multiply lengths on the structure image to derived actual lengths. One way to derive this scaling factor values is to capture an image of the structure at a specific magnification on the microscope and then capture an image of an object of known length at that same magnification. A scaling factor may then be computed from the image with the object of known length and applied to the structure image. This scaling factor can be found by giving `findScalingFactor()` the file name with the object of known length and that known length in `knownLength=`. The value returned from `findScalingFactor()` can then be given to `scalingFactor=` in `digitizeRadii()`.[^sforder]
 
 If no `scalingFactor=` is given or derived from a scale-bar, then the radial measurements returned by `digitizeRadii()` are simply proportional to the unknown actual lengths on the structure.
 
@@ -140,7 +136,7 @@ digitizeRadii("Scale_1.jpg",ID="1",reading="DHO",edgeIsAnnulus=FALSE,
               lwd.transect=3,scaleBar=TRUE,scaleBarLength=0.6)
 ```
 
-However, if you want to use these settings for all images in a session then it is a hassle to set them every time you call `digitizeRadii()`. The default values for these arguments can be set for the entire session (i.e., until you change them or close R and open it again) by including the argument name set equal to the desired default value within `RFBCoptions()`. For example, if the code below is run at the beginning of a session (i.e., early in the script), then every call to `digitizeRadii()` after that will default to using "DHO" as the reading lable, not treating the edge as an annulus, using a thicker line for the transect, and identifying that a scale-bar with a known length of 0.6 exists on the image.
+However, if you want to use these settings for all images in a session then it is a hassle to set them every time you call `digitizeRadii()`. The default values for these arguments can be set for the entire session (i.e., until you change them or close R and open it again) by including the argument name set equal to the desired default value within `RFBCoptions()`. For example, if the code below is run at the beginning of a session (i.e., early in the script), then every call to `digitizeRadii()` after that will default to using "DHO" as the reading label, not treating the edge as an annulus, using a thicker line for the transect, and identifying that a scale-bar with a known length of 0.6 exists on the image.
 ```{r eval=FALSE}
 RFBC(reading="DHO",edgeIsAnnulus=FALSE,edgeIsAnnulus=FALSE,
      lwd.transect=3,scaleBar=TRUE,scaleBarLength=0.6)
@@ -151,7 +147,7 @@ With this, the last call to `digitizeRadii()` above could be simplified as shown
 digitizeRadii("Scale_1.jpg",ID="1")
 ```
 
-Argument values can still be changed from these for a particular call to `digitizeRadii()` by including that argument in the specific call. For examle if the edge was an annulus for only one of the structures then include `edgeIsAnnulus=TRUE` in `digitizeRadii()`.
+Argument values can still be changed from these for a particular call to `digitizeRadii()` by including that argument in the specific call. For example if the edge was an annulus for only one of the structures then include `edgeIsAnnulus=TRUE` in `digitizeRadii()`.
 
 \  
 
@@ -191,16 +187,30 @@ showDigitizedImage("Scale_1_DHO.RData")
 ----
 
 # Examine Multiple Reads of the Same Structure
-In some instances, one may be interested in visually comparing the selected points from multiple readings of the same structure. For example, the code below collects a second set of points for the "Scale_1.jpg" image.[^noteabove] Note the different value in `reading=`.
+In some instances, one may be interested in visually comparing the selected points from multiple readings of the same structure. For example, the code below was used to collect a second set of points for the "Scale_1.jpg" image.[^noteabove] Note the different value in `reading=`.
 ```{r eval=FALSE}
 digitizeRadii("Scale_1.jpg",ID="1",reading="DHO2",edgeIsAnnulus=FALSE)
 ```
 
-As shown above, `showDigitizedImage()` can be used to overlay the annular points onto the structure image. A second set of points can be overlaid onto the active plot by including `add=TRUE` in a second call to `showDigitizedImage()` with a second RData file name constructed from the same image. For example, the first line below overlays the annuli from the first selections onto the image. The second line then overlays the annuli from the second selections onto this image (because `add=TRUE`) and uses a different color for the transect and points.
+The `showDigitizedImage()` function described above can also used to overlay annular points from multiple readings of the same structure. This requires a vector of RData file names from the same structure as the first argument. The `listFiles()` function may be used to identify all filenames in the current working directory that have a the file extension given in the first argument. For example, all files with the "RData" extension are found below.
+```{r}
+listFiles("RData")
+```
+
+This list of names can be further filtered by including other key words for the filenames in `other=`. For example, all files with the "RData" extension that contain the keyword "Scale_1" are returned. For our purposes here, these filenames are saved into an object (e.g., `fns`).
+```{r}
+( fns <- listFiles("RData",other="Scale_1") )
+```
+
+The multiple readings of "Scale_1" can be seen by giving this set of filenames to `showDigitizedImage()`.
 ```{r fig.height=4,fig.width=4*446/381}
-showDigitizedImage("Scale_1_DHO.RData")
-showDigitizedImage("Scale_1_DHO2.RData",add=TRUE,
-                   col.transect="red",col.show="yellow")
+showDigitizedImage(fns)
+```
+
+Aspects of the transects and points may be controlled with arguments to `showDigitezedData()`. For example, the code below uses different colors for two transects and points and a thicker line for each transect.
+```{r fig.height=4,fig.width=4*446/381}
+showDigitizedImage(fns,col.transect=c("red","yellow"),
+                   col.show=c("yellow","red"),lwd.transect=2)
 ```
 
 \  
@@ -213,9 +223,14 @@ showDigitizedImage("Scale_1_DHO2.RData",add=TRUE,
 ## File Organization
 Of course, most analyses will consist of collecting radial measurements from structures from many fish. In this section, I demonstrate how to combine measurements from multiple structures. This demonstration assumes that all structure image files of interest are in the current working directory.[^workingdirectory]
 
-The `listFiles()` function may be used to identify all filenames in the current working directory that have a the file extension given in the first argument. For efficiency these filenames can be saved into an object (e.g., `fns`) as shown below.
+The `listFiles()` function (described in the previous section) is used to identify file names with the "jpg" extension.
 ```{r}
-( fns <- listFiles("jpg") )
+listFiles("jpg")
+```
+
+In this case, however, this list needs to limited to only those files that  contain the keyword "Scale".
+```{r}
+( fns <- listFiles("jpg",other="Scale") )
 ```
 
 ## Processing Multiple Structure Images
@@ -228,13 +243,16 @@ digitizeRadii(fns[2],ID="2")
 
 ## Combining Data Extracted from Multiple Structure Images
 Once all structure image files have been processed, the radial measurements can be combined into one data.frame with `combineData()`. The first argument to this function is a vector of RData file names, which can be constructed using `listFiles()` with the `.RData` extension.
-```{r results='hide'}
-( fns2 <- listFiles("RData") )
+```{r}
+listFiles("RData")
 ```
-```{r echo=FALSE}
-fns2 <- fns2[-2]
-fns2
+
+However, I don't want the "DHO2" file in this case. Thus I restricted the list of files to those that have "DHO." in the name, but because the "." is a special character it had to be preceded by "\\".
+```{r}
+( fns2 <- listFiles("RData",other="DHO\\.") )
 ```
+
+Finally, the data in these two files are combined and stored in `dfrad`.
 ```{r}
 ( dfrad <- combineData(fns2) )
 ```
@@ -254,7 +272,7 @@ dffish2 <- spread(dffish,key=ann,value=rad,sep="rad")
 dffish2
 ```
 
-Either file can be written to a "comma-separated values" (CSV) file with `write.csv()` using the R object name (e.g., `dffish` or `dffish2` as the first argument and a name for the file in `file=`. Additionally, I prefer to have non-quoted values by using `quote=FALSE` and no row names by uwing `row.names=FALSE`. For example, the "one-measurement-per-line" data can be output to "Kiyi2014_BCs.csv" as follows.
+Either file can be written to a "comma-separated values" (CSV) file with `write.csv()` using the R object name (e.g., `dffish` or `dffish2` as the first argument and a name for the file in `file=`. Additionally, I prefer to have non-quoted values by using `quote=FALSE` and no row names by using `row.names=FALSE`. For example, the "one-measurement-per-line" data can be output to "Kiyi2014_BCs.csv" as follows.
 ```{r eval=FALSE}
 write.csv(dffish,file="Kiyi2014_BCs.csv",quote=FALSE,row.names=FALSE)
 ```
@@ -289,7 +307,7 @@ CSV files are small, portable, and can be opened directly in most spreadsheet so
 
 [^readings]: The `readings` item is primarily used when the structure is read more than once. However, it is a required component in this package, whether multiple reads of the same structure are planned or not.
 
-[^excludeextension]: The extension (e.g., ".png" or "jpg") will not be included in the resultant R data object file.
+[^excludeextension]: The extension (e.g., "png" or "jpg") will not be included in the resultant R data object file.
 
 [^actuallength]: Some back-calculation methods require knowing the relationship between actual scale length and fish length. See [this vignette](backcalculation.html) for more details.
 

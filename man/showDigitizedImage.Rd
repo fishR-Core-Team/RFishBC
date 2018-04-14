@@ -4,13 +4,13 @@
 \alias{showDigitizedImage}
 \title{Show the points that were selected at some previous time and saved to the R object file.}
 \usage{
-showDigitizedImage(fname = file.choose(), add = FALSE, pch.show, col.show,
-  cex.show, showTransect, col.transect, lwd.transect, sepWindow)
+showDigitizedImage(fname = file.choose(), sepWindow, pch.show, col.show,
+  cex.show, showTransect, col.transect, lwd.transect)
 }
 \arguments{
 \item{fname}{A string that indicates the R object file to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (will look for this file in the current working directory unless a fully pathed name is given).}
 
-\item{add}{A logical that indicates whether the the transect and points should be added to the active image. Generally, use \code{add=FALSE} when plotting the points for the first time. Use \code{add=TRUE} to create an image that has the transects and points from multiple reads of the same image.}
+\item{sepWindow}{See details in \code{\link{RFBCoptions}}.}
 
 \item{pch.show}{See details in \code{\link{RFBCoptions}}.}
 
@@ -23,14 +23,12 @@ showDigitizedImage(fname = file.choose(), add = FALSE, pch.show, col.show,
 \item{col.transect}{See details in \code{\link{RFBCoptions}}.}
 
 \item{lwd.transect}{See details in \code{\link{RFBCoptions}}.}
-
-\item{sepWindow}{See details in \code{\link{RFBCoptions}}.}
 }
 \value{
 None, but an image is plotted with the selected points, and possibly a putative transect, overlaid.
 }
 \description{
-Show the points that were selected at some previous time on the structure and save to the R object file. This is useful for reexamining the selected points at a later time or overlaying selected points from multiple reads of the structure (i.e., using \code{add=TRUE}).
+Show the points that were selected at some previous time on the structure and save to the R object file. This is useful for reexamining the selected points at a later time or overlaying selected points from multiple reads of the structure.
 }
 \details{
 None yet

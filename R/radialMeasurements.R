@@ -107,10 +107,9 @@ digitizeRadii <- function(fname=file.choose(),ID,reading,suffix,
 
 #' @title Show the points that were selected at some previous time and saved to the R object file.
 #' 
-#' @description Show the points that were selected at some previous time on the structure and save to the R object file. This is useful for reexamining the selected points at a later time or overlaying selected points from multiple reads of the structure (i.e., using \code{add=TRUE}).
+#' @description Show the points that were selected at some previous time on the structure and save to the R object file. This is useful for reexamining the selected points at a later time or overlaying selected points from multiple reads of the structure.
 #' 
 #' @param fname A string that indicates the R object file to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (will look for this file in the current working directory unless a fully pathed name is given).
-#' @param add A logical that indicates whether the the transect and points should be added to the active image. Generally, use \code{add=FALSE} when plotting the points for the first time. Use \code{add=TRUE} to create an image that has the transects and points from multiple reads of the same image.
 #' @param pch.show See details in \code{\link{RFBCoptions}}.
 #' @param col.show See details in \code{\link{RFBCoptions}}.
 #' @param cex.show See details in \code{\link{RFBCoptions}}.
@@ -130,13 +129,9 @@ digitizeRadii <- function(fname=file.choose(),ID,reading,suffix,
 #' @examples
 #' ## None yet
 #' 
-showDigitizedImage <- function(fname=file.choose(),add=FALSE,
+showDigitizedImage <- function(fname=file.choose(),sepWindow,
                                pch.show,col.show,cex.show,
-                               showTransect,col.transect,lwd.transect,
-                               sepWindow) {
-  ## Load the data object
-  dat <- NULL # try to avoid "no visible binding" note
-  load(fname)
+                               showTransect,col.transect,lwd.transect) {
   ## handle options
   if (missing(pch.show)) pch.show <- iGetopt("pch.show")
   if (missing(col.show)) col.show <- iGetopt("col.show")
@@ -145,16 +140,38 @@ showDigitizedImage <- function(fname=file.choose(),add=FALSE,
   if (missing(col.transect)) col.transect <- iGetopt("col.transect")
   if (missing(lwd.transect)) lwd.transect <- iGetopt("lwd.transect")
   if (missing(sepWindow)) sepWindow <- iGetopt("sepWindow")
-  ## Show image
-  if (!add) iReadImage(dat$image,sepWindow,ID=dat$radii$ID[1],
-                       reading=NULL,description=NULL)
-  ## Show the putative transect ... assumes that the focuse and margin
+
+  ## Load the data object
+  if (missing(fname)) stop("A filename must be provided.",call.=FALSE)
+  dat <- NULL # try to avoid "no visible binding" note
+  load(fname[1])
+  ## Show first image
+  iReadImage(dat$image,sepWindow,ID=dat$radii$ID[1],
+             reading=NULL,description=NULL)
+  ## Show the putative transect ... assumes that the focus and margin
   ## are in the first two rows of dat$pts (as they should be)
   if (showTransect) 
     graphics::lines(dat$pts[1:2,],lwd=lwd.transect,col=col.transect)
   ## Show points
-  graphics::points(dat$pts,pch=pch.show,col=col.show,
-                   cex=cex.show)
+  graphics::points(dat$pts,pch=pch.show,col=col.show,cex=cex.show)
+  ## Add other results
+  num <- length(fname)
+  if (num>1) {
+    # expand colors
+    pch.show <- rep(pch.show,ceiling(num/length(pch.show)))
+    col.show <- rep(col.show,ceiling(num/length(col.show)))
+    cex.show <- rep(cex.show,ceiling(num/length(cex.show)))
+    col.transect <- rep(col.transect,ceiling(num/length(col.transect)))
+    lwd.transect <- rep(lwd.transect,ceiling(num/length(lwd.transect)))
+    for (i in 2:num) {
+      load(fname[i])
+      if (showTransect) 
+        graphics::lines(dat$pts[1:2,],lwd=lwd.transect[i],
+                        col=col.transect[i])
+      graphics::points(dat$pts,pch=pch.show[i],col=col.show[i],
+                       cex=cex.show[i])
+    }
+  }
 }
 
 
@@ -239,10 +256,19 @@ listFiles <- function(ext,other=NULL,path=".",ignore.case=TRUE,...) {
   if (length(tmp)<1) stop("No files have a ",ext," extension.",call.=FALSE)
   ## Potentially reduce that list to those that match strings in other
   if (!is.null(other)) {
-    tmp <- unlist(lapply(other,
-                         FUN=function(f,lst) lst[grepl(f,lst)],
-                         lst=tmp))
+    if (ignore.case) {
+      tmp <- unlist(lapply(other,
+                           FUN=function(f,lst) lst[grepl(tolower(f),
+                                                         tolower(lst))],
+                           lst=tmp))      
+    } else {
+      tmp <- unlist(lapply(other,
+                           FUN=function(f,lst) lst[grepl(f,lst)],
+                           lst=tmp))
+    }
+
     if (length(tmp)<1) stop("No files with ",ext," extension contain the patterns given in 'other'.",call.=FALSE)
+    tmp <- unique(tmp)
   }
   tmp
 }
