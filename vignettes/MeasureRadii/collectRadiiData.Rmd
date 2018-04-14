@@ -198,12 +198,10 @@ dffish2 <- spread(dffish,key=ann,value=rad,sep="rad")
 dffish2
 ```
 
-Either file can be written to a "comma-separated values" (CSV) file with `write.csv()` using the R object name (e.g., `dffish` or `dffish2` as the first argument and a name for the file in `file=`. Additionally, I prefer to have non-quoted values by using `quote=FALSE` and no row names by using `row.names=FALSE`. For example, the "one-measurement-per-line" data can be output to "Kiyi2014_BCs.csv" as follows.
+Either file can be written to a "comma-separated values" (CSV) file[^csvfile] with `write.csv()` using the R object name (e.g., `dffish` or `dffish2`) as the first argument and a name for the file in `file=`. Additionally, I prefer to have non-quoted values by using `quote=FALSE` and no row names by using `row.names=FALSE`. For example, the "one-measurement-per-line" data can be output to "Kiyi2014_BCs.csv" as follows.
 ```{r eval=FALSE}
 write.csv(dffish,file="Kiyi2014_BCs.csv",quote=FALSE,row.names=FALSE)
 ```
-
-CSV files are small, portable, and can be opened directly in most spreadsheet softwares.
 
 \  
 
@@ -248,3 +246,5 @@ CSV files are small, portable, and can be opened directly in most spreadsheet so
 [^noteabove]: The first set of readings were made in the first section above.
 
 [^wrongtypesinjoin]: The two files cannot be joined by the "ID" variable if the "ID" variables are of different types (e.g., character and numeric) in the two files. Thus, as shown here, they must be coerced to be the same type. This line of code would no be needed if the "ID" variables were of the same type in the two files as would likely occur if the "ID" variable was not simply numbers.
+
+[^csvfile]: CSV files are small, portable, and can be opened directly in most spreadsheet softwares.

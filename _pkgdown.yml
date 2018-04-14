@@ -13,13 +13,13 @@ development:
   
 reference:
   - title: Collect Radii Data
-    desc: Functions to aid collecting, viewing, and outputting radial measurements from Structure Images
+    desc: Functions to aid collecting, viewing, and outputting radial measurements from structure Images
     contents:
       - RFBCoptions
+      - listFiles
       - digitizeRadii
       - showDigitizedImage
       - combineData
-      - listFiles
   - title: Back-calculation
     desc: Functions to aid back-calculation of lengths at previous ages
     contents:
@@ -30,7 +30,7 @@ navbar:
   left:
     - icon: fa-home
       href: index.html
-    - text: Vignettes
+    - text: Process Structures
       menu:
         - text: Collect Radii Data
           href: articles/MeasureRadii/collectRadiiData.html

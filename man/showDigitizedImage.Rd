@@ -5,7 +5,8 @@
 \title{Show the points that were selected at some previous time and saved to the R object file.}
 \usage{
 showDigitizedImage(fname = file.choose(), sepWindow, pch.show, col.show,
-  cex.show, showTransect, col.transect, lwd.transect)
+  cex.show, showTransect, col.transect, lwd.transect, col.scaleBar,
+  lwd.scaleBar)
 }
 \arguments{
 \item{fname}{A string that indicates the R object file to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (will look for this file in the current working directory unless a fully pathed name is given).}
@@ -23,6 +24,10 @@ showDigitizedImage(fname = file.choose(), sepWindow, pch.show, col.show,
 \item{col.transect}{See details in \code{\link{RFBCoptions}}.}
 
 \item{lwd.transect}{See details in \code{\link{RFBCoptions}}.}
+
+\item{col.scaleBar}{See details in \code{\link{RFBCoptions}}.}
+
+\item{lwd.scaleBar}{See details in \code{\link{RFBCoptions}}.}
 }
 \value{
 None, but an image is plotted with the selected points, and possibly a putative transect, overlaid.

@@ -112,13 +112,15 @@ digitizeRadii <- function(fname=file.choose(),ID,reading,suffix,
 #' @description Show the points that were selected at some previous time on the structure and save to the R object file. This is useful for reexamining the selected points at a later time or overlaying selected points from multiple reads of the structure.
 #' 
 #' @param fname A string that indicates the R object file to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (will look for this file in the current working directory unless a fully pathed name is given).
+#' @param sepWindow See details in \code{\link{RFBCoptions}}.
 #' @param pch.show See details in \code{\link{RFBCoptions}}.
 #' @param col.show See details in \code{\link{RFBCoptions}}.
 #' @param cex.show See details in \code{\link{RFBCoptions}}.
 #' @param showTransect See details in \code{\link{RFBCoptions}}.
 #' @param col.transect See details in \code{\link{RFBCoptions}}.
 #' @param lwd.transect See details in \code{\link{RFBCoptions}}.
-#' @param sepWindow See details in \code{\link{RFBCoptions}}.
+#' @param col.scaleBar See details in \code{\link{RFBCoptions}}.
+#' @param lwd.scaleBar See details in \code{\link{RFBCoptions}}.
 #'
 #' @details None yet
 #'
@@ -133,15 +135,18 @@ digitizeRadii <- function(fname=file.choose(),ID,reading,suffix,
 #' 
 showDigitizedImage <- function(fname=file.choose(),sepWindow,
                                pch.show,col.show,cex.show,
-                               showTransect,col.transect,lwd.transect) {
+                               showTransect,col.transect,lwd.transect,
+                               col.scaleBar,lwd.scaleBar) {
   ## handle options
+  if (missing(sepWindow)) sepWindow <- iGetopt("sepWindow")
   if (missing(pch.show)) pch.show <- iGetopt("pch.show")
   if (missing(col.show)) col.show <- iGetopt("col.show")
   if (missing(cex.show)) cex.show <- iGetopt("cex.show")
   if (missing(showTransect)) showTransect <- iGetopt("showTransect")
   if (missing(col.transect)) col.transect <- iGetopt("col.transect")
   if (missing(lwd.transect)) lwd.transect <- iGetopt("lwd.transect")
-  if (missing(sepWindow)) sepWindow <- iGetopt("sepWindow")
+  if (missing(col.scaleBar)) col.scaleBar <- iGetopt("col.scaleBar")
+  if (missing(lwd.scaleBar)) lwd.scaleBar <- iGetopt("lwd.scaleBar")
 
   ## Load the data object
   if (missing(fname)) stop("A filename must be provided.",call.=FALSE)
@@ -157,6 +162,10 @@ showDigitizedImage <- function(fname=file.choose(),sepWindow,
   ## Show points
   graphics::points(dat$pts,
                    pch=pch.show[1],col=col.show[1],cex=cex.show[1])
+  ## Show scale-bar, if it was digitized
+  if (!is.null(dat$sbPts)) {
+    graphics::lines(y~x,data=dat$sbPts,col=col.scaleBar,lwd=lwd.scaleBar)
+  }
   ## Add other results
   num <- length(fname)
   if (num>1) {

@@ -8,11 +8,11 @@ RFishBC
 [![Coverage Status](https://img.shields.io/coveralls/droglenc/RFishBC.svg)](https://coveralls.io/r/droglenc/RFishBC?branch=master)
 
 
-The **RFishBC** replaces much of the functionality provided by the now out-date fishBC software.
+The **RFishBC** package helps fisheries scientists collect growth data from calcified structures and back-calculate estimated lengths at previous ages. The package is intended to replace much of the functionality provided by the now out-date fishBC software.
 
 ## Installation
 
-The most recent development version (on GitHub) may be installed with
+The most recent development version (on GitHub) of **RFishBC** may be installed by running the two lines below in your R console.
 
 ```r
 if (!require('devtools')) install.packages('devtools'); require('devtools')
