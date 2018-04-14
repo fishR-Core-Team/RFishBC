@@ -51,6 +51,9 @@
 <li>
       <a href="../../articles/MeasureRadii/collectRadiiData.html">Collect Radii Data</a>
     </li>
+    <li>
+      <a href="../../articles/MeasureRadii/seeRadiiData.html">Visualize Radii Data</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -119,7 +122,7 @@
 <p>The process described herein requires that all images to be processed be stored in the same directory or folder. To be most efficient (and simple), this directory should contain ONLY image files related to a particular project (e.g., one species for one water body for one year) and all image files should be of the same type (e.g., png or jpg).</p>
 <p>Generally, the user will “set” the current working directory in R to the directory where these images are stored with <code>setwd()</code>. If using RStudio, the working directory can be set with any of the options under the Session … Set Working Directory menu.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> The following is an example of setting a working directory in R.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">"c:/work/aging/Kiyi2014"</span>)</code></pre></div>
-<p>Finally, note that the process described herein will produce one R data object files (.RData files; hereafter called “RData file”) for each set of measurements made on a structure images. These data files will be saved in the same directory that has the structure image files. I suggest keeping the RData and corresponding structure image files together at all times as the RData file serves as an archive of the data collected from each image.</p>
+<p>Finally, note that the process described herein will produce one R data object files (.RData files; hereafter called “RData file”) for each set of measurements made on a structure images. These data files will be saved in the current work directory that has the structure image files. I suggest keeping the RData and corresponding structure image files together at all times as the RData file serves as an archive of the data collected from an image.</p>
 </div>
 <div id="r-packages" class="section level3">
 <h3 class="hasAnchor">
@@ -142,7 +145,7 @@
 <li>Interactively select annuli on the structure image.</li>
 <li>Create an RData file that contains the radial measurements to selected annuli and other information about the structure and the data extraction process.</li>
 </ol>
-<p>For example (<em>but described thoroughly further below</em>), the line below identifies “Scale_1.jpg” as the structure image, this fish has an identification number of “1”, this reading of the image should be labelled as “DHO”, and edge should be considered as annulus. When this line is run it will open the image<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>, allow the user to select points that represent annuli, and save radial measurements in “Scale_1_DHO.Rdata”.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
+<p>For example (<em>but described thoroughly further below</em>), the line below identifies “Scale_1.jpg” as the structure image, this fish has an identification number of “1”, this reading of the image should be labelled as “DHO”, and structure margin or edge should not be considered as an annulus. When this line is run it will open the image<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>, allow the user to select points that represent annuli, and save radial measurements in “Scale_1_DHO.RData”.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/digitizeRadii.html">digitizeRadii</a></span>(<span class="st">"Scale_1.jpg"</span>,<span class="dt">ID=</span><span class="st">"1"</span>,<span class="dt">reading=</span><span class="st">"DHO"</span>,<span class="dt">edgeIsAnnulus=</span><span class="ot">FALSE</span>)</code></pre></div>
 <p>Further specifics of <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> and its many arguments are described below.</p>
 <div id="basics" class="section level3">
@@ -151,7 +154,7 @@
 <p>The first several arguments to <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> are related to information about the structure.</p>
 <ul>
 <li>
-<code>fname=</code>: File name for the structure image. This is just a file name if the file is in the current working directory, however may be the fully pathed name if the image file is not in the current working directory. If this argument is not given, then a dialog box will be provided from which the file can be selected.</li>
+<code>fname=</code>: File name for the structure image. This is just a file name if the file is in the current working directory. However it may be the fully pathed name if the image file is not in the current working directory. If this argument is not given, then a dialog box will be provided from which the file can be selected.</li>
 <li>
 <code>ID=</code>: <strong>Required</strong> unique identifier for the fish/structure.</li>
 <li>
@@ -160,100 +163,50 @@
 <li>
 <code>suffix=</code>: Optional additional label for the resultant RData file.</li>
 <li>
-<code>description=</code>: Optional detailed description about the structure. This will be saved in the RData file and shown in various plots and tables. For example, one may use <code>description="Cisco scale read once by Ogle on 22-Apr-18"</code> to provide more information about the structure reading.</li>
+<code>description=</code>: Optional detailed description about the structure. This will be saved in the RData file and could be extracted in the future. For example, one may use <code>description="Cisco scale read once by Ogle on 22-Apr-18"</code> to provide more information about the structure reading.</li>
 </ul>
-<p>The RData file that will be created after the annuli have been selected will have the same name as the image file<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a> but including the suffix optionally provided in <code>suffix=</code>. If nothing is given in <code>suffix=</code>, then a suffix will be created from <code>reading=</code>. For example, if the structure image file was named “Scale_1.jpg”, then the resultant RData file will be named “Scale_1_DHO.Rdata” if <code>reading="DHO"</code> or “Scale_1_TESTING.Rdata” if <code>reading="DHO"</code> and <code>suffix="TESTING"</code>.</p>
-<p>Some fish will be captured at a time of year when growth for the current season has not commenced and, thus, the margin of the structure is considered to be an annulus. Other fish may be captured when growth has commence for the season (but not yet completed) such that the structure margin is not considered to be an annulus. If the scale margin is considered an annulus, then use <code>edgeIsAnnulus=TRUE</code>. If the scale margin is not considered an annulus, then use <code>edgeIsAnnulus=FALSE</code>. Identifying whether the structure margin is an annulus or not is critical to properly recording radial measurements. As such, there is no default value for this argument (i.e., it <strong>MUST</strong> be set by the user).</p>
+<p>The RData file that will be created after the annuli have been selected will have the same name as the image file<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a> but including the suffix optionally provided in <code>suffix=</code>. If nothing is given in <code>suffix=</code>, then a suffix will be created from <code>reading=</code>. For example, if the structure image file was named “Scale_1.jpg”, then the resultant RData file will be named “Scale_1_DHO.RData” if <code>reading="DHO"</code> or “Scale_1_TESTING.RData” if <code>reading="DHO"</code> and <code>suffix="TESTING"</code>.</p>
+<p>Some fish will be captured at a time of year when growth for the current season has not commenced and, thus, the margin of the structure is considered to be an annulus. Other fish may be captured when growth has commenced for the season (but is not yet completed) such that the structure margin is not considered to be an annulus. Use <code>edgeIsAnnulus=TRUE</code> if the structure margin is considered an annulus and <code>edgeIsAnnulus=FALSE</code> if it is not. Identifying whether the structure margin is an annulus or not is critical to properly recording radial measurements. As such, there is no default value for this argument (i.e., it <strong>MUST</strong> be set by the user).</p>
 </div>
 <div id="setting-the-scale" class="section level3">
 <h3 class="hasAnchor">
 <a href="#setting-the-scale" class="anchor"></a>Setting the Scale</h3>
-<p>If actual lengths, rather than arbitrary (but proportional) lengths are needed,<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a> then a scaling factor must exist to convert measurements on the image to actual measurements on the structure. This scaling factor may be calculated from a scale-bar found on the image or provided by the user.</p>
-<p><strong>Scale-bar On Image:</strong> If a scale-bar of known length exists on the image, then use <code>scaleBar=TRUE</code> with the actual length of the scale bar given in <code>scaleBarLength=</code>. You will then need to select the two end points of the scale-bar on the structure image prior to selecting points that represent annuli. An appropriate scaling factor will then be computed from your selections and the radial measurements will be converted to the actual scale (see further below).</p>
-<p><strong>Separately Define Scaling Factor:</strong> In applications where a scale-bar does not exist on the image, the user can provide a value to <code>scalingFactor=</code> which will be used to multiply lengths on the structure image to derived actual lengths. One way to derive this scaling factor values is to capture an image of the structure at a specific magnification on the microscope and then capture an image of an object of known length at that same magnification. A scaling factor may then be computed from the image with the object of known length and applied to the structure image. This scaling factor can be found by giving <code>findScalingFactor()</code> the file name with the object of known length and that known length in <code>knownLength=</code>. The value returned from <code>findScalingFactor()</code> can then be given to <code>scalingFactor=</code> in <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>.<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a></p>
-<p>If no <code>scalingFactor=</code> is given or derived from a scale-bar, then the radial measurements returned by <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> are simply proportional to the unknown actual lengths on the structure.</p>
+<p>If actual lengths, rather than arbitrary (but proportional) lengths are needed,<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a> then a scaling factor is needed to convert measurements on the image to actual measurements on the structure. This scaling factor may be calculated from a scale-bar found on the image or provided by the user.</p>
+<p><strong>Scale-bar On Image:</strong> If a scale-bar of known length exists on the image, then use <code>scaleBar=TRUE</code> with the actual length of the scale bar given in <code>scaleBarLength=</code>. You will then need to select the two end points of the scale-bar on the structure image prior to selecting points that represent annuli. An appropriate scaling factor will then be computed from your selections and the radial measurements will be converted to actual lengths on the structure.</p>
+<p><strong>Separately Defined Scaling Factor:</strong> In applications where a scale-bar does not exist on the image, the user can provide a value to <code>scalingFactor=</code> which will be used to multiply lengths on the structure image to derive actual lengths. One way to derive this scaling factor is to capture an image of the structure at a specific magnification on the microscope and then capture an image of an object of known length at that same magnification. A scaling factor may then be computed from the image with the object of known length and applied to the structure image. This scaling factor can be found by giving <code>findScalingFactor()</code> the file name with the object of known length and that known length in <code>knownLength=</code>. The value returned from <code>findScalingFactor()</code> can then be given to <code>scalingFactor=</code> in <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>.<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a></p>
+<p>If no <code>scalingFactor=</code> is derived from a scale-bar or provided, then the radial measurements returned by <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> are simply proportional to the unknown actual lengths on the structure.</p>
 </div>
 <div id="selecting-annuli" class="section level3">
 <h3 class="hasAnchor">
 <a href="#selecting-annuli" class="anchor"></a>Selecting Annuli</h3>
-<p>The user will then be asked to select points on the structure image that represent annuli. However, <strong>the point that represents the focus must be selected first, followed by the structure margin/edge</strong>.<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a> If <code>addTransect=TRUE</code> (the default behavior), then a line will be drawn between these two points to aid marking the annuli. When the last point has been selected, the user must press the ESCape key in Windows or with Mac OS X (or, in Windows, select STOP in the menu on the structure image window).</p>
+<p>The user will then be asked to select points on the structure image that represent annuli. However, <strong>the point that represents the focus must be selected first, followed by the structure margin/edge</strong>.<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a> If <code>addTransect=TRUE</code> (the default behavior), then a line will be drawn between these two points to aid marking the annuli. When the last point has been selected, the user must press the ESCape key in Windows or Mac OS X (or, in Windows, select STOP in the menu on the structure image window).</p>
 </div>
 <div id="setoptions1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#setoptions1" class="anchor"></a>Setting digitizeRadii() Arguments for Session</h3>
 <p>The <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> function has several optional arguments not discussed above. Some arguments that are likely to be commonly used are:</p>
 <ul>
-<li>By default, each image file is opened in a separate window, which helps avoid issues with the RStudio Plots pane and is especially useful when working on a system with two monitors.<a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a> This window is also configured so that when it is resized, the shape of the structure image (i.e., its aspect ratio) will not change. One can suppress showing the structure image in a separate window with <code>sepWindow=FALSE</code>.</li>
+<li>By default, each image file is opened in a separate window, which helps avoid issues with the RStudio Plots pane and is especially useful when working on a system with two monitors.<a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a> This window is also configured to match the aspect ratio of the original image, even if the window is resized.</li>
+<li>The relative size of the separate window can be changed by including a value in <code>windowSize=</code>. This value will ultimately be the size of the window corresponding to the longest dimension of the image file. For example, if the image is wider than it is tall, then this value will be width of the window and the height will be adjusted to match the aspect ratio of the original image.</li>
 <li>The color and width of the transect shown on the image can be modified with <code>col.transect=</code> and <code>lwd.transect=</code>, respectively.</li>
 <li>The plotting character, color, and relative size of the selected points can be modified with <code>pch.sel=</code>, <code>col.sel=</code>, and <code>cex.sel=</code>, respectively.</li>
 </ul>
-<p>These and other arguments have default settings that are stored in an object that can be accessed with <code><a href="../../reference/RFBCoptions.html">RFBCoptions()</a></code>. Using this function without any arguments will show all of the arguments that can be set and what their default values are (not shown here because the list is long). The current value for one argument can be seen by appending the name of that argument to <code><a href="../../reference/RFBCoptions.html">RFBCoptions()</a></code> separated by a <code>$</code>. For example, the current setting for <code>addTransect</code> is <code>TRUE</code> as shown below.</p>
+<p>These and other arguments have default settings that are stored in an object that can be accessed with <code><a href="../../reference/RFBCoptions.html">RFBCoptions()</a></code>. Using this function without any arguments will show all of the arguments that can be set and what their default values are (not shown here because the list is long). The current value for one argument can be seen by appending the name of that argument to <code><a href="../../reference/RFBCoptions.html">RFBCoptions()</a></code> with a <code>$</code>. For example, the current setting for <code>addTransect</code> is <code>TRUE</code> as shown below.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/RFBCoptions.html">RFBCoptions</a></span>()<span class="op">$</span>addTransect
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
-<p>These “default” values for arguments can be changed so that they do not need to be included each time you call <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>. For example, suppose that you want the “reading” label to say “DHO”, the edge to not be considered an annulus, the width of the transect line to be thicker, and a scale-bar is present with a known length of 0.6 mm. You can set these items in <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> as below.</p>
+<p>These default values for arguments can be changed so that they do not need to be included each time you call <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>. For example, suppose that you want the “reading” label to say “DHO”, the edge to not be considered an annulus, the width of the transect line to be thicker, and a scale-bar is present with a known length of 0.6 mm. You can set these items in <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> as below.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/digitizeRadii.html">digitizeRadii</a></span>(<span class="st">"Scale_1.jpg"</span>,<span class="dt">ID=</span><span class="st">"1"</span>,<span class="dt">reading=</span><span class="st">"DHO"</span>,<span class="dt">edgeIsAnnulus=</span><span class="ot">FALSE</span>,
               <span class="dt">lwd.transect=</span><span class="dv">3</span>,<span class="dt">scaleBar=</span><span class="ot">TRUE</span>,<span class="dt">scaleBarLength=</span><span class="fl">0.6</span>)</code></pre></div>
 <p>However, if you want to use these settings for all images in a session then it is a hassle to set them every time you call <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>. The default values for these arguments can be set for the entire session (i.e., until you change them or close R and open it again) by including the argument name set equal to the desired default value within <code><a href="../../reference/RFBCoptions.html">RFBCoptions()</a></code>. For example, if the code below is run at the beginning of a session (i.e., early in the script), then every call to <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> after that will default to using “DHO” as the reading label, not treating the edge as an annulus, using a thicker line for the transect, and identifying that a scale-bar with a known length of 0.6 exists on the image.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">RFBC</span>(<span class="dt">reading=</span><span class="st">"DHO"</span>,<span class="dt">edgeIsAnnulus=</span><span class="ot">FALSE</span>,<span class="dt">edgeIsAnnulus=</span><span class="ot">FALSE</span>,
      <span class="dt">lwd.transect=</span><span class="dv">3</span>,<span class="dt">scaleBar=</span><span class="ot">TRUE</span>,<span class="dt">scaleBarLength=</span><span class="fl">0.6</span>)</code></pre></div>
-<p>With this, the last call to <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> above could be simplified as shown below.</p>
+<p>With these changes to the default settings, the last call to <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> above could be simplified as shown below.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/digitizeRadii.html">digitizeRadii</a></span>(<span class="st">"Scale_1.jpg"</span>,<span class="dt">ID=</span><span class="st">"1"</span>)</code></pre></div>
-<p>Argument values can still be changed from these for a particular call to <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> by including that argument in the specific call. For example if the edge was an annulus for only one of the structures then include <code>edgeIsAnnulus=TRUE</code> in <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>.</p>
+<p>Argument values can still be changed from the defaults for a particular call to <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> by including that argument in the specific call. For example if the edge was an annulus for only one of the structures then include <code>edgeIsAnnulus=TRUE</code> in <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>.</p>
 <p> </p>
 <p> </p>
 <hr>
 </div>
-</div>
-<div id="examine-radii-data" class="section level1">
-<h1 class="hasAnchor">
-<a href="#examine-radii-data" class="anchor"></a>Examine Radii Data</h1>
-<div id="data-frame" class="section level3">
-<h3 class="hasAnchor">
-<a href="#data-frame" class="anchor"></a>Data.frame</h3>
-<p>The result from <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> (see <a href="#measurereadii">Measure Radii</a>) is an RData file in the current working directory. Among other things, this data file contains a data.frame of radial measurements to successive annuli that can be extracted with <code><a href="../../reference/combineData.html">combineData()</a></code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/combineData.html">combineData</a></span>(<span class="st">"Scale_1_DHO.RData"</span>)
-df
-<span class="co">#&gt;   ID reading ageCap ann       rad    radCap</span>
-<span class="co">#&gt; 1  1     DHO      5   1 0.2141602 0.5143776</span>
-<span class="co">#&gt; 2  1     DHO      5   2 0.2767637 0.5143776</span>
-<span class="co">#&gt; 3  1     DHO      5   3 0.3289998 0.5143776</span>
-<span class="co">#&gt; 4  1     DHO      5   4 0.4621417 0.5143776</span>
-<span class="co">#&gt; 5  1     DHO      5   5 0.4974369 0.5143776</span>
-<span class="co">#&gt; 6  1     DHO      5   6 0.5143776 0.5143776</span></code></pre></div>
-<p>The <code><a href="../../reference/combineData.html">combineData()</a></code> function is more interesting when considering multiple structures (see <a href="#multiplestructures">Combine Data</a>).</p>
-</div>
-<div id="visualize-on-image" class="section level3">
-<h3 class="hasAnchor">
-<a href="#visualize-on-image" class="anchor"></a>Visualize on Image</h3>
-<p>One can review the markings on a structure with <code><a href="../../reference/showDigitizedImage.html">showDigitizedImage()</a></code>, which requires only the name of an RData file.<a href="#fn10" class="footnoteRef" id="fnref10"><sup>10</sup></a> The plotting character, color, and relative size of the selected points may be changed with <code>pch.show=</code>, <code>col.show=</code>, and <code>cex.show=</code>. The color and width of the “transect” may be changed with <code>col.transect=</code> and <code>lwd.transect=</code> or excluded altogether with <code>showTransect=FALSE</code>. Defaults for these arguments can be set with <code><a href="../../reference/RFBCoptions.html">RFBCoptions()</a></code> as was demonstrated in <a href="#setoptions1">Setting Arguments</a></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/showDigitizedImage.html">showDigitizedImage</a></span>(<span class="st">"Scale_1_DHO.RData"</span>)</code></pre></div>
-<p><img src="collectRadiiData_files/figure-html/unnamed-chunk-9-1.png" width="449.511811023622"></p>
-<p> </p>
-<p> </p>
-<hr>
-</div>
-</div>
-<div id="examine-multiple-readings" class="section level1">
-<h1 class="hasAnchor">
-<a href="#examine-multiple-readings" class="anchor"></a>Examine Multiple Readings</h1>
-<p>In some instances, one may be interested in visually comparing the selected points from multiple readings of the same structure. For example, the code below was used to collect a second set of points for the “Scale_1.jpg” image.<a href="#fn11" class="footnoteRef" id="fnref11"><sup>11</sup></a> Note the different value in <code>reading=</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/digitizeRadii.html">digitizeRadii</a></span>(<span class="st">"Scale_1.jpg"</span>,<span class="dt">ID=</span><span class="st">"1"</span>,<span class="dt">reading=</span><span class="st">"DHO2"</span>,<span class="dt">edgeIsAnnulus=</span><span class="ot">FALSE</span>)</code></pre></div>
-<p>The <code><a href="../../reference/showDigitizedImage.html">showDigitizedImage()</a></code> function described above can also used to overlay annular points from multiple readings of the same structure. This requires a vector of RData file names from the same structure as the first argument. The <code><a href="../../reference/listFiles.html">listFiles()</a></code> function may be used to identify all filenames in the current working directory that have a the file extension given in the first argument. For example, all files with the “RData” extension are found below.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/listFiles.html">listFiles</a></span>(<span class="st">"RData"</span>)
-<span class="co">#&gt; [1] "Scale_1_DHO.RData"  "Scale_1_DHO2.RData" "Scale_2_DHO.RData"</span></code></pre></div>
-<p>This list of names can be further filtered by including other key words for the filenames in <code>other=</code>. For example, all files with the “RData” extension that contain the keyword “Scale_1” are returned. For our purposes here, these filenames are saved into an object (e.g., <code>fns</code>).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">( fns &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/listFiles.html">listFiles</a></span>(<span class="st">"RData"</span>,<span class="dt">other=</span><span class="st">"Scale_1"</span>) )
-<span class="co">#&gt; [1] "Scale_1_DHO.RData"  "Scale_1_DHO2.RData"</span></code></pre></div>
-<p>The multiple readings of “Scale_1” can be seen by giving this set of filenames to <code><a href="../../reference/showDigitizedImage.html">showDigitizedImage()</a></code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/showDigitizedImage.html">showDigitizedImage</a></span>(fns)</code></pre></div>
-<p><img src="collectRadiiData_files/figure-html/unnamed-chunk-13-1.png" width="449.511811023622"></p>
-<p>Aspects of the transects and points may be controlled with arguments to <code>showDigitezedData()</code>. For example, the code below uses different colors for two transects and points and a thicker line for each transect.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/showDigitizedImage.html">showDigitizedImage</a></span>(fns,<span class="dt">col.transect=</span><span class="kw">c</span>(<span class="st">"red"</span>,<span class="st">"yellow"</span>),
-                   <span class="dt">col.show=</span><span class="kw">c</span>(<span class="st">"yellow"</span>,<span class="st">"red"</span>),<span class="dt">lwd.transect=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="collectRadiiData_files/figure-html/unnamed-chunk-14-1.png" width="449.511811023622"></p>
-<p> </p>
-<p> </p>
-<hr>
 </div>
 <div id="multiplestructures" class="section level1">
 <h1 class="hasAnchor">
@@ -261,11 +214,11 @@ df
 <div id="file-organization" class="section level3">
 <h3 class="hasAnchor">
 <a href="#file-organization" class="anchor"></a>File Organization</h3>
-<p>Of course, most analyses will consist of collecting radial measurements from structures from many fish. In this section, I demonstrate how to combine measurements from multiple structures. This demonstration assumes that all structure image files of interest are in the current working directory.<a href="#fn12" class="footnoteRef" id="fnref12"><sup>12</sup></a></p>
-<p>The <code><a href="../../reference/listFiles.html">listFiles()</a></code> function (described in the previous section) is used to identify file names with the “jpg” extension.</p>
+<p>Of course, most analyses will consist of collecting radial measurements from structures from many fish. In this section, I demonstrate how to combine measurements from multiple structures. This demonstration assumes that all structure image files of interest are in the current working directory.</p>
+<p>The <code><a href="../../reference/listFiles.html">listFiles()</a></code> function may be used to identify all filenames in the current working directory that have the file extension given in the first argument. For example, below finds all file with the “jpg” extension.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/listFiles.html">listFiles</a></span>(<span class="st">"jpg"</span>)
 <span class="co">#&gt; [1] "Oto140306.jpg" "Scale_1.jpg"   "Scale_2.jpg"</span></code></pre></div>
-<p>In this case, however, this list needs to limited to only those files that contain the keyword “Scale”.</p>
+<p>This list of names can be further filtered by including other key words for the filenames in <code>other=</code>. In this case, this list needs to limited to only those files that contain the keyword “Scale”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">( fns &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/listFiles.html">listFiles</a></span>(<span class="st">"jpg"</span>,<span class="dt">other=</span><span class="st">"Scale"</span>) )
 <span class="co">#&gt; [1] "Scale_1.jpg" "Scale_2.jpg"</span></code></pre></div>
 </div>
@@ -280,56 +233,86 @@ df
 <div id="combining-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#combining-data" class="anchor"></a>Combining Data</h3>
-<p>Once all structure image files have been processed, the radial measurements can be combined into one data.frame with <code><a href="../../reference/combineData.html">combineData()</a></code>. The first argument to this function is a vector of RData file names, which can be constructed using <code><a href="../../reference/listFiles.html">listFiles()</a></code> with the <code>.RData</code> extension.</p>
+<p>Once all structure image files have been processed, the radial measurements can be combined into one data.frame with <code><a href="../../reference/combineData.html">combineData()</a></code>. The first argument to this function is a vector of RData file names, which can be constructed using <code><a href="../../reference/listFiles.html">listFiles()</a></code> with the <code>RData</code> extension.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/listFiles.html">listFiles</a></span>(<span class="st">"RData"</span>)
-<span class="co">#&gt; [1] "Scale_1_DHO.RData"  "Scale_1_DHO2.RData" "Scale_2_DHO.RData"</span></code></pre></div>
+<span class="co">#&gt; [1] "Oto140306_DHO.RData" "Scale_1_DHO.RData"   "Scale_1_DHO2.RData" </span>
+<span class="co">#&gt; [4] "Scale_2_DHO.RData"</span></code></pre></div>
 <p>However, I don’t want the “DHO2” file in this case. Thus I restricted the list of files to those that have “DHO.” in the name, but because the “.” is a special character it had to be preceded by “\”.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">( fns2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/listFiles.html">listFiles</a></span>(<span class="st">"RData"</span>,<span class="dt">other=</span><span class="st">"DHO</span><span class="ch">\\</span><span class="st">."</span>) )
-<span class="co">#&gt; [1] "Scale_1_DHO.RData" "Scale_2_DHO.RData"</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">( fns2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/listFiles.html">listFiles</a></span>(<span class="st">"RData"</span>,<span class="dt">other=</span><span class="kw">c</span>(<span class="st">"Scale"</span>,<span class="st">"DHO</span><span class="ch">\\</span><span class="st">."</span>)) )
+<span class="co">#&gt; [1] "Scale_1_DHO.RData"   "Scale_1_DHO2.RData"  "Scale_2_DHO.RData"  </span>
+<span class="co">#&gt; [4] "Oto140306_DHO.RData"</span></code></pre></div>
 <p>Finally, the data in these two files are combined and stored in <code>dfrad</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">( dfrad &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/combineData.html">combineData</a></span>(fns2) )
-<span class="co">#&gt;    ID reading ageCap ann       rad    radCap</span>
-<span class="co">#&gt; 1   1     DHO      5   1 0.2141602 0.5143776</span>
-<span class="co">#&gt; 2   1     DHO      5   2 0.2767637 0.5143776</span>
-<span class="co">#&gt; 3   1     DHO      5   3 0.3289998 0.5143776</span>
-<span class="co">#&gt; 4   1     DHO      5   4 0.4621417 0.5143776</span>
-<span class="co">#&gt; 5   1     DHO      5   5 0.4974369 0.5143776</span>
-<span class="co">#&gt; 6   1     DHO      5   6 0.5143776 0.5143776</span>
-<span class="co">#&gt; 7   2     DHO      4   1 0.1665271 0.4385261</span>
-<span class="co">#&gt; 8   2     DHO      4   2 0.2341519 0.4385261</span>
-<span class="co">#&gt; 9   2     DHO      4   3 0.3220884 0.4385261</span>
-<span class="co">#&gt; 10  2     DHO      4   4 0.3888447 0.4385261</span>
-<span class="co">#&gt; 11  2     DHO      4   5 0.4385261 0.4385261</span></code></pre></div>
+<span class="co">#&gt;        ID reading ageCap ann       rad    radCap</span>
+<span class="co">#&gt; 1       1     DHO      5   1 0.2153433 0.5148931</span>
+<span class="co">#&gt; 2       1     DHO      5   2 0.2800724 0.5148931</span>
+<span class="co">#&gt; 3       1     DHO      5   3 0.3463049 0.5148931</span>
+<span class="co">#&gt; 4       1     DHO      5   4 0.4561213 0.5148931</span>
+<span class="co">#&gt; 5       1     DHO      5   5 0.4938544 0.5148931</span>
+<span class="co">#&gt; 6       1     DHO      5   6 0.5148931 0.5148931</span>
+<span class="co">#&gt; 7       1    DHO2      5   1 0.2326951 0.5073540</span>
+<span class="co">#&gt; 8       1    DHO2      5   2 0.3005414 0.5073540</span>
+<span class="co">#&gt; 9       1    DHO2      5   3 0.3596745 0.5073540</span>
+<span class="co">#&gt; 10      1    DHO2      5   4 0.4479521 0.5073540</span>
+<span class="co">#&gt; 11      1    DHO2      5   5 0.4871930 0.5073540</span>
+<span class="co">#&gt; 12      1    DHO2      5   6 0.5073540 0.5073540</span>
+<span class="co">#&gt; 13      2     DHO      5   1 0.1520968 0.4281902</span>
+<span class="co">#&gt; 14      2     DHO      5   2 0.2402269 0.4281902</span>
+<span class="co">#&gt; 15      2     DHO      5   3 0.3133114 0.4281902</span>
+<span class="co">#&gt; 16      2     DHO      5   4 0.3794231 0.4281902</span>
+<span class="co">#&gt; 17      2     DHO      5   5 0.4129914 0.4281902</span>
+<span class="co">#&gt; 18      2     DHO      5   6 0.4281902 0.4281902</span>
+<span class="co">#&gt; 19 140306     DHO     12   1 0.4264316 1.2507553</span>
+<span class="co">#&gt; 20 140306     DHO     12   2 0.5878226 1.2507553</span>
+<span class="co">#&gt; 21 140306     DHO     12   3 0.7075718 1.2507553</span>
+<span class="co">#&gt; 22 140306     DHO     12   4 0.8354373 1.2507553</span>
+<span class="co">#&gt; 23 140306     DHO     12   5 0.9286576 1.2507553</span>
+<span class="co">#&gt; 24 140306     DHO     12   6 0.9981552 1.2507553</span>
+<span class="co">#&gt; 25 140306     DHO     12   7 1.0519184 1.2507553</span>
+<span class="co">#&gt; 26 140306     DHO     12   8 1.0960042 1.2507553</span>
+<span class="co">#&gt; 27 140306     DHO     12   9 1.1560459 1.2507553</span>
+<span class="co">#&gt; 28 140306     DHO     12  10 1.1797707 1.2507553</span>
+<span class="co">#&gt; 29 140306     DHO     12  11 1.2209475 1.2507553</span>
+<span class="co">#&gt; 30 140306     DHO     12  12 1.2507553 1.2507553</span></code></pre></div>
 </div>
 <div id="output-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#output-data" class="anchor"></a>Output Data</h3>
-<p>Other information about the fish (e.g., location of capture, length, sex) is likely held in a separate file. Below, example “other” data are loaded into the <code>dffish</code> data.frame. Note that the <code>ID</code> and <code>reading</code> variables created from processing the structure images above are characters. In this case, <code>read.csv()</code> reads the <code>ID</code> variable from the external data file as numeric (because the unique IDs were simple numbers). The second line of code below converts these numeric IDs to characters so that this data.frame can be joined with the radial measurements data.frame from above.<a href="#fn13" class="footnoteRef" id="fnref13"><sup>13</sup></a></p>
+<p>Other information about the fish (e.g., location of capture, length, sex) is likely held in a separate file. Below, example “other” data are loaded into the <code>dffish</code> data.frame. Note that the <code>ID</code> and <code>reading</code> variables created from processing the structure images above are characters. In this case, <code>read.csv()</code> reads the <code>ID</code> variable from the external data file as numeric (because the unique IDs were simple numbers). The second line of code below converts these numeric IDs to characters so that this data.frame can be joined with the radial measurements data.frame from above.<a href="#fn10" class="footnoteRef" id="fnref10"><sup>10</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dffish &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">"FishData.csv"</span>,<span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ID=</span><span class="kw">as.character</span>(ID)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">inner_join</span>(dfrad,<span class="dt">by=</span><span class="st">"ID"</span>)
 dffish
 <span class="co">#&gt;    ID  loc sex len reading ageCap ann       rad    radCap</span>
-<span class="co">#&gt; 1   1 MI-5   M 189     DHO      5   1 0.2141602 0.5143776</span>
-<span class="co">#&gt; 2   1 MI-5   M 189     DHO      5   2 0.2767637 0.5143776</span>
-<span class="co">#&gt; 3   1 MI-5   M 189     DHO      5   3 0.3289998 0.5143776</span>
-<span class="co">#&gt; 4   1 MI-5   M 189     DHO      5   4 0.4621417 0.5143776</span>
-<span class="co">#&gt; 5   1 MI-5   M 189     DHO      5   5 0.4974369 0.5143776</span>
-<span class="co">#&gt; 6   1 MI-5   M 189     DHO      5   6 0.5143776 0.5143776</span>
-<span class="co">#&gt; 7   2 MI-6   F 210     DHO      4   1 0.1665271 0.4385261</span>
-<span class="co">#&gt; 8   2 MI-6   F 210     DHO      4   2 0.2341519 0.4385261</span>
-<span class="co">#&gt; 9   2 MI-6   F 210     DHO      4   3 0.3220884 0.4385261</span>
-<span class="co">#&gt; 10  2 MI-6   F 210     DHO      4   4 0.3888447 0.4385261</span>
-<span class="co">#&gt; 11  2 MI-6   F 210     DHO      4   5 0.4385261 0.4385261</span></code></pre></div>
+<span class="co">#&gt; 1   1 MI-5   M 189     DHO      5   1 0.2153433 0.5148931</span>
+<span class="co">#&gt; 2   1 MI-5   M 189     DHO      5   2 0.2800724 0.5148931</span>
+<span class="co">#&gt; 3   1 MI-5   M 189     DHO      5   3 0.3463049 0.5148931</span>
+<span class="co">#&gt; 4   1 MI-5   M 189     DHO      5   4 0.4561213 0.5148931</span>
+<span class="co">#&gt; 5   1 MI-5   M 189     DHO      5   5 0.4938544 0.5148931</span>
+<span class="co">#&gt; 6   1 MI-5   M 189     DHO      5   6 0.5148931 0.5148931</span>
+<span class="co">#&gt; 7   1 MI-5   M 189    DHO2      5   1 0.2326951 0.5073540</span>
+<span class="co">#&gt; 8   1 MI-5   M 189    DHO2      5   2 0.3005414 0.5073540</span>
+<span class="co">#&gt; 9   1 MI-5   M 189    DHO2      5   3 0.3596745 0.5073540</span>
+<span class="co">#&gt; 10  1 MI-5   M 189    DHO2      5   4 0.4479521 0.5073540</span>
+<span class="co">#&gt; 11  1 MI-5   M 189    DHO2      5   5 0.4871930 0.5073540</span>
+<span class="co">#&gt; 12  1 MI-5   M 189    DHO2      5   6 0.5073540 0.5073540</span>
+<span class="co">#&gt; 13  2 MI-6   F 210     DHO      5   1 0.1520968 0.4281902</span>
+<span class="co">#&gt; 14  2 MI-6   F 210     DHO      5   2 0.2402269 0.4281902</span>
+<span class="co">#&gt; 15  2 MI-6   F 210     DHO      5   3 0.3133114 0.4281902</span>
+<span class="co">#&gt; 16  2 MI-6   F 210     DHO      5   4 0.3794231 0.4281902</span>
+<span class="co">#&gt; 17  2 MI-6   F 210     DHO      5   5 0.4129914 0.4281902</span>
+<span class="co">#&gt; 18  2 MI-6   F 210     DHO      5   6 0.4281902 0.4281902</span></code></pre></div>
 <p>Some people prefer that the data be presented in “one-fish-per-line” rather than “one-measurement-per-line” (as in <code>dffish</code>) format. The one-measurement-per-line data.frame can be converted to one-fish-per-line by including it as the first argument to <code>spread()</code>. In addition, the variable name that identifies the annuli number must be included in <code>key=</code> and variable name that identifies the radial measurements must be included in <code>value=</code>. The <code>sep=</code> argument is used here as well so that the column names in the resultant data.frame are not simply numbers. In this case, the new variable names will be a combination of the variable name in <code>key=</code>, the string in <code>sep=</code>, and the numbers in the <code>value=</code> variable.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dffish2 &lt;-<span class="st"> </span><span class="kw">spread</span>(dffish,<span class="dt">key=</span>ann,<span class="dt">value=</span>rad,<span class="dt">sep=</span><span class="st">"rad"</span>)
 dffish2
 <span class="co">#&gt;   ID  loc sex len reading ageCap    radCap   annrad1   annrad2   annrad3</span>
-<span class="co">#&gt; 1  1 MI-5   M 189     DHO      5 0.5143776 0.2141602 0.2767637 0.3289998</span>
-<span class="co">#&gt; 2  2 MI-6   F 210     DHO      4 0.4385261 0.1665271 0.2341519 0.3220884</span>
+<span class="co">#&gt; 1  1 MI-5   M 189     DHO      5 0.5148931 0.2153433 0.2800724 0.3463049</span>
+<span class="co">#&gt; 2  1 MI-5   M 189    DHO2      5 0.5073540 0.2326951 0.3005414 0.3596745</span>
+<span class="co">#&gt; 3  2 MI-6   F 210     DHO      5 0.4281902 0.1520968 0.2402269 0.3133114</span>
 <span class="co">#&gt;     annrad4   annrad5   annrad6</span>
-<span class="co">#&gt; 1 0.4621417 0.4974369 0.5143776</span>
-<span class="co">#&gt; 2 0.3888447 0.4385261        NA</span></code></pre></div>
+<span class="co">#&gt; 1 0.4561213 0.4938544 0.5148931</span>
+<span class="co">#&gt; 2 0.4479521 0.4871930 0.5073540</span>
+<span class="co">#&gt; 3 0.3794231 0.4129914 0.4281902</span></code></pre></div>
 <p>Either file can be written to a “comma-separated values” (CSV) file with <code>write.csv()</code> using the R object name (e.g., <code>dffish</code> or <code>dffish2</code> as the first argument and a name for the file in <code>file=</code>. Additionally, I prefer to have non-quoted values by using <code>quote=FALSE</code> and no row names by using <code>row.names=FALSE</code>. For example, the “one-measurement-per-line” data can be output to “Kiyi2014_BCs.csv” as follows.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write.csv</span>(dffish,<span class="dt">file=</span><span class="st">"Kiyi2014_BCs.csv"</span>,<span class="dt">quote=</span><span class="ot">FALSE</span>,<span class="dt">row.names=</span><span class="ot">FALSE</span>)</code></pre></div>
 <p>CSV files are small, portable, and can be opened directly in most spreadsheet softwares.</p>
@@ -359,16 +342,13 @@ dffish2
 <li id="fn1"><p>My preference is to start a script that will contain all of the code described later in this vignette. If this script is saved to the same directory with the structure images then the working directory can be set in RStudio with the Session … Set Working Directory … to Source File Location menu items. I then copy the resultant <code>setwd()</code> code to my script so that I do not have to use the menu items when I run this script again.<a href="#fnref1">↩</a></p></li>
 <li id="fn2"><p>This assumes that the <code>Scale_1.jpg</code> file is in the current working directory. You can see what the current working directory is with <code>getwd()</code>.<a href="#fnref2">↩</a></p></li>
 <li id="fn3"><p>Actually much more than the radial measurements are recorded in the RData file (discussed further below). Also note that the radii are on an arbitrary scale in this case because no scale-bar was available on the image.<a href="#fnref3">↩</a></p></li>
-<li id="fn4"><p>The <code>readings</code> item is primarily used when the structure is read more than once. However, it is a required component in this package, whether multiple reads of the same structure are planned or not.<a href="#fnref4">↩</a></p></li>
+<li id="fn4"><p>The <code>reading=</code> argument is primarily used when the structure is read more than once. However, I suggest giving a descriptive label to <code>reading=</code> even if there are no plans to read the structure again in the future.<a href="#fnref4">↩</a></p></li>
 <li id="fn5"><p>The extension (e.g., “png” or “jpg”) will not be included in the resultant R data object file.<a href="#fnref5">↩</a></p></li>
 <li id="fn6"><p>Some back-calculation methods require knowing the relationship between actual scale length and fish length. See <a href="backcalculation.html">this vignette</a> for more details.<a href="#fnref6">↩</a></p></li>
 <li id="fn7"><p>Thus, <code>findScalingFactor()</code> would be run prior to <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>.<a href="#fnref7">↩</a></p></li>
-<li id="fn8"><p>When the structure image is in the “Plots” pane of RStudio, the points will not be visible until after you have finished selecting all points.<a href="#fnref8">↩</a></p></li>
+<li id="fn8"><p>When the structure image is in the “Plots” pane of RStudio, the points will not be visible until after you have finished selecting all points. This is one of the reasons why I prefer to use <code>sepWindow=TRUE</code>.<a href="#fnref8">↩</a></p></li>
 <li id="fn9"><p>For example, you could have R/RStudio on one monitor and the window with the structure image on the other.<a href="#fnref9">↩</a></p></li>
-<li id="fn10"><p>If no file name is given, then a dialog box will appear from which the data file can be selected.<a href="#fnref10">↩</a></p></li>
-<li id="fn11"><p>The first set of readings were made in the first section above.<a href="#fnref11">↩</a></p></li>
-<li id="fn12"><p>This process will be more efficient if not other image files of the same sort (e.g., “.jpg”) are in this directory. The working directory may be seen with <code>getwd()</code> and set with <code>setwd()</code> or any of the items under the “Session” menu and “Set Working Directory” submenu items in RStudio.<a href="#fnref12">↩</a></p></li>
-<li id="fn13"><p>The two files cannot be joined by the “ID” variable if the “ID” variables are of different types (e.g., character and numeric) in the two files. Thus, as shown here, they must be coerced to be the same type. This line of code would no be needed if the “ID” variables were of the same type in the two files as would likely occur if the “ID” variable was not simply numbers.<a href="#fnref13">↩</a></p></li>
+<li id="fn10"><p>The two files cannot be joined by the “ID” variable if the “ID” variables are of different types (e.g., character and numeric) in the two files. Thus, as shown here, they must be coerced to be the same type. This line of code would no be needed if the “ID” variables were of the same type in the two files as would likely occur if the “ID” variable was not simply numbers.<a href="#fnref10">↩</a></p></li>
 </ol>
 </div>
   </div>
@@ -381,8 +361,6 @@ dffish2
 <li><a href="#introduction">Introduction</a></li>
       <li><a href="#assumptions">Assumptions</a></li>
       <li><a href="#measurereadii">Measure Radii</a></li>
-      <li><a href="#examine-radii-data">Examine Radii Data</a></li>
-      <li><a href="#examine-multiple-readings">Examine Multiple Readings</a></li>
       <li><a href="#multiplestructures">Combine Data from Multiple Structures</a></li>
       <li><a href="#references">References</a></li>
       <li><a href="#footnotes">Footnotes</a></li>
