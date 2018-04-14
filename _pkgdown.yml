@@ -1,0 +1,38 @@
+title: RFishBC
+
+authors:
+  Derek H. Ogle:
+    href: http://derekogle.com
+    
+template:
+  params:
+    bootswatch: spacelab
+  
+development:
+  mode: unreleased
+  
+reference:
+  - title: Collect Radii Data
+    desc: Functions to aid collecting, viewing, and outputting radial measurements from Structure Images
+    contents:
+      - RFBCoptions
+      - digitizeRadii
+      - showDigitizedImage
+      - combineData
+      - listFiles
+  - title: Back-calculation
+    desc: Functions to aid back-calculation of lengths at previous ages
+    contents:
+      - bcFuns
+
+navbar:
+  type: inverse
+  left:
+    - icon: fa-home
+      href: index.html
+    - text: Vignettes
+      menu:
+        - text: Collect Radii Data
+          href: articles/MeasureRadii/collectRadiiData.html
+    - text: Reference
+      href: reference/index.html

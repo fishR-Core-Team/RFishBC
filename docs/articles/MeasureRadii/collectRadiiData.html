@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Collect radial measurements from a calcified structure by interactively selecting annuli • RFishBC</title>
-<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
 <script src="../../jquery.sticky-kit.min.js"></script><script src="../../pkgdown.js"></script><meta property="og:title" content="Collect radial measurements from a calcified structure by interactively selecting annuli">
@@ -19,7 +19,7 @@
 </head>
 <body>
     <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <header><div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">RFishBC</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.0.9000</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.0.9000</span>
       </span>
     </div>
 
@@ -37,24 +37,24 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
-<li>
-  <a href="../../reference/index.html">Reference</a>
-</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    Vignettes
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../../articles/MeasureRadii/collectRadiiData.html">Collect radial measurements from a calcified structure by interactively selecting annuli</a>
+      <a href="../../articles/MeasureRadii/collectRadiiData.html">Collect Radii Data</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../../reference/index.html">Reference</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -88,8 +88,6 @@
 
     
     
-<p> </p>
-<hr>
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
@@ -98,18 +96,18 @@
 <p> </p>
 <hr>
 </div>
-<div id="vignette-assumptions" class="section level1">
+<div id="assumptions" class="section level1">
 <h1 class="hasAnchor">
-<a href="#vignette-assumptions" class="anchor"></a>Vignette Assumptions</h1>
-<div id="understand-back-calculation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#understand-back-calculation" class="anchor"></a>Understand Back-Calculation</h2>
+<a href="#assumptions" class="anchor"></a>Assumptions</h1>
+<div id="understand-back-calculation" class="section level3">
+<h3 class="hasAnchor">
+<a href="#understand-back-calculation" class="anchor"></a>Understand Back-Calculation</h3>
 <p>This vignette assumes that you have a basic understanding of back-calculating fish length at previous ages. See <a href="https://www.researchgate.net/publication/226394736_The_Back-Calculation_of_Fish_Growth_From_Otoliths">Vigliola and Meekan (2009)</a> and Section 11.2.3.1 in Shoup and Michaeletz (2017) for thorough introductions to this topic.</p>
 <p>You should be aware of two foundational definitions related to measuring radii on calcified structures. First, <strong>calcified structures</strong> are scales, spines, fin rays, otoliths, or other bones from fish that can be processed in such a way as to show marks that represent annuli, or yearly benchmarks. Hereafter, “structure” will refer to “calcified structure.” Second, <strong>radii</strong> are sequential measurements from the focus (i.e., center) of the structure to the annuli, usually along a linear transect from the focus to the margin (i.e., edge) of the structure. Radii are in contrast to increments, which are the distance between successive annuli along the transect.</p>
 </div>
-<div id="static-structure-images" class="section level2">
-<h2 class="hasAnchor">
-<a href="#static-structure-images" class="anchor"></a>Static Structure Images</h2>
+<div id="static-structure-images" class="section level3">
+<h3 class="hasAnchor">
+<a href="#static-structure-images" class="anchor"></a>Static Structure Images</h3>
 <p>This vignette also assumes that you can capture a static digital image of a structure. The image must be a jpeg (.jpg), portable network graphics (.png), or bitmap (.bmp) format. Images will usually be obtained from a camera mounted on a microscope and connected to a computer. Below is a sample image of a fish scale.</p>
 <div class="figure">
 <img src="Scale_1.jpg">
@@ -123,9 +121,9 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">"c:/work/aging/Kiyi2014"</span>)</code></pre></div>
 <p>Finally, note that the process described herein will produce one R data object files (.RData files; hereafter called “RData file”) for each set of measurements made on a structure images. These data files will be saved in the same directory that has the structure image files. I suggest keeping the RData and corresponding structure image files together at all times as the RData file serves as an archive of the data collected from each image.</p>
 </div>
-<div id="r-packages" class="section level2">
-<h2 class="hasAnchor">
-<a href="#r-packages" class="anchor"></a>R Packages</h2>
+<div id="r-packages" class="section level3">
+<h3 class="hasAnchor">
+<a href="#r-packages" class="anchor"></a>R Packages</h3>
 <p>Finally, the methods described in this vignette require the following packages.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RFishBC)
 <span class="kw">library</span>(dplyr)    <span class="co"># for mutate(), inner_join()</span>
@@ -134,9 +132,9 @@
 <hr>
 </div>
 </div>
-<div id="collectdata" class="section level1">
+<div id="measurereadii" class="section level1">
 <h1 class="hasAnchor">
-<a href="#collectdata" class="anchor"></a>Collect Radii Data from the Structure Image</h1>
+<a href="#measurereadii" class="anchor"></a>Measure Radii</h1>
 <p>The <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> function is used to</p>
 <ol style="list-style-type: decimal">
 <li>Load an image of a structure.</li>
@@ -147,9 +145,9 @@
 <p>For example (<em>but described thoroughly further below</em>), the line below identifies “Scale_1.jpg” as the structure image, this fish has an identification number of “1”, this reading of the image should be labelled as “DHO”, and edge should be considered as annulus. When this line is run it will open the image<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>, allow the user to select points that represent annuli, and save radial measurements in “Scale_1_DHO.Rdata”.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/digitizeRadii.html">digitizeRadii</a></span>(<span class="st">"Scale_1.jpg"</span>,<span class="dt">ID=</span><span class="st">"1"</span>,<span class="dt">reading=</span><span class="st">"DHO"</span>,<span class="dt">edgeIsAnnulus=</span><span class="ot">FALSE</span>)</code></pre></div>
 <p>Further specifics of <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> and its many arguments are described below.</p>
-<div id="the-basics" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-basics" class="anchor"></a>The Basics</h2>
+<div id="basics" class="section level3">
+<h3 class="hasAnchor">
+<a href="#basics" class="anchor"></a>Basics</h3>
 <p>The first several arguments to <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> are related to information about the structure.</p>
 <ul>
 <li>
@@ -167,22 +165,22 @@
 <p>The RData file that will be created after the annuli have been selected will have the same name as the image file<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a> but including the suffix optionally provided in <code>suffix=</code>. If nothing is given in <code>suffix=</code>, then a suffix will be created from <code>reading=</code>. For example, if the structure image file was named “Scale_1.jpg”, then the resultant RData file will be named “Scale_1_DHO.Rdata” if <code>reading="DHO"</code> or “Scale_1_TESTING.Rdata” if <code>reading="DHO"</code> and <code>suffix="TESTING"</code>.</p>
 <p>Some fish will be captured at a time of year when growth for the current season has not commenced and, thus, the margin of the structure is considered to be an annulus. Other fish may be captured when growth has commence for the season (but not yet completed) such that the structure margin is not considered to be an annulus. If the scale margin is considered an annulus, then use <code>edgeIsAnnulus=TRUE</code>. If the scale margin is not considered an annulus, then use <code>edgeIsAnnulus=FALSE</code>. Identifying whether the structure margin is an annulus or not is critical to properly recording radial measurements. As such, there is no default value for this argument (i.e., it <strong>MUST</strong> be set by the user).</p>
 </div>
-<div id="setting-the-scale-on-the-image" class="section level2">
-<h2 class="hasAnchor">
-<a href="#setting-the-scale-on-the-image" class="anchor"></a>Setting the Scale on the Image</h2>
+<div id="setting-the-scale" class="section level3">
+<h3 class="hasAnchor">
+<a href="#setting-the-scale" class="anchor"></a>Setting the Scale</h3>
 <p>If actual lengths, rather than arbitrary (but proportional) lengths are needed,<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a> then a scaling factor must exist to convert measurements on the image to actual measurements on the structure. This scaling factor may be calculated from a scale-bar found on the image or provided by the user.</p>
 <p><strong>Scale-bar On Image:</strong> If a scale-bar of known length exists on the image, then use <code>scaleBar=TRUE</code> with the actual length of the scale bar given in <code>scaleBarLength=</code>. You will then need to select the two end points of the scale-bar on the structure image prior to selecting points that represent annuli. An appropriate scaling factor will then be computed from your selections and the radial measurements will be converted to the actual scale (see further below).</p>
 <p><strong>Separately Define Scaling Factor:</strong> In applications where a scale-bar does not exist on the image, the user can provide a value to <code>scalingFactor=</code> which will be used to multiply lengths on the structure image to derived actual lengths. One way to derive this scaling factor values is to capture an image of the structure at a specific magnification on the microscope and then capture an image of an object of known length at that same magnification. A scaling factor may then be computed from the image with the object of known length and applied to the structure image. This scaling factor can be found by giving <code>findScalingFactor()</code> the file name with the object of known length and that known length in <code>knownLength=</code>. The value returned from <code>findScalingFactor()</code> can then be given to <code>scalingFactor=</code> in <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>.<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a></p>
 <p>If no <code>scalingFactor=</code> is given or derived from a scale-bar, then the radial measurements returned by <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> are simply proportional to the unknown actual lengths on the structure.</p>
 </div>
-<div id="selecting-annuli-on-the-image" class="section level2">
-<h2 class="hasAnchor">
-<a href="#selecting-annuli-on-the-image" class="anchor"></a>Selecting Annuli on the Image</h2>
+<div id="selecting-annuli" class="section level3">
+<h3 class="hasAnchor">
+<a href="#selecting-annuli" class="anchor"></a>Selecting Annuli</h3>
 <p>The user will then be asked to select points on the structure image that represent annuli. However, <strong>the point that represents the focus must be selected first, followed by the structure margin/edge</strong>.<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a> If <code>addTransect=TRUE</code> (the default behavior), then a line will be drawn between these two points to aid marking the annuli. When the last point has been selected, the user must press the ESCape key in Windows or with Mac OS X (or, in Windows, select STOP in the menu on the structure image window).</p>
 </div>
-<div id="setoptions1" class="section level2">
-<h2 class="hasAnchor">
-<a href="#setoptions1" class="anchor"></a>Other Arguments for <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> &amp; Setting them for a Session</h2>
+<div id="setoptions1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#setoptions1" class="anchor"></a>Setting digitizeRadii() Arguments for Session</h3>
 <p>The <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> function has several optional arguments not discussed above. Some arguments that are likely to be commonly used are:</p>
 <ul>
 <li>By default, each image file is opened in a separate window, which helps avoid issues with the RStudio Plots pane and is especially useful when working on a system with two monitors.<a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a> This window is also configured so that when it is resized, the shape of the structure image (i.e., its aspect ratio) will not change. One can suppress showing the structure image in a separate window with <code>sepWindow=FALSE</code>.</li>
@@ -209,12 +207,12 @@
 <div id="examine-radii-data" class="section level1">
 <h1 class="hasAnchor">
 <a href="#examine-radii-data" class="anchor"></a>Examine Radii Data</h1>
-<div id="data-frame-of-radii-measurements" class="section level2">
-<h2 class="hasAnchor">
-<a href="#data-frame-of-radii-measurements" class="anchor"></a>Data.frame of Radii Measurements</h2>
-<p>The result from <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> (see <a href="#collectdata">Section 2</a>) is an RData file in the current working directory. Among other things, this data file contains a data.frame of radial measurements to successive annuli that can be extracted with <code><a href="../../reference/combineData.html">combineData()</a></code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/combineData.html">combineData</a></span>(<span class="st">"Scale_1_DHO.RData"</span>)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df
+<div id="data-frame" class="section level3">
+<h3 class="hasAnchor">
+<a href="#data-frame" class="anchor"></a>Data.frame</h3>
+<p>The result from <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> (see <a href="#measurereadii">Measure Radii</a>) is an RData file in the current working directory. Among other things, this data file contains a data.frame of radial measurements to successive annuli that can be extracted with <code><a href="../../reference/combineData.html">combineData()</a></code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/combineData.html">combineData</a></span>(<span class="st">"Scale_1_DHO.RData"</span>)
+df
 <span class="co">#&gt;   ID reading ageCap ann       rad    radCap</span>
 <span class="co">#&gt; 1  1     DHO      5   1 0.2141602 0.5143776</span>
 <span class="co">#&gt; 2  1     DHO      5   2 0.2767637 0.5143776</span>
@@ -222,22 +220,22 @@
 <span class="co">#&gt; 4  1     DHO      5   4 0.4621417 0.5143776</span>
 <span class="co">#&gt; 5  1     DHO      5   5 0.4974369 0.5143776</span>
 <span class="co">#&gt; 6  1     DHO      5   6 0.5143776 0.5143776</span></code></pre></div>
-<p>The <code><a href="../../reference/combineData.html">combineData()</a></code> function is more interesting when considering multiple structures (see <a href="#multiplestructures">Section 6</a>).</p>
+<p>The <code><a href="../../reference/combineData.html">combineData()</a></code> function is more interesting when considering multiple structures (see <a href="#multiplestructures">Combine Data</a>).</p>
 </div>
-<div id="visualize-annular-markings" class="section level2">
-<h2 class="hasAnchor">
-<a href="#visualize-annular-markings" class="anchor"></a>Visualize Annular Markings</h2>
-<p>One can review the markings on a structure with <code><a href="../../reference/showDigitizedImage.html">showDigitizedImage()</a></code>, which requires only the name of an RData file.<a href="#fn10" class="footnoteRef" id="fnref10"><sup>10</sup></a> The plotting character, color, and relative size of the selected points may be changed with <code>pch.show=</code>, <code>col.show=</code>, and <code>cex.show=</code>. The color and width of the “transect” may be changed with <code>col.transect=</code> and <code>lwd.transect=</code> or excluded altogether with <code>showTransect=FALSE</code>. Defaults for these arguments can be set with <code><a href="../../reference/RFBCoptions.html">RFBCoptions()</a></code> as was demonstrated in <a href="#setoptions1">Section 3.4</a></p>
+<div id="visualize-on-image" class="section level3">
+<h3 class="hasAnchor">
+<a href="#visualize-on-image" class="anchor"></a>Visualize on Image</h3>
+<p>One can review the markings on a structure with <code><a href="../../reference/showDigitizedImage.html">showDigitizedImage()</a></code>, which requires only the name of an RData file.<a href="#fn10" class="footnoteRef" id="fnref10"><sup>10</sup></a> The plotting character, color, and relative size of the selected points may be changed with <code>pch.show=</code>, <code>col.show=</code>, and <code>cex.show=</code>. The color and width of the “transect” may be changed with <code>col.transect=</code> and <code>lwd.transect=</code> or excluded altogether with <code>showTransect=FALSE</code>. Defaults for these arguments can be set with <code><a href="../../reference/RFBCoptions.html">RFBCoptions()</a></code> as was demonstrated in <a href="#setoptions1">Setting Arguments</a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/showDigitizedImage.html">showDigitizedImage</a></span>(<span class="st">"Scale_1_DHO.RData"</span>)</code></pre></div>
-<p><img src="collectRadiiData_files/figure-html/unnamed-chunk-12-1.png" width="449.511811023622"></p>
+<p><img src="collectRadiiData_files/figure-html/unnamed-chunk-9-1.png" width="449.511811023622"></p>
 <p> </p>
 <p> </p>
 <hr>
 </div>
 </div>
-<div id="examine-multiple-reads-of-the-same-structure" class="section level1">
+<div id="examine-multiple-readings" class="section level1">
 <h1 class="hasAnchor">
-<a href="#examine-multiple-reads-of-the-same-structure" class="anchor"></a>Examine Multiple Reads of the Same Structure</h1>
+<a href="#examine-multiple-readings" class="anchor"></a>Examine Multiple Readings</h1>
 <p>In some instances, one may be interested in visually comparing the selected points from multiple readings of the same structure. For example, the code below was used to collect a second set of points for the “Scale_1.jpg” image.<a href="#fn11" class="footnoteRef" id="fnref11"><sup>11</sup></a> Note the different value in <code>reading=</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/digitizeRadii.html">digitizeRadii</a></span>(<span class="st">"Scale_1.jpg"</span>,<span class="dt">ID=</span><span class="st">"1"</span>,<span class="dt">reading=</span><span class="st">"DHO2"</span>,<span class="dt">edgeIsAnnulus=</span><span class="ot">FALSE</span>)</code></pre></div>
 <p>The <code><a href="../../reference/showDigitizedImage.html">showDigitizedImage()</a></code> function described above can also used to overlay annular points from multiple readings of the same structure. This requires a vector of RData file names from the same structure as the first argument. The <code><a href="../../reference/listFiles.html">listFiles()</a></code> function may be used to identify all filenames in the current working directory that have a the file extension given in the first argument. For example, all files with the “RData” extension are found below.</p>
@@ -248,11 +246,11 @@
 <span class="co">#&gt; [1] "Scale_1_DHO.RData"  "Scale_1_DHO2.RData"</span></code></pre></div>
 <p>The multiple readings of “Scale_1” can be seen by giving this set of filenames to <code><a href="../../reference/showDigitizedImage.html">showDigitizedImage()</a></code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/showDigitizedImage.html">showDigitizedImage</a></span>(fns)</code></pre></div>
-<p><img src="collectRadiiData_files/figure-html/unnamed-chunk-16-1.png" width="449.511811023622"></p>
+<p><img src="collectRadiiData_files/figure-html/unnamed-chunk-13-1.png" width="449.511811023622"></p>
 <p>Aspects of the transects and points may be controlled with arguments to <code>showDigitezedData()</code>. For example, the code below uses different colors for two transects and points and a thicker line for each transect.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/showDigitizedImage.html">showDigitizedImage</a></span>(fns,<span class="dt">col.transect=</span><span class="kw">c</span>(<span class="st">"red"</span>,<span class="st">"yellow"</span>),
                    <span class="dt">col.show=</span><span class="kw">c</span>(<span class="st">"yellow"</span>,<span class="st">"red"</span>),<span class="dt">lwd.transect=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="collectRadiiData_files/figure-html/unnamed-chunk-17-1.png" width="449.511811023622"></p>
+<p><img src="collectRadiiData_files/figure-html/unnamed-chunk-14-1.png" width="449.511811023622"></p>
 <p> </p>
 <p> </p>
 <hr>
@@ -260,9 +258,9 @@
 <div id="multiplestructures" class="section level1">
 <h1 class="hasAnchor">
 <a href="#multiplestructures" class="anchor"></a>Combine Data from Multiple Structures</h1>
-<div id="file-organization" class="section level2">
-<h2 class="hasAnchor">
-<a href="#file-organization" class="anchor"></a>File Organization</h2>
+<div id="file-organization" class="section level3">
+<h3 class="hasAnchor">
+<a href="#file-organization" class="anchor"></a>File Organization</h3>
 <p>Of course, most analyses will consist of collecting radial measurements from structures from many fish. In this section, I demonstrate how to combine measurements from multiple structures. This demonstration assumes that all structure image files of interest are in the current working directory.<a href="#fn12" class="footnoteRef" id="fnref12"><sup>12</sup></a></p>
 <p>The <code><a href="../../reference/listFiles.html">listFiles()</a></code> function (described in the previous section) is used to identify file names with the “jpg” extension.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/listFiles.html">listFiles</a></span>(<span class="st">"jpg"</span>)
@@ -271,17 +269,17 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">( fns &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/listFiles.html">listFiles</a></span>(<span class="st">"jpg"</span>,<span class="dt">other=</span><span class="st">"Scale"</span>) )
 <span class="co">#&gt; [1] "Scale_1.jpg" "Scale_2.jpg"</span></code></pre></div>
 </div>
-<div id="processing-multiple-structure-images" class="section level2">
-<h2 class="hasAnchor">
-<a href="#processing-multiple-structure-images" class="anchor"></a>Processing Multiple Structure Images</h2>
-<p>The user would then process each structure in the working directory as described in <a href="#collectdata">Section 1</a>. This will require multiple calls to <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>, each with a different structure image file name. If the file names are stored in an object as show above, then these names can be extracted by their position in the object. For example, <code>fns[1]</code> identifies the first filename in <code>fns</code> (i.e., “Scale_1.jpg”). The <code>ID=</code> argument should change to represent the unique identification number of each fish. Finally, <code><a href="../../reference/RFBCoptions.html">RFBCoptions()</a></code> can be used to change default values for some arguments as described in <a href="#setoptions1">Section 3.4</a> and shown below for the <code>reading=</code> and <code>edgeIsAnnlus=</code> arguments.</p>
+<div id="processing-images" class="section level3">
+<h3 class="hasAnchor">
+<a href="#processing-images" class="anchor"></a>Processing Images</h3>
+<p>The user would then process each structure in the working directory as described in <a href="#measurereadii">Measure Radii</a>. This will require multiple calls to <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>, each with a different structure image file name. If the file names are stored in an object as show above, then these names can be extracted by their position in the object. For example, <code>fns[1]</code> identifies the first filename in <code>fns</code> (i.e., “Scale_1.jpg”). The <code>ID=</code> argument should change to represent the unique identification number of each fish. Finally, <code><a href="../../reference/RFBCoptions.html">RFBCoptions()</a></code> can be used to change default values for some arguments as described in <a href="#setoptions1">Setting Arguments</a> and shown below for the <code>reading=</code> and <code>edgeIsAnnlus=</code> arguments.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/RFBCoptions.html">RFBCoptions</a></span>(<span class="dt">reading=</span><span class="st">"DHO"</span>,<span class="dt">edgeIsAnnulus=</span><span class="ot">FALSE</span>)
 <span class="kw"><a href="../../reference/digitizeRadii.html">digitizeRadii</a></span>(fns[<span class="dv">1</span>],<span class="dt">ID=</span><span class="st">"1"</span>)
 <span class="kw"><a href="../../reference/digitizeRadii.html">digitizeRadii</a></span>(fns[<span class="dv">2</span>],<span class="dt">ID=</span><span class="st">"2"</span>)</code></pre></div>
 </div>
-<div id="combining-data-extracted-from-multiple-structure-images" class="section level2">
-<h2 class="hasAnchor">
-<a href="#combining-data-extracted-from-multiple-structure-images" class="anchor"></a>Combining Data Extracted from Multiple Structure Images</h2>
+<div id="combining-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#combining-data" class="anchor"></a>Combining Data</h3>
 <p>Once all structure image files have been processed, the radial measurements can be combined into one data.frame with <code><a href="../../reference/combineData.html">combineData()</a></code>. The first argument to this function is a vector of RData file names, which can be constructed using <code><a href="../../reference/listFiles.html">listFiles()</a></code> with the <code>.RData</code> extension.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/listFiles.html">listFiles</a></span>(<span class="st">"RData"</span>)
 <span class="co">#&gt; [1] "Scale_1_DHO.RData"  "Scale_1_DHO2.RData" "Scale_2_DHO.RData"</span></code></pre></div>
@@ -303,9 +301,9 @@
 <span class="co">#&gt; 10  2     DHO      4   4 0.3888447 0.4385261</span>
 <span class="co">#&gt; 11  2     DHO      4   5 0.4385261 0.4385261</span></code></pre></div>
 </div>
-<div id="preparing-for-back-calculations" class="section level2">
-<h2 class="hasAnchor">
-<a href="#preparing-for-back-calculations" class="anchor"></a>Preparing for Back-Calculations</h2>
+<div id="output-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#output-data" class="anchor"></a>Output Data</h3>
 <p>Other information about the fish (e.g., location of capture, length, sex) is likely held in a separate file. Below, example “other” data are loaded into the <code>dffish</code> data.frame. Note that the <code>ID</code> and <code>reading</code> variables created from processing the structure images above are characters. In this case, <code>read.csv()</code> reads the <code>ID</code> variable from the external data file as numeric (because the unique IDs were simple numbers). The second line of code below converts these numeric IDs to characters so that this data.frame can be joined with the radial measurements data.frame from above.<a href="#fn13" class="footnoteRef" id="fnref13"><sup>13</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dffish &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">"FishData.csv"</span>,<span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ID=</span><span class="kw">as.character</span>(ID)) <span class="op">%&gt;%</span><span class="st"> </span>
@@ -344,8 +342,8 @@ dffish2
 <h1 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h1>
 <ul>
-<li><p>Shoup, D.E., and P.H. Michaletz. 2017. Growth estimation: Summarization. Pages 233-264 in Quist, M.C. and D.A. Isermann, editors. Age and growth of fishes: principles and techniques. American Fisheries Society, Bethesda, MD.</p></li>
-<li><p>Vigliola, L., and M.G. Meekan. 2009. The back-calculation of fish growth from otoliths. Pages 174-211 in Green, B., B. Mapstone, G. Carlos, and G. Begg, editors. Tropical fish otoliths: information for assessment, management and ecology, volume 11. Springer, Dordrecht, Netherlands.</p></li>
+<li><p>Shoup, D.E., and P.H. Michaletz. 2017. Growth estimation: Summarization. Pages 233-264 in Quist, M.C. and D.A. Isermann, editors. <a href="https://fisheries.org/bookstore/all-titles/professional-and-trade/55078c/">Age and growth of fishes: principles and techniques.</a> American Fisheries Society, Bethesda, MD.</p></li>
+<li><p>Vigliola, L., and M.G. Meekan. 2009. <a href="https://www.researchgate.net/publication/226394736_The_Back-Calculation_of_Fish_Growth_From_Otoliths">The back-calculation of fish growth from otoliths.</a> Pages 174-211 in Green, B., B. Mapstone, G. Carlos, and G. Begg, editors. Tropical fish otoliths: information for assessment, management and ecology, volume 11. Springer, Dordrecht, Netherlands.</p></li>
 </ul>
 <p> </p>
 <p> </p>
@@ -381,36 +379,11 @@ dffish2
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#introduction">Introduction</a></li>
-      <li>
-<a href="#vignette-assumptions">Vignette Assumptions</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#understand-back-calculation">Understand Back-Calculation</a></li>
-      <li><a href="#static-structure-images">Static Structure Images</a></li>
-      <li><a href="#r-packages">R Packages</a></li>
-      </ul>
-</li>
-      <li>
-<a href="#collectdata">Collect Radii Data from the Structure Image</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#the-basics">The Basics</a></li>
-      <li><a href="#setting-the-scale-on-the-image">Setting the Scale on the Image</a></li>
-      <li><a href="#selecting-annuli-on-the-image">Selecting Annuli on the Image</a></li>
-      <li><a href="#setoptions1">Other Arguments for <code><a href="--/--/reference/digitizeRadii-html">digitizeRadii()</a></code> &amp; Setting them for a Session</a></li>
-      </ul>
-</li>
-      <li>
-<a href="#examine-radii-data">Examine Radii Data</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#data-frame-of-radii-measurements">Data.frame of Radii Measurements</a></li>
-      <li><a href="#visualize-annular-markings">Visualize Annular Markings</a></li>
-      </ul>
-</li>
-      <li><a href="#examine-multiple-reads-of-the-same-structure">Examine Multiple Reads of the Same Structure</a></li>
-      <li>
-<a href="#multiplestructures">Combine Data from Multiple Structures</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#file-organization">File Organization</a></li>
-      <li><a href="#processing-multiple-structure-images">Processing Multiple Structure Images</a></li>
-      <li><a href="#combining-data-extracted-from-multiple-structure-images">Combining Data Extracted from Multiple Structure Images</a></li>
-      <li><a href="#preparing-for-back-calculations">Preparing for Back-Calculations</a></li>
-      </ul>
-</li>
+      <li><a href="#assumptions">Assumptions</a></li>
+      <li><a href="#measurereadii">Measure Radii</a></li>
+      <li><a href="#examine-radii-data">Examine Radii Data</a></li>
+      <li><a href="#examine-multiple-readings">Examine Multiple Readings</a></li>
+      <li><a href="#multiplestructures">Combine Data from Multiple Structures</a></li>
       <li><a href="#references">References</a></li>
       <li><a href="#footnotes">Footnotes</a></li>
       </ul>
