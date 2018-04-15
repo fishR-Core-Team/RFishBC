@@ -1,0 +1,205 @@
+---
+title: "Compute Back-Calculated Lengths"
+author: "Derek H. Ogle"
+date: "`r Sys.Date()`"
+output: 
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: vignette
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+library(captioner)
+figcaps <- captioner(prefix="Figure")
+figcaps("BackCalcEx704","Plot of length-at-capture versus scale radius for West Bearskin Lake Smallmouth Bass in 1990. All four methods of backcalculation are shown for fish 704 ($S_{2}$=3.498, $L_{C}$=218, and $S_{C}$=7.44389; red point and line) with calculational steps shown with the arrows. Fish 701 is shown as the green point and line for comparative purposes.")
+
+eqncaps <- captioner(prefix="Equation")
+eqncaps("BackCalcESL")
+eqncaps("BackCalcELS")
+eqncaps("BackCalcDahlLea")
+eqncaps("BackCalcFraserLee")
+eqncaps("BackCalcSPHLinear")
+eqncaps("BackCalcBPHLinear")
+```
+
+# Introduction
+This vignette demonstrates how to back-calculate lengths at previous ages ($L_{i}$) from radial measurements made on calcified structures of fish. This vignette assumes that you have an understanding of back-calculation (as described in the [Short Introduction to Back-calculation]() vignette) and that you have a data file with, at least, fish length-at-capture ($L_{C}$), structure radius-at-capture ($S_{C}$), and radial measurements to each annulus ($S_{i}$) found on calcified strutures (as would be collected from the structures as described in the [Collect Radii Data]() vignette).
+
+Packages used in this vignette are loaded below.
+```{r message=FALSE, warning=FALSE}
+library(RFishBC)   # for bcFuns()
+library(FSA)       # for SMBassWB, sumTable()
+library(magrittr)  # for %<>%
+library(tidyr)     # for gather()
+library(stringr)   # for str_replace_all()
+library(dplyr)     # for %>%, filter(), select(), arrange(), mutate()
+                   #     group_by, summarize()
+```
+
+All analyses in this supplement use the West Bearskin Lake (MN) Smallmouth Bass (*Micropterus dolomieu*) data from Weisberg (1993) found in `SMBassWB` in the `FSA` package. The analysis in this supplement will focus on those fish captured in 1990. Three variables that were constant and not used in this analysis and three measurement variables that corresponded to ages that did not exist after reducing to only fish capted in 1990 were removed, simply to save space. Finally, the fish were sorted by fish identification number to aid comparisons throuughout the document.
+```{r}
+data(SMBassWB,package="FSA")
+wb90 <- filter(SMBassWB,yearcap==1990) %>%
+  select(-(species:yearcap),-(anu10:anu12)) %>%
+  arrange(fish)
+```
+
+Note that the variables in this case are defined as follows:
+
+* **fish**: A fish's unique identification number.
+* **agecap**: Fish age at the time of capture.
+* **lencap**: Fish length at the time of capture.
+* **anuX**: A radial measurement to the "X"th annulus. Note the many "NA" values to annuli that were larger than the age-at-capture.
+* **radcap**: Total structure radius at the time of capture.
+
+Finally, some of the data manipulations used in this vignette may not be familiar to all readers, but they are described in detail in Ogle (2016).
+
+\ 
+
+# Data Organization & Manipulation
+The back-calculation of fish length at previous ages requires radial, and not incremental, measurements. The Smallmouth Bass data loaded above **does** contain radial measurments, so no conversion is needed.[^inc2rad]
+```{r}
+head(wb90,n=2)
+tail(wb90,n=2)
+```
+
+Back-calculation data is often stored in one of two formats. In *wide* or *one-fish-per-line* format, all information about a single fish, including all of the measurements from the calcified structure, is in one row of the data.frame. For efficient back-calculation, the data must be in the *long* or *one-measurement-per-line* format where each row contains information about one annulus (e.g., which annulus and the radial measurement).
+
+The `wb90` data.frame contains radial measurments in the wide format and, thus, must be converted to long format, which will be described below. Note, however, that the data.frame produced as described in the [Collecting Radii Data]() is in long format and the conversion described below would not be needed.
+
+### Converting from Wide to Long Format
+Wide-format data can be converted to long-format data with `gather()`, which uses the following arguments:
+
+* the *wide-format data.frame* [as the first argument],
+* the variables in the *wide-format data.frame* that contain the values (i.e., the radial measurements) [as the second argument].
+* `key=`: a name for the new variable *in the long format* that will identify the individual (i.e., which annulus),
+* `value=`: a name for the new variable *in the long format* that will contain the value for the individual (i.e., the radial measurement), and
+
+The data are sorted by fish identification number and annulus number below to better see what was accomplished.
+```{r }
+wb90r <- gather(wb90,anu1:anu9,key=agei,value=radi) %>%
+  arrange(fish,agei)
+head(wb90r)
+tail(wb90r)
+```
+
+There are three problems with this result. First, the new `agei` variable contains the names of the variables from the original wide format data.frame (e.g., `anu1`, `anu2`) rather than numbers that correspond to the age that the annulus was formed. Converting these labels to numbers begins by replacing the "anu" prefix with blanks (or an empty string) using `str_replace_all()` with the vector of names, the string to replace (i.e., "anu"), and the replacement string as the first three arguments. The result from `str_replace_all()`, however, is a character that must be converted to a numeric with `as.numeric()`.
+
+The second problem is that several of the radial measurements contain `NA` values. The non-`NA` values are found and retained by using `!is.na()` within `filter()`.
+
+The third problem, while not an issue with these particular data, is that "plus growth" may have been recorded. "Plus growth" is growth on the margin of the calcified structure that does not represent a complete year of growth. If "plus growth" is present, then the new `agei` variable will have a value greater than the age-at-capture value. These instances should be removed from the new long format data.frame.
+
+The following code adjusts for these three issues.
+```{r}
+wb90r %<>% mutate(agei=as.numeric(str_replace_all(agei,"anu",""))) %>%
+  filter(!is.na(radi)) %>%
+  filter(agei<=agecap)
+head(wb90r)
+tail(wb90r)
+```
+
+\  
+
+# Computing Back-Calculated Lengths
+### Scale-Length Relationships
+Coefficients from either the scale-length (`r eqncaps("BackCalcESL",display="cite")`) and length-scale (`r eqncaps("BackCalcELS",display="cite")`) relationships are required for all but the Dahl-Lea method. Computation of these results requires knowing the length- an structure radius-at-capture for each fish. It is important that this pair of data is recorded only once for each fish, not one for each annulus on the fish like in the long-format data.frame. Thus, a new data.frame[^couldusewide] with one length- and structure radius-at-capture pair per each fish must be extracted from the long-format data.frame. While this can be accomplished in many ways in R, one easy way (as long as the fish identification number is truly unique) is to reduce the long-format data.fram to only the fish identification number, length-at-capture, and structure radius-at-capture variables and submit those to `unique()` to remove all duplicate lines.
+```{r}
+wb90slr <- select(wb90r,fish,lencap,radcap) %>%
+  unique()
+head(wb90slr,n=3)
+tail(wb90slr,n=3)
+```
+
+Both linear relationships are fit with `lm()` and the coefficients are extracted with `coef()` and saved into objects for later use.[^2brackets]
+```{r }
+lm.sl <- lm(radcap~lencap,data=wb90)
+( a <- coef(lm.sl)[[1]] )
+( b <- coef(lm.sl)[[2]] )
+
+lm.ls <- lm(lencap~radcap,data=wb90)
+( c <- coef(lm.ls)[[1]] )
+( d <- coef(lm.ls)[[2]] )
+```
+
+\  
+
+### Applying the Back-Calculation Models
+The lengths at a previous age (i.e., the $L_{i}$) estimated with a back-calculation model are most easily added to the long format data.frame as a new variable with `mutate()`. For example, the $L_{i}$ computed with all four back-calculation models are added to `wb90r` below.
+```{r}
+wb90r %<>% mutate(DL.len=(radi/radcap)*lencap,
+                  FL.len=(radi/radcap)*(lencap-c)+c,
+                  SPH.len=(-a/b)+(lencap+a/b)*(radi/radcap),
+                  BPH.len=lencap*(c+d*radi)/(c+d*radcap))
+head(wb90r,n=3)
+tail(wb90r,n=3)
+```
+
+The `bcFuns()` function can also be used to create functions that compute most of the back-calculation models described in Vigliola and Meekan (2009). These function do not do anything fundamentally different than what was done above, but it may be easier for some of the more complicated back-calculation models. The function simply takes the name of one of the back-calculation models as its first argument. Names of the functions can be seen in [the documentation for `bcFuns()`](../../reference/bcFuns.html).
+
+The result from `bcFuns()` should be saved to a name that will then serve as an R function to calculate the back-calculated length for that model. For example, the code below creates functions to compute the four back-calculation models used above. In each case, the first three arguments to the function created are the length-at-capture, the length of the structure radius to an annulus, and the structure radius-at-capture. Additional arguments are specific to the back-calculation model, but if it requires results from one of the linear relationships fit above then the intercept is given first followed by the slope.
+```{r}
+dahllea <- bcFuns("DALE")
+fraserlee <- bcFuns("FRALE")
+sph <- bcFuns("SPH")
+bph <- bcFuns("BPH")
+```
+
+With these functions, the results from above are duplicated below.
+```{r}
+wb90r %<>% mutate(DL.len2=dahllea(lencap,radi,radcap),
+                  FL.len2=fraserlee(lencap,radi,radcap,c),
+                  SPH.len2=sph(lencap,radi,radcap,a,b),
+                  BPH.len2=bph(lencap,radi,radcap,c,d))
+head(wb90r,n=3)
+tail(wb90r,n=3)
+```
+
+\  
+
+----
+
+# Summarizing Back-Calculated Lengths
+For example, the mean length-at-age may be computed from the back-calculated lengths (shown below for the Fraser-Lee results).
+```{r }
+tmp <- wb90r %>%
+  group_by(agei) %>%
+  summarize(n=validn(FL.len),mn=mean(FL.len),sd=sd(FL.len)) %>%
+  as.data.frame()
+tmp
+```
+
+Additionally, the mean length at each back-calculated age computed separately for each age-at-capture may be computed with `sumTable()` from `FSA`, where the left side of the formula is the quantitative variable to be summarized and the right side has grouping variables presented in `row*column` format.
+```{r warning=FALSE}
+sumTable(FL.len~agecap*agei,data=wb90r,digits=1)
+```
+
+\  
+
+\  
+
+----
+
+# References
+
+* Ogle, D.H. 2016. Introductory Fisheries Analyses with R. CRC Press/Chapman & Hall. [Webpage](http://derekogle.com/IFAR/)
+
+* Vigliola, L., and M.G. Meekan. 2009. The back-calculation of fish growth from otoliths. Pages 174-211 in Green, B., B. Mapstone, G. Carlos, and G. Begg, editors. Tropical fish otoliths: information for assessment, management and ecology, volume 11. Springer, Dordrecht, Netherlands. [Full Text](https://www.researchgate.net/publication/226394736_The_Back-Calculation_of_Fish_Growth_From_Otoliths)
+
+\  
+
+\  
+
+----
+
+# Footnotes
+
+[^inc2rad]: If the data.frame had contained incremental measurements, then it could be converted to radial measurements with `gConvert()`.
+
+[^couldusewide]: The length- and structure radius-at-capture variables could be used here instead as those pairs of data only appear once for each fish in the data.frame.
+
+[^2brackets]: The two brackets are used here when extracting the specific coefficients so that the name (i.e., label) for the coefficient is not included. This removes the distracting "[Intercept]" or variable name labels above the coefficients.

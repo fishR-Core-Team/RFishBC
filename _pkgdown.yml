@@ -31,16 +31,16 @@ navbar:
   left:
     - icon: fa-home
       href: index.html
-    - text: Back-Calculation
+    - text: Vignettes
       menu:
         - text: Short Introduction
           href: articles/BCIntro/BCIntro.html
-    - text: Process Structures
-      menu:
         - text: Collect Radii Data
           href: articles/MeasureRadii/collectRadiiData.html
         - text: Visualize Radii Data
           href: articles/MeasureRadii/seeRadiiData.html
+        - text: Compute Back-Calculated Lengths
+          href: articles/BCCalc/BCCalc.html
     - text: Reference
       href: reference/index.html
     - text: News
