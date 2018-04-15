@@ -1,9 +1,9 @@
 Package: RFishBC
-Title: Possible Replacement for FishBC
+Title: Back-Calculation of Fish Length
 Version: 0.0.0.9000
 Authors@R: person("Derek","Ogle",email="derek@derekogle.com",role=c("aut","cre"))
-Description: A possible replacement for the fishBC software distributed by the American Fisheries Society.
-URL: https://github.com/droglenc/RFishBC
+Description: This package helps fisheries scientists collect growth data from calcified structures and back-calculate estimated lengths at previous ages. The package is intended to replace much of the functionality provided by the now out-date fishBC software.
+URL: https://derekogle.com/RFishBC
 BugReports: https://github.com/droglenc/RFishBC/issues
 Encoding: UTF-8
 License: MIT + file LICENSE
