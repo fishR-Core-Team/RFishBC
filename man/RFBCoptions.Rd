@@ -20,40 +20,47 @@ Allows the user to see or set values for many of the arguments in \code{\link{di
 \details{
 The arguments that can be set with this function are:
 \itemize{
-\item{\code{reading}: }{A single character string (or an object that can be coerced to a character) that identifies the reading for this structure. If the structure will be read multiple times, then this is used to identify which time (which reading) this one is. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
-\item{\code{description}: }{A single character string that contains a short but more detailed description for the reading of the structure. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
-\item{\code{suffix}: }{A single character string that will be added to the R object data file name (see Details). If \code{NULL} and \code{reading} is not \code{NULL} then this will be replaced with the value in \code{reading}. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
-\item{\code{edgeIsAnnulus}: }{A single logical that indicates whether the point at the structure margin should be considered an annulus (\code{TRUE}) or not (\code{FALSE}). Use \code{FALSE} if the last selected point represents an incomplete year's worth of growth (i.e., \sQuote{plus-growth}). Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
-\item{\code{sepWindow}: }{A single logical that indicates whether the structure image should be opened in a separate window (\code{=TRUE}) or not (\code{=FALSE}). Defaults to \code{TRUE}. Used in \code{\link{digitizeRadii}}.}
-\item{\code{windowSize}: }{A single numeric that is used to set the size of the largest dimension for the window in which the structure image is opened if \code{sepWindow=TRUE}. This size will be the width for wider images and the height for taller images. The other dimension will be set relative to this so that the image is displayed in its native aspect ration. Defaults to 7 inches. Used in \code{\link{digitizeRadii}}.}
+\item{\code{reading}: }{A single character string (or an object that can be coerced to a character) that identifies the reading for a structure. If the structure will be read multiple times, then this is used to identify which time (which reading) this one is. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
+\item{\code{description}: }{A single character string that contains a short but more detailed description for a reading of a structure. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
+\item{\code{suffix}: }{A single character string that will be added to the RData file name. If \code{NULL} and \code{reading} is not \code{NULL}, then this will be replaced with the value in \code{reading}. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
+\item{\code{edgeIsAnnulus}: }{A single logical that indicates whether the structure margin should be considered an annulus (\code{TRUE}) or not (\code{FALSE}). Use \code{FALSE} if growth between the last annulus and the structure marging is not a complete year's worth of growth (i.e., \sQuote{plus-growth}). Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
+\item{\code{sepWindow}: }{A single logical that indicates whether the structure image should be opened in a separate window (\code{=TRUE}) or not (\code{=FALSE}). Defaults to \code{TRUE}. Used in \code{\link{digitizeRadii}} and  \code{\link{showDigitizedImage}}.}
+\item{\code{windowSize}: }{A single numeric that is used to set the size of the largest dimension for the window in which the structure image is opened if \code{sepWindow=TRUE}. This size will be the width for wider images and the height for taller images. The other dimension will be set relative to this so that the image is displayed in its native aspect ratio. Defaults to 7 inches. Used in \code{\link{digitizeRadii}} and  \code{\link{showDigitizedImage}}.}
 \item{\code{scalingFactor}: }{A single numeric that is used to convert measurements on the structure image to actual measurements on the structure. Measurements on the structure image will be multiplied by this value. Ignored if \code{scaleBar=TRUE}. Defaults to \code{1}. Used in \code{\link{digitizeRadii}}.}
-\item{\code{scaleBar}: }{A single logical that indicates whether the user will be prompted to select the endpoints of a \sQuote{scale-bar} on the structure image. If \code{TRUE}, then must also use \code{scaleBarLength}. If \code{FALSE}, then consider using \code{scalingFactor}. Defaults to \code{FALSE}. Used in \code{\link{digitizeRadii}}.}
-\item{\code{scaleBarLength}: }{A single numeric that represents the actual length of the \sQuote{scale-bar}. Ignored if \code{scaleBar=FALSE}. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
+\item{\code{scaleBar}: }{A single logical that indicates whether the user will be prompted to select the endpoints of a scale-bar on the structure image. If \code{TRUE}, then must also use \code{scaleBarLength}. If \code{FALSE}, then consider using \code{scalingFactor}. Defaults to \code{FALSE}. Used in \code{\link{digitizeRadii}}.}
+\item{\code{scaleBarLength}: }{A single numeric that represents the actual length of the scale-bar. Ignored if \code{scaleBar=FALSE}. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
 \item{\code{col.scaleBar}: }{The color of the scale bar line if \code{scalebar=TRUE}. Defaults to \code{"red"}. Used in \code{\link{digitizeRadii}}.}
 \item{\code{lwd.scaleBar}: }{The line width of the scale bar line if \code{scalebar=TRUE}. Defaults to \code{2}. Used in \code{\link{digitizeRadii}}.}
 \item{\code{addTransect}: }{A single logical that indicates whether the points selected at the structure center and margin should be connected to form a linear transect to mark annuli. Defaults to \code{TRUE}. Used in \code{\link{digitizeRadii}}.}
-\item{\code{showTransect}: }{ Defaults to \code{TRUE}. Used in \code{\link{showDigitizedImage}}.}
+\item{\code{showTransect}: }{A single logical that indicates whether the points selected at the structure center and margin should be connected to form a linear transect. Defaults to \code{TRUE}. Used in \code{\link{showDigitizedImage}}.}
 \item{\code{col.transect}: }{The color of the transect line if \code{addTransect=TRUE} in \code{\link{digitizeRadii}} or \code{showTransect=TRUE} in \code{\link{showDigitizedImage}}. Defaults to \code{"yellow"}.}
-\item{\code{lwd.transect}: }{The width of the transect line if \code{addTransect=TRUE} in \code{\link{digitizeRadii}} or \code{showTransect=TRUE} in \code{\link{showDigitizedImage}}. Defaults to \code{1}. Used in \code{\link{digitizeRadii}} and \code{\link{showDigitizedImage}}.}
-\item{\code{pch.sel}: }{The plotting character of points for selected annuli. Defaults to \code{3} (a "cross hairs"). Used in \code{\link{digitizeRadii}}.}
-\item{\code{col.sel}: }{The color of points for selected annuli. Defaults to \code{"red"}. Used in \code{\link{digitizeRadii}}.}
-\item{\code{cex.sel}: }{The character expansion value of points for selected annuli. Defaults to \code{1}. Used in \code{\link{digitizeRadii}}.}
-\item{\code{pch.show}: }{The plotting character for points shown. Defaults to \code{19} (a solid dot). Used in \code{\link{showDigitizedImage}}.}
-\item{\code{col.show}: }{The color of points shown. Defaults to \code{"red"}. Used in \code{\link{showDigitizedImage}}.}
-\item{\code{cex.show}: }{The character expansion value of points shown. Defaults to \code{1}. Used in \code{\link{showDigitizedImage}}.}
+\item{\code{lwd.transect}: }{The width of the transect line if \code{addTransect=TRUE} in \code{\link{digitizeRadii}} or \code{showTransect=TRUE} in \code{\link{showDigitizedImage}}. Defaults to \code{1}.}
+\item{\code{pch.sel}: }{The plotting character of points for selected annuli in \code{\link{digitizeRadii}}. Defaults to \code{3} (a "cross hairs").}
+\item{\code{col.sel}: }{The color of points for selected annuli in \code{\link{digitizeRadii}}. Defaults to \code{"red"}.}
+\item{\code{cex.sel}: }{The character expansion value of points for selected annuli in \code{\link{digitizeRadii}}. Defaults to \code{1}.}
+\item{\code{pch.show}: }{The plotting character for points shown in \code{\link{showDigitizedImage}}. Defaults to \code{19} (a solid dot).}
+\item{\code{col.show}: }{The color of points shown in \code{\link{showDigitizedImage}}. Defaults to \code{"red"}.}
+\item{\code{cex.show}: }{The character expansion value of points shown in \code{\link{showDigitizedImage}}. Defaults to \code{1}.}
 } 
 
-The user will likely use this function to change arguments at the start of a script, so that those values will be used throughout the analyses in the script. If the values for the arguments need to be changed in any instance of \code{\link{digitizeRadii}} or \code{\link{showDigitizedImage}}, then it is more efficient to change the argument within the call to those functions.
+The user will likely only use this function to change arguments at the start of a script, so that those values will be used throughout the analyses in the script. If the values for the arguments need to be changed in any instance of \code{\link{digitizeRadii}} or \code{\link{showDigitizedImage}}, then it is more efficient to change the argument within the call to those functions.
 
 The argument values can be reset to the original defaults by using \code{reset=TRUE}. See examples.
 }
 \examples{
+## Show all options
 RFBCoptions()
+
+## Show how to see and set one option
 RFBCoptions()$addTransect
 RFBCoptions(addTransect=FALSE)
 RFBCoptions()$addTransect
 RFBCoptions(reset=TRUE)
 RFBCoptions()$addTransect
+
+## Multiple options can also be set at once
+RFBCoptions(pch.show=3,col.show="blue",cex.show=3)
+
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}
