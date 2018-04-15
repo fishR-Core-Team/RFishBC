@@ -20,6 +20,7 @@ reference:
       - digitizeRadii
       - showDigitizedImage
       - combineData
+      - findScalingFactor
   - title: Back-calculation
     desc: Functions to aid back-calculation of lengths at previous ages
     contents:
@@ -38,3 +39,5 @@ navbar:
           href: articles/MeasureRadii/seeRadiiData.html
     - text: Reference
       href: reference/index.html
+    - text: News
+      href: news/index.html

@@ -106,7 +106,7 @@ If no `scalingFactor=` is derived from a scale-bar or provided, then the radial 
 The user will then be asked to select points on the structure image that represent annuli. However, **the point that represents the focus must be selected first, followed by the structure margin/edge**.[^invisiblepoints] If `addTransect=TRUE` (the default behavior), then a line will be drawn between these two points to aid marking the annuli. When the last point has been selected, the user must press the ESCape key in Windows or Mac OS X (or, in Windows, select STOP in the menu on the structure image window).
 
 
-### Setting digitizeRadii() Arguments for Session {#setoptions1}
+# Setting Argument Defaults for a Session {#setoptions1}
 
 The `digitizeRadii()` function has several optional arguments not discussed above. Some arguments that are likely to be commonly used are:
 

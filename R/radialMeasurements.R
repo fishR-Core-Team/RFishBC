@@ -10,6 +10,8 @@
 #' @param description See details in \code{\link{RFBCoptions}}.
 #' @param suffix See details in \code{\link{RFBCoptions}}.
 #' @param edgeIsAnnulus See details in \code{\link{RFBCoptions}}.
+#' @param sepWindow See details in \code{\link{RFBCoptions}}.
+#' @param windowSize See details in \code{\link{RFBCoptions}}.
 #' @param scaleBar See details in \code{\link{RFBCoptions}}.
 #' @param scaleBarLength See details in \code{\link{RFBCoptions}}.
 #' @param col.scaleBar See details in \code{\link{RFBCoptions}}.
@@ -21,8 +23,6 @@
 #' @param pch.sel See details in \code{\link{RFBCoptions}}.
 #' @param col.sel See details in \code{\link{RFBCoptions}}.
 #' @param cex.sel See details in \code{\link{RFBCoptions}}.
-#' @param sepWindow See details in \code{\link{RFBCoptions}}.
-#' @param windowSize See details in \code{\link{RFBCoptions}}.
 #'
 #' @details This uses \code{\link[graphics]{locator}} which will suspend activity in the console until the user indicates that they are done selecting points. The user indicates that they are done selecting points by pressing the ESCape key or right-clicking on the image and selecting Stop in Windows, pressing any mouse button other than the first (left) in X11 devices, and pressing the ESCape key in Quartz or OS X devices.
 #'
@@ -46,11 +46,11 @@
 #' ## None yet
 #' 
 digitizeRadii <- function(fname=file.choose(),ID,reading,suffix,
-                          description,edgeIsAnnulus,scaleBar,
+                          description,edgeIsAnnulus,
+                          sepWindow,windowSize,scaleBar,
                           scaleBarLength,col.scaleBar,lwd.scaleBar,
                           scalingFactor,addTransect,col.transect,
-                          lwd.transect,pch.sel,col.sel,cex.sel,
-                          sepWindow,windowSize) {
+                          lwd.transect,pch.sel,col.sel,cex.sel) {
   ## Process arguments
   if (missing(ID)) stop("You must enter a unique identifier in 'ID'.",
                         call.=FALSE)
@@ -228,6 +228,45 @@ combineData <- function(fnames,path='.') {
   ## Return the result
   d
 }
+
+
+
+#' @title Find scaling factor from object of known length
+#' 
+#' @description This computes a scaling factor (i.e., a multiplier that is used to convert image lengths to actual lengths) from user selected endpoints of an object of known length on the image given in \code{fname} and the actual known length given in \code{knownLength}. 
+#' 
+#' @param fname A string that indicates the image (must be PNG, JPG, or BMP) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (will look for this file in the current working directory unless a fully pathed name is given).
+#' @param knownLength See details in \code{\link{RFBCoptions}}.
+#' @param sepWindow See details in \code{\link{RFBCoptions}}.
+#' @param windowSize See details in \code{\link{RFBCoptions}}.
+#' @param col.scaleBar See details in \code{\link{RFBCoptions}}.
+#' @param lwd.scaleBar See details in \code{\link{RFBCoptions}}.
+#' 
+#' @details None yet.
+#'
+#' @return A single numeric that is the scaling factor (a multiplier that is used to convert image lengths to actual lengths).
+#' 
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' 
+#' @export
+#'
+#' @examples
+#' ## None yet
+
+findScalingFactor <- function(fname=file.choose(),knownLength,
+                              sepWindow,windowSize,
+                              col.scaleBar,lwd.scaleBar) {
+  ## handle options
+  if (missing(sepWindow)) sepWindow <- iGetopt("sepWindow")
+  if (missing(windowSize)) windowSize <- iGetopt("windowSize")
+  if (missing(col.scaleBar)) col.scaleBar <- iGetopt("col.scaleBar")
+  if (missing(lwd.scaleBar)) lwd.scaleBar <- iGetopt("lwd.scaleBar")
+  ## Read the image
+  iReadImage(fname,sepWindow,windowSize)
+  SF <- iScaleBar(knownLength,col=col.scaleBar,lwd=lwd.scaleBar)
+  SF$scalingFactor
+}
+
 
 
 

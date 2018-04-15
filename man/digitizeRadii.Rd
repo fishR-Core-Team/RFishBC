@@ -5,9 +5,9 @@
 \title{Collect radial measurements from a calcified structure by interactively selecting annuli.}
 \usage{
 digitizeRadii(fname = file.choose(), ID, reading, suffix, description,
-  edgeIsAnnulus, scaleBar, scaleBarLength, col.scaleBar, lwd.scaleBar,
-  scalingFactor, addTransect, col.transect, lwd.transect, pch.sel, col.sel,
-  cex.sel, sepWindow, windowSize)
+  edgeIsAnnulus, sepWindow, windowSize, scaleBar, scaleBarLength, col.scaleBar,
+  lwd.scaleBar, scalingFactor, addTransect, col.transect, lwd.transect, pch.sel,
+  col.sel, cex.sel)
 }
 \arguments{
 \item{fname}{A string that indicates the image (must be PNG, JPG, or BMP) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (will look for this file in the current working directory unless a fully pathed name is given).}
@@ -21,6 +21,10 @@ digitizeRadii(fname = file.choose(), ID, reading, suffix, description,
 \item{description}{See details in \code{\link{RFBCoptions}}.}
 
 \item{edgeIsAnnulus}{See details in \code{\link{RFBCoptions}}.}
+
+\item{sepWindow}{See details in \code{\link{RFBCoptions}}.}
+
+\item{windowSize}{See details in \code{\link{RFBCoptions}}.}
 
 \item{scaleBar}{See details in \code{\link{RFBCoptions}}.}
 
@@ -43,10 +47,6 @@ digitizeRadii(fname = file.choose(), ID, reading, suffix, description,
 \item{col.sel}{See details in \code{\link{RFBCoptions}}.}
 
 \item{cex.sel}{See details in \code{\link{RFBCoptions}}.}
-
-\item{sepWindow}{See details in \code{\link{RFBCoptions}}.}
-
-\item{windowSize}{See details in \code{\link{RFBCoptions}}.}
 }
 \value{
 A string that contains the filename (with path) of an R data object (i.e., .RData file) written to the same directory/folder as the file in \code{fname} that contains the following items in a list:

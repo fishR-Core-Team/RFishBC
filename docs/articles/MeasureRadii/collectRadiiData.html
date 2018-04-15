@@ -59,6 +59,9 @@
 <li>
   <a href="../../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../../news/index.html">News</a>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -173,7 +176,7 @@
 <a href="#setting-the-scale" class="anchor"></a>Setting the Scale</h3>
 <p>If actual lengths, rather than arbitrary (but proportional) lengths are needed,<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a> then a scaling factor is needed to convert measurements on the image to actual measurements on the structure. This scaling factor may be calculated from a scale-bar found on the image or provided by the user.</p>
 <p><strong>Scale-bar On Image:</strong> If a scale-bar of known length exists on the image, then use <code>scaleBar=TRUE</code> with the actual length of the scale bar given in <code>scaleBarLength=</code>. You will then need to select the two end points of the scale-bar on the structure image prior to selecting points that represent annuli. An appropriate scaling factor will then be computed from your selections and the radial measurements will be converted to actual lengths on the structure.</p>
-<p><strong>Separately Defined Scaling Factor:</strong> In applications where a scale-bar does not exist on the image, the user can provide a value to <code>scalingFactor=</code> which will be used to multiply lengths on the structure image to derive actual lengths. One way to derive this scaling factor is to capture an image of the structure at a specific magnification on the microscope and then capture an image of an object of known length at that same magnification. A scaling factor may then be computed from the image with the object of known length and applied to the structure image. This scaling factor can be found by giving <code>findScalingFactor()</code> the file name with the object of known length and that known length in <code>knownLength=</code>. The value returned from <code>findScalingFactor()</code> can then be given to <code>scalingFactor=</code> in <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>.<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a></p>
+<p><strong>Separately Defined Scaling Factor:</strong> In applications where a scale-bar does not exist on the image, the user can provide a value to <code>scalingFactor=</code> which will be used to multiply lengths on the structure image to derive actual lengths. One way to derive this scaling factor is to capture an image of the structure at a specific magnification on the microscope and then capture an image of an object of known length at that same magnification. A scaling factor may then be computed from the image with the object of known length and applied to the structure image. This scaling factor can be found by giving <code><a href="../../reference/findScalingFactor.html">findScalingFactor()</a></code> the file name with the object of known length and that known length in <code>knownLength=</code>. The value returned from <code><a href="../../reference/findScalingFactor.html">findScalingFactor()</a></code> can then be given to <code>scalingFactor=</code> in <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>.<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a></p>
 <p>If no <code>scalingFactor=</code> is derived from a scale-bar or provided, then the radial measurements returned by <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> are simply proportional to the unknown actual lengths on the structure.</p>
 </div>
 <div id="selecting-annuli" class="section level3">
@@ -181,9 +184,10 @@
 <a href="#selecting-annuli" class="anchor"></a>Selecting Annuli</h3>
 <p>The user will then be asked to select points on the structure image that represent annuli. However, <strong>the point that represents the focus must be selected first, followed by the structure margin/edge</strong>.<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a> If <code>addTransect=TRUE</code> (the default behavior), then a line will be drawn between these two points to aid marking the annuli. When the last point has been selected, the user must press the ESCape key in Windows or Mac OS X (or, in Windows, select STOP in the menu on the structure image window).</p>
 </div>
-<div id="setoptions1" class="section level3">
-<h3 class="hasAnchor">
-<a href="#setoptions1" class="anchor"></a>Setting digitizeRadii() Arguments for Session</h3>
+</div>
+<div id="setoptions1" class="section level1">
+<h1 class="hasAnchor">
+<a href="#setoptions1" class="anchor"></a>Setting Argument Defaults for a Session</h1>
 <p>The <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> function has several optional arguments not discussed above. Some arguments that are likely to be commonly used are:</p>
 <ul>
 <li>By default, each image file is opened in a separate window, which helps avoid issues with the RStudio Plots pane and is especially useful when working on a system with two monitors.<a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a> This window is also configured to match the aspect ratio of the original image, even if the window is resized.</li>
@@ -206,7 +210,6 @@
 <p> </p>
 <p> </p>
 <hr>
-</div>
 </div>
 <div id="multiplestructures" class="section level1">
 <h1 class="hasAnchor">
@@ -317,7 +320,7 @@ dffish2
 <li id="fn4"><p>The <code>reading=</code> argument is primarily used when the structure is read more than once. However, I suggest giving a descriptive label to <code>reading=</code> even if there are no plans to read the structure again in the future.<a href="#fnref4">↩</a></p></li>
 <li id="fn5"><p>The extension (e.g., “png” or “jpg”) will not be included in the resultant R data object file.<a href="#fnref5">↩</a></p></li>
 <li id="fn6"><p>Some back-calculation methods require knowing the relationship between actual scale length and fish length. See <a href="backcalculation.html">this vignette</a> for more details.<a href="#fnref6">↩</a></p></li>
-<li id="fn7"><p>Thus, <code>findScalingFactor()</code> would be run prior to <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>.<a href="#fnref7">↩</a></p></li>
+<li id="fn7"><p>Thus, <code><a href="../../reference/findScalingFactor.html">findScalingFactor()</a></code> would be run prior to <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>.<a href="#fnref7">↩</a></p></li>
 <li id="fn8"><p>When the structure image is in the “Plots” pane of RStudio, the points will not be visible until after you have finished selecting all points. This is one of the reasons why I prefer to use <code>sepWindow=TRUE</code>.<a href="#fnref8">↩</a></p></li>
 <li id="fn9"><p>For example, you could have R/RStudio on one monitor and the window with the structure image on the other.<a href="#fnref9">↩</a></p></li>
 <li id="fn10"><p>The two files cannot be joined by the “ID” variable if the “ID” variables are of different types (e.g., character and numeric) in the two files. Thus, as shown here, they must be coerced to be the same type. This line of code would no be needed if the “ID” variables were of the same type in the two files as would likely occur if the “ID” variable was not simply numbers.<a href="#fnref10">↩</a></p></li>
@@ -334,6 +337,7 @@ dffish2
 <li><a href="#introduction">Introduction</a></li>
       <li><a href="#assumptions">Assumptions</a></li>
       <li><a href="#measurereadii">Measure Radii</a></li>
+      <li><a href="#setoptions1">Setting Argument Defaults for a Session</a></li>
       <li><a href="#multiplestructures">Combine Data from Multiple Structures</a></li>
       <li><a href="#output-data-file">Output Data File</a></li>
       <li><a href="#references">References</a></li>
