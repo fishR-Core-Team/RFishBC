@@ -71,6 +71,18 @@
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Back-Calculation
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/BCIntro/BCIntro.html">Short Introduction</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Process Structures
      
     <span class="caret"></span>
@@ -142,34 +154,35 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The arguments that can be set with this function are:</p><ul>
-<li><p><code>reading</code>: A single character string (or an object that can be coerced to a character) that identifies the reading for this structure. If the structure will be read multiple times, then this is used to identify which time (which reading) this one is. Defaults to <code>NULL</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
-<li><p><code>description</code>: A single character string that contains a short but more detailed description for the reading of the structure. Defaults to <code>NULL</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
-<li><p><code>suffix</code>: A single character string that will be added to the R object data file name (see Details). If <code>NULL</code> and <code>reading</code> is not <code>NULL</code> then this will be replaced with the value in <code>reading</code>. Defaults to <code>NULL</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
-<li><p><code>edgeIsAnnulus</code>: A single logical that indicates whether the point at the structure margin should be considered an annulus (<code>TRUE</code>) or not (<code>FALSE</code>). Use <code>FALSE</code> if the last selected point represents an incomplete year's worth of growth (i.e., &#8216;plus-growth&#8217;). Defaults to <code>NULL</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
-<li><p><code>sepWindow</code>: A single logical that indicates whether the structure image should be opened in a separate window (<code>=TRUE</code>) or not (<code>=FALSE</code>). Defaults to <code>TRUE</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
-<li><p><code>windowSize</code>: A single numeric that is used to set the size of the largest dimension for the window in which the structure image is opened if <code>sepWindow=TRUE</code>. This size will be the width for wider images and the height for taller images. The other dimension will be set relative to this so that the image is displayed in its native aspect ration. Defaults to 7 inches. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
+<li><p><code>reading</code>: A single character string (or an object that can be coerced to a character) that identifies the reading for a structure. If the structure will be read multiple times, then this is used to identify which time (which reading) this one is. Defaults to <code>NULL</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
+<li><p><code>description</code>: A single character string that contains a short but more detailed description for a reading of a structure. Defaults to <code>NULL</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
+<li><p><code>suffix</code>: A single character string that will be added to the RData file name. If <code>NULL</code> and <code>reading</code> is not <code>NULL</code>, then this will be replaced with the value in <code>reading</code>. Defaults to <code>NULL</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
+<li><p><code>edgeIsAnnulus</code>: A single logical that indicates whether the structure margin should be considered an annulus (<code>TRUE</code>) or not (<code>FALSE</code>). Use <code>FALSE</code> if growth between the last annulus and the structure marging is not a complete year's worth of growth (i.e., &#8216;plus-growth&#8217;). Defaults to <code>NULL</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
+<li><p><code>sepWindow</code>: A single logical that indicates whether the structure image should be opened in a separate window (<code>=TRUE</code>) or not (<code>=FALSE</code>). Defaults to <code>TRUE</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code> and  <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>.</p></li>
+<li><p><code>windowSize</code>: A single numeric that is used to set the size of the largest dimension for the window in which the structure image is opened if <code>sepWindow=TRUE</code>. This size will be the width for wider images and the height for taller images. The other dimension will be set relative to this so that the image is displayed in its native aspect ratio. Defaults to 7 inches. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code> and  <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>.</p></li>
 <li><p><code>scalingFactor</code>: A single numeric that is used to convert measurements on the structure image to actual measurements on the structure. Measurements on the structure image will be multiplied by this value. Ignored if <code>scaleBar=TRUE</code>. Defaults to <code>1</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
-<li><p><code>scaleBar</code>: A single logical that indicates whether the user will be prompted to select the endpoints of a &#8216;scale-bar&#8217; on the structure image. If <code>TRUE</code>, then must also use <code>scaleBarLength</code>. If <code>FALSE</code>, then consider using <code>scalingFactor</code>. Defaults to <code>FALSE</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
-<li><p><code>scaleBarLength</code>: A single numeric that represents the actual length of the &#8216;scale-bar&#8217;. Ignored if <code>scaleBar=FALSE</code>. Defaults to <code>NULL</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
+<li><p><code>scaleBar</code>: A single logical that indicates whether the user will be prompted to select the endpoints of a scale-bar on the structure image. If <code>TRUE</code>, then must also use <code>scaleBarLength</code>. If <code>FALSE</code>, then consider using <code>scalingFactor</code>. Defaults to <code>FALSE</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
+<li><p><code>scaleBarLength</code>: A single numeric that represents the actual length of the scale-bar. Ignored if <code>scaleBar=FALSE</code>. Defaults to <code>NULL</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
 <li><p><code>col.scaleBar</code>: The color of the scale bar line if <code>scalebar=TRUE</code>. Defaults to <code>"red"</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
 <li><p><code>lwd.scaleBar</code>: The line width of the scale bar line if <code>scalebar=TRUE</code>. Defaults to <code>2</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
 <li><p><code>addTransect</code>: A single logical that indicates whether the points selected at the structure center and margin should be connected to form a linear transect to mark annuli. Defaults to <code>TRUE</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
-<li><p><code>showTransect</code>:  Defaults to <code>TRUE</code>. Used in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>.</p></li>
+<li><p><code>showTransect</code>: A single logical that indicates whether the points selected at the structure center and margin should be connected to form a linear transect. Defaults to <code>TRUE</code>. Used in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>.</p></li>
 <li><p><code>col.transect</code>: The color of the transect line if <code>addTransect=TRUE</code> in <code><a href='digitizeRadii.html'>digitizeRadii</a></code> or <code>showTransect=TRUE</code> in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>. Defaults to <code>"yellow"</code>.</p></li>
-<li><p><code>lwd.transect</code>: The width of the transect line if <code>addTransect=TRUE</code> in <code><a href='digitizeRadii.html'>digitizeRadii</a></code> or <code>showTransect=TRUE</code> in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>. Defaults to <code>1</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code> and <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>.</p></li>
-<li><p><code>pch.sel</code>: The plotting character of points for selected annuli. Defaults to <code>3</code> (a "cross hairs"). Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
-<li><p><code>col.sel</code>: The color of points for selected annuli. Defaults to <code>"red"</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
-<li><p><code>cex.sel</code>: The character expansion value of points for selected annuli. Defaults to <code>1</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
-<li><p><code>pch.show</code>: The plotting character for points shown. Defaults to <code>19</code> (a solid dot). Used in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>.</p></li>
-<li><p><code>col.show</code>: The color of points shown. Defaults to <code>"red"</code>. Used in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>.</p></li>
-<li><p><code>cex.show</code>: The character expansion value of points shown. Defaults to <code>1</code>. Used in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>.</p></li>
+<li><p><code>lwd.transect</code>: The width of the transect line if <code>addTransect=TRUE</code> in <code><a href='digitizeRadii.html'>digitizeRadii</a></code> or <code>showTransect=TRUE</code> in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>. Defaults to <code>1</code>.</p></li>
+<li><p><code>pch.sel</code>: The plotting character of points for selected annuli in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>. Defaults to <code>3</code> (a "cross hairs").</p></li>
+<li><p><code>col.sel</code>: The color of points for selected annuli in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>. Defaults to <code>"red"</code>.</p></li>
+<li><p><code>cex.sel</code>: The character expansion value of points for selected annuli in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>. Defaults to <code>1</code>.</p></li>
+<li><p><code>pch.show</code>: The plotting character for points shown in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>. Defaults to <code>19</code> (a solid dot).</p></li>
+<li><p><code>col.show</code>: The color of points shown in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>. Defaults to <code>"red"</code>.</p></li>
+<li><p><code>cex.show</code>: The character expansion value of points shown in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>. Defaults to <code>1</code>.</p></li>
 </ul>
-    <p>The user will likely use this function to change arguments at the start of a script, so that those values will be used throughout the analyses in the script. If the values for the arguments need to be changed in any instance of <code><a href='digitizeRadii.html'>digitizeRadii</a></code> or <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>, then it is more efficient to change the argument within the call to those functions.</p>
+    <p>The user will likely only use this function to change arguments at the start of a script, so that those values will be used throughout the analyses in the script. If the values for the arguments need to be changed in any instance of <code><a href='digitizeRadii.html'>digitizeRadii</a></code> or <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>, then it is more efficient to change the argument within the call to those functions.</p>
 <p>The argument values can be reset to the original defaults by using <code>reset=TRUE</code>. See examples.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>RFBCoptions</span>()</div><div class='output co'>#&gt; $reading
+    <pre class="examples"><div class='input'><span class='co'>## Show all options</span>
+<span class='fu'>RFBCoptions</span>()</div><div class='output co'>#&gt; $reading
 #&gt; NULL
 #&gt; 
 #&gt; $description
@@ -231,9 +244,13 @@
 #&gt; 
 #&gt; $cex.show
 #&gt; [1] 1
-#&gt; </div><div class='input'><span class='fu'>RFBCoptions</span>()$<span class='no'>addTransect</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>RFBCoptions</span>(<span class='kw'>addTransect</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
+#&gt; </div><div class='input'>
+<span class='co'>## Show how to see and set one option</span>
+<span class='fu'>RFBCoptions</span>()$<span class='no'>addTransect</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>RFBCoptions</span>(<span class='kw'>addTransect</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='fu'>RFBCoptions</span>()$<span class='no'>addTransect</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>RFBCoptions</span>(<span class='kw'>reset</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
-<span class='fu'>RFBCoptions</span>()$<span class='no'>addTransect</span></div><div class='output co'>#&gt; [1] TRUE</div></pre>
+<span class='fu'>RFBCoptions</span>()$<span class='no'>addTransect</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='co'>## Multiple options can also be set at once</span>
+<span class='fu'>RFBCoptions</span>(<span class='kw'>pch.show</span><span class='kw'>=</span><span class='fl'>3</span>,<span class='kw'>col.show</span><span class='kw'>=</span><span class='st'>"blue"</span>,<span class='kw'>cex.show</span><span class='kw'>=</span><span class='fl'>3</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

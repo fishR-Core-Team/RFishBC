@@ -31,6 +31,10 @@ navbar:
   left:
     - icon: fa-home
       href: index.html
+    - text: Back-Calculation
+      menu:
+        - text: Short Introduction
+          href: articles/BCIntro/BCIntro.html
     - text: Process Structures
       menu:
         - text: Collect Radii Data

@@ -28,9 +28,7 @@ The [FishBC software](https://fisheries.org/bookstore/all-titles/software/70317/
 # Assumptions
 
 ### Understand Back-Calculation
-This vignette assumes that you have a basic understanding of back-calculating fish length at previous ages. See [Vigliola and Meekan (2009)](https://www.researchgate.net/publication/226394736_The_Back-Calculation_of_Fish_Growth_From_Otoliths) and Section 11.2.3.1 in Shoup and Michaeletz (2017) for thorough introductions to this topic.
-
-You should be aware of two foundational definitions related to measuring radii on calcified structures. First, **calcified structures** are scales, spines, fin rays, otoliths, or other bones from fish that can be processed in such a way as to show marks that represent annuli, or yearly benchmarks. Hereafter, "structure" will refer to "calcified structure." Second, **radii** are sequential measurements from the focus (i.e., center) of the structure to the annuli, usually along a linear transect from the focus to the margin (i.e., edge) of the structure. Radii are in contrast to increments, which are the distance between successive annuli along the transect.
+This vignette assumes that you have a basic understanding of back-calculating fish length at previous ages as described in the [Short Introduction to Back-Calculation](../BCIntro/BCIntro.html) vignette. At the very least you should be aware of what calcified structures and radial measurements are.
 
 ### Static Structure Images
 This vignette also assumes that you can capture a static digital image of a structure. The image must be a jpeg (.jpg), portable network graphics (.png), or bitmap (.bmp) format. Images will usually be obtained from a camera mounted on a microscope and connected to a computer. Below is a sample image of a fish scale.

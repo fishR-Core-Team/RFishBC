@@ -1,0 +1,222 @@
+---
+title: "Short Introduction to Back-Calculation"
+author: "Derek H. Ogle"
+date: "`r Sys.Date()`"
+output: 
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: vignette
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+library(captioner)
+figcaps <- captioner(prefix="Figure")
+figcaps("BackCalcEx704","Plot of length-at-capture versus scale radius for West Bearskin Lake Smallmouth Bass in 1990. All four methods of backcalculation are shown for fish 704 ($S_{2}$=3.498, $L_{C}$=218, and $S_{C}$=7.44389; red point and line) with calculational steps shown with the arrows. Fish 701 is shown as the green point and line for comparative purposes.")
+
+eqncaps <- captioner(prefix="Equation")
+eqncaps("BackCalcESL")
+eqncaps("BackCalcELS")
+eqncaps("BackCalcDahlLea")
+eqncaps("BackCalcFraserLee")
+eqncaps("BackCalcSPHLinear")
+eqncaps("BackCalcBPHLinear")
+```
+
+# What is Back-Calculation
+Francis (1990) defined *back-calculation* as "*... a technique that uses a set of measurements made on a fish at one time to infer its length at an earlier time or times. Specifically, the dimensions of one or more marks in some hard part of the fish, together with its current body length, are used to estimate its length at the time of formation of each of the marks. ... The marks are generally annual rings associated with growth checks, ... .*" Thus, backcalculation is the reconstruction of the length of a fish at previous ages from measurements made on calcified structures.
+
+More thorough introductions to back-calculation are in [Vigliola and Meekan (2009)](https://www.researchgate.net/publication/226394736_The_Back-Calculation_of_Fish_Growth_From_Otoliths) and Section 11.2.3.1 in Shoup and Michaeletz (2017).
+
+\  
+
+\  
+
+----
+
+# Terminology
+
+**Calcified structures** are scales, spines, fin rays, otoliths, or other bones from fish that can be processed in such a way as to show marks that represent annuli, or yearly benchmarks. Hereafter, "structure" will refer to "calcified structure."
+
+Two types of measurements can be made on structures. A **radial** measurement is the distance from the center of the structure (e.g., focus of scale or nucleus of otolith) to the edge of an annulus. An **incremental** measurement is the distance between two successive annuli. Radial measurements are required for back-calculation of fish length. Incremental measurements are used in some forms of modeling growth [e.g., Weisberg (1993) and Weisberg *et al.* (2010)].
+
+Back-calculation models estimate length at previous age $i$ (i.e., $L_{i}$) from known values of length at time of capture ($L_{C}$), scale radius to the $i$th annulus ($S_{i}$), and scale radius at time of capture ($S_{C}$). Several back-calculation models rely on the relationship between $S_{C}$ and $L_{C}$. Depending on the model, a function of mean $S_{C}$ for a given $L_{C}$ (i.e., $E(S_{C}|L_{C})$ ) or mean $L_{C}$ for a given $S_{C}$ (i.e., $E(L_{C}|S_{C})$) is used. These functions are not required to be linear, but often are, and in their linear form are represented as
+
+$$ E(S_{C}|L_{C})=a+bL_{C} \quad \quad \text{`r paste0("(",eqncaps("BackCalcESL",display="num"),")")`} $$
+
+$$ E(L_{C}|S_{C})=c+dS_{C} \quad \quad \text{`r paste0("(",eqncaps("BackCalcELS",display="num"),")")`} $$
+
+\  
+
+\  
+
+----
+
+# Back-Calculation Models
+
+The first back-calculation model was jointly developed by Knut Dahl and Einar Lea and appeared in Lea (1910). The underlying concept of the *Dahl-Lea model* is that growth of the calcified structure is in exact proportion to growth in length of the fish. With this, the ratio of $S_{i}$ to $S_{C}$ is the same as the ratio of $L_{i}$ to $L_{C}$. Rearrangement of this equality yields the Dahl-Lea back-calculation model
+
+$$ L_{i}=\frac{S_{i}}{S_{C}}L_{C} \quad \quad \text{`r paste0("(",eqncaps("BackCalcDahlLea",display="num"),")")`} $$
+
+The Dahl-Lea model describes a family of straight lines that pass through the **origin** and each observed ($S_{C},L_{C}$) point. Visually (`r figcaps("BackCalcEx704",display="cite")`), the estimated $L_{i}$ for a particular fish is found by locating $S_{i}$ along the x-axis, moving vertically until the straight line for that fish is met, and then moving horizontally to the point on the y-axis.
+
+\  
+
+```{r BackCalcEx704,echo=FALSE,fig.width=7,fig.height=7,par1=TRUE}
+data(SMBassWB,package="FSA")
+wb90 <- subset(SMBassWB,yearcap=1990)
+par(mfrow=c(2,2),mar=c(3.05,3.05,1.15,0.65),mgp=c(1.5,0.3,0),tcl=-0.2)
+# ------------------------------------------------------------
+# Helper functions
+# ------------------------------------------------------------
+makePlot <- function(name) {
+  plot(lencap~radcap,data=wb90,
+       xlim=c(0,max(radcap)),ylim=c(0,max(lencap)),
+       xlab=expression(S[C]),ylab=expression(L[C]),
+       xaxt="n",yaxt="n",cex=0.75)
+  axis(2,at=seq(0,350,50),labels=c(0,50,NA,NA,seq(200,350,50)))
+  xs <- c(0,2,6,8,10,12,14,16)
+  axis(1,xs)
+  mtext(name,line=0.1)
+}
+addCalc <- function(Si,Li,Sc,Lc,int) {
+  points(Sc,Lc,pch=19,col="red")
+  lines(c(0,Sc),c(int,Lc),lwd=2,col="red")
+  text(Si,-10,paste(round(Si,3)),pos=1,xpd=TRUE)
+  arrows(Si,-5,Si,Li,lwd=1,length=0.1,angle=20,xpd=TRUE,col="red")
+  arrows(Si,Li,-0.1,Li,lwd=1,length=0.1,angle=20,xpd=TRUE,col="red")
+  text(-0.1,Li,paste(round(Li,2)),pos=2,xpd=TRUE)
+}
+
+## Needed regressions and coefficients
+lm.sl <- lm(radcap~lencap,data=wb90)
+a <- coef(lm.sl)[1]; b <- coef(lm.sl)[2]
+lm.ls <- lm(lencap~radcap,data=wb90)
+c <- coef(lm.ls)[1]; d <- coef(lm.ls)[2]
+
+## Info for fish #701
+Sc701 <- 9.2219; Lc701 <- 312
+## Info for fish #704
+Sc <- 7.44389; Lc <- 218; Si <- 3.49804
+
+#-----------------------------------------------------------------------
+# Plots the Dahl-Lea
+#-----------------------------------------------------------------------
+makePlot("Dahl-Lea")
+# Fish #701 as an example -- just show line
+points(Sc701,Lc701,pch=19,col="green3",cex=1.25)
+lines(c(0,Sc701),c(0,Lc701),lwd=2,col="green3")
+# Fish #704 as an example -- show calculation
+Li <- (Si/Sc)*Lc
+addCalc(Si,Li,Sc,Lc,0)
+
+#-----------------------------------------------------------------------
+# Plots Fraser-Lee method
+#-----------------------------------------------------------------------
+makePlot("Fraser-Lee")
+# Fish #701 as an example -- just show line
+points(Sc701,Lc701,pch=19,col="green3",cex=1.25)
+lines(c(0,Sc701),c(c,Lc701),lwd=2,col="green3")
+# Fish #704 as an example -- show calculation
+Li <- (Si/Sc)*(Lc-c)+c
+addCalc(Si,Li,Sc,Lc,c)
+
+#-----------------------------------------------------------------------
+# Plots the SPH method
+#-----------------------------------------------------------------------
+makePlot("SPH")
+# Fish #701 as an example -- just show line
+points(Sc701,Lc701,pch=19,col="green3",cex=1.25)
+lines(c(0,Sc701),c(-a/b,Lc701),lwd=2,col="green3")
+# Fish #704 as an example -- show calculation
+Li <- (-a/b)+(Lc+a/b)*(Si/Sc)
+addCalc(Si,Li,Sc,Lc,-a/b)
+
+#-----------------------------------------------------------------------
+# Plots the BPH method
+#-----------------------------------------------------------------------
+makePlot("BPH")
+# Fish #701 as an example -- just show line
+int <- (c*Lc701)/(c+d*Sc701)
+points(Sc701,Lc701,pch=19,col="green3",cex=1.25)
+lines(c(0,Sc701),c(int,Lc701),lwd=2,col="green3")
+# Fish #704 as an example -- show calculation
+int <- (c*Lc)/(c+d*Sc)
+Li <- Lc*(c+d*Si)/(c+d*Sc)
+addCalc(Si,Li,Sc,Lc,int)
+```
+
+`r figcaps("BackCalcEx704")`
+
+\  
+
+Fraser (1916) was the first to describe, but Lee (1920) was the first to formally derive, the back-calculation model from the concept that "the growth *increment* of the scale is, on the average ..., a constant proportion of the growth *increment* of the fish" (Francis 1990). In practice, the *Fraser-Lee model* modified the Dahl-Lea model by adjusting for the length of the fish when the structure forms (i.e., $L=c$ when $S=0$), that is,
+
+$$ L_{i}=\frac{S_{i}}{S_{C}}(L_{C}-c)+c \quad \quad \text{`r paste0("(",eqncaps("BackCalcFraserLee",display="num"),")")`} $$
+
+\noindent where $c$ comes from the length of the fish at the time of structure formation, the intercept of the length-structure relationship regression (e.g., from `r eqncaps("BackCalcELS",display="cite")`), or, when using scales, from published "standards" for a species (Carlander 1982). The Fraser-Lee model describes a family of lines with an intercept of $c$ that pass through the ($S_{C},L_{C}$) point (Francis 1990; `r figcaps("BackCalcEx704",display="cite")`).
+
+The *scale proportional hypothesis* (SPH) model was named by Francis (1990), but was first recognized by Whitney and Carlander (1956) when they said "*{i}f the scale was 10 per cent larger when the fish was caught than the average scale for that size of fish, [then] the scale would be 10 per cent larger than normal throughout the life.*"  If "average" and "normal" are considered to be expected values, then this hypothesis can be written as
+
+$$ \frac{S_{i}}{E[S|L_{i}]}=\frac{S_{C}}{E[S|L_{C}]} $$
+
+If it is assumed that the scale-length relationship is linear, then the two expected values in these ratios are computed by plugging $L_{i}$ and $L_{C}$, respectively, into the scale-length relationship (i.e., `r eqncaps("BackCalcESL",display="cite")`) to produce
+
+$$ \frac{S_{i}}{a+bL_{i}}=\frac{S_{C}}{a+bL_{C}} $$
+
+which can be solved for $L_{i}$ to yield the general SPH back-calculation model
+
+$$ L_{i} = \frac{S_{i}}{S_{C}}\left(L_{C}+\frac{a}{b}\right) - \frac{a}{b} \quad \quad \text{`r paste0("(",eqncaps("BackCalcSPHLinear",display="num"),")")`} $$
+
+The linear SPH model produces a family of lines that all have an intercept of $-\frac{a}{b}$ and pass through each observed ($S_{C},L_{C}$) point (`r figcaps("BackCalcEx704",display="cite")`). The SPH model is the same as the Fraser-Lee model except that the intercept from `r eqncaps("BackCalcELS",display="cite")` is replaced with $-\frac{a}{b}$. Further note that the SPH model is the same as the Dahl-Lea model if $a=0$.
+
+The *body proportional hypothesis* (BPH) model was also named by Francis (1990) and was also first recognized by Whitney and Carlander (1956) when they said "*{i}f a fish at time of capture were 10 per cent smaller than the average fish with that size of scale, [then] the fish would be 10 per cent smaller than the expected length for the size of that scale throughout life.*"  This hypothesis can be written as
+
+$$ \frac{L_{i}}{E[L|S_{i}]}=\frac{L_{C}}{E[L|S_{C}]} $$
+
+If the length-scale relationship is linear then the expected values can be found by plugging $S_{i}$ and $S_{c}$ into `r eqncaps("BackCalcELS",display="cite")` to get
+
+$$ \frac{L_{i}}{c+dS_{i}}=\frac{L_{C}}{c+dS_{C}} $$
+
+which can be solved for $L_{i}$ to yield the general BPH back-calculation model
+
+$$ L_{i}=L_{C}\frac{c+dS_{i}}{c+dS_{c}} \quad \quad \text{`r paste0("(",eqncaps("BackCalcBPHLinear",display="num"),")")`} $$
+
+The linear BPH model produces a family of lines that have an intercept of $\frac{cL_{C}}{c+dS_{C}}$ and pass through each observed ($S_{C},L_{C}$) point (`r figcaps("BackCalcEx704",display="cite")`). In contrast to the other back-calculation models, the BPH model uses lines with a different intercept for each fish. The linear BPH model is the same as the Dahl-Lea model if $c=0$.
+
+Vigliola and Meekan (2009) described 18 other models for the back-calculation of fish length. Functions for each of these models can be created with `bcFuns()` as described in THIS VIGNETTE.
+
+
+\  
+
+\  
+
+----
+
+# References
+
+* Carlander, K.D. 1982. Standard intercepts for calculating lengths from scale measurements for some centrarchid and percid fishes. Transactions of the American Fisheries Society 111:332–336. [Abstract](https://www.tandfonline.com/doi/abs/10.1577/1548-8659(1982)111%3C332%3ASIFCLF%3E2.0.CO%3B2)
+
+* Francis, R.I.C.C. 1990. Back-calculation of fish length: A critical review. Journal of Fish Biology 36:883–902. [Abstract](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1095-8649.1990.tb05636.x)
+
+* Fraser, C.M. 1916. Growth of the spring salmon. Transactions of the Pacific Fisheries Society. 1915:29–39.
+
+* Lea, E. 1910. On the methods used in the Herring-investigations. Publ. Circonst. Cons. perm. int. Explor. Mer. 108:14–22.
+
+* Lee, R.M. 1920. A review of the methods of age and growth determination in fishes by means of scales. Fisheries Investigations, London Series 2 4(2):1–32.
+
+* Shoup, D.E., and P.H. Michaletz. 2017. Growth estimation: Summarization. Pages 233-264 in Quist, M.C. and D.A. Isermann, editors. [Age and growth of fishes: principles and techniques.](https://fisheries.org/bookstore/all-titles/professional-and-trade/55078c/) American Fisheries Society, Bethesda, MD.
+
+* Vigliola, L., and M.G. Meekan. 2009. The back-calculation of fish growth from otoliths. Pages 174-211 in Green, B., B. Mapstone, G. Carlos, and G. Begg, editors. Tropical fish otoliths: information for assessment, management and ecology, volume 11. Springer, Dordrecht, Netherlands. [Full Text](https://www.researchgate.net/publication/226394736_The_Back-Calculation_of_Fish_Growth_From_Otoliths)
+
+* Weisberg, S. 1993. Using hard-part increment data to estimate age and environmental effects. Canadian Journal of Fisheries and Aquatic Sciences 50:1229–1237. [Abstract](http://www.nrcresearchpress.com/doi/abs/10.1139/f93-139#.WtOBC38h1EY)
+
+* Weisberg, S., G. Spangler, and L.S. Richmond. 2010. Mixed effects models for fish growth. Canadian Journal of Fisheries and Aquatic Sciences 67:269-277. [Abstract](http://www.nrcresearchpress.com/doi/10.1139/F09-181#.WtOBI38h1EY)
+
+* Whitney, R.R., and K.D. Carlander. 1956. Interpretation of body-scale regression for computing body length of fish. Journal of Wildlife Management 20:21–27. [Abstract](https://www.jstor.org/stable/3797243)
+
+----
