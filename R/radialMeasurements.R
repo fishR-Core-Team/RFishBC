@@ -1,3 +1,66 @@
+#' @title See or set arguments for functions that handle radii measurements.
+#' 
+#' @description Allows the user to see or set values for many of the arguments in \code{\link{digitizeRadii}} and \code{\link{showDigitizedImage}}. These values will be used in these functions unless the user changes them with this function or within \code{\link{digitizeRadii}} or \code{\link{showDigitizedImage}}
+#' 
+#' @param reset A logical that will reset the values to their factory fresh defaults if \code{TRUE}.
+#' @param \dots An arbitrary number of \code{argument}=\code{value} pairs where \code{argument} is one of the argument names and \code{value} is the new value for this argument. See details and examples.
+#' 
+#' @details The arguments that can be set with this function are:
+#' \itemize{
+#' \item{\code{reading}: }{A single character string (or an object that can be coerced to a character) that identifies the reading for a structure. If the structure will be read multiple times, then this is used to identify which time (which reading) this one is. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
+#' \item{\code{description}: }{A single character string that contains a short but more detailed description for a reading of a structure. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
+#' \item{\code{suffix}: }{A single character string that will be added to the RData file name. If \code{NULL} and \code{reading} is not \code{NULL}, then this will be replaced with the value in \code{reading}. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
+#' \item{\code{edgeIsAnnulus}: }{A single logical that indicates whether the structure margin should be considered an annulus (\code{TRUE}) or not (\code{FALSE}). Use \code{FALSE} if growth between the last annulus and the structure marging is not a complete year's worth of growth (i.e., \sQuote{plus-growth}). Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
+#' \item{\code{sepWindow}: }{A single logical that indicates whether the structure image should be opened in a separate window (\code{=TRUE}) or not (\code{=FALSE}). Defaults to \code{TRUE}. Used in \code{\link{digitizeRadii}} and  \code{\link{showDigitizedImage}}.}
+#' \item{\code{windowSize}: }{A single numeric that is used to set the size of the largest dimension for the window in which the structure image is opened if \code{sepWindow=TRUE}. This size will be the width for wider images and the height for taller images. The other dimension will be set relative to this so that the image is displayed in its native aspect ratio. Defaults to 7 inches. Used in \code{\link{digitizeRadii}} and  \code{\link{showDigitizedImage}}.}
+#' \item{\code{scalingFactor}: }{A single numeric that is used to convert measurements on the structure image to actual measurements on the structure. Measurements on the structure image will be multiplied by this value. Ignored if \code{scaleBar=TRUE}. Defaults to \code{1}. Used in \code{\link{digitizeRadii}}.}
+#' \item{\code{scaleBar}: }{A single logical that indicates whether the user will be prompted to select the endpoints of a scale-bar on the structure image. If \code{TRUE}, then must also use \code{scaleBarLength}. If \code{FALSE}, then consider using \code{scalingFactor}. Defaults to \code{FALSE}. Used in \code{\link{digitizeRadii}}.}
+#' \item{\code{scaleBarLength}: }{A single numeric that represents the actual length of the scale-bar. Ignored if \code{scaleBar=FALSE}. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
+#' \item{\code{col.scaleBar}: }{The color of the scale bar line if \code{scalebar=TRUE}. Defaults to \code{"red"}. Used in \code{\link{digitizeRadii}}.}
+#' \item{\code{lwd.scaleBar}: }{The line width of the scale bar line if \code{scalebar=TRUE}. Defaults to \code{2}. Used in \code{\link{digitizeRadii}}.}
+#' \item{\code{addTransect}: }{A single logical that indicates whether the points selected at the structure center and margin should be connected to form a linear transect to mark annuli. Defaults to \code{TRUE}. Used in \code{\link{digitizeRadii}}.}
+#' \item{\code{showTransect}: }{A single logical that indicates whether the points selected at the structure center and margin should be connected to form a linear transect. Defaults to \code{TRUE}. Used in \code{\link{showDigitizedImage}}.}
+#' \item{\code{col.transect}: }{The color of the transect line if \code{addTransect=TRUE} in \code{\link{digitizeRadii}} or \code{showTransect=TRUE} in \code{\link{showDigitizedImage}}. Defaults to \code{"yellow"}.}
+#' \item{\code{lwd.transect}: }{The width of the transect line if \code{addTransect=TRUE} in \code{\link{digitizeRadii}} or \code{showTransect=TRUE} in \code{\link{showDigitizedImage}}. Defaults to \code{1}.}
+#' \item{\code{pch.sel}: }{The plotting character of points for selected annuli in \code{\link{digitizeRadii}}. Defaults to \code{3} (a "cross hairs").}
+#' \item{\code{col.sel}: }{The color of points for selected annuli in \code{\link{digitizeRadii}}. Defaults to \code{"red"}.}
+#' \item{\code{cex.sel}: }{The character expansion value of points for selected annuli in \code{\link{digitizeRadii}}. Defaults to \code{1}.}
+#' \item{\code{pch.show}: }{The plotting character for points shown in \code{\link{showDigitizedImage}}. Defaults to \code{19} (a solid dot).}
+#' \item{\code{col.show}: }{The color of points shown in \code{\link{showDigitizedImage}}. Defaults to \code{"red"}.}
+#' \item{\code{cex.show}: }{The character expansion value of points shown in \code{\link{showDigitizedImage}}. Defaults to \code{1}.}
+#' } 
+#' 
+#' The user will likely only use this function to change arguments at the start of a script, so that those values will be used throughout the analyses in the script. If the values for the arguments need to be changed in any instance of \code{\link{digitizeRadii}} or \code{\link{showDigitizedImage}}, then it is more efficient to change the argument within the call to those functions.
+#' 
+#' The argument values can be reset to the original defaults by using \code{reset=TRUE}. See examples.
+#'
+#' @return None, but the list in \code{RFBCoptions} will be modified.
+#' 
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' 
+#' @export
+#'
+#' @examples
+#' ## Show all options
+#' RFBCoptions()
+#' 
+#' ## Show how to see and set one option
+#' RFBCoptions()$addTransect
+#' RFBCoptions(addTransect=FALSE)
+#' RFBCoptions()$addTransect
+#' RFBCoptions(reset=TRUE)
+#' RFBCoptions()$addTransect
+#' 
+#' ## Multiple options can also be set at once
+#' RFBCoptions(pch.show=3,col.show="blue",cex.show=3)
+#' 
+RFBCoptions <- function(reset=FALSE,...) {
+  if (reset) settings::reset(iRFBCopts)
+  else iRFBCopts(...) 
+}
+
+
+
 #' @title Collect radial measurements from a calcified structure by interactively selecting annuli.
 #' 
 #' @description Computes radial measurements from selected points and writes all to an R data object
@@ -318,85 +381,6 @@ listFiles <- function(ext,other=NULL,path=".",ignore.case=TRUE,...) {
 }
 
 
-#' @title See or set arguments for functions that handle radii measurements.
-#' 
-#' @description Allows the user to see or set values for many of the arguments in \code{\link{digitizeRadii}} and \code{\link{showDigitizedImage}}. These values will be used in these functions unless the user changes them with this function or within \code{\link{digitizeRadii}} or \code{\link{showDigitizedImage}}
-#' 
-#' @param reset A logical that will reset the values to their factory fresh defaults if \code{TRUE}.
-#' @param \dots An arbitrary number of \code{argument}=\code{value} pairs where \code{argument} is one of the argument names and \code{value} is the new value for this argument. See details and examples.
-#' 
-#' @details The arguments that can be set with this function are:
-#' \itemize{
-#' \item{\code{reading}: }{A single character string (or an object that can be coerced to a character) that identifies the reading for this structure. If the structure will be read multiple times, then this is used to identify which time (which reading) this one is. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
-#' \item{\code{description}: }{A single character string that contains a short but more detailed description for the reading of the structure. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
-#' \item{\code{suffix}: }{A single character string that will be added to the R object data file name (see Details). If \code{NULL} and \code{reading} is not \code{NULL} then this will be replaced with the value in \code{reading}. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
-#' \item{\code{edgeIsAnnulus}: }{A single logical that indicates whether the point at the structure margin should be considered an annulus (\code{TRUE}) or not (\code{FALSE}). Use \code{FALSE} if the last selected point represents an incomplete year's worth of growth (i.e., \sQuote{plus-growth}). Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
-#' \item{\code{sepWindow}: }{A single logical that indicates whether the structure image should be opened in a separate window (\code{=TRUE}) or not (\code{=FALSE}). Defaults to \code{TRUE}. Used in \code{\link{digitizeRadii}}.}
-#' \item{\code{windowSize}: }{A single numeric that is used to set the size of the largest dimension for the window in which the structure image is opened if \code{sepWindow=TRUE}. This size will be the width for wider images and the height for taller images. The other dimension will be set relative to this so that the image is displayed in its native aspect ration. Defaults to 7 inches. Used in \code{\link{digitizeRadii}}.}
-#' \item{\code{scalingFactor}: }{A single numeric that is used to convert measurements on the structure image to actual measurements on the structure. Measurements on the structure image will be multiplied by this value. Ignored if \code{scaleBar=TRUE}. Defaults to \code{1}. Used in \code{\link{digitizeRadii}}.}
-#' \item{\code{scaleBar}: }{A single logical that indicates whether the user will be prompted to select the endpoints of a \sQuote{scale-bar} on the structure image. If \code{TRUE}, then must also use \code{scaleBarLength}. If \code{FALSE}, then consider using \code{scalingFactor}. Defaults to \code{FALSE}. Used in \code{\link{digitizeRadii}}.}
-#' \item{\code{scaleBarLength}: }{A single numeric that represents the actual length of the \sQuote{scale-bar}. Ignored if \code{scaleBar=FALSE}. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
-#' \item{\code{col.scaleBar}: }{The color of the scale bar line if \code{scalebar=TRUE}. Defaults to \code{"red"}. Used in \code{\link{digitizeRadii}}.}
-#' \item{\code{lwd.scaleBar}: }{The line width of the scale bar line if \code{scalebar=TRUE}. Defaults to \code{2}. Used in \code{\link{digitizeRadii}}.}
-#' \item{\code{addTransect}: }{A single logical that indicates whether the points selected at the structure center and margin should be connected to form a linear transect to mark annuli. Defaults to \code{TRUE}. Used in \code{\link{digitizeRadii}}.}
-#' \item{\code{showTransect}: }{ Defaults to \code{TRUE}. Used in \code{\link{showDigitizedImage}}.}
-#' \item{\code{col.transect}: }{The color of the transect line if \code{addTransect=TRUE} in \code{\link{digitizeRadii}} or \code{showTransect=TRUE} in \code{\link{showDigitizedImage}}. Defaults to \code{"yellow"}.}
-#' \item{\code{lwd.transect}: }{The width of the transect line if \code{addTransect=TRUE} in \code{\link{digitizeRadii}} or \code{showTransect=TRUE} in \code{\link{showDigitizedImage}}. Defaults to \code{1}. Used in \code{\link{digitizeRadii}} and \code{\link{showDigitizedImage}}.}
-#' \item{\code{pch.sel}: }{The plotting character of points for selected annuli. Defaults to \code{3} (a "cross hairs"). Used in \code{\link{digitizeRadii}}.}
-#' \item{\code{col.sel}: }{The color of points for selected annuli. Defaults to \code{"red"}. Used in \code{\link{digitizeRadii}}.}
-#' \item{\code{cex.sel}: }{The character expansion value of points for selected annuli. Defaults to \code{1}. Used in \code{\link{digitizeRadii}}.}
-#' \item{\code{pch.show}: }{The plotting character for points shown. Defaults to \code{19} (a solid dot). Used in \code{\link{showDigitizedImage}}.}
-#' \item{\code{col.show}: }{The color of points shown. Defaults to \code{"red"}. Used in \code{\link{showDigitizedImage}}.}
-#' \item{\code{cex.show}: }{The character expansion value of points shown. Defaults to \code{1}. Used in \code{\link{showDigitizedImage}}.}
-#' } 
-#' 
-#' The user will likely use this function to change arguments at the start of a script, so that those values will be used throughout the analyses in the script. If the values for the arguments need to be changed in any instance of \code{\link{digitizeRadii}} or \code{\link{showDigitizedImage}}, then it is more efficient to change the argument within the call to those functions.
-#' 
-#' The argument values can be reset to the original defaults by using \code{reset=TRUE}. See examples.
-#'
-#' @return None, but the list in \code{RFBCoptions} will be modified.
-#' 
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
-#' 
-#' @export
-#'
-#' @examples
-#' RFBCoptions()
-#' RFBCoptions()$addTransect
-#' RFBCoptions(addTransect=FALSE)
-#' RFBCoptions()$addTransect
-#' RFBCoptions(reset=TRUE)
-#' RFBCoptions()$addTransect
-RFBCoptions <- function(reset=FALSE,...) {
-  if (reset) settings::reset(iRFBCopts)
-  else iRFBCopts(...) 
-}
-
-
-# This is global to the package's namespace and does not need to be
-# documented. However, this sets default options for the selecting and
-# showing of the radii.
-iRFBCopts <- settings::options_manager(reading=NULL,description=NULL,
-                        suffix=NULL,edgeIsAnnulus=NULL,
-                        sepWindow=TRUE,windowSize=7,
-                        scalingFactor=1,scaleBar=FALSE,scaleBarLength=NULL,
-                        col.scaleBar="red",lwd.scaleBar=2,
-                        addTransect=TRUE,showTransect=TRUE,
-                        col.transect="yellow",lwd.transect=1,
-                        pch.sel=3,col.sel="red",cex.sel=1,
-                        pch.show=19,col.show="red",cex.show=1,
-                      .allowed=list(
-                        sepWindow=settings::inlist(TRUE,FALSE),
-                        windowSize=settings::inrange(min=1,max=30),
-                        scalingFactor=settings::inrange(min=1e-10,max=Inf),
-                        scaleBar=settings::inlist(TRUE,FALSE),
-                        lwd.scaleBar=settings::inrange(min=1,max=10),
-                        addTransect=settings::inlist(TRUE,FALSE),
-                        lwd.transect=settings::inrange(min=1,max=10),
-                        cex.sel=settings::inrange(min=0.1,max=10),
-                        cex.show=settings::inrange(min=0.1,max=10)
-                      )
-)
 
 
 
@@ -408,6 +392,31 @@ iRFBCopts <- settings::options_manager(reading=NULL,description=NULL,
 #
 #-----------------------------------------------------------------------
 #=======================================================================
+
+########################################################################
+# This sets default options for the selecting and showing of the radii.
+########################################################################
+iRFBCopts <- settings::options_manager(reading=NULL,description=NULL,
+                suffix=NULL,edgeIsAnnulus=NULL,
+                sepWindow=TRUE,windowSize=7,
+                scalingFactor=1,scaleBar=FALSE,scaleBarLength=NULL,
+                col.scaleBar="red",lwd.scaleBar=2,
+                addTransect=TRUE,showTransect=TRUE,
+                col.transect="yellow",lwd.transect=1,
+                pch.sel=3,col.sel="red",cex.sel=1,
+                pch.show=19,col.show="red",cex.show=1,
+              .allowed=list(
+                sepWindow=settings::inlist(TRUE,FALSE),
+                windowSize=settings::inrange(min=1,max=30),
+                scalingFactor=settings::inrange(min=1e-10,max=Inf),
+                scaleBar=settings::inlist(TRUE,FALSE),
+                lwd.scaleBar=settings::inrange(min=1,max=10),
+                addTransect=settings::inlist(TRUE,FALSE),
+                lwd.transect=settings::inrange(min=1,max=10),
+                cex.sel=settings::inrange(min=0.1,max=10),
+                cex.show=settings::inrange(min=0.1,max=10)
+              )
+)
 
 
 ########################################################################
@@ -502,7 +511,8 @@ iSelectAnnuli <- function(pch.pts,col.pts,cex.pts,
                                           col=col.pts,cex=cex.pts))
   if (nrow(tmp1)<2) stop("Either the focus or margin was not selected.",
                          call.=FALSE)
-  graphics::lines(y~x,data=tmp1,lwd=lwd.trans,col=col.trans)
+  if (addTransect) graphics::lines(y~x,data=tmp1,
+                                   lwd=lwd.trans,col=col.trans)
   tmp2 <- as.data.frame(graphics::locator(type="p",pch=pch.pts,
                                           col=col.pts,cex=cex.pts))
   if (nrow(tmp2)<1) stop("No points were selected as annuli.",
