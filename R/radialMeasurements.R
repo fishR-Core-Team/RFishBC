@@ -68,7 +68,7 @@ RFBCoptions <- function(reset=FALSE,...) {
 #' The user can interactively select points on a plot by clicking with the first mouse button on the image. When finished, the x- and y-coordinates for each selected point will be returned.
 #' 
 #' @param fname A string that indicates the image (must be PNG, JPG, or BMP) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (will look for this file in the current working directory unless a fully pathed name is given).
-#' @param ID A unique identifier for the fish or structure being examined. Will be coerced to a character.
+#' @param id A unique identifier for the fish or structure being examined. Will be coerced to a character.
 #' @param reading See details in \code{\link{RFBCoptions}}.
 #' @param description See details in \code{\link{RFBCoptions}}.
 #' @param suffix See details in \code{\link{RFBCoptions}}.
@@ -92,7 +92,7 @@ RFBCoptions <- function(reset=FALSE,...) {
 #' @return A string that contains the filename (with path) of an R data object (i.e., .RData file) written to the same directory/folder as the file in \code{fname} that contains the following items in a list:
 #' \itemize{
 #'   \item description: The description given in \code{description}.
-#'   \item ID: The unique identifier given in \code{ID}.
+#'   \item id: The unique identifier given in \code{id}.
 #'   \item image: The filename for the structure image given in \code{fname}.
 #'   \item pts: The data.frame of x- and y-coordinates for the points (as returned directly from selecting points on the structure image).
 #'   \item radii: A data.frame that contains the radial measurements (i.e., from the focus to the selected point) for the structure. Specifically, it contains the following items:
@@ -108,14 +108,14 @@ RFBCoptions <- function(reset=FALSE,...) {
 #' @examples
 #' ## None yet
 #' 
-digitizeRadii <- function(fname=file.choose(),ID,reading,suffix,
+digitizeRadii <- function(fname=file.choose(),id,reading,suffix,
                           description,edgeIsAnnulus,
                           sepWindow,windowSize,scaleBar,
                           scaleBarLength,col.scaleBar,lwd.scaleBar,
                           scalingFactor,addTransect,col.transect,
                           lwd.transect,pch.sel,col.sel,cex.sel) {
   ## Process arguments
-  if (missing(ID)) stop("You must enter a unique identifier in 'ID'.",
+  if (missing(id)) stop("You must enter a unique identifier in 'id'.",
                         call.=FALSE)
   if (missing(reading)) reading <- iGetopt("reading")
   if (missing(description)) description <- iGetopt("description")
@@ -156,7 +156,7 @@ digitizeRadii <- function(fname=file.choose(),ID,reading,suffix,
                        cex.pts=cex.sel,addTransect=addTransect,
                        col.trans=col.transect,lwd.trans=lwd.transect)
   ## Converts the selected points to radial measurements
-  dat <- iProcessAnnuli(fname,pts,ID,reading,suffix,description,
+  dat <- iProcessAnnuli(fname,pts,id,reading,suffix,description,
                         edgeIsAnnulus,SF$scalingFactor)
   ## Add windowSize and scaling factor information to dat list
   dat <- c(dat,SF,windowSize)
@@ -479,7 +479,7 @@ iReadImage <- function(fname,sepWindow,windowSize) {
 ## Compute a scaling factor from a scale bar on the structure image.
 ########################################################################
 iScaleBar <- function(knownLength,col,lwd) {
-  tmp <- as.data.frame(graphics::locator(n=2,type="p",pch=3))
+  tmp <- as.data.frame(graphics::locator(n=2,type="p",pch=3,col=col))
   if (nrow(tmp)<2) {
     warning("Two endpoints were not selected for the scale bar;\n thus, no scaling factor was computed.",call.=FALSE)
     scalingFactor <- 1
@@ -531,7 +531,7 @@ iSelectAnnuli <- function(pch.pts,col.pts,cex.pts,
 ## information into an R object data file in the current working
 ## directory.
 ########################################################################
-iProcessAnnuli <- function(fname,pts,ID,reading,suffix,description,
+iProcessAnnuli <- function(fname,pts,id,reading,suffix,description,
                            edgeIsAnnulus,scalingFactor) {
   ## Convert point locations to radial measurements, 
   n <- nrow(pts)-1
@@ -542,11 +542,11 @@ iProcessAnnuli <- function(fname,pts,ID,reading,suffix,description,
   rad <- rad[order(rad)]
   ## create data.frame with radii information
   reading <- ifelse(is.null(reading),NA,reading)
-  radii <- data.frame(ID=as.character(rep(ID,n)),
+  radii <- data.frame(id=as.character(rep(id,n)),
                       reading=as.character(rep(reading,n)),
-                      ageCap=ifelse(edgeIsAnnulus,n,n-1),
+                      agecap=ifelse(edgeIsAnnulus,n,n-1),
                       ann=seq_len(n),
-                      rad=rad,radCap=max(rad),
+                      rad=rad,radcap=max(rad),
                       stringsAsFactors=FALSE)
   ## Organize all results for later processing
   dat <- list(description=description,image=fname,

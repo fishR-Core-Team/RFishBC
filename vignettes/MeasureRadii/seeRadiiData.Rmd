@@ -26,9 +26,10 @@ This vignette will use the following RData files:
 * "Oto140306_DHO.RData": annular points selected on the "Oto140306.jpg" file. In contrast to the previous two images, this image had a 1-mm scale-bar. This RData file was created with the following.
 
 ```{r eval=FALSE}
-digitizeRadii("Oto140306.jpg",ID="140306",reading="DHO",
+digitizeRadii("Oto140306.jpg",id="140306",reading="DHO",
               description="Used to demonstrate use of scale-bar.",
-              scaleBar=TRUE,scaleBarLength=1,edgeIsAnnulus=TRUE)
+              scaleBar=TRUE,scaleBarLength=1,edgeIsAnnulus=TRUE,
+              windowSize=12)
 ```
 
 Only the `RFishBC` package is needed for this vignette.

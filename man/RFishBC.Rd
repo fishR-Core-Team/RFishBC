@@ -6,5 +6,5 @@
 \alias{RFishBC-package}
 \title{RFishBC.}
 \description{
-A possible replacement for the fishBC package distributed by the American Fisheries Society that appears to be far out-of-date.
+The RFishBC package helps fisheries scientists collect growth data from calcified structures and back-calculate estimated lengths at previous ages. The package is intended to replace much of the functionality provided by the now out-date fishBC software. See the package webpage at [http://derekogle.com/RFishBC].
 }

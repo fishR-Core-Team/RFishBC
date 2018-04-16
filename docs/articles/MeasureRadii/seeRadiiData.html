@@ -91,7 +91,7 @@
       <h1>Visualize Points Selected on a Calcified Structure</h1>
                         <h4 class="author">Derek H. Ogle</h4>
             
-            <h4 class="date">2018-04-15</h4>
+            <h4 class="date">2018-04-16</h4>
       
       <small>Source: <a href="https://github.com/droglenc/RFishBC/blob/master/vignettes/MeasureRadii/seeRadiiData.Rmd"><code>vignettes/MeasureRadii/seeRadiiData.Rmd</code></a></small>
       <div class="hidden name"><code>seeRadiiData.Rmd</code></div>
@@ -110,9 +110,10 @@
 <li>“Scale_1_DHO2.RData”: a second set of annular points selected on the “Scale_1.jpg” file in <a href="collectRadiiData.html">this vignette</a>.</li>
 <li>“Oto140306_DHO.RData”: annular points selected on the “Oto140306.jpg” file. In contrast to the previous two images, this image had a 1-mm scale-bar. This RData file was created with the following.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/digitizeRadii.html">digitizeRadii</a></span>(<span class="st">"Oto140306.jpg"</span>,<span class="dt">ID=</span><span class="st">"140306"</span>,<span class="dt">reading=</span><span class="st">"DHO"</span>,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/digitizeRadii.html">digitizeRadii</a></span>(<span class="st">"Oto140306.jpg"</span>,<span class="dt">id=</span><span class="st">"140306"</span>,<span class="dt">reading=</span><span class="st">"DHO"</span>,
               <span class="dt">description=</span><span class="st">"Used to demonstrate use of scale-bar."</span>,
-              <span class="dt">scaleBar=</span><span class="ot">TRUE</span>,<span class="dt">scaleBarLength=</span><span class="dv">1</span>,<span class="dt">edgeIsAnnulus=</span><span class="ot">TRUE</span>)</code></pre></div>
+              <span class="dt">scaleBar=</span><span class="ot">TRUE</span>,<span class="dt">scaleBarLength=</span><span class="dv">1</span>,<span class="dt">edgeIsAnnulus=</span><span class="ot">TRUE</span>,
+              <span class="dt">windowSize=</span><span class="dv">12</span>)</code></pre></div>
 <p>Only the <code>RFishBC</code> package is needed for this vignette.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RFishBC)
 <span class="co">#&gt; ## RFishBC v0.0.0.9000. See vignettes.</span></code></pre></div>

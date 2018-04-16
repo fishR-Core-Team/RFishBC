@@ -128,7 +128,7 @@ The user can interactively select points on a plot by clicking with the first mo
 <p>The user can interactively select points on a plot by clicking with the first mouse button on the image. When finished, the x- and y-coordinates for each selected point will be returned.</p>
     
 
-    <pre class="usage"><span class='fu'>digitizeRadii</span>(<span class='kw'>fname</span> <span class='kw'>=</span> <span class='fu'>file.choose</span>(), <span class='no'>ID</span>, <span class='no'>reading</span>, <span class='no'>suffix</span>, <span class='no'>description</span>,
+    <pre class="usage"><span class='fu'>digitizeRadii</span>(<span class='kw'>fname</span> <span class='kw'>=</span> <span class='fu'>file.choose</span>(), <span class='no'>id</span>, <span class='no'>reading</span>, <span class='no'>suffix</span>, <span class='no'>description</span>,
   <span class='no'>edgeIsAnnulus</span>, <span class='no'>sepWindow</span>, <span class='no'>windowSize</span>, <span class='no'>scaleBar</span>, <span class='no'>scaleBarLength</span>, <span class='no'>col.scaleBar</span>,
   <span class='no'>lwd.scaleBar</span>, <span class='no'>scalingFactor</span>, <span class='no'>addTransect</span>, <span class='no'>col.transect</span>, <span class='no'>lwd.transect</span>, <span class='no'>pch.sel</span>,
   <span class='no'>col.sel</span>, <span class='no'>cex.sel</span>)</pre>
@@ -141,7 +141,7 @@ The user can interactively select points on a plot by clicking with the first mo
       <td><p>A string that indicates the image (must be PNG, JPG, or BMP) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (will look for this file in the current working directory unless a fully pathed name is given).</p></td>
     </tr>
     <tr>
-      <th>ID</th>
+      <th>id</th>
       <td><p>A unique identifier for the fish or structure being examined. Will be coerced to a character.</p></td>
     </tr>
     <tr>
@@ -218,7 +218,7 @@ The user can interactively select points on a plot by clicking with the first mo
 
     <p>A string that contains the filename (with path) of an R data object (i.e., .RData file) written to the same directory/folder as the file in <code>fname</code> that contains the following items in a list:</p><ul>
 <li><p>description: The description given in <code>description</code>.</p></li>
-<li><p>ID: The unique identifier given in <code>ID</code>.</p></li>
+<li><p>id: The unique identifier given in <code>id</code>.</p></li>
 <li><p>image: The filename for the structure image given in <code>fname</code>.</p></li>
 <li><p>pts: The data.frame of x- and y-coordinates for the points (as returned directly from selecting points on the structure image).</p></li>
 <li><p>radii: A data.frame that contains the radial measurements (i.e., from the focus to the selected point) for the structure. Specifically, it contains the following items:</p><ul>

@@ -73,7 +73,7 @@ The `digitizeRadii()` function is used to
 For example (*but described thoroughly further below*), the line below identifies "Scale_1.jpg" as the structure image, this fish has an identification number of "1", this reading of the image should be labelled as "DHO", and structure margin or edge should not be considered as an annulus. When this line is run it will open the image[^inwd], allow the user to select points that represent annuli, and save radial measurements in "Scale_1_DHO.RData".[^saveex1]
 
 ```{r eval=FALSE}
-digitizeRadii("Scale_1.jpg",ID="1",reading="DHO",edgeIsAnnulus=FALSE)
+digitizeRadii("Scale_1.jpg",id="1",reading="DHO",edgeIsAnnulus=FALSE)
 ```
 
 Further specifics of `digitizeRadii()` and its many arguments are described below.
@@ -82,7 +82,7 @@ Further specifics of `digitizeRadii()` and its many arguments are described belo
 The first several arguments to `digitizeRadii()` are related to information about the structure.
 
 * `fname=`: File name for the structure image. This is just a file name if the file is in the current working directory. However it may be the fully pathed name if the image file is not in the current working directory. If this argument is not given, then a dialog box will be provided from which the file can be selected.
-* `ID=`: **Required** unique identifier for the fish/structure.
+* `id=`: **Required** unique identifier for the fish/structure.
 * `reading=`: Optional label for the reading.[^readings]
 * `suffix=`: Optional additional label for the resultant RData file.
 * `description=`: Optional detailed description about the structure. This will be saved in the RData file and could be extracted in the future. For example, one may use `description="Cisco scale read once by Ogle on 22-Apr-18"` to provide more information about the structure reading.
@@ -120,7 +120,7 @@ RFBCoptions()$addTransect
 
 These default values for arguments can be changed so that they do not need to be included each time you call `digitizeRadii()`. For example, suppose that you want the "reading" label to say "DHO", the edge to not be considered an annulus, the width of the transect line to be thicker, and a scale-bar is present with a known length of 0.6 mm. You can set these items in `digitizeRadii()` as below.
 ```{r eval=FALSE}
-digitizeRadii("Scale_1.jpg",ID="1",reading="DHO",edgeIsAnnulus=FALSE,
+digitizeRadii("Scale_1.jpg",id="1",reading="DHO",edgeIsAnnulus=FALSE,
               lwd.transect=3,scaleBar=TRUE,scaleBarLength=0.6)
 ```
 
@@ -132,7 +132,7 @@ RFBC(reading="DHO",edgeIsAnnulus=FALSE,edgeIsAnnulus=FALSE,
 
 With these changes to the default settings, the last call to `digitizeRadii()` above could be simplified as shown below.
 ```{r eval=FALSE}
-digitizeRadii("Scale_1.jpg",ID="1")
+digitizeRadii("Scale_1.jpg",id="1")
 ```
 
 Argument values can still be changed from the defaults for a particular call to `digitizeRadii()` by including that argument in the specific call. For example if the edge was an annulus for only one of the structures then include `edgeIsAnnulus=TRUE` in `digitizeRadii()`.
@@ -158,11 +158,11 @@ This list of names can be further filtered by including other key words for the 
 ```
 
 ### Processing Images
-The user would then process each structure in the working directory as described in [Measure Radii](#measurereadii). This will require multiple calls to `digitizeRadii()`, each with a different structure image file name. If the file names are stored in an object as show above, then these names can be extracted by their position in the object. For example, `fns[1]` identifies the first filename in `fns` (i.e., "Scale_1.jpg"). The `ID=` argument should change to represent the unique identification number of each fish. Finally, `RFBCoptions()` can be used to change default values for some arguments as described in [Setting Arguments](#setoptions1) and shown below for the `reading=` and `edgeIsAnnlus=` arguments.
+The user would then process each structure in the working directory as described in [Measure Radii](#measurereadii). This will require multiple calls to `digitizeRadii()`, each with a different structure image file name. If the file names are stored in an object as show above, then these names can be extracted by their position in the object. For example, `fns[1]` identifies the first filename in `fns` (i.e., "Scale_1.jpg"). The `id=` argument should change to represent the unique identification number of each fish. Finally, `RFBCoptions()` can be used to change default values for some arguments as described in [Setting Arguments](#setoptions1) and shown below for the `reading=` and `edgeIsAnnlus=` arguments.
 ```{r eval=FALSE}
 RFBCoptions(reading="DHO",edgeIsAnnulus=FALSE)
-digitizeRadii(fns[1],ID="1")
-digitizeRadii(fns[2],ID="2")
+digitizeRadii(fns[1],id="1")
+digitizeRadii(fns[2],id="2")
 ```
 
 ### Combining Data
@@ -182,11 +182,11 @@ Finally, the data in these two files are combined and stored in `dfrad`.
 ```
 
 # Output Data File
-Other information about the fish (e.g., location of capture, length, sex) is likely held in a separate file. Below, example "other" data are loaded into the `dffish` data.frame. Note that the `ID` and `reading` variables created from processing the structure images above are characters. In this case, `read.csv()` reads the `ID` variable from the external data file as numeric (because the unique IDs were simple numbers). The second line of code below converts these numeric IDs to characters so that this data.frame can be joined with the radial measurements data.frame from above.[^wrongtypesinjoin]
+Other information about the fish (e.g., location of capture, length, sex) is likely held in a separate file. Below, example "other" data are loaded into the `dffish` data.frame. Note that the `id` and `reading` variables created from processing the structure images above are characters. In this case, `read.csv()` reads the `id` variable from the external data file as numeric (because the unique IDs were simple numbers). The second line of code below converts these numeric IDs to characters so that this data.frame can be joined with the radial measurements data.frame from above.[^wrongtypesinjoin]
 ```{r}
 dffish <- read.csv("FishData.csv",stringsAsFactors=FALSE) %>%
-  mutate(ID=as.character(ID)) %>% 
-  inner_join(dfrad,by="ID")
+  mutate(id=as.character(id)) %>% 
+  inner_join(dfrad,by="id")
 dffish
 ```
 
@@ -243,6 +243,6 @@ write.csv(dffish,file="Kiyi2014_BCs.csv",quote=FALSE,row.names=FALSE)
 
 [^noteabove]: The first set of readings were made in the first section above.
 
-[^wrongtypesinjoin]: The two files cannot be joined by the "ID" variable if the "ID" variables are of different types (e.g., character and numeric) in the two files. Thus, as shown here, they must be coerced to be the same type. This line of code would no be needed if the "ID" variables were of the same type in the two files as would likely occur if the "ID" variable was not simply numbers.
+[^wrongtypesinjoin]: The two files cannot be joined by the "id" variable if the "id" variables are of different types (e.g., character and numeric) in the two files. Thus, as shown here, they must be coerced to be the same type. This line of code would no be needed if the "id" variables were of the same type in the two files as would likely occur if the "id" variable was not simply numbers.
 
 [^csvfile]: CSV files are small, portable, and can be opened directly in most spreadsheet softwares.

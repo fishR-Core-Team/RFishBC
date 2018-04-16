@@ -4,7 +4,7 @@
 \alias{digitizeRadii}
 \title{Collect radial measurements from a calcified structure by interactively selecting annuli.}
 \usage{
-digitizeRadii(fname = file.choose(), ID, reading, suffix, description,
+digitizeRadii(fname = file.choose(), id, reading, suffix, description,
   edgeIsAnnulus, sepWindow, windowSize, scaleBar, scaleBarLength, col.scaleBar,
   lwd.scaleBar, scalingFactor, addTransect, col.transect, lwd.transect, pch.sel,
   col.sel, cex.sel)
@@ -12,7 +12,7 @@ digitizeRadii(fname = file.choose(), ID, reading, suffix, description,
 \arguments{
 \item{fname}{A string that indicates the image (must be PNG, JPG, or BMP) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (will look for this file in the current working directory unless a fully pathed name is given).}
 
-\item{ID}{A unique identifier for the fish or structure being examined. Will be coerced to a character.}
+\item{id}{A unique identifier for the fish or structure being examined. Will be coerced to a character.}
 
 \item{reading}{See details in \code{\link{RFBCoptions}}.}
 
@@ -52,7 +52,7 @@ digitizeRadii(fname = file.choose(), ID, reading, suffix, description,
 A string that contains the filename (with path) of an R data object (i.e., .RData file) written to the same directory/folder as the file in \code{fname} that contains the following items in a list:
 \itemize{
   \item description: The description given in \code{description}.
-  \item ID: The unique identifier given in \code{ID}.
+  \item id: The unique identifier given in \code{id}.
   \item image: The filename for the structure image given in \code{fname}.
   \item pts: The data.frame of x- and y-coordinates for the points (as returned directly from selecting points on the structure image).
   \item radii: A data.frame that contains the radial measurements (i.e., from the focus to the selected point) for the structure. Specifically, it contains the following items:
