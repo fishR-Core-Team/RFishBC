@@ -137,18 +137,22 @@ wb90 &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyve
 <h1 class="hasAnchor">
 <a href="#data-organization-manipulation" class="anchor"></a>Data Organization &amp; Manipulation</h1>
 <p>The back-calculation of fish length at previous ages requires radial, and not incremental, measurements. The Smallmouth Bass data loaded above <strong>does</strong> contain radial measurments, so no conversion is needed.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(wb90,<span class="dt">n=</span><span class="dv">2</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(wb90,<span class="dt">n=</span><span class="dv">3</span>)
 <span class="co">#&gt;   fish agecap lencap    anu1    anu2    anu3    anu4    anu5    anu6</span>
 <span class="co">#&gt; 1  374      7    243 1.01672 2.39296 3.47635 4.37718 5.18976 6.09176</span>
 <span class="co">#&gt; 2  375      7    293 1.76579 3.26580 4.35377 5.41608 7.14118 8.79697</span>
+<span class="co">#&gt; 3  376      7    214 1.02621 1.93058 2.58000 3.24923 4.05444 4.73920</span>
 <span class="co">#&gt;      anu7 anu8 anu9  radcap</span>
 <span class="co">#&gt; 1 7.57375   NA   NA 7.57375</span>
 <span class="co">#&gt; 2 9.74397   NA   NA 9.74397</span>
-<span class="kw">tail</span>(wb90,<span class="dt">n=</span><span class="dv">2</span>)
+<span class="co">#&gt; 3 5.34522   NA   NA 5.34522</span>
+<span class="kw">tail</span>(wb90,<span class="dt">n=</span><span class="dv">3</span>)
 <span class="co">#&gt;     fish agecap lencap    anu1    anu2    anu3    anu4    anu5   anu6</span>
+<span class="co">#&gt; 179  767      2     99 1.44159 2.34205      NA      NA      NA     NA</span>
 <span class="co">#&gt; 180  768      1     75 1.57989      NA      NA      NA      NA     NA</span>
 <span class="co">#&gt; 181  998      7    298 1.37828 2.70647 3.60701 4.48222 5.17646 6.6224</span>
 <span class="co">#&gt;        anu7 anu8 anu9  radcap</span>
+<span class="co">#&gt; 179      NA   NA   NA 2.34205</span>
 <span class="co">#&gt; 180      NA   NA   NA 1.57989</span>
 <span class="co">#&gt; 181 8.54805   NA   NA 8.54805</span></code></pre></div>
 <p>Back-calculation data is often stored in one of two formats. In <em>wide</em> or <em>one-fish-per-line</em> format, all information about a single fish, including all of the measurements from the calcified structure, is in one row of the data.frame. For efficient back-calculation, the data must be in the <em>long</em> or <em>one-measurement-per-line</em> format where each row contains information about one annulus (e.g., which annulus and the radial measurement).</p>
@@ -305,23 +309,25 @@ bph &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bcFu
 <div id="summarizing-back-calculated-lengths" class="section level1">
 <h1 class="hasAnchor">
 <a href="#summarizing-back-calculated-lengths" class="anchor"></a>Summarizing Back-Calculated Lengths</h1>
-<p>For example, the mean length-at-age may be computed from the back-calculated lengths (shown below for the Fraser-Lee results).</p>
+<p>For example, the mean back-calculated length-at-age may be computed with <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> and <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code> as shown below for the Fraser-Lee results.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tmp &lt;-<span class="st"> </span>wb90r <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(agei) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span>(<span class="dt">n=</span><span class="kw"><a href="http://www.rdocumentation.org/packages/FSA/topics/validn">validn</a></span>(FL.len),<span class="dt">mn=</span><span class="kw">mean</span>(FL.len),<span class="dt">sd=</span><span class="kw">sd</span>(FL.len)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span>(<span class="dt">n=</span><span class="kw"><a href="http://www.rdocumentation.org/packages/FSA/topics/validn">validn</a></span>(FL.len),
+            <span class="dt">mn=</span><span class="kw">round</span>(<span class="kw">mean</span>(FL.len),<span class="dv">1</span>),
+            <span class="dt">sd=</span><span class="kw">round</span>(<span class="kw">sd</span>(FL.len),<span class="dv">2</span>)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">as.data.frame</span>()
 tmp
-<span class="co">#&gt;   agei   n       mn        sd</span>
-<span class="co">#&gt; 1    1 181  78.5663  6.472692</span>
-<span class="co">#&gt; 2    2 178 114.1527 10.453632</span>
-<span class="co">#&gt; 3    3 155 146.7669 13.898434</span>
-<span class="co">#&gt; 4    4  71 172.6512 15.339848</span>
-<span class="co">#&gt; 5    5  64 201.0405 17.479717</span>
-<span class="co">#&gt; 6    6  64 235.3834 23.350527</span>
-<span class="co">#&gt; 7    7  50 268.5969 25.286958</span>
-<span class="co">#&gt; 8    8   2 283.2237 26.912010</span>
-<span class="co">#&gt; 9    9   2 314.5000 20.506097</span></code></pre></div>
-<p>Additionally, the mean length at each back-calculated age computed separately for each age-at-capture may be computed with <code><a href="http://www.rdocumentation.org/packages/FSA/topics/sumTable">sumTable()</a></code> from <code>FSA</code>, where the left side of the formula is the quantitative variable to be summarized and the right side has grouping variables presented in <code>row*column</code> format.</p>
+<span class="co">#&gt;   agei   n    mn    sd</span>
+<span class="co">#&gt; 1    1 181  78.6  6.47</span>
+<span class="co">#&gt; 2    2 178 114.2 10.45</span>
+<span class="co">#&gt; 3    3 155 146.8 13.90</span>
+<span class="co">#&gt; 4    4  71 172.7 15.34</span>
+<span class="co">#&gt; 5    5  64 201.0 17.48</span>
+<span class="co">#&gt; 6    6  64 235.4 23.35</span>
+<span class="co">#&gt; 7    7  50 268.6 25.29</span>
+<span class="co">#&gt; 8    8   2 283.2 26.91</span>
+<span class="co">#&gt; 9    9   2 314.5 20.51</span></code></pre></div>
+<p>Additionally, the mean length at each back-calculated age computed separately for each age-at-capture is found with <code><a href="http://www.rdocumentation.org/packages/FSA/topics/sumTable">sumTable()</a></code>, where the left side of the formula is the quantitative variable to be summarized and the right side has grouping variables presented in <code>row*column</code> format.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="http://www.rdocumentation.org/packages/FSA/topics/sumTable">sumTable</a></span>(FL.len<span class="op">~</span>agecap<span class="op">*</span>agei,<span class="dt">data=</span>wb90r,<span class="dt">digits=</span><span class="dv">1</span>)
 <span class="co">#&gt;      1     2     3     4     5     6     7     8     9</span>
 <span class="co">#&gt; 1 73.7    NA    NA    NA    NA    NA    NA    NA    NA</span>

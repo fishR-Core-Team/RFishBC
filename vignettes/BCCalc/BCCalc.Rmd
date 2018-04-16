@@ -64,8 +64,8 @@ Finally, some of the data manipulations used in this vignette may not be familia
 # Data Organization & Manipulation
 The back-calculation of fish length at previous ages requires radial, and not incremental, measurements. The Smallmouth Bass data loaded above **does** contain radial measurments, so no conversion is needed.[^inc2rad]
 ```{r}
-head(wb90,n=2)
-tail(wb90,n=2)
+head(wb90,n=3)
+tail(wb90,n=3)
 ```
 
 Back-calculation data is often stored in one of two formats. In *wide* or *one-fish-per-line* format, all information about a single fish, including all of the measurements from the calcified structure, is in one row of the data.frame. For efficient back-calculation, the data must be in the *long* or *one-measurement-per-line* format where each row contains information about one annulus (e.g., which annulus and the radial measurement).
@@ -164,16 +164,18 @@ tail(wb90r,n=3)
 ----
 
 # Summarizing Back-Calculated Lengths
-For example, the mean length-at-age may be computed from the back-calculated lengths (shown below for the Fraser-Lee results).
-```{r }
+For example, the mean back-calculated length-at-age may be computed with `group_by()` and `summarize()` as shown below for the Fraser-Lee results.
+```{r}
 tmp <- wb90r %>%
   group_by(agei) %>%
-  summarize(n=validn(FL.len),mn=mean(FL.len),sd=sd(FL.len)) %>%
+  summarize(n=validn(FL.len),
+            mn=round(mean(FL.len),1),
+            sd=round(sd(FL.len),2)) %>%
   as.data.frame()
 tmp
 ```
 
-Additionally, the mean length at each back-calculated age computed separately for each age-at-capture may be computed with `sumTable()` from `FSA`, where the left side of the formula is the quantitative variable to be summarized and the right side has grouping variables presented in `row*column` format.
+Additionally, the mean length at each back-calculated age computed separately for each age-at-capture is found with `sumTable()`, where the left side of the formula is the quantitative variable to be summarized and the right side has grouping variables presented in `row*column` format.
 ```{r warning=FALSE}
 sumTable(FL.len~agecap*agei,data=wb90r,digits=1)
 ```
