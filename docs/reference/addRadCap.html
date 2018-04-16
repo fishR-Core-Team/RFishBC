@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add a total radius-at-capture variable to a data.frame that contains one-fish-per-line increments data. — addRadCap • RFishBC</title>
+<title>Add total radius-at-capture to wide increments data. — addRadCap • RFishBC</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,9 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Add a total radius-at-capture variable to a data.frame that contains one-fish-per-line increments data. — addRadCap" />
+<meta property="og:title" content="Add total radius-at-capture to wide increments data. — addRadCap" />
 
-<meta property="og:description" content="Add a total radius-at-capture variable to a data.frame that contains one-fish-per-line increments data (i.e., &#8220;wide&#8221; format)." />
+<meta property="og:description" content="Add a total radius-at-capture variable to a data.frame that contains one-fish-per-line (i.e., &#8220;wide&#8221; format) increments data." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -117,13 +117,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add a total radius-at-capture variable to a data.frame that contains one-fish-per-line increments data.</h1>
+    <h1>Add total radius-at-capture to wide increments data.</h1>
     <small>Source: <a href='https://github.com/droglenc/RFishBC/blob/master/R/growthDataUtils.R'><code>R/growthDataUtils.R</code></a></small>
     <div class="hidden name"><code>addRadCap.Rd</code></div>
     </div>
 
     
-    <p>Add a total radius-at-capture variable to a data.frame that contains one-fish-per-line increments data (i.e., &#8220;wide&#8221; format).</p>
+    <p>Add a total radius-at-capture variable to a data.frame that contains one-fish-per-line (i.e., &#8220;wide&#8221; format) increments data.</p>
     
 
     <pre class="usage"><span class='fu'>addRadCap</span>(<span class='no'>df</span>, <span class='kw'>in.pre</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>in.var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>var.name</span> <span class='kw'>=</span> <span class='st'>"radcap"</span>)</pre>
@@ -137,26 +137,26 @@
     </tr>
     <tr>
       <th>in.pre</th>
-      <td><p>A string that represents the common part of the increment variable names.  See details.</p></td>
+      <td><p>A string that represents the common part of the increment variable names. See details.</p></td>
     </tr>
     <tr>
       <th>in.var</th>
-      <td><p>A vector of variables in <code>df</code> that do not change.  See details.</p></td>
+      <td><p>A vector of variables in <code>df</code> that do not change. See details.</p></td>
     </tr>
     <tr>
       <th>var.name</th>
-      <td><p>A string that indicates the name for the new total radius-at-capture variable in the new data.frame.</p></td>
+      <td><p>A string that indicates the name for the new total radius-at-capture variable in the new data.frame. Defaults to &#8220;radcap&#8221;.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data.frame of increments in one-fish-per-line  (i.e., &#8220;wide&#8221;) format with the total radius-at-capture appended in a variable named as given in <code>var.name</code> (defaults to &#8220;radcap&#8221;).</p>
+    <p>A data.frame of increments in one-fish-per-line  (i.e., &#8220;wide&#8221;) format with the total radius-at-capture appended in a variable named as given in <code>var.name</code>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>#' The columns that contain the original measurement data can specified in a variety of ways.  First, if all columns begin with the same prefix (and no other columns contain that prefix), then the prefix string may be given to <code>in.pre=</code>.  Second, a sequence of column numbers may be given to <code>in.var=</code> with the <code>#:#</code> (if the columns are contiguous) or as a vector (if the columns are not contiguous).  Third, a vector of column names may be given to <code>in.var=</code>.  Note  that one, but not both, of <code>in.var=</code> or <code>in.pre=</code> must be specified by the user.</p>
-<p>Note that the computed total radius-at-capture will only be the actual total radius-at-capture if all growth, including plus-growth in the current season, is recorded in the input data frame.</p>
+    <p>The columns that contain the original increment data can specified in a variety of ways. First, if all columns begin with the same prefix (and no other columns contain that prefix), then the prefix string may be given to <code>in.pre=</code>. Second, a sequence of column numbers may be given to <code>in.var=</code> with <code>#:#</code> (if the columns are contiguous) or as a vector (if the columns are not contiguous). Third, a vector of column names may be given to <code>in.var=</code>. Note  that one, but not both, of <code>in.var=</code> or <code>in.pre=</code> must be specified by the user.</p>
+<p>Note that the computed total radius-at-capture will only be the actual total radius-at-capture if all growth, including &#8220;plus-growth&#8221; in the current season, is recorded in the input data frame.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

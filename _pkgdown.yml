@@ -16,7 +16,6 @@ reference:
     desc: Functions to aid collecting, viewing, and outputting radial measurements from structure Images
     contents:
       - RFBCoptions
-      - listFiles
       - digitizeRadii
       - showDigitizedImage
       - combineData
@@ -25,6 +24,12 @@ reference:
     desc: Functions to aid back-calculation of lengths at previous ages
     contents:
       - bcFuns
+  - title: Utilities
+    desc: Functions to perform miscellaneous utilities.
+    contents:
+      - listFiles
+      - addRadCap
+      - gConvert
 
 navbar:
   type: inverse

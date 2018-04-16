@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Converts between types of measurements from calcified structures. — gConvert • RFishBC</title>
+<title>Converts between types of measurements. — gConvert • RFishBC</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,9 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Converts between types of measurements from calcified structures. — gConvert" />
+<meta property="og:title" content="Converts between types of measurements. — gConvert" />
 
-<meta property="og:description" content="Converts wide format growth data from radial to incremental or incremental to radial measurements." />
+<meta property="og:description" content="Converts one-fish-per-line (i.e., &#8220;wide&#8221;) format growth data from radial to incremental or incremental to radial measurements." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -117,13 +117,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Converts between types of measurements from calcified structures.</h1>
+    <h1>Converts between types of measurements.</h1>
     <small>Source: <a href='https://github.com/droglenc/RFishBC/blob/master/R/growthDataUtils.R'><code>R/growthDataUtils.R</code></a></small>
     <div class="hidden name"><code>gConvert.Rd</code></div>
     </div>
 
     
-    <p>Converts wide format growth data from radial to incremental or incremental to radial measurements.</p>
+    <p>Converts one-fish-per-line (i.e., &#8220;wide&#8221;) format growth data from radial to incremental or incremental to radial measurements.</p>
     
 
     <pre class="usage"><span class='fu'>gConvert</span>(<span class='no'>df</span>, <span class='kw'>in.pre</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>in.var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>out.type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"inc"</span>, <span class='st'>"rad"</span>),
@@ -134,23 +134,23 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>df</th>
-      <td><p>A data.frame that contains the growth measurement data in wide or one-fish-per-line format.</p></td>
+      <td><p>A data.frame that contains the growth measurement data in one-fish-per-line (i.e., &#8220;wide&#8221;) format.</p></td>
     </tr>
     <tr>
       <th>in.pre</th>
-      <td><p>A string that indicates the prefix for all variable names in the input data frame that contain the measurements from the calcified structures.  See details.</p></td>
+      <td><p>A string that indicates the prefix for all variable names in the input data.frame that contain the measurements from the calcified structures. See details.</p></td>
     </tr>
     <tr>
       <th>in.var</th>
-      <td><p>A vector of column numbers or variable names in the input data frame that contain the measurements from the calcified structures.  See details.</p></td>
+      <td><p>A vector of column numbers or variable names in the input data.frame that contain the measurements from the calcified structures. See details.</p></td>
     </tr>
     <tr>
       <th>out.type</th>
-      <td><p>A string that identifies the output format data type (i.e., the format to convert to).  If <code>"inc} (the default) the output data frame will be incremental measurements.  If \code{"rad</code> the output data frame will be radial measurements.</p></td>
+      <td><p>A string that identifies the output format data type (i.e., the format to convert to). If <code>"inc"</code> (the default) the output data frame will be incremental measurements. If <code>"rad"</code> the output data frame will be radial measurements.</p></td>
     </tr>
     <tr>
       <th>out.pre</th>
-      <td><p>A string that indicates the prefix to use for the newly computed measurements in the output data frame.  Defaults to the same string as <code>out.type</code>.</p></td>
+      <td><p>A string that indicates the prefix to use for the newly computed measurements in the output data frame. Defaults to the same string as <code>out.type</code>.</p></td>
     </tr>
     </table>
     
@@ -160,9 +160,9 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The data must be in WIDE format where each row contains all information (including all measurements from the calcified structure) for an individual fish.  It is assumed that the input data.frame is of the opposite data type given in <code>out.type</code> (i.e., that a conversion is needed).  It does not check to see if this is true.</p>
-<p>The columns that contain the original measurement data can specified in a variety of ways.  First, if all columns begin with the same prefix (and no other columns contain that prefix), then the prefix string may be given to <code>in.pre=</code>.  Second, a sequence of column numbers may be given to <code>in.var=</code> with the <code>#:#</code> (if the columns are contiguous) or as a vector (if the columns are not contiguous).  Third, a vector of column names may be given to <code>in.var=</code>.  Note  that one, but not both, of <code>in.var=</code> or <code>in.pre=</code> must be specified by the user.</p>
-<p>The newly computed data will be labeled with a prefix the same as <code>out.type=</code> (i.e., <code>"rad"</code> or <code>"inc"</code>) unless <code>out.pre=</code> is set by the user.  For example, if the data are converted to radial measurements, then the output variables will be &#8220;rad1&#8221;, &#8220;rad2&#8221;, etc. unless <code>out.pre=</code> was changed from the default.  This function assumes that the measurements start with age-1.</p>
+    <p>The data must be in one-fish-per-line (i.e., &#8220;wide&#8221;) format where each row contains all information (including all measurements from the calcified structure) for an individual fish. It is assumed that the input data.frame is of the opposite data type given in <code>out.type</code> (i.e., that a conversion is needed). It does not check to see if this is true.</p>
+<p>The columns that contain the original measurement data can specified in a variety of ways. First, if all columns begin with the same prefix (and no other columns contain that prefix), then the prefix string may be given to <code>in.pre=</code>. Second, a sequence of column numbers may be given to <code>in.var=</code> with the <code>#:#</code> (if the columns are contiguous) or as a vector (if the columns are not contiguous). Third, a vector of column names may be given to <code>in.var=</code>. Note  that one, but not both, of <code>in.var=</code> or <code>in.pre=</code> must be specified by the user.</p>
+<p>The newly computed data will be labeled with a prefix the same as <code>out.type=</code> (i.e., <code>"rad"</code> or <code>"inc"</code>) unless <code>out.pre=</code> is set by the user. For example, if the data are converted to radial measurements, then the output variables will be &#8220;rad1&#8221;, &#8220;rad2&#8221;, etc. unless <code>out.pre=</code> was changed from the default. This function assumes that the measurements start with age-1.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
