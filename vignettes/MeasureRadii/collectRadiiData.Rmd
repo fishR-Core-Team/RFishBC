@@ -101,7 +101,7 @@ If actual lengths, rather than arbitrary (but proportional) lengths are needed,[
 If no `scalingFactor=` is derived from a scale-bar or provided, then the radial measurements returned by `digitizeRadii()` are simply proportional to the unknown actual lengths on the structure.
 
 ### Selecting Annuli
-The user will then be asked to select points on the structure image that represent annuli. However, **the point that represents the focus must be selected first, followed by the structure margin/edge**.[^invisiblepoints] If `addTransect=TRUE` (the default behavior), then a line will be drawn between these two points to aid marking the annuli. When the last point has been selected, the user must press the ESCape key in Windows or Mac OS X (or, in Windows, select STOP in the menu on the structure image window).
+The user will then be asked to select points on the structure image that represent annuli. However, **the point that represents the focus must be selected first, followed by the structure margin/edge**.[^invisiblepoints] If `addTransect=TRUE` (the default behavior), then a line will be drawn between these two points to aid marking the annuli. When the last point has been selected, the user must press the second (right) mouse button and select 'Stop' or, in Windows, select 'STOP' in the menu on the structure image window.
 
 
 # Setting Argument Defaults for a Session {#setoptions1}
