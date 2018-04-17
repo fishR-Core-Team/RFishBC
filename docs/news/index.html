@@ -118,9 +118,25 @@
       <small>Source: <a href='https://github.com/droglenc/RFishBC/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="fsa-0-0-1-ongoing" class="section level1">
+    <div id="rfishbc-0-0-2-ongoing" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-0-1-ongoing" class="anchor"></a>FSA 0.0.1 ongoing</h1>
+<a href="#rfishbc-0-0-2-ongoing" class="anchor"></a>RFishBC 0.0.2 ongoing</h1>
+<ul>
+<li>
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Added <code>snap2Transect=</code> to address <a href="https://github.com/droglenc/RFishBC/issues/1"><a href='https://github.com/droglenc/RFishBC/issues/1'>#1</a></a>. Modified how <code>fname=</code> was handled if missing (see <code><a href="../reference/FSA-internals.html">iHndlfname()</a></code>). Allowed user to choose <code>id=</code> through a dialog box or a console prompt (see <code><a href="../reference/FSA-internals.html">iHndlID()</a></code>), which addresses <a href="https://github.com/droglenc/RFishBC/issues/2"><a href='https://github.com/droglenc/RFishBC/issues/2'>#2</a></a>. Fixed poor directions about the use of the escape key to terminate <code>locator()</code>.</li>
+<li>
+<code><a href="../reference/FSA-internals.html">iHndlfname()</a></code>: Added. Used in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>, <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>, and <code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>.</li>
+<li>
+<code><a href="../reference/FSA-internals.html">iHndlID()</a></code>: Added. Used in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.</li>
+<li>
+<code><a href="../reference/FSA-internals.html">iSnap2Transect()</a></code>: Added. Used in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.</li>
+<li>
+<code>showDigitizedData()</code>: Modified. Moved <code>file.choose()</code> for <code>fname=</code> out of argument list and into the main function code.</li>
+</ul>
+</div>
+    <div id="rfishbc-0-0-1-16-apr-18" class="section level1">
+<h1 class="page-header">
+<a href="#rfishbc-0-0-1-16-apr-18" class="anchor"></a>RFishBC 0.0.1 16-Apr-18</h1>
 <ul>
 <li>First version. Everything is new.</li>
 </ul>
@@ -131,7 +147,8 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#fsa-0-0-1-ongoing">0.0.1</a></li>
+        <li><a href="#rfishbc-0-0-2-ongoing">0.0.2</a></li>
+        <li><a href="#rfishbc-0-0-1-16-apr-18">0.0.1</a></li>
       </ul>
     </div>
   </div>
