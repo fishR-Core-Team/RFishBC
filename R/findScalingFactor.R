@@ -20,17 +20,20 @@
 #' @examples
 #' ## None yet
 
-findScalingFactor <- function(fname=file.choose(),knownLength,
+findScalingFactor <- function(fname,knownLength,
                               sepWindow,windowSize,
                               col.scaleBar,lwd.scaleBar) {
   ## handle options
+  fname <- iHndlfname(fname)
+  if (missing(knownLength)) STOP("Must provide a 'knownLength'.")
   if (missing(sepWindow)) sepWindow <- iGetopt("sepWindow")
   if (missing(windowSize)) windowSize <- iGetopt("windowSize")
   if (missing(col.scaleBar)) col.scaleBar <- iGetopt("col.scaleBar")
   if (missing(lwd.scaleBar)) lwd.scaleBar <- iGetopt("lwd.scaleBar")
   ## Read the image
   iReadImage(fname,sepWindow,windowSize)
-  SF <- iScaleBar(knownLength,col=col.scaleBar,lwd=lwd.scaleBar)
+  SF <- iHndlScalingFactor(TRUE,knownLength,NULL,
+                           col.scaleBar,lwd.scaleBar)
   SF$scalingFactor
 }
 

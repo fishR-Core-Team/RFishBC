@@ -4,7 +4,7 @@
 #'
 #' @rdname FSA-internals
 #' @keywords internal
-#' @aliases .onAttach STOP WARN iHndlfname iReadImage iProcessAnnuli iScaleBar iSelectAnulli iSnap2Transect
+#' @aliases .onAttach STOP WARN iHndlfname iHndlID iHndlScalingFactor iReadImage iProcessAnnuli iSelectAnulli iSnap2Transect
 
 
 ################################################################################
@@ -26,6 +26,7 @@ WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
   packageStartupMessage(msg)
 }
 
+
 ########################################################################
 ## Allows the user to choose a filename if none is given.
 ########################################################################
@@ -35,6 +36,53 @@ iHndlfname <- function(fname) {
     if (missing(fname)) STOP("A filename must be provided.")
   }
   fname
+}
+
+
+########################################################################
+## Allows the user to enter a fish ID.
+########################################################################
+iHndlID <- function(id) {
+  if (missing(id)) {
+    if (grepl('w|W', .Platform$OS.type)) {
+      ## we are on Windows
+      id <- utils::winDialogString("Enter a unique ID: ","")
+    } else {
+      ## Not on Windows so prompt in console
+      id <- readline(prompt="Enter a unique ID: ")
+    }
+    if (missing(id) | is.null(id)) STOP("You must provide a unique ID in 'id'.")
+  }
+  id
+}
+
+########################################################################
+## Compute a scaling factor from a scale bar on the structure image.
+########################################################################
+iHndlScalingFactor <- function(scaleBar,knownLength,scalingFactor,
+                               col,lwd) {
+  if (scaleBar) {
+    ## scaleBar is on the plot
+    message("\n2. Find scaling factor from scale bar.\n",
+            "   * Select endpoints on the scale bar.")
+    tmp <- as.data.frame(graphics::locator(n=2,type="p",pch=3,col=col))
+    if (nrow(tmp)<2) {
+      WARN("Two endpoints were not selected for the scale bar;\n thus, no scaling factor was computed.")
+      scalingFactor <- 1
+    } else {
+      graphics::lines(y~x,data=tmp,col=col,lwd=lwd)
+      maglength <- sqrt(((tmp$x[2]-tmp$x[1])^2)+((tmp$y[2]-tmp$y[1])^2))
+      scalingFactor <- knownLength/maglength
+    }
+    SF <- list(sbSource="ScaleBar",sbPts=tmp,sbLength=knownLength,
+               scalingFactor=scalingFactor)
+  } else {
+    ## No scale bar on the plot ... using the scaling factor
+    message("\n2. Using the 'scalingFactor' provided.")
+    SF <- list(sbSource="Provided",sbPts=NULL,sbLength=NULL,
+               scalingFactor=scalingFactor)
+  }
+  SF
 }
 
 
@@ -116,41 +164,6 @@ iProcessAnnuli <- function(fname,pts,id,reading,suffix,description,
                             suffix,".RData"),
               pts=pts,radii=radii)
   dat
-}
-
-
-########################################################################
-## Compute a scaling factor from a scale bar on the structure image.
-########################################################################
-iHndlScalingFactor <- function(scaleBar,knownLength,col,lwd,
-                               scalingFactor) {
-  if (scaleBar) {
-    ## scaleBar is on the plot
-    message("\n2. Find scaling factor from scale bar.\n",
-            "   * Select endpoints on the scale bar.")
-    tmp <- as.data.frame(graphics::locator(n=2,type="p",pch=3,col=col))
-    if (nrow(tmp)<2) {
-      WARN("Two endpoints were not selected for the scale bar;\n thus, no scaling factor was computed.")
-      scalingFactor <- 1
-    } else {
-      graphics::lines(y~x,data=tmp,col=col,lwd=lwd)
-      maglength <- sqrt(((tmp$x[2]-tmp$x[1])^2)+((tmp$y[2]-tmp$y[1])^2))
-      scalingFactor <- knownLength/maglength
-    }
-    SF <- list(sbSource="ScaleBar",sbPts=tmp,sbLength=knownLength,
-               scalingFactor=scalingFactor)
-  } else {
-    ## No scale bar on the plot ... using the scaling factor
-    message("\n2. Using the 'scalingFactor' provided.")
-    SF <- list(sbSource="Provided",sbPts=NULL,sbLength=NULL,
-               scalingFactor=scalingFactor)
-  }
-  SF
-}
-
-
-
-iScaleBar <- function(knownLength,col,lwd) {
 }
 
 

@@ -5,9 +5,10 @@
 \alias{.onAttach}
 \alias{WARN}
 \alias{iHndlfname}
+\alias{iHndlID}
+\alias{iHndlScalingFactor}
 \alias{iReadImage}
 \alias{iProcessAnnuli}
-\alias{iScaleBar}
 \alias{iSelectAnulli}
 \alias{iSnap2Transect}
 \title{Internal functions.}

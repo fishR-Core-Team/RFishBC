@@ -55,7 +55,7 @@ digitizeRadii <- function(fname,id,reading,suffix,
                           pch.sel,col.sel,cex.sel) {
   ## Process argument defaults
   fname <- iHndlfname(fname)
-  if (missing(id)) STOP("You must enter a unique identifier in 'id'.")
+  id <- iHndlID(id)
   if (missing(reading)) reading <- iGetopt("reading")
   if (missing(description)) description <- iGetopt("description")
   if (missing(suffix)) suffix <- iGetopt("suffix")
