@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">RFishBC</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.1</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.1.900</span>
       </span>
     </div>
 
@@ -91,7 +91,7 @@
       <h1>Collect radial measurements from a calcified structure by interactively selecting annuli</h1>
                         <h4 class="author">Derek H. Ogle</h4>
             
-            <h4 class="date">2018-04-16</h4>
+            <h4 class="date">2018-04-17</h4>
       
       <small>Source: <a href="https://github.com/droglenc/RFishBC/blob/master/vignettes/MeasureRadii/collectRadiiData.Rmd"><code>vignettes/MeasureRadii/collectRadiiData.Rmd</code></a></small>
       <div class="hidden name"><code>collectRadiiData.Rmd</code></div>
@@ -244,7 +244,7 @@
 <p>Once all structure image files have been processed, the radial measurements can be combined into one data.frame with <code><a href="../../reference/combineData.html">combineData()</a></code>. The first argument to this function is a vector of RData file names, which can be constructed using <code><a href="../../reference/listFiles.html">listFiles()</a></code> with the <code>RData</code> extension.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/listFiles.html">listFiles</a></span>(<span class="st">"RData"</span>)
 <span class="co">#&gt; [1] "Oto140306_DHO.RData" "Scale_1_DHO.RData"   "Scale_1_DHO2.RData" </span>
-<span class="co">#&gt; [4] "Scale_2_DHO.RData"</span></code></pre></div>
+<span class="co">#&gt; [4] "Scale_1_DHO3.RData"  "Scale_2_DHO.RData"</span></code></pre></div>
 <p>However, I don’t want the “DHO2” file in this case. Thus I restricted the list of files to those that have “DHO.” in the name, but because the “.” is a special character it had to be preceded by “\”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">( fns2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/listFiles.html">listFiles</a></span>(<span class="st">"RData"</span>,<span class="dt">other=</span><span class="kw">c</span>(<span class="st">"Scale"</span>,<span class="st">"DHO</span><span class="ch">\\</span><span class="st">."</span>)) )
 <span class="co">#&gt; [1] "Scale_1_DHO.RData" "Scale_2_DHO.RData"</span></code></pre></div>

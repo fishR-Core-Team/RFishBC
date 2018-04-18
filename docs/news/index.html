@@ -54,7 +54,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.1</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.1.900</span>
       </span>
     </div>
 
@@ -123,7 +123,7 @@
 <a href="#rfishbc-0-0-2-ongoing" class="anchor"></a>RFishBC 0.0.2 ongoing</h1>
 <ul>
 <li>
-<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Added <code>snap2Transect=</code> to address <a href="https://github.com/droglenc/RFishBC/issues/1"><a href='https://github.com/droglenc/RFishBC/issues/1'>#1</a></a>. Modified how <code>fname=</code> was handled if missing (see <code><a href="../reference/FSA-internals.html">iHndlfname()</a></code>). Allowed user to choose <code>id=</code> through a dialog box or a console prompt (see <code><a href="../reference/FSA-internals.html">iHndlID()</a></code>), which addresses <a href="https://github.com/droglenc/RFishBC/issues/2"><a href='https://github.com/droglenc/RFishBC/issues/2'>#2</a></a>. Fixed poor directions about the use of the escape key to terminate <code>locator()</code>.</li>
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Added <code>snap2Transect=</code> to address <a href="https://github.com/droglenc/RFishBC/issues/1"><a href='https://github.com/droglenc/RFishBC/issues/1'>#1</a></a>. Modified how <code>fname=</code> was handled if missing (see <code><a href="../reference/FSA-internals.html">iHndlfname()</a></code>) and if selecting an image from outside of the current working directory. Allowed user to choose <code>id=</code> through a dialog box or a console prompt (see <code><a href="../reference/FSA-internals.html">iHndlID()</a></code>), which addresses <a href="https://github.com/droglenc/RFishBC/issues/2"><a href='https://github.com/droglenc/RFishBC/issues/2'>#2</a></a>. Fixed poor directions about the use of the escape key to terminate <code>locator()</code>.</li>
 <li>
 <code><a href="../reference/FSA-internals.html">iHndlfname()</a></code>: Added. Used in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>, <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>, and <code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>.</li>
 <li>
@@ -131,7 +131,7 @@
 <li>
 <code><a href="../reference/FSA-internals.html">iSnap2Transect()</a></code>: Added. Used in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.</li>
 <li>
-<code>showDigitizedData()</code>: Modified. Moved <code>file.choose()</code> for <code>fname=</code> out of argument list and into the main function code.</li>
+<code>showDigitizedData()</code>: Modified. Moved <code>file.choose()</code> for <code>fname=</code> out of argument list and into the main function code. Also modified to allow the user to select on object out of the curren working directory (only works with a single file).</li>
 </ul>
 </div>
     <div id="rfishbc-0-0-1-16-apr-18" class="section level1">
