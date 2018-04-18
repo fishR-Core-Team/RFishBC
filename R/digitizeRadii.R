@@ -79,8 +79,8 @@ digitizeRadii <- function(fname,id,reading,suffix,
   if (missing(windowSize)) windowSize <- iGetopt("windowSize")
 
   ## Loads image given in fname
-  windowSize <- iReadImage(fname,sepWindow,windowSize)
-  message("1. Loaded the ",fname," image.")
+  windowSize <- iReadImage(fname$fname,sepWindow,windowSize)
+  message("1. Loaded the ",fname$bn," image.")
   ## Allows the user to select a scaling bar to get a scaling factor
   SF <- iHndlScalingFactor(scaleBar,scaleBarLength,scalingFactor,
                            col.scaleBar,lwd.scaleBar)
@@ -96,7 +96,7 @@ digitizeRadii <- function(fname,id,reading,suffix,
   ## Add windowSize and scaling factor information to dat list
   dat <- c(dat,SF,windowSize)
   ## Write the dat object to R object filename in the working directory.
-  save(dat,file=dat$datobj)
+  save(dat,file=paste0(fname$dn,"/",dat$datobj))
   message("4. All results written to ",dat$datobj)
   ## Invisibly return the R object
   invisible(dat)

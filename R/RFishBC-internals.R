@@ -29,13 +29,25 @@ WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
 
 ########################################################################
 ## Allows the user to choose a filename if none is given.
+## If the file is chosen, then the filename (basename) and the directory
+##   for the file (dirname) is returned.
 ########################################################################
 iHndlfname <- function(fname) {
   if (missing(fname)) {
     fname <- file.choose()
     if (missing(fname)) STOP("A filename must be provided.")
   }
-  fname
+  if (length(fname)>1) {
+    ## If more than one name in fname, then just pass it through
+    fname
+  } else {
+    ## If just one mame then handle directory etc.
+    ## get directory name ... changed to working directory if =="."
+    dn <- dirname(fname)
+    if (dn==".") dn <- getwd()
+    ## return list with filename, directory name, and combined
+    list(bn=basename(fname),dn=dn,fname=fname)
+  }
 }
 
 
@@ -159,7 +171,7 @@ iProcessAnnuli <- function(fname,pts,id,reading,suffix,description,
                       stringsAsFactors=FALSE)
   ## Organize all results for later processing
   dat <- list(description=description,image=fname,
-              datobj=paste0(tools::file_path_sans_ext(fname),
+              datobj=paste0(tools::file_path_sans_ext(fname$bn),
                             ifelse(!is.null(suffix),"_",""),
                             suffix,".RData"),
               pts=pts,radii=radii)

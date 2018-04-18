@@ -38,13 +38,22 @@ showDigitizedImage <- function(fname,sepWindow,
   if (missing(lwd.transect)) lwd.transect <- iGetopt("lwd.transect")
   if (missing(col.scaleBar)) col.scaleBar <- iGetopt("col.scaleBar")
   if (missing(lwd.scaleBar)) lwd.scaleBar <- iGetopt("lwd.scaleBar")
-  
-  ## Load the data object
   fname <- iHndlfname(fname)
   dat <- NULL # try to avoid "no visible binding" note
-  load(fname[1])
-  ## Show first image
-  iReadImage(dat$image,sepWindow,dat$windowSize)
+  # Must handle filenames different if one or multiple are given
+  if (is.list(fname)) {
+    ## Only one image will be shown
+    ## Load the data object
+    load(fname$fname)
+    ## Show first image
+    iReadImage(paste0(fname$dn,"/",dat$image),sepWindow,dat$windowSize)
+  } else {
+    ## One image with multiple points will be shown
+    ## Load the data object
+    load(fname[1])
+    ## Show first image
+    iReadImage(dat$image,sepWindow,dat$windowSize)
+  }
   ## Show the putative transect ... assumes that the focus and margin
   ## are in the first two rows of dat$pts (as they should be)
   if (showTransect) 
@@ -58,8 +67,8 @@ showDigitizedImage <- function(fname,sepWindow,
     graphics::lines(y~x,data=dat$sbPts,col=col.scaleBar,lwd=lwd.scaleBar)
   }
   ## Add other results
-  num <- length(fname)
-  if (num>1) {
+  if (!is.list(fname) & length(fname)>1) {
+    num <- length(fname)
     # expand colors
     pch.show <- rep(pch.show,ceiling(num/length(pch.show)))
     col.show <- rep(col.show,ceiling(num/length(col.show)))

@@ -90,14 +90,14 @@ showDigitizedImage(fns)
 showDigitizedImage(fns,sepWindow=FALSE)
 ```
 
-Aspects of the transects and points may be controlled with arguments to `showDigitezedData()`. For example, the code below uses different colors for two transects and points and a thicker line for each transect.
+Aspects of the transects and points may be controlled with arguments to `showDigitezedData()`. For example, the code below uses different colors for each transect and points and a thicker line for each transect.
 ```{r eval=FALSE}
-showDigitizedImage(fns,col.transect=c("red","yellow"),
-                   col.show=c("yellow","red"),lwd.transect=2)
+showDigitizedImage(fns,col.transect=c("red","yellow","green"),
+                   col.show=c("yellow","red","blue"),lwd.transect=2)
 ```
 ```{r echo=FALSE, fig.height=5*381/446,fig.width=5}
-showDigitizedImage(fns,col.transect=c("red","yellow"),
-                   col.show=c("yellow","red"),lwd.transect=2,
+showDigitizedImage(fns,col.transect=c("red","yellow","green"),
+                   col.show=c("yellow","red","blue"),lwd.transect=2,
                    sepWindow=FALSE)
 ```
 
