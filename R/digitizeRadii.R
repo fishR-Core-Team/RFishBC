@@ -54,8 +54,6 @@ digitizeRadii <- function(fname,id,reading,suffix,
                           col.transect,lwd.transect,
                           pch.sel,col.sel,cex.sel) {
   ## Process argument defaults
-  fname <- iHndlfname(fname)
-  id <- iHndlID(id)
   if (missing(reading)) reading <- iGetopt("reading")
   if (missing(description)) description <- iGetopt("description")
   if (missing(suffix)) suffix <- iGetopt("suffix")
@@ -77,13 +75,16 @@ digitizeRadii <- function(fname,id,reading,suffix,
   if (missing(cex.sel)) cex.sel <- iGetopt("cex.sel")
   if (missing(sepWindow)) sepWindow <- iGetopt("sepWindow")
   if (missing(windowSize)) windowSize <- iGetopt("windowSize")
+  fname <- iHndlfname(fname)
+  id <- iHndlID(id)
 
   ## Loads image given in fname
-  windowSize <- iReadImage(fname$fname,sepWindow,windowSize)
-  message("1. Loaded the ",fname$bn," image.")
+  windowInfo <- iReadImage(fname$fname,sepWindow,windowSize)
+  message("** Loaded the ",fname$bn," image.")
   ## Allows the user to select a scaling bar to get a scaling factor
   SF <- iHndlScalingFactor(scaleBar,scaleBarLength,scalingFactor,
-                           col.scaleBar,lwd.scaleBar)
+                           col.scaleBar,lwd.scaleBar,
+                        pixW2H=windowInfo$pixW2H)
   ## User selects annuli on the image
   pts <- iSelectAnnuli(pch.pts=pch.sel,col.pts=col.sel,
                        cex.pts=cex.sel,addTransect=addTransect,
@@ -92,12 +93,13 @@ digitizeRadii <- function(fname,id,reading,suffix,
   pts <- iSnap2Transect(pts)
   ## Converts the selected points to radial measurements
   dat <- iProcessAnnuli(fname,pts,id,reading,suffix,description,
-                        edgeIsAnnulus,SF$scalingFactor)
+                        edgeIsAnnulus,SF$scalingFactor,
+                        pixW2H=windowInfo$pixW2H)
   ## Add windowSize and scaling factor information to dat list
-  dat <- c(dat,SF,windowSize)
+  dat <- c(dat,SF,windowInfo)
   ## Write the dat object to R object filename in the working directory.
   save(dat,file=paste0(fname$dn,"/",dat$datobj))
-  message("4. All results written to ",dat$datobj)
+  message("** All results written to ",dat$datobj)
   ## Invisibly return the R object
   invisible(dat)
 }

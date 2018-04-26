@@ -46,7 +46,8 @@ iHndlfname <- function(fname) {
     dn <- dirname(fname)
     if (dn==".") dn <- getwd()
     ## return list with filename, directory name, and combined
-    list(bn=basename(fname),dn=dn,fname=fname)
+    bn <- basename(fname)
+    list(bn=bn,dn=dn,fname=fname)
   }
 }
 
@@ -72,10 +73,10 @@ iHndlID <- function(id) {
 ## Compute a scaling factor from a scale bar on the structure image.
 ########################################################################
 iHndlScalingFactor <- function(scaleBar,knownLength,scalingFactor,
-                               col,lwd) {
+                               col,lwd,pixW2H) {
   if (scaleBar) {
     ## scaleBar is on the plot
-    message("\n2. Find scaling factor from scale bar.\n",
+    message("\n** Find scaling factor from scale bar.\n",
             "   * Select endpoints on the scale bar.")
     tmp <- as.data.frame(graphics::locator(n=2,type="p",pch=3,col=col))
     if (nrow(tmp)<2) {
@@ -83,14 +84,18 @@ iHndlScalingFactor <- function(scaleBar,knownLength,scalingFactor,
       scalingFactor <- 1
     } else {
       graphics::lines(y~x,data=tmp,col=col,lwd=lwd)
-      maglength <- sqrt(((tmp$x[2]-tmp$x[1])^2)+((tmp$y[2]-tmp$y[1])^2))
+      ## Find distances in x- and y- directions, corrected for pixel w to h ratio
+      distx <- (tmp$x[2]-tmp$x[1])*pixW2H
+      disty <- tmp$y[2]-tmp$y[1]
+      ## Find distances between points
+      maglength <- sqrt(distx^2+disty^2)
       scalingFactor <- knownLength/maglength
     }
     SF <- list(sbSource="ScaleBar",sbPts=tmp,sbLength=knownLength,
                scalingFactor=scalingFactor)
   } else {
     ## No scale bar on the plot ... using the scaling factor
-    message("\n2. Using the 'scalingFactor' provided.")
+    message("\n** Using the 'scalingFactor' provided.")
     SF <- list(sbSource="Provided",sbPts=NULL,sbLength=NULL,
                scalingFactor=scalingFactor)
   }
@@ -140,7 +145,7 @@ iReadImage <- function(fname,sepWindow,windowSize) {
   withr::local_par(list(mar=c(0,0,0,0)))
   graphics::plot.new()
   graphics::rasterImage(img,0,0,1,1)
-  invisible(list(windowSize=windowSize))
+  invisible(list(windowSize=windowSize,pixW2H=windowSize[1]/windowSize[2]))
 }
 
 
@@ -153,11 +158,16 @@ iReadImage <- function(fname,sepWindow,windowSize) {
 ## directory.
 ########################################################################
 iProcessAnnuli <- function(fname,pts,id,reading,suffix,description,
-                           edgeIsAnnulus,scalingFactor) {
+                           edgeIsAnnulus,scalingFactor,pixW2H) {
   ## Convert point locations to radial measurements, 
   n <- nrow(pts)-1
-  rad <- sqrt(((pts$x[2:(n+1)]-pts$x[1])^2)+
-                ((pts$y[2:(n+1)]-pts$y[1])^2))*scalingFactor
+  ## Find distances in x- and y- directions, corrected for pixel w to h ratio
+  distx <- (pts$x[2:(n+1)]-pts$x[1])*pixW2H
+  disty <- pts$y[2:(n+1)]-pts$y[1]
+  ## Find distances between points
+  distxy <- sqrt(distx^2+disty^2)
+  ## Correct distances for scalingFactor ... and call a radius
+  rad <- distxy*scalingFactor
   ## Sort the radii to be in increasing order (allows user to select
   ##   them in any order)
   rad <- rad[order(rad)]
@@ -170,7 +180,8 @@ iProcessAnnuli <- function(fname,pts,id,reading,suffix,description,
                       rad=rad,radcap=max(rad),
                       stringsAsFactors=FALSE)
   ## Organize all results for later processing
-  dat <- list(description=description,image=fname,
+  dat <- list(description=description,image=fname$fname,
+              bn=fname$bn,dn=fname$dn,
               datobj=paste0(tools::file_path_sans_ext(fname$bn),
                             ifelse(!is.null(suffix),"_",""),
                             suffix,".RData"),
@@ -186,19 +197,19 @@ iProcessAnnuli <- function(fname,pts,id,reading,suffix,description,
 ########################################################################
 iSelectAnnuli <- function(pch.pts,col.pts,cex.pts,
                           addTransect,col.trans,lwd.trans) {
-  message("\n3. Select points that are annuli.\n",
+  message("\n** Select transect endpoints.\n",
           "   * MUST select the focus of the structure FIRST.\n",
-          "   * MUST select structure margin SECOND.\n",
-          "   * Then select points for annuli.\n",
-          "   * When finished selecting points press\n",
-          "       the second(right) mouse button and select 'Stop',\n",
-          "       the 'Stop' button in Windows, or\n",
-          "       the 'Finish' button in RStudio.")
+          "   * MUST select structure margin SECOND.")
   tmp1 <- as.data.frame(graphics::locator(n=2,type="p",pch=pch.pts,
                                           col=col.pts,cex=cex.pts))
   if (nrow(tmp1)<2) STOP("Either the focus or margin was not selected.")
   if (addTransect) graphics::lines(y~x,data=tmp1,
                                    lwd=lwd.trans,col=col.trans)
+  message("\n** Select points that are annuli.\n",
+          "   * When finished selecting points press\n",
+          "       the second(right) mouse button and select 'Stop',\n",
+          "       the 'Stop' button in Windows, or\n",
+          "       the 'Finish' button in RStudio.")
   tmp2 <- as.data.frame(graphics::locator(type="p",pch=pch.pts,
                                           col=col.pts,cex=cex.pts))
   if (nrow(tmp2)<1) STOP("No points were selected as annuli.")
@@ -233,5 +244,5 @@ iSnap2Transect <- function(pts) {
   ## Combine the data.frame of intersection points with the points that
   ## are now on the transect ... effectively moved each point
   ## perpendicularly over until it hit the transect.
-  rbind(transectPts,intersects,transectPts)
+  rbind(transectPts,intersects)
 }

@@ -46,7 +46,7 @@ showDigitizedImage <- function(fname,sepWindow,
     ## Load the data object
     load(fname$fname)
     ## Show first image
-    iReadImage(paste0(fname$dn,"/",dat$image),sepWindow,dat$windowSize)
+    iReadImage(dat$image,sepWindow,dat$windowSize)
   } else {
     ## One image with multiple points will be shown
     ## Load the data object
