@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Combines radii data from multiple files into one data.frame — combineData • RFishBC</title>
+<title>Combines radii data from multiple files into — combineData • RFishBC</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,9 +28,9 @@
 
 
 
-<meta property="og:title" content="Combines radii data from multiple files into one data.frame — combineData" />
+<meta property="og:title" content="Combines radii data from multiple files into — combineData" />
 
-<meta property="og:description" content="Combines the radii data that were created with processPoints and saved to an R object file from multiple R object files into one data.frame. This data.frame can then be post-processed." />
+<meta property="og:description" content="Combines radial measurements made on calcified structures and saved to an RData file with digitizeRadii into a single data.frame can then be post-processed (e.g., back-calculate length at a previous age)." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -118,43 +118,43 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Combines radii data from multiple files into one data.frame</h1>
+    <h1>Combines radii data from multiple files into</h1>
     <small class="dont-index">Source: <a href='https://github.com/droglenc/RFishBC/blob/master/R/combineData.R'><code>R/combineData.R</code></a></small>
     <div class="hidden name"><code>combineData.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Combines the radii data that were created with <code>processPoints</code> and saved to an R object file from multiple R object files into one data.frame. This data.frame can then be post-processed.</p>
+    <p>Combines radial measurements made on calcified structures and saved to an RData file with <code><a href='digitizeRadii.html'>digitizeRadii</a></code> into a single data.frame can then be post-processed (e.g., back-calculate length at a previous age).</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>combineData</span>(<span class='no'>fnames</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
+    <pre class="usage"><span class='fu'>combineData</span>(<span class='no'>nms</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>fnames</th>
-      <td><p>A character vector of file names (without the path) from which the radii data should be extracted and combined to form one synthetic data.frame. The files should all be in one folder/directory as given in <code>path</code>.</p></td>
+      <th>nms</th>
+      <td><p>A character vector of RData file names (without the path) created with  <code><a href='digitizeRadii.html'>digitizeRadii</a></code> from which the radii data will be extracted and combined to form one synthetic data.frame. The files should all be in one folder/directory as given in <code>path</code>.</p></td>
     </tr>
     <tr>
       <th>path</th>
-      <td><p>A string that contains the full path name for the folder/directory for which to list files. Defaults to the current working directory (see <code>getwd</code> result).</p></td>
+      <td><p>A string that contains the full path name for the folder/directory the files in <code>nms</code>. Defaults to the current working directory (see <code>getwd</code> result).</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data.frame that contains the radii data created with <code>processPoints</code> for all files given in <code>fnames</code>.</p>
+    <p>A data.frame that contains the radii data created with <code><a href='digitizeRadii.html'>digitizeRadii</a></code> for all files given in <code>nms</code>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>None yet.</p>
+    <p>A detailed description of its use is in <a href='http://derekogle.com/RFishBC/articles/MeasureRadii/collectRadiiData.html'>this vignette</a> on the <a href='http://derekogle.com/RFishBC/index.html'>RFishBC website</a>. The list of RData file names may be efficiently created with <code><a href='listFiles.html'>listFiles</a></code> as described in that vignette.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>## None yet
+    <pre class="examples"><div class='input'>## See the link to the extensive documentation in the Details.
 
 </div></pre>
   </div>

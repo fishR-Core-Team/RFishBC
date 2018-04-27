@@ -7,11 +7,11 @@
 listFiles(ext, other = NULL, path = ".", ignore.case = TRUE, ...)
 }
 \arguments{
-\item{ext}{A string that contains the file extension pattern to match.}
+\item{ext}{A single string that contains the file extension pattern to match.}
 
-\item{other}{Other strings to match int eh file names that match the file extensin in \code{ext}.}
+\item{other}{Other strings to match in file names that were already matched by the extension in \code{ext}.}
 
-\item{path}{A string that contains the full path name for the folder/directory for which to list files. Defaults to the current working directory (see \code{\link{getwd}} result).}
+\item{path}{A single string that contains the full path name for the folder/directory for which to list files. Defaults to the current working directory (see \code{\link{getwd}} result).}
 
 \item{ignore.case}{A logical for whether pattern matching should be case sensitive (\code{=FALSE}) or not (\code{TRUE}; DEFAULT).}
 
@@ -21,17 +21,17 @@ listFiles(ext, other = NULL, path = ".", ignore.case = TRUE, ...)
 Character vector.
 }
 \description{
-This returns a vector with all file names with the \code{ext} extension in the \code{path} folder/directory. In \pkg{RfishBC} this is used primarily to create a list of image file names over which the user will loop or R data object names that can be given to \code{combineFiles}.
+This returns a vector with all file names with the \code{ext} extension in the \code{path} folder/directory. In \pkg{RfishBC} this is used primarily to create a list of image file names for use in \code{\link{digitizeRadii}} or RData file names created with \code{\link{digitizeRadii}} and to be given to \code{\link{combineData}}.
 }
 \details{
-None yet.
+An example of using this function is in \href{http://derekogle.com/RFishBC/articles/MeasureRadii/collectRadiiData.html}{this vignette} and \href{http://derekogle.com/RFishBC/articles/MeasureRadii/seeRadiiData.html}{this vignette} on the \href{http://derekogle.com/RFishBC/index.html}{RFishBC website}.
 }
 \examples{
-## None yet
+## See the link to the extensive documentation in the Details.
 
 }
 \seealso{
-\code{\link{list.files}} in base R.
+\code{\link{digitizeRadii}} and \code{\link{combineData}}; and \code{\link{list.files}} in base R.
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}

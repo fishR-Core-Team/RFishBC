@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Show the points that were selected at some previous time and saved to the R object file. — showDigitizedImage • RFishBC</title>
+<title>Show points selected on a structure image and saved in an RData file — showDigitizedImage • RFishBC</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,9 +28,9 @@
 
 
 
-<meta property="og:title" content="Show the points that were selected at some previous time and saved to the R object file. — showDigitizedImage" />
+<meta property="og:title" content="Show points selected on a structure image and saved in an RData file — showDigitizedImage" />
 
-<meta property="og:description" content="Show the points that were selected at some previous time on the structure and save to the R object file. This is useful for reexamining the selected points at a later time or overlaying selected points from multiple reads of the structure." />
+<meta property="og:description" content="Show points selected on a structure image to represent annuli that were saved to an RData file using digitizeRadii. This allows the user to reexaminine the selected points or overlay selected points from multiple readings of the structure." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -118,26 +118,26 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Show the points that were selected at some previous time and saved to the R object file.</h1>
+    <h1>Show points selected on a structure image and saved in an RData file</h1>
     <small class="dont-index">Source: <a href='https://github.com/droglenc/RFishBC/blob/master/R/showDigitizedImage.R'><code>R/showDigitizedImage.R</code></a></small>
     <div class="hidden name"><code>showDigitizedImage.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Show the points that were selected at some previous time on the structure and save to the R object file. This is useful for reexamining the selected points at a later time or overlaying selected points from multiple reads of the structure.</p>
+    <p>Show points selected on a structure image to represent annuli that were saved to an RData file using <code><a href='digitizeRadii.html'>digitizeRadii</a></code>. This allows the user to reexaminine the selected points or overlay selected points from multiple readings of the structure.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>showDigitizedImage</span>(<span class='no'>fname</span>, <span class='no'>sepWindow</span>, <span class='no'>pch.show</span>, <span class='no'>col.show</span>, <span class='no'>cex.show</span>, <span class='no'>showTransect</span>,
+    <pre class="usage"><span class='fu'>showDigitizedImage</span>(<span class='no'>nm</span>, <span class='no'>sepWindow</span>, <span class='no'>pch.show</span>, <span class='no'>col.show</span>, <span class='no'>cex.show</span>, <span class='no'>showTransect</span>,
   <span class='no'>col.transect</span>, <span class='no'>lwd.transect</span>, <span class='no'>col.scaleBar</span>, <span class='no'>lwd.scaleBar</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>fname</th>
-      <td><p>A string that indicates the R object file to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (will look for this file in the current working directory unless a fully pathed name is given).</p></td>
+      <th>nm</th>
+      <td><p>A string that indicates the RData file that contains the R object created with  created with <code><a href='digitizeRadii.html'>digitizeRadii</a></code> (the loaded object will contain the image and the selected points as). By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (file must be in the current working directory unless a fully pathed name is given).</p></td>
     </tr>
     <tr>
       <th>sepWindow</th>
@@ -179,15 +179,20 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>None, but an image is plotted with the selected points, and possibly a putative transect, overlaid.</p>
+    <p>None, but an image is plotted with, at least, the selected points.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>None yet</p>
+    <p>This function requires interaction from the user. A detailed description of its use is in <a href='http://derekogle.com/RFishBC/articles/MeasureRadii/seeRadiiData.html'>this vignette</a> on the <a href='http://derekogle.com/RFishBC/index.html'>RFishBC website</a>.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='digitizeRadii.html'>digitizeRadii</a></code> and <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>## None yet
+    <pre class="examples"><div class='input'>## None because this requires interaction from the user.
+## See the link to the extensive documentation in the Details.
 
 </div></pre>
   </div>
@@ -199,6 +204,8 @@
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

@@ -30,7 +30,7 @@
 
 <meta property="og:title" content="List files with a specific extension in a folder/directory — listFiles" />
 
-<meta property="og:description" content="This returns a vector with all file names with the ext extension in the path folder/directory. In RfishBC this is used primarily to create a list of image file names over which the user will loop or R data object names that can be given to combineFiles." />
+<meta property="og:description" content="This returns a vector with all file names with the ext extension in the path folder/directory. In RfishBC this is used primarily to create a list of image file names for use in digitizeRadii or RData file names created with digitizeRadii and to be given to combineData." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -125,7 +125,7 @@
 
     <div class="ref-description">
     
-    <p>This returns a vector with all file names with the <code>ext</code> extension in the <code>path</code> folder/directory. In <span class="pkg">RfishBC</span> this is used primarily to create a list of image file names over which the user will loop or R data object names that can be given to <code>combineFiles</code>.</p>
+    <p>This returns a vector with all file names with the <code>ext</code> extension in the <code>path</code> folder/directory. In <span class="pkg">RfishBC</span> this is used primarily to create a list of image file names for use in <code><a href='digitizeRadii.html'>digitizeRadii</a></code> or RData file names created with <code><a href='digitizeRadii.html'>digitizeRadii</a></code> and to be given to <code><a href='combineData.html'>combineData</a></code>.</p>
     
     </div>
 
@@ -136,15 +136,15 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>ext</th>
-      <td><p>A string that contains the file extension pattern to match.</p></td>
+      <td><p>A single string that contains the file extension pattern to match.</p></td>
     </tr>
     <tr>
       <th>other</th>
-      <td><p>Other strings to match int eh file names that match the file extensin in <code>ext</code>.</p></td>
+      <td><p>Other strings to match in file names that were already matched by the extension in <code>ext</code>.</p></td>
     </tr>
     <tr>
       <th>path</th>
-      <td><p>A string that contains the full path name for the folder/directory for which to list files. Defaults to the current working directory (see <code>getwd</code> result).</p></td>
+      <td><p>A single string that contains the full path name for the folder/directory for which to list files. Defaults to the current working directory (see <code>getwd</code> result).</p></td>
     </tr>
     <tr>
       <th>ignore.case</th>
@@ -162,15 +162,15 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>None yet.</p>
+    <p>An example of using this function is in <a href='http://derekogle.com/RFishBC/articles/MeasureRadii/collectRadiiData.html'>this vignette</a> and <a href='http://derekogle.com/RFishBC/articles/MeasureRadii/seeRadiiData.html'>this vignette</a> on the <a href='http://derekogle.com/RFishBC/index.html'>RFishBC website</a>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>list.files</code> in base R.</p></div>
+    <div class='dont-index'><p><code><a href='digitizeRadii.html'>digitizeRadii</a></code> and <code><a href='combineData.html'>combineData</a></code>; and <code>list.files</code> in base R.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>## None yet
+    <pre class="examples"><div class='input'>## See the link to the extensive documentation in the Details.
 
 </div></pre>
   </div>

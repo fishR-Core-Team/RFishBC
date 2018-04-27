@@ -2,13 +2,13 @@
 % Please edit documentation in R/showDigitizedImage.R
 \name{showDigitizedImage}
 \alias{showDigitizedImage}
-\title{Show the points that were selected at some previous time and saved to the R object file.}
+\title{Show points selected on a structure image and saved in an RData file}
 \usage{
-showDigitizedImage(fname, sepWindow, pch.show, col.show, cex.show, showTransect,
+showDigitizedImage(nm, sepWindow, pch.show, col.show, cex.show, showTransect,
   col.transect, lwd.transect, col.scaleBar, lwd.scaleBar)
 }
 \arguments{
-\item{fname}{A string that indicates the R object file to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (will look for this file in the current working directory unless a fully pathed name is given).}
+\item{nm}{A string that indicates the RData file that contains the R object created with  created with \code{\link{digitizeRadii}} (the loaded object will contain the image and the selected points as). By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (file must be in the current working directory unless a fully pathed name is given).}
 
 \item{sepWindow}{See details in \code{\link{RFBCoptions}}.}
 
@@ -29,17 +29,21 @@ showDigitizedImage(fname, sepWindow, pch.show, col.show, cex.show, showTransect,
 \item{lwd.scaleBar}{See details in \code{\link{RFBCoptions}}.}
 }
 \value{
-None, but an image is plotted with the selected points, and possibly a putative transect, overlaid.
+None, but an image is plotted with, at least, the selected points.
 }
 \description{
-Show the points that were selected at some previous time on the structure and save to the R object file. This is useful for reexamining the selected points at a later time or overlaying selected points from multiple reads of the structure.
+Show points selected on a structure image to represent annuli that were saved to an RData file using \code{\link{digitizeRadii}}. This allows the user to reexaminine the selected points or overlay selected points from multiple readings of the structure.
 }
 \details{
-None yet
+This function requires interaction from the user. A detailed description of its use is in \href{http://derekogle.com/RFishBC/articles/MeasureRadii/seeRadiiData.html}{this vignette} on the \href{http://derekogle.com/RFishBC/index.html}{RFishBC website}.
 }
 \examples{
-## None yet
+## None because this requires interaction from the user.
+## See the link to the extensive documentation in the Details.
 
+}
+\seealso{
+\code{\link{digitizeRadii}} and \code{\link{RFBCoptions}}.
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}

@@ -1,11 +1,9 @@
-#' @title Collect radial measurements from a calcified structure by interactively selecting annuli.
+#' @title Collect radial measurements from a calcified structure by interactively selecting annuli
 #' 
-#' @description Computes radial measurements from selected points and writes all to an R data object
+#' @description The user interactively select points wit the first moust button on an image of a calcified structure. When finished, radial measurements (from the sturture focus to the selected points) are calculated (either with arbitrary units or actual units if a scale-bar is included on the image) and written to an external file for later use.
 #' 
-#' The user can interactively select points on a plot by clicking with the first mouse button on the image. When finished, the x- and y-coordinates for each selected point will be returned.
-#' 
-#' @param img A string that indicates the image (must be PNG, JPG, or BMP) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (will look for this file in the current working directory unless a fully pathed name is given).
-#' @param id A unique identifier for the fish or structure being examined. Will be coerced to a character.
+#' @param img A string that indicates the image (must be PNG, JPG, BMP, or TIFF) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (file must be in the current working directory unless a fully pathed name is given).
+#' @param id A unique identifier for the fish or structure being examined. Will be coerced to a character. If missing you will be prompted to enter a value.
 #' @param reading See details in \code{\link{RFBCoptions}}.
 #' @param description See details in \code{\link{RFBCoptions}}.
 #' @param suffix See details in \code{\link{RFBCoptions}}.
@@ -30,18 +28,27 @@
 #' @param cex.info See details in \code{\link{RFBCoptions}}.
 #' @param col.info See details in \code{\link{RFBCoptions}}.
 #'
-#' @details This uses \code{\link[graphics]{locator}} which will suspend activity in the console until the user indicates that they are done selecting points. The user indicates that they are done selecting points by right-clicking on the image and selecting Stop or selecting Stop in the window's menu.
+#' @details This function requires interaction from the user. A detailed description of its use is in the vignettes on the \href{http://derekogle.com/RFishBC/index.html}{RFishBC website}.
+#' 
+#' @note This uses \code{\link[graphics]{locator}} which will suspend activity in the console until the user indicates that they are done selecting points by right-clicking on the image and selecting Stop or selecting Stop in the window's menu.
 #'
-#' @return A string that contains the filename (with path) of an R data object (i.e., .RData file) written to the same directory/folder as the file in \code{fname} that contains the following items in a list:
+#' @seealso \code{\link{showDigitizedImage}} and \code{\link{RFBCoptions}}.
+#'
+#' @return A list that contains the following:
 #' \itemize{
-#'   \item description: The description given in \code{description}.
-#'   \item id: The unique identifier given in \code{id}.
-#'   \item image: The filename for the structure image given in \code{fname}.
-#'   \item pts: The data.frame of x- and y-coordinates for the points (as returned directly from selecting points on the structure image).
-#'   \item radii: A data.frame that contains the radial measurements (i.e., from the focus to the selected point) for the structure. Specifically, it contains the following items:
-#'   \itemize{
-#'     \item XXX
-#'   }
+#'   \item{\code{description}: }{The description given in \code{description}.}
+#'   \item{\code{image}: }{The full filename given in \code{img}.}
+#'   \item{\code{basenm}: }{The filename given in \code{img} without the path.}
+#'   \item{\code{dirnm}: }{The directory in which \code{img} was located.}
+#'   \item{\code{datanm}: }{The filename that contains the RData object.}
+#'   \item{\code{pts}: }{A data.frame that contains the \code{x} and \code{y} coordinates on the image for the selected annuli.}
+#'   \item{\code{radii}: }{A data.frome that contains the unique \code{id}, the \code{reading} code, the age-at-capture in \code{agecap}, the annulus number in \code{ann}, the radial measurements in \code{rad}, and the radial measurement at capture in \code{radcap}.}
+#'   \item{\code{sfSource}: }{A character string that identifies whether the scaling factor was \code{"Provided"} through the \code{scalingFactor} argument or derived from a \code{"scaleBar"}.}
+#'   \item{\code{sbPts}: }{A data.frame of \code{x} and \code{y} coordinates for the endpoints of the scale-bar if the scaling factor was derived from a scale-bar.}
+#'   \item{\code{sbLength}: }{A single numeric that is the known (actual) length of the scale-bar if the scaling factor was derived from a scale-bar.}
+#'   \item{\code{scalingFactor}: }{A single numeric used to convert measurements on the structure image to actual measurements on the structure. Measurements on the structure image were multiplied by this value.}
+#'   \item{\code{windowSize}: }{A numeric of length two that contains the width and height of the window used to display the structure image. One of these units was set by the given \code{windowSize} value.}
+#'   \item{\code{pixW2H}: }{The ratio of pixel width to height. This is used to correct measurements for when an image is not square.}
 #' }.
 #' 
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}.
@@ -49,7 +56,8 @@
 #' @export
 #'
 #' @examples
-#' ## None yet
+#' ## None because this requires interaction from the user.
+#' ## See the link to the extensive documentation in the Details.
 #' 
 digitizeRadii <- function(img,id,reading,suffix,
                           description,edgeIsAnnulus,popID,
@@ -111,8 +119,8 @@ digitizeRadii <- function(img,id,reading,suffix,
   ## Add windowSize and scaling factor information to dat list
   dat <- c(dat,SF,windowInfo)
   ## Write the dat object to R object filename in the working directory.
-  save(dat,file=paste0(inames$dirnm,"/",dat$datobj))
-  message("** All results written to ",dat$datobj)
+  save(dat,file=paste0(inames$dirnm,"/",dat$datanm))
+  message("** All results written to ",dat$datanm)
   ## Invisibly return the R object
   invisible(dat)
 }

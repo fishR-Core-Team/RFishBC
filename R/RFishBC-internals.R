@@ -93,12 +93,12 @@ iHndlScalingFactor <- function(scaleBar,knownLength,scalingFactor,
       maglength <- sqrt(distx^2+disty^2)
       scalingFactor <- knownLength/maglength
     }
-    SF <- list(sbSource="ScaleBar",sbPts=tmp,sbLength=knownLength,
+    SF <- list(sfSource="ScaleBar",sbPts=tmp,sbLength=knownLength,
                scalingFactor=scalingFactor)
   } else {
     ## No scale bar on the plot ... using the scaling factor
     message("\n** Using the 'scalingFactor' provided.")
-    SF <- list(sbSource="Provided",sbPts=NULL,sbLength=NULL,
+    SF <- list(sfSource="Provided",sbPts=NULL,sbLength=NULL,
                scalingFactor=scalingFactor)
   }
   SF
@@ -213,7 +213,7 @@ iProcessAnnuli <- function(nms,pts,id,reading,suffix,description,
   ## Organize all results for later processing
   dat <- list(description=description,image=nms$givennm,
               basenm=nms$basenm,dirnm=nms$dirnm,
-              datobj=paste0(tools::file_path_sans_ext(nms$basenm),
+              datanm=paste0(tools::file_path_sans_ext(nms$basenm),
                             ifelse(!is.null(suffix),"_",""),
                             suffix,".RData"),
               pts=pts,radii=radii)

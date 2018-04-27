@@ -19,38 +19,42 @@ knitr::opts_chunk$set(
 # Introduction
 The size of fish at a previous time in their life is often estimated through "back-calculation." Back-calculation of previous lengths requires accurate measurements of annual growth on calcified structures from individual fish and a suitable model that relates growth on the structure to growth of the fish.
 
-The [FishBC software](https://fisheries.org/bookstore/all-titles/software/70317/) is commonly used to measure lengths on a calcified structure and apply a back-calculation model to estimate length at previous ages. However, FishBC only works on out-dated computers, there are no plans to update it, and it is not open source. The functionality in the `RFishBC` package is meant to replace the FishBC software. Methods for making measurements on images of calcified structures is demonstrated in this document. Using those measurements to back-calculate fish length at a previous age is demonstrated in [a separate vignette](backcalculation.html).
+The [FishBC software](https://fisheries.org/bookstore/all-titles/software/70317/) is commonly used to measure lengths on a calcified structure and apply a back-calculation model to estimate length at previous ages. However, FishBC only works on out-dated computers, there are no plans to update it, and it is not open source. The functionality in the `RFishBC` package is meant to replace FishBC. Methods for making measurements on images of calcified structures is demonstrated in this vignette. Using those measurements to back-calculate fish length at a previous age is demonstrated in the [Compute Back-Calculated Lengths](../BCCalc/BCCalc.html) vignette.
 
 \  
 
 ----
 
-# Assumptions
+# Vignette Assumptions
 
 ### Understand Back-Calculation
 This vignette assumes that you have a basic understanding of back-calculating fish length at previous ages as described in the [Short Introduction to Back-Calculation](../BCIntro/BCIntro.html) vignette. At the very least you should be aware of what calcified structures and radial measurements are.
 
 ### Static Structure Images
-This vignette also assumes that you can capture a static digital image of a structure. The image must be a jpeg (.jpg), portable network graphics (.png), or bitmap (.bmp) format. Images will usually be obtained from a camera mounted on a microscope and connected to a computer. Below is a sample image of a fish scale.
+This vignette also assumes that you have static digital images of structures. The images must be of jpeg (.jpg), portable network graphics (.png), bitmap (.bmp), or TIFF format. Images will usually be obtained from a camera mounted on a microscope and connected to a computer. Below is an image of a Kiyi (*Coregonus kiyi*) scale.
 
 ![](Scale_1.jpg)
 
-Ideally, but not necessarily, the image will also contain an object (e.g., a "scale-bar") of known length so that actual lengths on the structure can be found. If a scale-bar is absent, then the measured lengths will be on an arbitrary scale (i.e., the actual values will be meaningless but the proportion of the total structure radius to each annulus will be meaningful). Below is a sample image of a Kiyi otolith with a 1-mm scale-bar.
+\  
+
+Ideally, but not necessarily, the image will also contain an object (e.g., a "scale-bar") of known length so that actual lengths on the structure can be found. If a scale-bar is absent, then the measured lengths will be on an arbitrary scale (i.e., the actual values will be meaningless but the proportion of the total structure radius to each annulus will be meaningful). Below is an image of a Kiyi otolith with a 1-mm scale-bar.
 
 ![](oto140306.jpg)
 
-The process described herein requires that all images to be processed be stored in the same directory or folder. To be most efficient (and simple), this directory should contain ONLY image files related to a particular project (e.g., one species for one water body for one year) and all image files should be of the same type (e.g., png or jpg).
+\  
 
-Generally, the user will "set" the current working directory in R to the directory where these images are stored with `setwd()`. If using RStudio, the working directory can be set with any of the options under the Session ... Set Working Directory menu.[^RStudioSETWD] The following is an example of setting a working directory in R.
+The process described herein requires all images to be processed to be in the same directory or folder. To be most efficient (and simple), this directory should contain ONLY image files related to a particular project (e.g., one species for one water body for one year) and all image files should be of the same type (e.g., png or jpg).
+
+Generally, the user will use `setwd()` to "set" the current working directory in R to the directory with the images.[^RStudioSETWD] The following is an example of setting a working directory in R.
 
 ```{r eval=FALSE}
 setwd("c:/work/aging/Kiyi2014")
 ```
 
-Finally, note that the process described herein will produce one R data object files (.RData files; hereafter called "RData file") for each set of measurements made on a structure images. These data files will be saved in the current work directory that has the structure image files. I suggest keeping the RData and corresponding structure image files together at all times as the RData file serves as an archive of the data collected from an image.
+Finally, note that the process described herein will produce one RData object file (.RData files; hereafter called "RData file") for each set of measurements made on a structure image. These data files will be saved in the current work directory (likely the directory with the structure image files). I suggest keeping the RData and corresponding structure image files together at all times as the RData file serves as an archive of the data collected from an image.
 
 ### R Packages
-Finally, the methods described in this vignette require the following packages.
+The methods described in this vignette require the following packages.
 
 ```{r message=FALSE}
 library(RFishBC)
@@ -65,18 +69,19 @@ library(tidyr)    # for spread()
 # Measure Radii {#measurereadii}
 The `digitizeRadii()` function is used to
 
-1. Load an image of a structure.
-1. Optionally provide a scaling for the image.
+1. Load a structure image.
+1. Optionally provide a scale for the image.
+1. Interactively select the structure focus and margin (to form a transect on which annuli will be marked).
 1. Interactively select annuli on the structure image.
 1. Create an RData file that contains the radial measurements to selected annuli and other information about the structure and the data extraction process.
 
-For example (*but described thoroughly further below*), the line below identifies "Scale_1.jpg" as the structure image, this fish has an identification number of "1", this reading of the image should be labelled as "DHO", and structure margin or edge should not be considered as an annulus. When this line is run it will open the image[^inwd], allow the user to select points that represent annuli, and save radial measurements in "Scale_1_DHO.RData".[^saveex1]
+For example (*but described thoroughly further below*), the line below identifies "Scale_1.jpg" as the structure image, this fish has an identification number of "1", this reading of the image should be labelled as "DHO", and the structure margin or edge should not be considered as an annulus. When this line is run it will open the image[^inwd], allow the user to select points that represent a transect and annuli on that transect, and save radial measurements to "Scale_1_DHO.RData".[^saveex1]
 
 ```{r eval=FALSE}
 digitizeRadii("Scale_1.jpg",id="1",reading="DHO",edgeIsAnnulus=FALSE)
 ```
 
-Further specifics of `digitizeRadii()` and its many arguments are described below.
+Further specifics of `digitizeRadii()` and many of its arguments[^DRargs] are described below.
 
 ### Basics
 The first several arguments to `digitizeRadii()` are related to information about the structure.
@@ -221,11 +226,13 @@ write.csv(dffish,file="Kiyi2014_BCs.csv",quote=FALSE,row.names=FALSE)
 
 # Footnotes
 
-[^RStudioSETWD]: My preference is to start a script that will contain all of the code described later in this vignette. If this script is saved to the same directory with the structure images then the working directory can be set in RStudio with the Session ... Set Working Directory ... to Source File Location menu items. I then copy the resultant `setwd()` code to my script so that I do not have to use the menu items when I run this script again.
+[^RStudioSETWD]: In RStudio, the working directory can be set with any of the options under the Session ... Set Working Directory menu.  My preference is to start a script that will contain all of the code described later in this vignette. If this script is saved to the same directory with the structure images then the working directory can be set in RStudio with the Session ... Set Working Directory ... to Source File Location menu items. I then copy the resultant `setwd()` code to my script so that I do not have to use the menu items when I run this script again.
 
-[^inwd]: This assumes that the `Scale_1.jpg` file is in the current working directory. You can see what the current working directory is with `getwd()`.
+[^inwd]: This assumes that the `Scale_1.jpg` file is in the current working directory. Use `getwd()` to see the current working directory.
 
-[^saveex1]: Actually much more than the radial measurements are recorded in the RData file (discussed further below). Also note that the radii are on an arbitrary scale in this case because no scale-bar was available on the image.
+[^saveex1]: Actually much more than the radial measurements are recorded in the RData file (see [here](http://derekogle.com/RFishBC/reference/digitizeRadii.html#value)). Also note that the radii are on an arbitrary scale in this case because no scale-bar was available on the image.
+
+[^DRargs]: The many specific arguments to `digitizeRadii()` are controlled with `RFBCoptions()` (described later) and described in detail [here](http://derekogle.com/RFishBC/reference/RFBCoptions.html#details).
 
 [^readings]: The `reading=` argument is primarily used when the structure is read more than once. However, I suggest giving a descriptive label to `reading=` even if there are no plans to read the structure again in the future.
 

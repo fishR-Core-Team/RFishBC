@@ -2,51 +2,54 @@
 % Please edit documentation in R/RFBCoptions.R
 \name{RFBCoptions}
 \alias{RFBCoptions}
-\title{See or set arguments for functions that handle radii measurements.}
+\title{See or set arguments for common RFishBC functions}
 \usage{
 RFBCoptions(reset = FALSE, ...)
 }
 \arguments{
-\item{reset}{A logical that will reset the values to their factory fresh defaults if \code{TRUE}.}
+\item{reset}{A logical that will reset the values to their \dQuote{factory-fresh} defaults if \code{TRUE}.}
 
-\item{\dots}{An arbitrary number of \code{argument}=\code{value} pairs where \code{argument} is one of the argument names and \code{value} is the new value for this argument. See details and examples.}
+\item{\dots}{An arbitrary number of \code{argument}=\code{value} pairs where \code{argument} is one of the argument names and \code{value} is the new value for the argument. See details and examples.}
 }
 \value{
 None, but the list in \code{RFBCoptions} will be modified.
 }
 \description{
-Allows the user to see or set values for many of the arguments in \code{\link{digitizeRadii}} and \code{\link{showDigitizedImage}}. These values will be used in these functions unless the user changes them with this function or within \code{\link{digitizeRadii}} or \code{\link{showDigitizedImage}}
+The \code{\link{digitizeRadii}} and \code{\link{showDigitizedImage}} functions have a variety of arguments that create great flexibility. Default values for these arguments can be seen with this function.
+
+Additionally, a user may want to change a number of these arguments from their default values and use those new values in a large number of function calls (e.g., processing a larger number of structures with the same characteristics). Changing the argument values from the defaults during each function call is inefficient. Thus, default values for these arguments may be changed for the SESSION with this function.
 }
 \details{
 The arguments that can be set with this function are:
 \itemize{
-\item{\code{reading}: }{A single character string (or an object that can be coerced to a character) that identifies the reading for a structure. If the structure will be read multiple times, then this is used to identify which time (which reading) this one is. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
-\item{\code{description}: }{A single character string that contains a short but more detailed description for a reading of a structure. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
+\item{\code{reading}: }{A single character string (or an object that can be coerced to a character) that identifies the reading for a structure. If the structure will be read multiple times, then this may be used to specify the particular reading. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
+\item{\code{description}: }{A single character string that contains a short (but more detailed than in \code{reading}) description for a reading of a structure. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
 \item{\code{suffix}: }{A single character string that will be added to the RData file name. If \code{NULL} and \code{reading} is not \code{NULL}, then this will be replaced with the value in \code{reading}. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
-\item{\code{edgeIsAnnulus}: }{A single logical that indicates whether the structure margin should be considered an annulus (\code{TRUE}) or not (\code{FALSE}). Use \code{FALSE} if growth between the last annulus and the structure marging is not a complete year's worth of growth (i.e., \sQuote{plus-growth}). Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
+\item{\code{edgeIsAnnulus}: }{A single logical that indicates whether the structure margin should be considered an annulus (\code{TRUE}) or not (\code{FALSE}). Use \code{FALSE} if growth between the last annulus and the structure margin is not a complete year's worth of growth (i.e., \dQuote{plus-growth}). Defaults to \code{NULL} which means that the user must set this value. Used in \code{\link{digitizeRadii}}.}
 \item{\code{sepWindow}: }{A single logical that indicates whether the structure image should be opened in a separate window (\code{=TRUE}) or not (\code{=FALSE}). Defaults to \code{TRUE}. Used in \code{\link{digitizeRadii}} and  \code{\link{showDigitizedImage}}.}
-\item{\code{windowSize}: }{A single numeric that is used to set the size of the largest dimension for the window in which the structure image is opened if \code{sepWindow=TRUE}. This size will be the width for wider images and the height for taller images. The other dimension will be set relative to this so that the image is displayed in its native aspect ratio. Defaults to 7 inches. Used in \code{\link{digitizeRadii}} and  \code{\link{showDigitizedImage}}.}
-\item{\code{popID}: }{A single logical that indicates if the fish ID dialog box (only on Windows if no \code{ID} is given in \code{\link{digitizeRadii}}) is populated with the image file name sans the extension. This is useful for when the image name is the fish ID. Defaults to \code{FALSE}.}
-\item{\code{scalingFactor}: }{A single numeric that is used to convert measurements on the structure image to actual measurements on the structure. Measurements on the structure image will be multiplied by this value. Ignored if \code{scaleBar=TRUE}. Defaults to \code{1}. Used in \code{\link{digitizeRadii}}.}
+\item{\code{windowSize}: }{A single numeric used to set the size of the largest dimension for the window in which the structure image is opened if \code{sepWindow=TRUE}. This size will be the width for wider images and the height for taller images. The other dimension will be set relative to this so that the image is displayed in its native aspect ratio. Defaults to 7 inches. Used in \code{\link{digitizeRadii}}.}
+\item{\code{popID}: }{A single logical that indicates if the fish ID dialog box (only on Windows if no \code{ID} is given in \code{\link{digitizeRadii}}) is populated with the image file name sans the extension. This is useful for when the image name is the fish ID. Defaults to \code{FALSE}. Used in \code{\link{digitizeRadii}}.}
+\item{\code{scalingFactor}: }{A single numeric used to convert measurements on the structure image to actual measurements on the structure. Measurements on the structure image will be multiplied by this value. Ignored if \code{scaleBar=TRUE}. Defaults to \code{1}. Used in \code{\link{digitizeRadii}}.}
 \item{\code{scaleBar}: }{A single logical that indicates whether the user will be prompted to select the endpoints of a scale-bar on the structure image. If \code{TRUE}, then must also use \code{scaleBarLength}. If \code{FALSE}, then consider using \code{scalingFactor}. Defaults to \code{FALSE}. Used in \code{\link{digitizeRadii}}.}
-\item{\code{scaleBarLength}: }{A single numeric that represents the actual length of the scale-bar. Ignored if \code{scaleBar=FALSE}. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
-\item{\code{col.scaleBar}: }{The color of the scale bar line if \code{scalebar=TRUE}. Defaults to \code{"red"}. Used in \code{\link{digitizeRadii}}.}
-\item{\code{lwd.scaleBar}: }{The line width of the scale bar line if \code{scalebar=TRUE}. Defaults to \code{2}. Used in \code{\link{digitizeRadii}}.}
-\item{\code{addTransect}: }{A single logical that indicates whether the points selected at the structure center and margin should be connected to form a linear transect to mark annuli. Defaults to \code{TRUE}. Used in \code{\link{digitizeRadii}}.}\item{\code{snap2Transect}: }{A single logical that indicates whether the coordinates of the selected points that represent annuli should be modified so that the points will fall exactly on the transect from the structure center to margin. If \code{TRUE} then the points will be moved perpendicularly to the transect. If \code{FALSE} then the points will be where the user selected them. Defaults to \code{TRUE}. Used in \code{\link{digitizeRadii}}.}
+\item{\code{scaleBarLength}: }{A single numeric that represents the actual length of the scale-bar. Ignored if \code{scaleBar=FALSE}. Defaults to \code{NULL}; thus, the user must enter a value if \code{scaleBar=TRUE}. Used in \code{\link{digitizeRadii}}.}
+\item{\code{col.scaleBar}: }{The color of the scale-bar line if \code{scalebar=TRUE}. Defaults to \code{"red"}. Used in \code{\link{digitizeRadii}} and  \code{\link{showDigitizedImage}}.}
+\item{\code{lwd.scaleBar}: }{The line width of the scale-bar line if \code{scalebar=TRUE}. Defaults to \code{2}. Used in \code{\link{digitizeRadii}} and  \code{\link{showDigitizedImage}}.}
+\item{\code{addTransect}: }{A single logical that indicates whether the points selected at the structure center and margin should be connected to form a linear transect on which annuli will be marked. Defaults to \code{TRUE}. Used in \code{\link{digitizeRadii}}.}
+\item{\code{snap2Transect}: }{A single logical that indicates whether the coordinates of the selected points that represent annuli should be moved to fall exactly on the transect from the structure center to margin. If \code{TRUE} then the points will be moved perpendicularly to the transect. If \code{FALSE} then the points will be where the user selected them. Defaults to \code{TRUE}. Used in \code{\link{digitizeRadii}} but the result will not be seen until visualizing the selected points with \code{\link{showDigitizedImage}}.}
 
 \item{\code{showTransect}: }{A single logical that indicates whether the points selected at the structure center and margin should be connected to form a linear transect. Defaults to \code{TRUE}. Used in \code{\link{showDigitizedImage}}.}
 \item{\code{col.transect}: }{The color of the transect line if \code{addTransect=TRUE} in \code{\link{digitizeRadii}} or \code{showTransect=TRUE} in \code{\link{showDigitizedImage}}. Defaults to \code{"yellow"}.}
 \item{\code{lwd.transect}: }{The width of the transect line if \code{addTransect=TRUE} in \code{\link{digitizeRadii}} or \code{showTransect=TRUE} in \code{\link{showDigitizedImage}}. Defaults to \code{1}.}
-\item{\code{pch.sel}: }{The plotting character of points for selected annuli in \code{\link{digitizeRadii}}. Defaults to \code{3} (a "cross hairs").}
+\item{\code{pch.sel}: }{The plotting character of points for selected annuli in \code{\link{digitizeRadii}}. Defaults to \code{3} (a \dQuote{cross hairs}).}
 \item{\code{col.sel}: }{The color of points for selected annuli in \code{\link{digitizeRadii}}. Defaults to \code{"red"}.}
 \item{\code{cex.sel}: }{The character expansion value of points for selected annuli in \code{\link{digitizeRadii}}. Defaults to \code{1}.}
 \item{\code{pch.show}: }{The plotting character for points shown in \code{\link{showDigitizedImage}}. Defaults to \code{19} (a solid dot).}
 \item{\code{col.show}: }{The color of points shown in \code{\link{showDigitizedImage}}. Defaults to \code{"red"}.}
 \item{\code{cex.show}: }{The character expansion value of points shown in \code{\link{showDigitizedImage}}. Defaults to \code{1}.}
-\item{\code{showInfo}: }{A single logical that indicates whether the ID information should be shown on the image in \code{\link{showDigitizedImage}}. Defaults to \code{TRUE}.}
-\item{\code{pos.info}: }{A single character that indicates where the ID information should be placed when \code{showInfo=TRUE}. See \code{\link{legend}} for position choices. Defaults to \code{"topleft"}.}
-\item{\code{cex.info}: }{The character expansion for the ID information when \code{showInfo=TRUE}.}
-\item{\code{col.info}: }{The color for the ID information when \code{showInfo=TRUE}.}
+\item{\code{showInfo}: }{A single logical that indicates whether the ID information should be shown on the image in \code{\link{digitizeRadii}}. Defaults to \code{TRUE}.}
+\item{\code{pos.info}: }{A single character that indicates where the ID information should be placed when \code{showInfo=TRUE}. See \code{\link{legend}} for position choices. Defaults to \code{"topleft"}. Used in \code{\link{digitizeRadii}}.}
+\item{\code{cex.info}: }{The character expansion for the ID information when \code{showInfo=TRUE}. Used in \code{\link{digitizeRadii}}.}
+\item{\code{col.info}: }{The color for the ID information when \code{showInfo=TRUE}. Used in \code{\link{digitizeRadii}}.}
 } 
 
 The user will likely only use this function to change arguments at the start of a script, so that those values will be used throughout the analyses in the script. If the values for the arguments need to be changed in any instance of \code{\link{digitizeRadii}} or \code{\link{showDigitizedImage}}, then it is more efficient to change the argument within the call to those functions.
@@ -67,6 +70,9 @@ RFBCoptions()$addTransect
 ## Multiple options can also be set at once
 RFBCoptions(pch.show=3,col.show="blue",cex.show=3)
 
+}
+\seealso{
+\code{\link{digitizeRadii}} and \code{\link{showDigitizedImage}}
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}
