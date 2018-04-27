@@ -32,22 +32,22 @@ WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
 ## If the file is chosen, then the filename (basename) and the directory
 ##   for the file (dirname) is returned.
 ########################################################################
-iHndlfname <- function(fname) {
-  if (missing(fname)) {
-    fname <- file.choose()
-    if (missing(fname)) STOP("A filename must be provided.")
+iHndlFilename <- function(givennm) {
+  if (missing(givennm)) {
+    givennm <- file.choose()
+    if (missing(givennm)) STOP("A filename must be provided.")
   }
-  if (length(fname)>1) {
+  if (length(givennm)>1) {
     ## If more than one name in fname, then just pass it through
-    fname
+    givennm
   } else {
-    ## If just one mame then handle directory etc.
+    ## If just one name then handle directory etc.
     ## get directory name ... changed to working directory if =="."
-    dn <- dirname(fname)
-    if (dn==".") dn <- getwd()
+    dirnm <- dirname(givennm)
+    if (dirnm==".") dirnm <- getwd()
     ## return list with filename, directory name, and combined
-    bn <- basename(fname)
-    list(bn=bn,dn=dn,fname=fname)
+    basenm <- basename(givennm)
+    list(givennm=givennm,dirnm=dirnm,basenm=basenm)
   }
 }
 
@@ -55,14 +55,16 @@ iHndlfname <- function(fname) {
 ########################################################################
 ## Allows the user to enter a fish ID.
 ########################################################################
-iHndlID <- function(id) {
+iHndlID <- function(id,fname,popID) {
   if (missing(id)) {
     if (grepl('w|W', .Platform$OS.type)) {
       ## we are on Windows
-      id <- utils::winDialogString("Enter a unique ID: ","")
+      ## use basename in fname as the default if popID=TRUE
+      defID <- ifelse(popID,tools::file_path_sans_ext(fname$bn),"")
+      id <- utils::winDialogString("Enter a unique ID: ",defID)
     } else {
-      ## Not on Windows so prompt in console
-      id <- readline(prompt="Enter a unique ID: ")
+      ## Not on Windows so prompt in console if in interactive session
+      if (interactive()) id <- readline(prompt="Enter a unique ID: ")
     }
     if (missing(id) | is.null(id)) STOP("You must provide a unique ID in 'id'.")
   }
@@ -104,6 +106,31 @@ iHndlScalingFactor <- function(scaleBar,knownLength,scalingFactor,
 
 
 ########################################################################
+## Places text in txt= on an active plot at a position given in pos=
+########################################################################
+iPlaceText <- function(txt,pos,cex,col) {
+  usr <- graphics::par("usr")
+  if (pos=="topleft") {
+    graphics::text(usr[1],usr[4],txt,adj=c(0,1),col=col,cex=cex)
+  } else if (pos=="top") {
+    graphics::text(mean(usr[1:2]),usr[4],txt,adj=c(0.5,1),col=col,cex=cex)
+  } else if (pos=="topright") {
+    graphics::text(usr[2],usr[4],txt,adj=c(1,1),col=col,cex=cex)
+  } else if (pos=="right") {
+    graphics::text(usr[2],mean(usr[3:4]),txt,adj=c(1,0.5),col=col,cex=cex)
+  } else if (pos=="bottomright") {
+    graphics::text(usr[2],usr[3],txt,adj=c(1,0),col=col,cex=cex)
+  } else if (pos=="bottom") {
+    graphics::text(mean(usr[1:2]),usr[3],txt,adj=c(0.5,0),col=col,cex=cex)
+  } else if (pos=="bottomleft") {
+    graphics::text(usr[1],usr[3],txt,adj=c(0,0),col=col,cex=cex)
+  } else if (pos=="left") {
+    graphics::text(usr[1],mean(usr[3:4]),txt,adj=c(0,0.5),col=col,cex=cex)
+  }
+}
+
+
+########################################################################
 ## Loads and plots any of the three bitmapped types of images as chosen
 ## by the user. This uses readbitmap::read.bitmap() so that any of PNG,
 ## JPG, or BMP files will be automatically detected. This function is
@@ -111,7 +138,8 @@ iHndlScalingFactor <- function(scaleBar,knownLength,scalingFactor,
 ## added the code for the dialog box for choosing the file and the use
 ## of withr.
 ########################################################################
-iReadImage <- function(fname,sepWindow,windowSize) {
+iReadImage <- function(fname,id,sepWindow,windowSize,
+                       showInfo,pos.info,cex.info,col.info) {
   img <- readbitmap::read.bitmap(fname)
   ## Get window size so image displayed in its native aspect ratio.
   ## Only needed if windowSize contains one value.
@@ -142,9 +170,12 @@ iReadImage <- function(fname,sepWindow,windowSize) {
                          title=paste0("Image: ",fname))
     }
   }
-  withr::local_par(list(mar=c(0,0,0,0)))
+  withr::local_par(list(mar=c(0,0,0,0),xaxs="i",yaxs="i"))
   graphics::plot.new()
   graphics::rasterImage(img,0,0,1,1)
+  ## Add ID information if told to do so
+  if (showInfo) iPlaceText(paste0("ID=",id),pos.info,cex=cex.info,col=col.info)
+  ## Return information
   invisible(list(windowSize=windowSize,pixW2H=windowSize[1]/windowSize[2]))
 }
 
@@ -157,7 +188,7 @@ iReadImage <- function(fname,sepWindow,windowSize) {
 ## information into an R object data file in the current working
 ## directory.
 ########################################################################
-iProcessAnnuli <- function(fname,pts,id,reading,suffix,description,
+iProcessAnnuli <- function(nms,pts,id,reading,suffix,description,
                            edgeIsAnnulus,scalingFactor,pixW2H) {
   ## Convert point locations to radial measurements, 
   n <- nrow(pts)-1
@@ -180,9 +211,9 @@ iProcessAnnuli <- function(fname,pts,id,reading,suffix,description,
                       rad=rad,radcap=max(rad),
                       stringsAsFactors=FALSE)
   ## Organize all results for later processing
-  dat <- list(description=description,image=fname$fname,
-              bn=fname$bn,dn=fname$dn,
-              datobj=paste0(tools::file_path_sans_ext(fname$bn),
+  dat <- list(description=description,image=nms$givennm,
+              basenm=nms$basenm,dirnm=nms$dirnm,
+              datobj=paste0(tools::file_path_sans_ext(nms$basenm),
                             ifelse(!is.null(suffix),"_",""),
                             suffix,".RData"),
               pts=pts,radii=radii)

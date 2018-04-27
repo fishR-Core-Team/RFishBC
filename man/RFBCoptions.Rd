@@ -26,6 +26,7 @@ The arguments that can be set with this function are:
 \item{\code{edgeIsAnnulus}: }{A single logical that indicates whether the structure margin should be considered an annulus (\code{TRUE}) or not (\code{FALSE}). Use \code{FALSE} if growth between the last annulus and the structure marging is not a complete year's worth of growth (i.e., \sQuote{plus-growth}). Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
 \item{\code{sepWindow}: }{A single logical that indicates whether the structure image should be opened in a separate window (\code{=TRUE}) or not (\code{=FALSE}). Defaults to \code{TRUE}. Used in \code{\link{digitizeRadii}} and  \code{\link{showDigitizedImage}}.}
 \item{\code{windowSize}: }{A single numeric that is used to set the size of the largest dimension for the window in which the structure image is opened if \code{sepWindow=TRUE}. This size will be the width for wider images and the height for taller images. The other dimension will be set relative to this so that the image is displayed in its native aspect ratio. Defaults to 7 inches. Used in \code{\link{digitizeRadii}} and  \code{\link{showDigitizedImage}}.}
+\item{\code{popID}: }{A single logical that indicates if the fish ID dialog box (only on Windows if no \code{ID} is given in \code{\link{digitizeRadii}}) is populated with the image file name sans the extension. This is useful for when the image name is the fish ID. Defaults to \code{FALSE}.}
 \item{\code{scalingFactor}: }{A single numeric that is used to convert measurements on the structure image to actual measurements on the structure. Measurements on the structure image will be multiplied by this value. Ignored if \code{scaleBar=TRUE}. Defaults to \code{1}. Used in \code{\link{digitizeRadii}}.}
 \item{\code{scaleBar}: }{A single logical that indicates whether the user will be prompted to select the endpoints of a scale-bar on the structure image. If \code{TRUE}, then must also use \code{scaleBarLength}. If \code{FALSE}, then consider using \code{scalingFactor}. Defaults to \code{FALSE}. Used in \code{\link{digitizeRadii}}.}
 \item{\code{scaleBarLength}: }{A single numeric that represents the actual length of the scale-bar. Ignored if \code{scaleBar=FALSE}. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
@@ -42,6 +43,10 @@ The arguments that can be set with this function are:
 \item{\code{pch.show}: }{The plotting character for points shown in \code{\link{showDigitizedImage}}. Defaults to \code{19} (a solid dot).}
 \item{\code{col.show}: }{The color of points shown in \code{\link{showDigitizedImage}}. Defaults to \code{"red"}.}
 \item{\code{cex.show}: }{The character expansion value of points shown in \code{\link{showDigitizedImage}}. Defaults to \code{1}.}
+\item{\code{showInfo}: }{A single logical that indicates whether the ID information should be shown on the image in \code{\link{showDigitizedImage}}. Defaults to \code{TRUE}.}
+\item{\code{pos.info}: }{A single character that indicates where the ID information should be placed when \code{showInfo=TRUE}. See \code{\link{legend}} for position choices. Defaults to \code{"topleft"}.}
+\item{\code{cex.info}: }{The character expansion for the ID information when \code{showInfo=TRUE}.}
+\item{\code{col.info}: }{The color for the ID information when \code{showInfo=TRUE}.}
 } 
 
 The user will likely only use this function to change arguments at the start of a script, so that those values will be used throughout the analyses in the script. If the values for the arguments need to be changed in any instance of \code{\link{digitizeRadii}} or \code{\link{showDigitizedImage}}, then it is more efficient to change the argument within the call to those functions.

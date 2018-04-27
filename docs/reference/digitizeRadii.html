@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Collect radial measurements from a calcified structure by interactively selecting annuli. — digitizeRadii" />
 
 <meta property="og:description" content="Computes radial measurements from selected points and writes all to an R data object
@@ -39,8 +42,6 @@ The user can interactively select points on a plot by clicking with the first mo
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -119,25 +120,27 @@ The user can interactively select points on a plot by clicking with the first mo
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Collect radial measurements from a calcified structure by interactively selecting annuli.</h1>
-    <small>Source: <a href='https://github.com/droglenc/RFishBC/blob/master/R/digitizeRadii.R'><code>R/digitizeRadii.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/droglenc/RFishBC/blob/master/R/digitizeRadii.R'><code>R/digitizeRadii.R</code></a></small>
     <div class="hidden name"><code>digitizeRadii.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Computes radial measurements from selected points and writes all to an R data object</p>
 <p>The user can interactively select points on a plot by clicking with the first mouse button on the image. When finished, the x- and y-coordinates for each selected point will be returned.</p>
     
+    </div>
 
-    <pre class="usage"><span class='fu'>digitizeRadii</span>(<span class='no'>fname</span>, <span class='no'>id</span>, <span class='no'>reading</span>, <span class='no'>suffix</span>, <span class='no'>description</span>, <span class='no'>edgeIsAnnulus</span>, <span class='no'>sepWindow</span>,
-  <span class='no'>windowSize</span>, <span class='no'>scaleBar</span>, <span class='no'>scaleBarLength</span>, <span class='no'>col.scaleBar</span>, <span class='no'>lwd.scaleBar</span>,
+    <pre class="usage"><span class='fu'>digitizeRadii</span>(<span class='no'>img</span>, <span class='no'>id</span>, <span class='no'>reading</span>, <span class='no'>suffix</span>, <span class='no'>description</span>, <span class='no'>edgeIsAnnulus</span>, <span class='no'>popID</span>,
+  <span class='no'>sepWindow</span>, <span class='no'>windowSize</span>, <span class='no'>scaleBar</span>, <span class='no'>scaleBarLength</span>, <span class='no'>col.scaleBar</span>, <span class='no'>lwd.scaleBar</span>,
   <span class='no'>scalingFactor</span>, <span class='no'>addTransect</span>, <span class='no'>snap2Transect</span>, <span class='no'>col.transect</span>, <span class='no'>lwd.transect</span>,
-  <span class='no'>pch.sel</span>, <span class='no'>col.sel</span>, <span class='no'>cex.sel</span>)</pre>
+  <span class='no'>pch.sel</span>, <span class='no'>col.sel</span>, <span class='no'>cex.sel</span>, <span class='no'>showInfo</span>, <span class='no'>pos.info</span>, <span class='no'>cex.info</span>, <span class='no'>col.info</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>fname</th>
+      <th>img</th>
       <td><p>A string that indicates the image (must be PNG, JPG, or BMP) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (will look for this file in the current working directory unless a fully pathed name is given).</p></td>
     </tr>
     <tr>
@@ -158,6 +161,10 @@ The user can interactively select points on a plot by clicking with the first mo
     </tr>
     <tr>
       <th>edgeIsAnnulus</th>
+      <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>popID</th>
       <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
     </tr>
     <tr>
@@ -214,6 +221,22 @@ The user can interactively select points on a plot by clicking with the first mo
     </tr>
     <tr>
       <th>cex.sel</th>
+      <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>showInfo</th>
+      <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>pos.info</th>
+      <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>cex.info</th>
+      <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>col.info</th>
       <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
     </tr>
     </table>

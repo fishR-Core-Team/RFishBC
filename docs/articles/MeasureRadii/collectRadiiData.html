@@ -91,9 +91,9 @@
       <h1>Collect radial measurements from a calcified structure by interactively selecting annuli</h1>
                         <h4 class="author">Derek H. Ogle</h4>
             
-            <h4 class="date">2018-04-17</h4>
+            <h4 class="date">2018-04-26</h4>
       
-      <small>Source: <a href="https://github.com/droglenc/RFishBC/blob/master/vignettes/MeasureRadii/collectRadiiData.Rmd"><code>vignettes/MeasureRadii/collectRadiiData.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/droglenc/RFishBC/blob/master/vignettes/MeasureRadii/collectRadiiData.Rmd"><code>vignettes/MeasureRadii/collectRadiiData.Rmd</code></a></small>
       <div class="hidden name"><code>collectRadiiData.Rmd</code></div>
 
     </div>
@@ -251,18 +251,18 @@
 <p>Finally, the data in these two files are combined and stored in <code>dfrad</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">( dfrad &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/combineData.html">combineData</a></span>(fns2) )
 <span class="co">#&gt;    id reading agecap ann       rad    radcap</span>
-<span class="co">#&gt; 1   1     DHO      5   1 0.2136281 0.5175156</span>
-<span class="co">#&gt; 2   1     DHO      5   2 0.2858401 0.5175156</span>
-<span class="co">#&gt; 3   1     DHO      5   3 0.3369752 0.5175156</span>
-<span class="co">#&gt; 4   1     DHO      5   4 0.4498155 0.5175156</span>
-<span class="co">#&gt; 5   1     DHO      5   5 0.5009722 0.5175156</span>
-<span class="co">#&gt; 6   1     DHO      5   6 0.5175156 0.5175156</span>
-<span class="co">#&gt; 7   2     DHO      5   1 0.1528736 0.4327934</span>
-<span class="co">#&gt; 8   2     DHO      5   2 0.2373434 0.4327934</span>
-<span class="co">#&gt; 9   2     DHO      5   3 0.3151711 0.4327934</span>
-<span class="co">#&gt; 10  2     DHO      5   4 0.3729385 0.4327934</span>
-<span class="co">#&gt; 11  2     DHO      5   5 0.4180465 0.4327934</span>
-<span class="co">#&gt; 12  2     DHO      5   6 0.4327934 0.4327934</span></code></pre></div>
+<span class="co">#&gt; 1   1     DHO      5   1 0.2170649 0.5148542</span>
+<span class="co">#&gt; 2   1     DHO      5   2 0.2801505 0.5148542</span>
+<span class="co">#&gt; 3   1     DHO      5   3 0.3380221 0.5148542</span>
+<span class="co">#&gt; 4   1     DHO      5   4 0.4536360 0.5148542</span>
+<span class="co">#&gt; 5   1     DHO      5   5 0.4958656 0.5148542</span>
+<span class="co">#&gt; 6   1     DHO      5   6 0.5148542 0.5148542</span>
+<span class="co">#&gt; 7   2     DHO      5   1 0.1691162 0.4598726</span>
+<span class="co">#&gt; 8   2     DHO      5   2 0.2704896 0.4598726</span>
+<span class="co">#&gt; 9   2     DHO      5   3 0.3375769 0.4598726</span>
+<span class="co">#&gt; 10  2     DHO      5   4 0.4008651 0.4598726</span>
+<span class="co">#&gt; 11  2     DHO      5   5 0.4381209 0.4598726</span>
+<span class="co">#&gt; 12  2     DHO      5   6 0.4598726 0.4598726</span></code></pre></div>
 </div>
 </div>
 <div id="output-data-file" class="section level1">
@@ -274,27 +274,27 @@
 <span class="st">  </span><span class="kw">inner_join</span>(dfrad,<span class="dt">by=</span><span class="st">"id"</span>)
 dffish
 <span class="co">#&gt;    id  loc sex len reading agecap ann       rad    radcap</span>
-<span class="co">#&gt; 1   1 MI-5   M 189     DHO      5   1 0.2136281 0.5175156</span>
-<span class="co">#&gt; 2   1 MI-5   M 189     DHO      5   2 0.2858401 0.5175156</span>
-<span class="co">#&gt; 3   1 MI-5   M 189     DHO      5   3 0.3369752 0.5175156</span>
-<span class="co">#&gt; 4   1 MI-5   M 189     DHO      5   4 0.4498155 0.5175156</span>
-<span class="co">#&gt; 5   1 MI-5   M 189     DHO      5   5 0.5009722 0.5175156</span>
-<span class="co">#&gt; 6   1 MI-5   M 189     DHO      5   6 0.5175156 0.5175156</span>
-<span class="co">#&gt; 7   2 MI-6   F 210     DHO      5   1 0.1528736 0.4327934</span>
-<span class="co">#&gt; 8   2 MI-6   F 210     DHO      5   2 0.2373434 0.4327934</span>
-<span class="co">#&gt; 9   2 MI-6   F 210     DHO      5   3 0.3151711 0.4327934</span>
-<span class="co">#&gt; 10  2 MI-6   F 210     DHO      5   4 0.3729385 0.4327934</span>
-<span class="co">#&gt; 11  2 MI-6   F 210     DHO      5   5 0.4180465 0.4327934</span>
-<span class="co">#&gt; 12  2 MI-6   F 210     DHO      5   6 0.4327934 0.4327934</span></code></pre></div>
+<span class="co">#&gt; 1   1 MI-5   M 189     DHO      5   1 0.2170649 0.5148542</span>
+<span class="co">#&gt; 2   1 MI-5   M 189     DHO      5   2 0.2801505 0.5148542</span>
+<span class="co">#&gt; 3   1 MI-5   M 189     DHO      5   3 0.3380221 0.5148542</span>
+<span class="co">#&gt; 4   1 MI-5   M 189     DHO      5   4 0.4536360 0.5148542</span>
+<span class="co">#&gt; 5   1 MI-5   M 189     DHO      5   5 0.4958656 0.5148542</span>
+<span class="co">#&gt; 6   1 MI-5   M 189     DHO      5   6 0.5148542 0.5148542</span>
+<span class="co">#&gt; 7   2 MI-6   F 210     DHO      5   1 0.1691162 0.4598726</span>
+<span class="co">#&gt; 8   2 MI-6   F 210     DHO      5   2 0.2704896 0.4598726</span>
+<span class="co">#&gt; 9   2 MI-6   F 210     DHO      5   3 0.3375769 0.4598726</span>
+<span class="co">#&gt; 10  2 MI-6   F 210     DHO      5   4 0.4008651 0.4598726</span>
+<span class="co">#&gt; 11  2 MI-6   F 210     DHO      5   5 0.4381209 0.4598726</span>
+<span class="co">#&gt; 12  2 MI-6   F 210     DHO      5   6 0.4598726 0.4598726</span></code></pre></div>
 <p>Some people prefer that the data be presented in “one-fish-per-line” rather than “one-measurement-per-line” (as in <code>dffish</code>) format. The one-measurement-per-line data.frame can be converted to one-fish-per-line by including it as the first argument to <code>spread()</code>. In addition, the variable name that identifies the annuli number must be included in <code>key=</code> and variable name that identifies the radial measurements must be included in <code>value=</code>. The <code>sep=</code> argument is used here as well so that the column names in the resultant data.frame are not simply numbers. In this case, the new variable names will be a combination of the variable name in <code>key=</code>, the string in <code>sep=</code>, and the numbers in the <code>value=</code> variable.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dffish2 &lt;-<span class="st"> </span><span class="kw">spread</span>(dffish,<span class="dt">key=</span>ann,<span class="dt">value=</span>rad,<span class="dt">sep=</span><span class="st">"rad"</span>)
 dffish2
 <span class="co">#&gt;   id  loc sex len reading agecap    radcap   annrad1   annrad2   annrad3</span>
-<span class="co">#&gt; 1  1 MI-5   M 189     DHO      5 0.5175156 0.2136281 0.2858401 0.3369752</span>
-<span class="co">#&gt; 2  2 MI-6   F 210     DHO      5 0.4327934 0.1528736 0.2373434 0.3151711</span>
+<span class="co">#&gt; 1  1 MI-5   M 189     DHO      5 0.5148542 0.2170649 0.2801505 0.3380221</span>
+<span class="co">#&gt; 2  2 MI-6   F 210     DHO      5 0.4598726 0.1691162 0.2704896 0.3375769</span>
 <span class="co">#&gt;     annrad4   annrad5   annrad6</span>
-<span class="co">#&gt; 1 0.4498155 0.5009722 0.5175156</span>
-<span class="co">#&gt; 2 0.3729385 0.4180465 0.4327934</span></code></pre></div>
+<span class="co">#&gt; 1 0.4536360 0.4958656 0.5148542</span>
+<span class="co">#&gt; 2 0.4008651 0.4381209 0.4598726</span></code></pre></div>
 <p>Either file can be written to a “comma-separated values” (CSV) file<a href="#fn11" class="footnoteRef" id="fnref11"><sup>11</sup></a> with <code>write.csv()</code> using the R object name (e.g., <code>dffish</code> or <code>dffish2</code>) as the first argument and a name for the file in <code>file=</code>. Additionally, I prefer to have non-quoted values by using <code>quote=FALSE</code> and no row names by using <code>row.names=FALSE</code>. For example, the “one-measurement-per-line” data can be output to “Kiyi2014_BCs.csv” as follows.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write.csv</span>(dffish,<span class="dt">file=</span><span class="st">"Kiyi2014_BCs.csv"</span>,<span class="dt">quote=</span><span class="ot">FALSE</span>,<span class="dt">row.names=</span><span class="ot">FALSE</span>)</code></pre></div>
 <p> </p>

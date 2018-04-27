@@ -24,7 +24,7 @@ findScalingFactor <- function(fname,knownLength,
                               sepWindow,windowSize,
                               col.scaleBar,lwd.scaleBar) {
   ## handle options
-  fname <- iHndlfname(fname)
+  fname <- iHndlFilename(fname)
   if (missing(knownLength)) STOP("Must provide a 'knownLength'.")
   if (missing(sepWindow)) sepWindow <- iGetopt("sepWindow")
   if (missing(windowSize)) windowSize <- iGetopt("windowSize")

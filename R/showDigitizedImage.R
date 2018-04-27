@@ -24,7 +24,7 @@
 #' @examples
 #' ## None yet
 #' 
-showDigitizedImage <- function(fname,sepWindow,
+showDigitizedImage <- function(nm,sepWindow,
                                pch.show,col.show,cex.show,
                                showTransect,col.transect,lwd.transect,
                                col.scaleBar,lwd.scaleBar) {
@@ -38,21 +38,21 @@ showDigitizedImage <- function(fname,sepWindow,
   if (missing(lwd.transect)) lwd.transect <- iGetopt("lwd.transect")
   if (missing(col.scaleBar)) col.scaleBar <- iGetopt("col.scaleBar")
   if (missing(lwd.scaleBar)) lwd.scaleBar <- iGetopt("lwd.scaleBar")
-  fname <- iHndlfname(fname)
+  fnames <- iHndlFilename(nm)
   dat <- NULL # try to avoid "no visible binding" note
   # Must handle filenames different if one or multiple are given
-  if (is.list(fname)) {
+  if (is.list(fnames)) {
     ## Only one image will be shown
     ## Load the data object
-    load(fname$fname)
+    load(fnames$givennm)
     ## Show first image
-    iReadImage(dat$image,sepWindow,dat$windowSize)
+    iReadImage(dat$image,NULL,sepWindow,dat$windowSize,FALSE,NULL,NULL,NULL)
   } else {
     ## One image with multiple points will be shown
     ## Load the data object
-    load(fname[1])
+    load(fnames[1])
     ## Show first image
-    iReadImage(dat$image,sepWindow,dat$windowSize)
+    iReadImage(dat$image,NULL,sepWindow,dat$windowSize,FALSE,NULL,NULL,NULL)
   }
   ## Show the putative transect ... assumes that the focus and margin
   ## are in the first two rows of dat$pts (as they should be)
@@ -67,8 +67,8 @@ showDigitizedImage <- function(fname,sepWindow,
     graphics::lines(y~x,data=dat$sbPts,col=col.scaleBar,lwd=lwd.scaleBar)
   }
   ## Add other results
-  if (!is.list(fname) & length(fname)>1) {
-    num <- length(fname)
+  if (!is.list(fnames) & length(fnames)>1) {
+    num <- length(fnames)
     # expand colors
     pch.show <- rep(pch.show,ceiling(num/length(pch.show)))
     col.show <- rep(col.show,ceiling(num/length(col.show)))
@@ -76,7 +76,7 @@ showDigitizedImage <- function(fname,sepWindow,
     col.transect <- rep(col.transect,ceiling(num/length(col.transect)))
     lwd.transect <- rep(lwd.transect,ceiling(num/length(lwd.transect)))
     for (i in 2:num) {
-      load(fname[i])
+      load(fnames[i])
       if (showTransect) 
         graphics::lines(dat$pts[1:2,],lwd=lwd.transect[i],
                         col=col.transect[i])

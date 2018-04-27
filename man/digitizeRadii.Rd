@@ -4,13 +4,13 @@
 \alias{digitizeRadii}
 \title{Collect radial measurements from a calcified structure by interactively selecting annuli.}
 \usage{
-digitizeRadii(fname, id, reading, suffix, description, edgeIsAnnulus, sepWindow,
-  windowSize, scaleBar, scaleBarLength, col.scaleBar, lwd.scaleBar,
+digitizeRadii(img, id, reading, suffix, description, edgeIsAnnulus, popID,
+  sepWindow, windowSize, scaleBar, scaleBarLength, col.scaleBar, lwd.scaleBar,
   scalingFactor, addTransect, snap2Transect, col.transect, lwd.transect,
-  pch.sel, col.sel, cex.sel)
+  pch.sel, col.sel, cex.sel, showInfo, pos.info, cex.info, col.info)
 }
 \arguments{
-\item{fname}{A string that indicates the image (must be PNG, JPG, or BMP) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (will look for this file in the current working directory unless a fully pathed name is given).}
+\item{img}{A string that indicates the image (must be PNG, JPG, or BMP) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (will look for this file in the current working directory unless a fully pathed name is given).}
 
 \item{id}{A unique identifier for the fish or structure being examined. Will be coerced to a character.}
 
@@ -21,6 +21,8 @@ digitizeRadii(fname, id, reading, suffix, description, edgeIsAnnulus, sepWindow,
 \item{description}{See details in \code{\link{RFBCoptions}}.}
 
 \item{edgeIsAnnulus}{See details in \code{\link{RFBCoptions}}.}
+
+\item{popID}{See details in \code{\link{RFBCoptions}}.}
 
 \item{sepWindow}{See details in \code{\link{RFBCoptions}}.}
 
@@ -49,6 +51,14 @@ digitizeRadii(fname, id, reading, suffix, description, edgeIsAnnulus, sepWindow,
 \item{col.sel}{See details in \code{\link{RFBCoptions}}.}
 
 \item{cex.sel}{See details in \code{\link{RFBCoptions}}.}
+
+\item{showInfo}{See details in \code{\link{RFBCoptions}}.}
+
+\item{pos.info}{See details in \code{\link{RFBCoptions}}.}
+
+\item{cex.info}{See details in \code{\link{RFBCoptions}}.}
+
+\item{col.info}{See details in \code{\link{RFBCoptions}}.}
 }
 \value{
 A string that contains the filename (with path) of an R data object (i.e., .RData file) written to the same directory/folder as the file in \code{fname} that contains the following items in a list:

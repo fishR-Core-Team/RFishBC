@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="See or set arguments for functions that handle radii measurements. — RFBCoptions" />
 
 <meta property="og:description" content="Allows the user to see or set values for many of the arguments in digitizeRadii and showDigitizedImage. These values will be used in these functions unless the user changes them with this function or within digitizeRadii or showDigitizedImage" />
@@ -38,8 +41,6 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -118,13 +119,15 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>See or set arguments for functions that handle radii measurements.</h1>
-    <small>Source: <a href='https://github.com/droglenc/RFishBC/blob/master/R/RFBCoptions.R'><code>R/RFBCoptions.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/droglenc/RFishBC/blob/master/R/RFBCoptions.R'><code>R/RFBCoptions.R</code></a></small>
     <div class="hidden name"><code>RFBCoptions.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Allows the user to see or set values for many of the arguments in <code><a href='digitizeRadii.html'>digitizeRadii</a></code> and <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>. These values will be used in these functions unless the user changes them with this function or within <code><a href='digitizeRadii.html'>digitizeRadii</a></code> or <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code></p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>RFBCoptions</span>(<span class='kw'>reset</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
@@ -154,6 +157,7 @@
 <li><p><code>edgeIsAnnulus</code>: A single logical that indicates whether the structure margin should be considered an annulus (<code>TRUE</code>) or not (<code>FALSE</code>). Use <code>FALSE</code> if growth between the last annulus and the structure marging is not a complete year's worth of growth (i.e., &#8216;plus-growth&#8217;). Defaults to <code>NULL</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
 <li><p><code>sepWindow</code>: A single logical that indicates whether the structure image should be opened in a separate window (<code>=TRUE</code>) or not (<code>=FALSE</code>). Defaults to <code>TRUE</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code> and  <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>.</p></li>
 <li><p><code>windowSize</code>: A single numeric that is used to set the size of the largest dimension for the window in which the structure image is opened if <code>sepWindow=TRUE</code>. This size will be the width for wider images and the height for taller images. The other dimension will be set relative to this so that the image is displayed in its native aspect ratio. Defaults to 7 inches. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code> and  <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>.</p></li>
+<li><p><code>popID</code>: A single logical that indicates if the fish ID dialog box (only on Windows if no <code>ID</code> is given in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>) is populated with the image file name sans the extension. This is useful for when the image name is the fish ID. Defaults to <code>FALSE</code>.</p></li>
 <li><p><code>scalingFactor</code>: A single numeric that is used to convert measurements on the structure image to actual measurements on the structure. Measurements on the structure image will be multiplied by this value. Ignored if <code>scaleBar=TRUE</code>. Defaults to <code>1</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
 <li><p><code>scaleBar</code>: A single logical that indicates whether the user will be prompted to select the endpoints of a scale-bar on the structure image. If <code>TRUE</code>, then must also use <code>scaleBarLength</code>. If <code>FALSE</code>, then consider using <code>scalingFactor</code>. Defaults to <code>FALSE</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
 <li><p><code>scaleBarLength</code>: A single numeric that represents the actual length of the scale-bar. Ignored if <code>scaleBar=FALSE</code>. Defaults to <code>NULL</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
@@ -170,6 +174,10 @@
 <li><p><code>pch.show</code>: The plotting character for points shown in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>. Defaults to <code>19</code> (a solid dot).</p></li>
 <li><p><code>col.show</code>: The color of points shown in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>. Defaults to <code>"red"</code>.</p></li>
 <li><p><code>cex.show</code>: The character expansion value of points shown in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>. Defaults to <code>1</code>.</p></li>
+<li><p><code>showInfo</code>: A single logical that indicates whether the ID information should be shown on the image in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>. Defaults to <code>TRUE</code>.</p></li>
+<li><p><code>pos.info</code>: A single character that indicates where the ID information should be placed when <code>showInfo=TRUE</code>. See <code>legend</code> for position choices. Defaults to <code>"topleft"</code>.</p></li>
+<li><p><code>cex.info</code>: The character expansion for the ID information when <code>showInfo=TRUE</code>.</p></li>
+<li><p><code>col.info</code>: The color for the ID information when <code>showInfo=TRUE</code>.</p></li>
 </ul>
     <p>The user will likely only use this function to change arguments at the start of a script, so that those values will be used throughout the analyses in the script. If the values for the arguments need to be changed in any instance of <code><a href='digitizeRadii.html'>digitizeRadii</a></code> or <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>, then it is more efficient to change the argument within the call to those functions.</p>
 <p>The argument values can be reset to the original defaults by using <code>reset=TRUE</code>. See examples.</p>
@@ -194,6 +202,9 @@
 #&gt; 
 #&gt; $windowSize
 #&gt; [1] 7
+#&gt; 
+#&gt; $popID
+#&gt; [1] FALSE
 #&gt; 
 #&gt; $scalingFactor
 #&gt; [1] 1
@@ -242,6 +253,18 @@
 #&gt; 
 #&gt; $cex.show
 #&gt; [1] 1
+#&gt; 
+#&gt; $showInfo
+#&gt; [1] TRUE
+#&gt; 
+#&gt; $pos.info
+#&gt; [1] "topleft"
+#&gt; 
+#&gt; $cex.info
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $col.info
+#&gt; [1] "yellow"
 #&gt; </div><div class='input'>
 <span class='co'>## Show how to see and set one option</span>
 <span class='fu'>RFBCoptions</span>()$<span class='no'>addTransect</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>RFBCoptions</span>(<span class='kw'>addTransect</span><span class='kw'>=</span><span class='fl'>FALSE</span>)

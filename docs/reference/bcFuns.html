@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Creates a function for a specific model. — bcFuns" />
 
 <meta property="og:description" content="Creates a function for a specific model based on definitions in Vigliola and Meekan (2009)." />
@@ -38,8 +41,6 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -118,13 +119,15 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Creates a function for a specific model.</h1>
-    <small>Source: <a href='https://github.com/droglenc/RFishBC/blob/master/R/bcFuns.R'><code>R/bcFuns.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/droglenc/RFishBC/blob/master/R/bcFuns.R'><code>R/bcFuns.R</code></a></small>
     <div class="hidden name"><code>bcFuns.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Creates a function for a specific model based on definitions in Vigliola and Meekan (2009).</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>bcFuns</span>(<span class='no'>BCM</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
@@ -148,99 +151,31 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The following models, based on definitions with abbreviations and model numbers from Vigliola and Meekan (2009), are supported.</p>
-<table><tr><td>
-<b>Abbreviation</b> </td>
-<td> <b>Number</b> </td>
-<td> <b>Model</b> </td>
-</tr><tr><td><br />
-DALE </td>
-<td> 1 </td>
-<td> Dahl-Lea </td>
-</tr><tr><td><br />
-FRALE </td>
-<td> 2 </td>
-<td> Fraser-Lee </td>
-</tr><tr><td><br />
-BI, LBI </td>
-<td> 3 </td>
-<td> (Linear) Biological Intercept </td>
-</tr><tr><td><br />
-BPH, LBPH </td>
-<td> 4 </td>
-<td> (Linear) Body Proportional Hypothesis </td>
-</tr><tr><td><br />
-TVG </td>
-<td> 5 </td>
-<td> Time-Varying Growth </td>
-</tr><tr><td><br />
-SPH, LSPH </td>
-<td> 6 </td>
-<td> (Linear) Scale Proportional Hypothesis </td>
-</tr><tr><td><br />
-AE, AESPH </td>
-<td> 7 </td>
-<td> (Age Effect) Scale Proportional Hypothesis </td>
-</tr><tr><td><br />
-AEBPH </td>
-<td> 8 </td>
-<td> (Age Effect) Body Proportional Hypothesis </td>
-</tr><tr><td><br />
-MONA </td>
-<td> 9 </td>
-<td> Monastyrsky </td>
-</tr><tr><td><br />
-MONA-BPH </td>
-<td> 10 </td>
-<td> Monastyrsky Body Proportional Hypothesis </td>
-</tr><tr><td><br />
-MONA-SPH </td>
-<td> 11 </td>
-<td> Monastyrsky Scale Proportional Hypothesis </td>
-</tr><tr><td><br />
-WAKU </td>
-<td> 12 </td>
-<td> Watanabe and Kuroki </td>
-</tr><tr><td><br />
-FRY </td>
-<td> 13 </td>
-<td> Fry </td>
-</tr><tr><td><br />
-MF, ABI </td>
-<td> 14 </td>
-<td> Modified Fry, Allometric Biological Intercept </td>
-</tr><tr><td><br />
-FRY-BPH, ABPH </td>
-<td> 15 </td>
-<td> Fry, Allometric Body Proportional Hypothesis </td>
-</tr><tr><td><br />
-FRY-SPH, ASPH </td>
-<td> 16 </td>
-<td> Fry, Allometric Scale Proportional Hypothesis </td>
-</tr><tr><td><br />
-QBPH </td>
-<td> 17 </td>
-<td> Quadratic Body Proportional Hypothesis </td>
-</tr><tr><td><br />
-QSPH </td>
-<td> 18 </td>
-<td> Quadratic Scale Proportional Hypothesis </td>
-</tr><tr><td><br />
-PBPH </td>
-<td> 19 </td>
-<td> Polynomial Body Proportional Hypothesis </td>
-</tr><tr><td><br />
-PSPH </td>
-<td> 20 </td>
-<td> Polynomial Scale Proportional Hypothesis </td>
-</tr><tr><td><br />
-EBPH </td>
-<td> 21 </td>
-<td> Exponential Body Proportional Hypothesis </td>
-</tr><tr><td><br />
-ESPH </td>
-<td> 22 </td>
-<td> Exponential Scale Proportional Hypothesis </td>
-</tr></table>
+<table class='table'>
+<tr><td><b>Abbreviation</b></td><td><b>Number</b></td><td><b>Model</b></td></tr>
+<tr><td>DALE</td><td>1</td><td>Dahl-Lea</td></tr>
+<tr><td>FRALE</td><td>2</td><td>Fraser-Lee</td></tr>
+<tr><td>BI, LBI</td><td>3</td><td>(Linear) Biological Intercept</td></tr>
+<tr><td>BPH, LBPH</td><td>4</td><td>(Linear) Body Proportional Hypothesis</td></tr>
+<tr><td>TVG</td><td>5</td><td>Time-Varying Growth</td></tr>
+<tr><td>SPH, LSPH</td><td>6</td><td>(Linear) Scale Proportional Hypothesis</td></tr>
+<tr><td>AE, AESPH</td><td>7</td><td>(Age Effect) Scale Proportional Hypothesis</td></tr>
+<tr><td>AEBPH</td><td>8</td><td>(Age Effect) Body Proportional Hypothesis</td></tr>
+<tr><td>MONA</td><td>9</td><td>Monastyrsky</td></tr>
+<tr><td>MONA-BPH</td><td>10</td><td>Monastyrsky Body Proportional Hypothesis</td></tr>
+<tr><td>MONA-SPH</td><td>11</td><td>Monastyrsky Scale Proportional Hypothesis</td></tr>
+<tr><td>WAKU</td><td>12</td><td>Watanabe and Kuroki</td></tr>
+<tr><td>FRY</td><td>13</td><td>Fry</td></tr>
+<tr><td>MF, ABI</td><td>14</td><td>Modified Fry, Allometric Biological Intercept</td></tr>
+<tr><td>FRY-BPH, ABPH</td><td>15</td><td>Fry, Allometric Body Proportional Hypothesis</td></tr>
+<tr><td>FRY-SPH, ASPH</td><td>16</td><td>Fry, Allometric Scale Proportional Hypothesis</td></tr>
+<tr><td>QBPH</td><td>17</td><td>Quadratic Body Proportional Hypothesis</td></tr>
+<tr><td>QSPH</td><td>18</td><td>Quadratic Scale Proportional Hypothesis</td></tr>
+<tr><td>PBPH</td><td>19</td><td>Polynomial Body Proportional Hypothesis</td></tr>
+<tr><td>PSPH</td><td>20</td><td>Polynomial Scale Proportional Hypothesis</td></tr>
+<tr><td>EBPH</td><td>21</td><td>Exponential Body Proportional Hypothesis</td></tr>
+<tr><td>ESPH</td><td>22</td><td>Exponential Scale Proportional Hypothesis</td></tr>
+</table>
     
     <h2 class="hasAnchor" id="ifar-supplement"><a class="anchor" href="#ifar-supplement"></a>IFAR Supplement</h2>
 
@@ -254,14 +189,14 @@ ESPH </td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Simple Examples</span>
 ( <span class='no'>bcm1</span> <span class='kw'>&lt;-</span> <span class='fu'>bcFuns</span>(<span class='fl'>1</span>) )</div><div class='output co'>#&gt; function(Lc,Ri,Rc) { (Ri/Rc)*Lc }
-#&gt; &lt;environment: 0x1e958318&gt;</div><div class='input'><span class='fu'>bcm1</span>(<span class='fl'>20</span>,<span class='fl'>10</span>,<span class='fl'>40</span>)</div><div class='output co'>#&gt; [1] 5</div><div class='input'>
+#&gt; &lt;environment: 0x000000001b1a1cb0&gt;</div><div class='input'><span class='fu'>bcm1</span>(<span class='fl'>20</span>,<span class='fl'>10</span>,<span class='fl'>40</span>)</div><div class='output co'>#&gt; [1] 5</div><div class='input'>
 <span class='co'>## Example with dummy length-at-cap, radii-at-cap, and radii-at-age</span>
 <span class='no'>lencap</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>100</span>,<span class='fl'>100</span>,<span class='fl'>100</span>,<span class='fl'>150</span>,<span class='fl'>150</span>)
 <span class='no'>radcap</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>20</span>,<span class='fl'>20</span>,<span class='fl'>20</span>,<span class='fl'>30</span>,<span class='fl'>30</span>)
 <span class='no'>rad</span>    <span class='kw'>&lt;-</span> <span class='fu'>c</span>( <span class='fl'>5</span>,<span class='fl'>10</span>,<span class='fl'>15</span>,<span class='fl'>15</span>,<span class='fl'>25</span>)
 <span class='fu'>bcm1</span>(<span class='no'>lencap</span>,<span class='no'>rad</span>,<span class='no'>radcap</span>)</div><div class='output co'>#&gt; [1]  25  50  75  75 125</div><div class='input'>
 ( <span class='no'>bcm2</span> <span class='kw'>&lt;-</span> <span class='fu'>bcFuns</span>(<span class='st'>"FRALE"</span>) )</div><div class='output co'>#&gt; function(Lc,Ri,Rc,a) { a+(Lc-a)*(Ri/Rc) }
-#&gt; &lt;environment: 0x1e7a5d40&gt;</div><div class='input'><span class='fu'>bcm2</span>(<span class='no'>lencap</span>,<span class='no'>rad</span>,<span class='no'>radcap</span>,<span class='fl'>2</span>)  <span class='co'># demonstrated with a=2</span></div><div class='output co'>#&gt; [1]  26.5000  51.0000  75.5000  76.0000 125.3333</div><div class='input'>
+#&gt; &lt;environment: 0x00000000170de060&gt;</div><div class='input'><span class='fu'>bcm2</span>(<span class='no'>lencap</span>,<span class='no'>rad</span>,<span class='no'>radcap</span>,<span class='fl'>2</span>)  <span class='co'># demonstrated with a=2</span></div><div class='output co'>#&gt; [1]  26.5000  51.0000  75.5000  76.0000 125.3333</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
