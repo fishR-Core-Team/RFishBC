@@ -213,16 +213,25 @@ iProcessAnnuli <- function(nms,pts,id,reading,suffix,description,
 ## with the first mouse button on the image. When finished, the x- and
 ## y-coordinates for each selected point will be returned.
 ########################################################################
-iSelectAnnuli <- function(pch.pts,col.pts,cex.pts,
-                          addTransect,col.trans,lwd.trans) {
+iSelectTransect <- function(pch.pts,col.pts,cex.pts,
+                            addTransect,col.trans,lwd.trans) {
+  ## Asks user to select two points at the structure focus and margin
+  ## that will serve as the transect. Returns the coords of those points.
   message("\n>> Select transect endpoints.\n",
           "   * MUST select the focus of the structure FIRST.\n",
           "   * MUST select structure margin SECOND.")
   tmp1 <- as.data.frame(graphics::locator(n=2,type="p",pch=pch.pts,
                                           col=col.pts,cex=cex.pts))
   if (nrow(tmp1)<2) STOP("Either the focus or margin was not selected.")
-  if (addTransect) graphics::lines(y~x,data=tmp1,
-                                   lwd=lwd.trans,col=col.trans)
+  if (addTransect) graphics::lines(y~x,data=tmp1,lwd=lwd.trans,col=col.trans)
+  tmp1
+}
+
+iSelectAnnuli <- function(pch.pts,col.pts,cex.pts,
+                          addTransect,col.trans,lwd.trans) {
+  ## Deal with transect first
+  iSelectTransect(pch.pts,col.pts,cex.pts,addTransect,col.trans,lwd.trans)
+  ## Deal with annuli second
   message("\n>> Select points that are annuli.\n",
           "   * When finished selecting points press\n",
           "       the second(right) mouse button and select 'Stop',\n",
