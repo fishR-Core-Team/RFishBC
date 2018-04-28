@@ -6,7 +6,7 @@
 \usage{
 digitizeRadii(img, id, reading, suffix, description, edgeIsAnnulus, popID,
   sepWindow, windowSize, scaleBar, scaleBarLength, col.scaleBar, lwd.scaleBar,
-  scalingFactor, addTransect, snap2Transect, col.transect, lwd.transect,
+  scalingFactor, showTransect, snap2Transect, col.transect, lwd.transect,
   pch.sel, col.sel, cex.sel, showInfo, pos.info, cex.info, col.info)
 }
 \arguments{
@@ -38,7 +38,7 @@ digitizeRadii(img, id, reading, suffix, description, edgeIsAnnulus, popID,
 
 \item{scalingFactor}{See details in \code{\link{RFBCoptions}}.}
 
-\item{addTransect}{See details in \code{\link{RFBCoptions}}.}
+\item{showTransect}{See details in \code{\link{RFBCoptions}}.}
 
 \item{snap2Transect}{See details in \code{\link{RFBCoptions}}.}
 
@@ -68,8 +68,10 @@ A list that contains the following:
   \item{\code{basenm}: }{The filename given in \code{img} without the path.}
   \item{\code{dirnm}: }{The directory in which \code{img} was located.}
   \item{\code{datanm}: }{The filename that contains the RData object.}
-  \item{\code{pts}: }{A data.frame that contains the \code{x} and \code{y} coordinates on the image for the selected annuli.}
+  \item{\code{pts}: }{A data.frame that contains the \code{x} and \code{y} coordinates on the image for the selected annuli. These points may be \dQuote{snapped} to the transect if \code{snap2Transect==TRUE}.}
+  \item{\code{orig.pts}: }{A data.frame that contains the \dQuote{original} \code{x} and \code{y} coordinates on the image for the selected annuli. If \code{snap2Transect=FALSE} then these are the same as the points in \code{pts}. If \code{snap2Transect=TRUE} then these are the originally selected points and will be different then the points in \code{pts}.}
   \item{\code{radii}: }{A data.frome that contains the unique \code{id}, the \code{reading} code, the age-at-capture in \code{agecap}, the annulus number in \code{ann}, the radial measurements in \code{rad}, and the radial measurement at capture in \code{radcap}.}
+  \item{\code{snap2Transect}: }{The logical from \code{snap2Transect} that identified whether the selected points were \dQuote{"snapped"} to the transect or not.}
   \item{\code{sfSource}: }{A character string that identifies whether the scaling factor was \code{"Provided"} through the \code{scalingFactor} argument or derived from a \code{"scaleBar"}.}
   \item{\code{sbPts}: }{A data.frame of \code{x} and \code{y} coordinates for the endpoints of the scale-bar if the scaling factor was derived from a scale-bar.}
   \item{\code{sbLength}: }{A single numeric that is the known (actual) length of the scale-bar if the scaling factor was derived from a scale-bar.}

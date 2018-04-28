@@ -4,13 +4,16 @@
 \alias{STOP}
 \alias{.onAttach}
 \alias{WARN}
-\alias{iHndlfname}
+\alias{iHndlFilename}
 \alias{iHndlID}
 \alias{iHndlScalingFactor}
 \alias{iGetImage}
-\alias{iProcessAnnuli}
 \alias{iSelectAnulli}
+\alias{iFindTransect}
+\alias{iShowTransect}
 \alias{iSnap2Transect}
+\alias{iProcessAnnuli}
+\alias{iPlaceText}
 \title{Internal functions.}
 \usage{
 STOP(..., call. = FALSE, domain = NULL)

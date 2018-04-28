@@ -5,7 +5,8 @@
 \title{Show points selected on a structure image and saved in an RData file}
 \usage{
 showDigitizedImage(nm, sepWindow, pch.show, col.show, cex.show, showTransect,
-  col.transect, lwd.transect, col.scaleBar, lwd.scaleBar)
+  col.transect, lwd.transect, col.scaleBar, lwd.scaleBar, showOrigPts = FALSE,
+  pch.show2, col.show2, cex.show2)
 }
 \arguments{
 \item{nm}{A string that indicates the RData file that contains the R object created with  created with \code{\link{digitizeRadii}} (the loaded object will contain the image and the selected points as). By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (file must be in the current working directory unless a fully pathed name is given).}
@@ -27,6 +28,14 @@ showDigitizedImage(nm, sepWindow, pch.show, col.show, cex.show, showTransect,
 \item{col.scaleBar}{See details in \code{\link{RFBCoptions}}.}
 
 \item{lwd.scaleBar}{See details in \code{\link{RFBCoptions}}.}
+
+\item{showOrigPts}{A logical that indicates whether the original user-selected points (i.e., not snapped to the transect) should be shown or not. If the original selections were not snapped to the transect then this will be ignored.}
+
+\item{pch.show2}{The plotting character for the original points (i.e., not snapped to the transect) selected by the user. Defaults to same as \code{pch.show}.}
+
+\item{col.show2}{The color for the original points (i.e., not snapped to the transect) selected by the user. Defaults to same as \code{pch.show}.}
+
+\item{cex.show2}{The character expansion value for the original points (i.e., not snapped to the transect) selected by the user. Defaults to same as \code{pch.show}.}
 }
 \value{
 None, but an image is plotted with, at least, the selected points.

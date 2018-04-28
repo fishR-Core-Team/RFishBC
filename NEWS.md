@@ -1,8 +1,10 @@
 # RFishBC 0.0.3 ongoing
-* `digitizeRadii()`: Modified. Slight modification to the messages in the console.
+* `digitizeRadii()`: Modified. Slight modification to the messages in the console. Re worked the code with `locator()` so that the points will be shown "snapped to the transect" if `snap2Transect=TRUE` (this addresses [#7](https://github.com/droglenc/RFishBC/issues/7)). Added an `orig.pts` data.frame to the RData object which contains the original (non-snapped to transect) points (which can be plotted with `showDigitizedImage()`). Changed `addTransect=` to `showTransect=` to make more similar to `showDigitezedImages()`.
+* `showDigitizedImage()`: Modified. Added `showOrigPts=`, `pch.show2=`, `col.show2=`, and `cex.show2=` to handle including original points on the image.
+* `iFindTransect()`: Added. Moved this code out of `iSelectAnnuli()`.
 * `iGetImage()`: Modified. Streamlined code. Added `native=TRUE` to `read.bitmap()` call to send to the underlying functions as this is apparently more efficient when using `rasterImage()` (which this uses).
 * `iSelectAnnuli()`: Modified. Now calls `iSelectTransect()`.
-* `iSelectTransect()`: Added. Moved this code out of `iSelectAnnuli()`.
+* `ishowTransect()`: Added. Moved this code out of `iSelectAnnuli()`. Also called from `showDigitizedImage()`.
 
 # RFishBC 0.0.2 27-Apr-18
 * `digitizeRadii()`: Modified. Added `snap2Transect=` to address [#1](https://github.com/droglenc/RFishBC/issues/1). Modified how `fname=` was handled if missing (see `iHndlfname()`) and if selecting an image from outside of the current working directory. Allowed user to choose `id=` through a dialog box or a console prompt (see `iHndlID()`), which addresses [#2](https://github.com/droglenc/RFishBC/issues/2). Added `popID=` (again see `iHndlID()`). Fixed poor directions about the use of the escape key to terminate `locator()`. Added `showInfo=`, `pos.info=`, `cex.info=`, and `col.info=` to address [#6](https://github.com/droglenc/RFishBC/issues/6).

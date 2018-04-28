@@ -12,6 +12,11 @@
 #' @param lwd.transect See details in \code{\link{RFBCoptions}}.
 #' @param col.scaleBar See details in \code{\link{RFBCoptions}}.
 #' @param lwd.scaleBar See details in \code{\link{RFBCoptions}}.
+#' @param showOrigPts A logical that indicates whether the original user-selected points (i.e., not snapped to the transect) should be shown or not. If the original selections were not snapped to the transect then this will be ignored.
+#' @param pch.show2 The plotting character for the original points (i.e., not snapped to the transect) selected by the user. Defaults to same as \code{pch.show}.
+#' @param col.show2 The color for the original points (i.e., not snapped to the transect) selected by the user. Defaults to same as \code{pch.show}.
+#' @param cex.show2 The character expansion value for the original points (i.e., not snapped to the transect) selected by the user. Defaults to same as \code{pch.show}.
+
 #'
 #' @details This function requires interaction from the user. A detailed description of its use is in \href{http://derekogle.com/RFishBC/articles/MeasureRadii/seeRadiiData.html}{this vignette} on the \href{http://derekogle.com/RFishBC/index.html}{RFishBC website}.
 #'
@@ -30,7 +35,9 @@
 showDigitizedImage <- function(nm,sepWindow,
                                pch.show,col.show,cex.show,
                                showTransect,col.transect,lwd.transect,
-                               col.scaleBar,lwd.scaleBar) {
+                               col.scaleBar,lwd.scaleBar,
+                               showOrigPts=FALSE,
+                               pch.show2,col.show2,cex.show2) {
   ## handle options
   if (missing(sepWindow)) sepWindow <- iGetopt("sepWindow")
   if (missing(pch.show)) pch.show <- iGetopt("pch.show")
@@ -41,6 +48,9 @@ showDigitizedImage <- function(nm,sepWindow,
   if (missing(lwd.transect)) lwd.transect <- iGetopt("lwd.transect")
   if (missing(col.scaleBar)) col.scaleBar <- iGetopt("col.scaleBar")
   if (missing(lwd.scaleBar)) lwd.scaleBar <- iGetopt("lwd.scaleBar")
+  if (missing(pch.show2)) pch.show2 <- pch.show
+  if (missing(col.show2)) col.show2 <- col.show
+  if (missing(cex.show2)) cex.show2 <- cex.show
   fnames <- iHndlFilename(nm)
   dat <- NULL # try to avoid "no visible binding" note
   # Must handle filenames different if one or multiple are given
@@ -59,16 +69,18 @@ showDigitizedImage <- function(nm,sepWindow,
   }
   ## Show the putative transect ... assumes that the focus and margin
   ## are in the first two rows of dat$pts (as they should be)
-  if (showTransect) 
-    graphics::lines(dat$pts[1:2,],
-                    lwd=lwd.transect[1],col=col.transect[1])
-  ## Show points
-  graphics::points(dat$pts,
-                   pch=pch.show[1],col=col.show[1],cex=cex.show[1])
+  if (showTransect) iShowTransect(dat$pts[1:2,],lwd.transect=lwd.transect[1],
+                                  col.transect=col.transect[1])
   ## Show scale-bar, if it was digitized
   if (!is.null(dat$sbPts)) {
     graphics::lines(y~x,data=dat$sbPts,col=col.scaleBar,lwd=lwd.scaleBar)
   }
+  ## Show points
+  graphics::points(dat$pts,pch=pch.show[1],col=col.show[1],cex=cex.show[1])
+  ## Show original points if asked and if snapped to transect
+  if (showOrigPts & dat$snap2Transect)
+    graphics::points(dat$orig.pts,pch=pch.show2[1],col=col.show2[1],
+                     cex=cex.show2[1])
   ## Add other results
   if (!is.list(fnames) & length(fnames)>1) {
     num <- length(fnames)
@@ -78,13 +90,19 @@ showDigitizedImage <- function(nm,sepWindow,
     cex.show <- rep(cex.show,ceiling(num/length(cex.show)))
     col.transect <- rep(col.transect,ceiling(num/length(col.transect)))
     lwd.transect <- rep(lwd.transect,ceiling(num/length(lwd.transect)))
+    pch.show2 <- rep(pch.show2,ceiling(num/length(pch.show2)))
+    col.show2 <- rep(col.show2,ceiling(num/length(col.show2)))
+    cex.show2 <- rep(cex.show2,ceiling(num/length(cex.show2)))
     for (i in 2:num) {
       load(fnames[i])
-      if (showTransect) 
-        graphics::lines(dat$pts[1:2,],lwd=lwd.transect[i],
-                        col=col.transect[i])
+      if (showTransect) iShowTransect(dat$pts[1:2,],
+                                      lwd.transect=lwd.transect[i],
+                                      col.transect=col.transect[i])
       graphics::points(dat$pts,pch=pch.show[i],col=col.show[i],
                        cex=cex.show[i])
+      if (showOrigPts & dat$snap2Transect)
+        graphics::points(dat$orig.pts,pch=pch.show2[i],col=col.show2[i],
+                         cex=cex.show2[i])
     }
   }
 }

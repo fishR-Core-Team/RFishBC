@@ -4,11 +4,11 @@
 #'
 #' @rdname FSA-internals
 #' @keywords internal
-#' @aliases .onAttach STOP WARN iHndlfname iHndlID iHndlScalingFactor iGetImage iProcessAnnuli iSelectAnulli iSnap2Transect
+#' @aliases .onAttach STOP WARN iHndlFilename iHndlID iHndlScalingFactor iGetImage  iSelectAnulli iFindTransect iShowTransect iSnap2Transect iProcessAnnuli iPlaceText
 
 
 ################################################################################
-# same as stop() and warning() but with call.=FALSE as default
+# Same as stop() and warning() but with call.=FALSE as default
 ################################################################################
 STOP <- function(...,call.=FALSE,domain=NULL) stop(...,call.=call.,domain=domain)
 WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
@@ -27,10 +27,13 @@ WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
 }
 
 
+
 ########################################################################
+## Handles filenames
+##
 ## Allows the user to choose a filename if none is given.
-## If the file is chosen, then the filename (basename) and the directory
-##   for the file (dirname) is returned.
+## Returns the originallly sent filename in givenm, the directory for
+##   the file in dirname, and just the filename (no path) in basenm.
 ########################################################################
 iHndlFilename <- function(givennm) {
   if (missing(givennm)) {
@@ -53,7 +56,12 @@ iHndlFilename <- function(givennm) {
 
 
 ########################################################################
-## Allows the user to enter a fish ID.
+## Handles fish ID
+##
+## Allows the user to enter a fish ID if none was given. The ID can be
+##   entered in a dialog box if using windows (will initially be
+##   populated with the basenm in fname) or at the prompt. If an id was
+##   given then it just passes that value through.
 ########################################################################
 iHndlID <- function(id,fname,popID) {
   if (missing(id)) {
@@ -71,8 +79,11 @@ iHndlID <- function(id,fname,popID) {
   id
 }
 
+
+
 ########################################################################
-## Compute a scaling factor from a scale bar on the structure image.
+## Computes a scaling factor from a scale bar on the structure image.
+##
 ########################################################################
 iHndlScalingFactor <- function(scaleBar,knownLength,scalingFactor,
                                col,lwd,pixW2H) {
@@ -105,36 +116,16 @@ iHndlScalingFactor <- function(scaleBar,knownLength,scalingFactor,
 }
 
 
-########################################################################
-## Places text in txt= on an active plot at a position given in pos=
-########################################################################
-iPlaceText <- function(txt,pos,cex,col) {
-  usr <- graphics::par("usr")
-  if (pos=="topleft") {
-    graphics::text(usr[1],usr[4],txt,adj=c(0,1),col=col,cex=cex)
-  } else if (pos=="top") {
-    graphics::text(mean(usr[1:2]),usr[4],txt,adj=c(0.5,1),col=col,cex=cex)
-  } else if (pos=="topright") {
-    graphics::text(usr[2],usr[4],txt,adj=c(1,1),col=col,cex=cex)
-  } else if (pos=="right") {
-    graphics::text(usr[2],mean(usr[3:4]),txt,adj=c(1,0.5),col=col,cex=cex)
-  } else if (pos=="bottomright") {
-    graphics::text(usr[2],usr[3],txt,adj=c(1,0),col=col,cex=cex)
-  } else if (pos=="bottom") {
-    graphics::text(mean(usr[1:2]),usr[3],txt,adj=c(0.5,0),col=col,cex=cex)
-  } else if (pos=="bottomleft") {
-    graphics::text(usr[1],usr[3],txt,adj=c(0,0),col=col,cex=cex)
-  } else if (pos=="left") {
-    graphics::text(usr[1],mean(usr[3:4]),txt,adj=c(0,0.5),col=col,cex=cex)
-  }
-}
+
 
 
 ########################################################################
+## Load and displays a structure image.
+##
 ## Loads and plots any of the four bitmapped types of images as chosen
-## by the user. This uses readbitmap::read.bitmap() so that any of PNG,
-## JPG, BMP, or TIFF files will be automatically detected. This function
-## is styled off the unexported digitize::ReadImg().
+##   by the user. This uses readbitmap::read.bitmap() so that any of
+##   PNG, JPG, BMP, or TIFF files will be automatically detected. This
+##   function is styled off the unexported digitize::ReadImg().
 ########################################################################
 iGetImage <- function(fname,id,sepWindow,windowSize,
                       showInfo,pos.info,cex.info,col.info) {
@@ -168,20 +159,142 @@ iGetImage <- function(fname,id,sepWindow,windowSize,
 
 
 ########################################################################
-## Processes the point locations to radial measurements, computes
-## an age-at-capture, and radius-at-capture. Combines all structure-
-## related information into a data.frame. Combines all process-related
-## and structure-related information into a list and writes that
-## information into an R object data file in the current working
-## directory.
+## Interactively select annuli
+##
+## Allows the user to interactively select points on a plot by clicking
+##   with the first mouse button on the image. When finished, the x- and
+##   y-coordinates for each selected point will be returned.
 ########################################################################
-iProcessAnnuli <- function(nms,pts,id,reading,suffix,description,
+iSelectAnnuli <- function(pch.pts,col.pts,cex.pts,
+                          showTransect,snap2Transect,
+                          col.transect,lwd.transect) {
+  ## Deal with transect first
+  trans <- iFindTransect(pch.pts=pch.pts,col.pts=col.pts,cex.pts=cex.pts)
+  if (showTransect) iShowTransect(trans$ptsTransect,
+                                 col.transect=col.transect,
+                                 lwd.transect=lwd.transect)
+  
+  ## Deal with annuli second
+  message("\n>> Select points that are annuli.\n",
+          "   * When finished selecting points press\n",
+          "       the second(right) mouse button and select 'Stop',\n",
+          "       the 'Stop' button in Windows, or\n",
+          "       the 'Finish' button in RStudio.")
+  
+  ## Initially populate pts and orig.pts with transect points
+  pts <- orig.pts <- trans$ptsTransect
+  
+  ## Allow user to select one point at-a-time until locator stopped
+  ## Selected points will be snapped to transect if snap2Transect==TRUE
+  ## orig.pts are as selected by the user, pts may be on transect if
+  ##   snap2Transect==TRUE but may not be if snap2Transect==FALSE
+  repeat {
+    tmp2 <- as.data.frame(graphics::locator(n=1,
+                                            type=ifelse(snap2Transect,"n","p"),
+                                            pch=pch.pts,col=col.pts,cex=cex.pts))
+    if (!nrow(tmp2)>0) {
+      ## no point was selected, user must have selected stop locator
+      break
+    } else {
+      ## A point was selected
+      orig.pts <- rbind(orig.pts,tmp2)
+      if (!snap2Transect) {
+        ## if not snapping points then pts=orig.pts
+        pts <- orig.pts
+      } else {
+        ## snap points to the transect
+        tmp2 <- iSnap2Transect(trans,tmp2)
+        ## plot the snapped point
+        graphics::points(y~x,data=tmp2,pch=pch.pts,col=col.pts,cex=cex.pts)
+        ## and add snapped point to matrix of points
+        pts <- rbind(pts,tmp2)
+      }      
+    }
+  } # end repeat
+  
+  if (!nrow(pts)>2) STOP("No points were selected as annuli.")
+  message("   ",nrow(pts)," points were selected.\n")
+  
+  ## Return the two types of selected points
+  list(pts=pts,orig.pts=orig.pts)
+}
+
+
+########################################################################
+## Finds a transect on an image
+##
+## Allows the user to interactively select a transect on the structure
+##   image by selecting a point at the focus and margin. Coordinates
+##   for those points and the slope, intercept, and slope of the line
+##   perpendicular to the transection are returned.
+########################################################################
+iFindTransect <- function(pch.pts,col.pts,cex.pts) {
+  ## Asks user to select two points at the structure focus and margin
+  ## that will serve as the transect. Returns the coords of those points.
+  message("\n>> Select transect endpoints.\n",
+          "   * MUST select the focus of the structure FIRST.\n",
+          "   * MUST select structure margin SECOND.")
+  tmp1 <- as.data.frame(graphics::locator(n=2,type="p",pch=pch.pts,
+                                          col=col.pts,cex=cex.pts))
+  if (nrow(tmp1)<2) STOP("Either the focus or margin was not selected.")
+  
+  ## Calculate slope, intercept, and perpendicular slope to transect
+  slpTransect <- diff(tmp1$y)/diff(tmp1$x)
+  intTransect <- tmp1$y[1]-slpTransect*tmp1$x[1]
+  slpPerpTransect <- -1/slpTransect
+  
+  ## Return all items in a list
+  list(ptsTransect=tmp1,slpTransect=slpTransect,
+       intTransect=intTransect,slpPerpTransect=slpPerpTransect)
+}
+
+
+########################################################################
+## Shows a transect on the image
+##
+## Shows a previously defined transect on the  structure image.
+########################################################################
+iShowTransect <- function(obj,col.transect,lwd.transect) {
+  graphics::lines(y~x,data=obj,lwd=lwd.transect,col=col.transect)
+}
+
+
+########################################################################
+## Snaps selected points to the transect
+##
+## Perpendicularly "slides" a point to fall on the transect.
+########################################################################
+iSnap2Transect <- function(trans,pts) {
+  ## Intercept of line perpendicular to transect through the point.
+  intPerp <- pts$y-trans$slpPerpTransect*pts$x
+  ## Intersection between transect and perpendicular line through the point
+  intersectsX <- (intPerp-trans$intTransect)/
+    (trans$slpTransect-trans$slpPerpTransect)
+  intersectsY <- trans$intTransect+trans$slpTransect*intersectsX
+  ## Return snapped coordinates
+  data.frame(x=intersectsX,y=intersectsY)
+}
+
+
+
+
+########################################################################
+## Processes selected points into data
+##
+## Processes the point locations to radial measurements, computes
+##   an age-at-capture, and radius-at-capture. Combines all structure-
+##   related information into a data.frame. Combines all process-related
+##   and structure-related information into a list and writes that
+##   information into an R object data file in the current working
+##   directory.
+########################################################################
+iProcessAnnuli <- function(nms,dat,id,reading,suffix,description,
                            edgeIsAnnulus,scalingFactor,pixW2H) {
   ## Convert point locations to radial measurements, 
-  n <- nrow(pts)-1
+  n <- nrow(dat$pts)-1
   ## Find distances in x- and y- directions, corrected for pixel w to h ratio
-  distx <- (pts$x[2:(n+1)]-pts$x[1])*pixW2H
-  disty <- pts$y[2:(n+1)]-pts$y[1]
+  distx <- (dat$pts$x[2:(n+1)]-dat$pts$x[1])*pixW2H
+  disty <- dat$pts$y[2:(n+1)]-dat$pts$y[1]
   ## Find distances between points
   distxy <- sqrt(distx^2+disty^2)
   ## Correct distances for scalingFactor ... and call a radius
@@ -203,73 +316,33 @@ iProcessAnnuli <- function(nms,pts,id,reading,suffix,description,
               datanm=paste0(tools::file_path_sans_ext(nms$basenm),
                             ifelse(!is.null(suffix),"_",""),
                             suffix,".RData"),
-              pts=pts,radii=radii)
+              pts=dat$pts,orig.pts=dat$orig.pts,radii=radii)
   dat
 }
 
 
-########################################################################
-## Allows the user to interactively select points on a plot by clicking
-## with the first mouse button on the image. When finished, the x- and
-## y-coordinates for each selected point will be returned.
-########################################################################
-iSelectTransect <- function(pch.pts,col.pts,cex.pts,
-                            addTransect,col.trans,lwd.trans) {
-  ## Asks user to select two points at the structure focus and margin
-  ## that will serve as the transect. Returns the coords of those points.
-  message("\n>> Select transect endpoints.\n",
-          "   * MUST select the focus of the structure FIRST.\n",
-          "   * MUST select structure margin SECOND.")
-  tmp1 <- as.data.frame(graphics::locator(n=2,type="p",pch=pch.pts,
-                                          col=col.pts,cex=cex.pts))
-  if (nrow(tmp1)<2) STOP("Either the focus or margin was not selected.")
-  if (addTransect) graphics::lines(y~x,data=tmp1,lwd=lwd.trans,col=col.trans)
-  tmp1
-}
-
-iSelectAnnuli <- function(pch.pts,col.pts,cex.pts,
-                          addTransect,col.trans,lwd.trans) {
-  ## Deal with transect first
-  iSelectTransect(pch.pts,col.pts,cex.pts,addTransect,col.trans,lwd.trans)
-  ## Deal with annuli second
-  message("\n>> Select points that are annuli.\n",
-          "   * When finished selecting points press\n",
-          "       the second(right) mouse button and select 'Stop',\n",
-          "       the 'Stop' button in Windows, or\n",
-          "       the 'Finish' button in RStudio.")
-  tmp2 <- as.data.frame(graphics::locator(type="p",pch=pch.pts,
-                                          col=col.pts,cex=cex.pts))
-  if (nrow(tmp2)<1) STOP("No points were selected as annuli.")
-  tmp <- rbind(tmp1,tmp2)
-  message("   ",nrow(tmp)," points were selected.\n")
-  tmp
-}
 
 
 ########################################################################
-## Will "slide" each point in the perpendicular direction to fall on
-## the transect.
+## Places text in txt= on an active plot at a position given in pos=
 ########################################################################
-iSnap2Transect <- function(pts) {
-  ## Isolate the two points that define the transect ... note that these
-  ## are in the first two rows.
-  transectPts <- pts[1:2,]
-  ## Isolate the rest of the points that represent annuli
-  annuliPts <- pts[-(1:2),]
-  ## Find the slope & intercept of the transect line
-  slpTransect <- diff(transectPts$y)/diff(transectPts$x)
-  intTransect <- transectPts$y[1]-slpTransect*transectPts$x[1]
-  ## Find the equation of the line perpendicular to the transect that
-  ## passes through each annulus point.
-  slpPerp <- -1/slpTransect
-  intsPerp <- annuliPts$y-slpPerp*annuliPts$x
-  ## Find the intersection points between the transect line and the
-  ## perpendicular line through each annulus
-  intersectsX <- (intsPerp-intTransect)/(slpTransect-slpPerp)
-  intersectsY <- intTransect+slpTransect*intersectsX
-  intersects <- cbind(x=intersectsX,y=intersectsY)
-  ## Combine the data.frame of intersection points with the points that
-  ## are now on the transect ... effectively moved each point
-  ## perpendicularly over until it hit the transect.
-  rbind(transectPts,intersects)
+iPlaceText <- function(txt,pos,cex,col) {
+  usr <- graphics::par("usr")
+  if (pos=="topleft") {
+    graphics::text(usr[1],usr[4],txt,adj=c(0,1),col=col,cex=cex)
+  } else if (pos=="top") {
+    graphics::text(mean(usr[1:2]),usr[4],txt,adj=c(0.5,1),col=col,cex=cex)
+  } else if (pos=="topright") {
+    graphics::text(usr[2],usr[4],txt,adj=c(1,1),col=col,cex=cex)
+  } else if (pos=="right") {
+    graphics::text(usr[2],mean(usr[3:4]),txt,adj=c(1,0.5),col=col,cex=cex)
+  } else if (pos=="bottomright") {
+    graphics::text(usr[2],usr[3],txt,adj=c(1,0),col=col,cex=cex)
+  } else if (pos=="bottom") {
+    graphics::text(mean(usr[1:2]),usr[3],txt,adj=c(0.5,0),col=col,cex=cex)
+  } else if (pos=="bottomleft") {
+    graphics::text(usr[1],usr[3],txt,adj=c(0,0),col=col,cex=cex)
+  } else if (pos=="left") {
+    graphics::text(usr[1],mean(usr[3:4]),txt,adj=c(0,0.5),col=col,cex=cex)
+  }
 }

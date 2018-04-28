@@ -122,25 +122,39 @@
     <div id="rfishbc-0-0-3-ongoing" class="section level1">
 <h1 class="page-header">
 <a href="#rfishbc-0-0-3-ongoing" class="anchor"></a>RFishBC 0.0.3 ongoing</h1>
+<ul>
+<li>
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Slight modification to the messages in the console. Re worked the code with <code>locator()</code> so that the points will be shown “snapped to the transect” if <code>snap2Transect=TRUE</code> (this addresses <a href="https://github.com/droglenc/RFishBC/issues/7"><a href='https://github.com/droglenc/RFishBC/issues/7'>#7</a></a>). Added an <code>orig.pts</code> data.frame to the RData object which contains the original (non-snapped to transect) points (which can be plotted with <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>). Changed <code>addTransect=</code> to <code>showTransect=</code> to make more similar to <code>showDigitezedImages()</code>.</li>
+<li>
+<code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>: Modified. Added <code>showOrigPts=</code>, <code>pch.show2=</code>, <code>col.show2=</code>, and <code>cex.show2=</code> to handle including original points on the image.</li>
+<li>
+<code><a href="../reference/FSA-internals.html">iFindTransect()</a></code>: Added. Moved this code out of <code>iSelectAnnuli()</code>.</li>
+<li>
+<code><a href="../reference/FSA-internals.html">iGetImage()</a></code>: Modified. Streamlined code. Added <code>native=TRUE</code> to <code>read.bitmap()</code> call to send to the underlying functions as this is apparently more efficient when using <code>rasterImage()</code> (which this uses).</li>
+<li>
+<code>iSelectAnnuli()</code>: Modified. Now calls <code>iSelectTransect()</code>.</li>
+<li>
+<code>ishowTransect()</code>: Added. Moved this code out of <code>iSelectAnnuli()</code>. Also called from <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>.</li>
+</ul>
 </div>
     <div id="rfishbc-0-0-2-27-apr-18" class="section level1">
 <h1 class="page-header">
 <a href="#rfishbc-0-0-2-27-apr-18" class="anchor"></a>RFishBC 0.0.2 27-Apr-18</h1>
 <ul>
 <li>
-<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Added <code>snap2Transect=</code> to address <a href="https://github.com/droglenc/RFishBC/issues/1"><a href='https://github.com/droglenc/RFishBC/issues/1'>#1</a></a>. Modified how <code>fname=</code> was handled if missing (see <code><a href="../reference/FSA-internals.html">iHndlfname()</a></code>) and if selecting an image from outside of the current working directory. Allowed user to choose <code>id=</code> through a dialog box or a console prompt (see <code><a href="../reference/FSA-internals.html">iHndlID()</a></code>), which addresses <a href="https://github.com/droglenc/RFishBC/issues/2"><a href='https://github.com/droglenc/RFishBC/issues/2'>#2</a></a>. Added <code>popID=</code> (again see <code><a href="../reference/FSA-internals.html">iHndlID()</a></code>). Fixed poor directions about the use of the escape key to terminate <code>locator()</code>. Added <code>showInfo=</code>, <code>pos.info=</code>, <code>cex.info=</code>, and <code>col.info=</code> to address <a href="https://github.com/droglenc/RFishBC/issues/6"><a href='https://github.com/droglenc/RFishBC/issues/6'>#6</a></a>.</li>
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Added <code>snap2Transect=</code> to address <a href="https://github.com/droglenc/RFishBC/issues/1"><a href='https://github.com/droglenc/RFishBC/issues/1'>#1</a></a>. Modified how <code>fname=</code> was handled if missing (see <code>iHndlfname()</code>) and if selecting an image from outside of the current working directory. Allowed user to choose <code>id=</code> through a dialog box or a console prompt (see <code><a href="../reference/FSA-internals.html">iHndlID()</a></code>), which addresses <a href="https://github.com/droglenc/RFishBC/issues/2"><a href='https://github.com/droglenc/RFishBC/issues/2'>#2</a></a>. Added <code>popID=</code> (again see <code><a href="../reference/FSA-internals.html">iHndlID()</a></code>). Fixed poor directions about the use of the escape key to terminate <code>locator()</code>. Added <code>showInfo=</code>, <code>pos.info=</code>, <code>cex.info=</code>, and <code>col.info=</code> to address <a href="https://github.com/droglenc/RFishBC/issues/6"><a href='https://github.com/droglenc/RFishBC/issues/6'>#6</a></a>.</li>
 <li>
-<code>iGetImage()</code>: Added. Was <code><a href="../reference/FSA-internals.html">iReadImage()</a></code>. Calculated the pixel width-to-height ratio (from image dimensions) and returned in list.</li>
+<code><a href="../reference/FSA-internals.html">iGetImage()</a></code>: Added. Was <code>iReadImage()</code>. Calculated the pixel width-to-height ratio (from image dimensions) and returned in list.</li>
 <li>
-<code><a href="../reference/FSA-internals.html">iHndlfname()</a></code>: Added. Used in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>, <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>, and <code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>.</li>
+<code>iHndlfname()</code>: Added. Used in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>, <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>, and <code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>.</li>
 <li>
 <code><a href="../reference/FSA-internals.html">iHndlID()</a></code>: Added. Used in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>. Was modified from initial to include the image filename sans extension as the default ID in the Windows dialog box (when used with <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>), which partially addresses <a href="https://github.com/droglenc/RFishBC/issues/5"><a href='https://github.com/droglenc/RFishBC/issues/5'>#5</a></a>.</li>
 <li>
 <code><a href="../reference/FSA-internals.html">iHndlScalingFactor()</a></code>: Modified. Added <code>pixW2H=</code> argument to receive the pixel width-to-height ratio to adjust distance calculations for non-square images.</li>
 <li>
-<code>iPlaceText()</code>: Added. Used to address <a href="https://github.com/droglenc/RFishBC/issues/6"><a href='https://github.com/droglenc/RFishBC/issues/6'>#6</a></a>.</li>
+<code><a href="../reference/FSA-internals.html">iPlaceText()</a></code>: Added. Used to address <a href="https://github.com/droglenc/RFishBC/issues/6"><a href='https://github.com/droglenc/RFishBC/issues/6'>#6</a></a>.</li>
 <li>
-<code><a href="../reference/FSA-internals.html">iReadImage()</a></code>: Removed. Changed to <code>iGetImage()</code>.</li>
+<code>iReadImage()</code>: Removed. Changed to <code><a href="../reference/FSA-internals.html">iGetImage()</a></code>.</li>
 <li>
 <code><a href="../reference/FSA-internals.html">iSnap2Transect()</a></code>: Added. Used in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.</li>
 <li>
