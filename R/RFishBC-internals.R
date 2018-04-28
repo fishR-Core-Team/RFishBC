@@ -140,7 +140,10 @@ iPlaceText <- function(txt,pos,cex,col) {
 ########################################################################
 iReadImage <- function(fname,id,sepWindow,windowSize,
                        showInfo,pos.info,cex.info,col.info) {
+  ## Read the file
   img <- readbitmap::read.bitmap(fname)
+  ## Create a window title
+  ttl <- paste0("Image: ",basename(fname))
   ## Get window size so image displayed in its native aspect ratio.
   ## Only needed if windowSize contains one value.
   if (length(windowSize)==1) {
@@ -153,21 +156,18 @@ iReadImage <- function(fname,id,sepWindow,windowSize,
     if (grDevices::dev.cur()==1) { 
       ## no window open and not sending to RStudio
       grDevices::dev.new(rescale="fixed",noRStudioGD=TRUE,
-                         width=windowSize[1],height=windowSize[2],
-                         title=paste0("Image: ",fname))
+                         width=windowSize[1],height=windowSize[2],title=ttl)
     } else if (names(grDevices::dev.cur())=="RStudioGD") {
       ## sending to RStudio, so try to avoid that
       grDevices::dev.new(rescale="fixed",noRStudioGD=TRUE,
-                         width=windowSize[1],height=windowSize[2],
-                         title=paste0("Image: ",fname))
+                         width=windowSize[1],height=windowSize[2],title=ttl)
     } else {
       ## sending to an already open window, close it because it might
       ## not be the correct window size for the images aspect ratio,
       ## and then open a new one
       grDevices::dev.off()
       grDevices::dev.new(rescale="fixed",noRStudioGD=TRUE,
-                         width=windowSize[1],height=windowSize[2],
-                         title=paste0("Image: ",fname))
+                         width=windowSize[1],height=windowSize[2],title=ttl)
     }
   }
   withr::local_par(list(mar=c(0,0,0,0),xaxs="i",yaxs="i"))
