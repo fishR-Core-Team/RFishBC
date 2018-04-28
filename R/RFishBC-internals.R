@@ -131,49 +131,36 @@ iPlaceText <- function(txt,pos,cex,col) {
 
 
 ########################################################################
-## Loads and plots any of the three bitmapped types of images as chosen
+## Loads and plots any of the four bitmapped types of images as chosen
 ## by the user. This uses readbitmap::read.bitmap() so that any of PNG,
-## JPG, or BMP files will be automatically detected. This function is
-## nearly exactly the unexported digitize::ReadImg(), except that I
-## added the code for the dialog box for choosing the file and the use
-## of withr.
+## JPG, BMP, or TIFF files will be automatically detected. This function
+## is styled off the unexported digitize::ReadImg().
 ########################################################################
 iGetImage <- function(fname,id,sepWindow,windowSize,
-                       showInfo,pos.info,cex.info,col.info) {
+                      showInfo,pos.info,cex.info,col.info) {
   ## Read the file
   img <- readbitmap::read.bitmap(fname)
-  ## Create a window title
-  ttl <- paste0("Image: ",basename(fname))
-  ## Get window size so image displayed in its native aspect ratio.
-  ## Only needed if windowSize contains one value.
-  if (length(windowSize)==1) {
-    cf <- dim(img)[2:1]
-    windowSize <- windowSize*cf/max(cf) 
-  }
+  ## Open separate window if asked to do so (avoids putting in RStudio pane)
   if (sepWindow) {
-    ## Hoping that this forces a new window that is device independent
-    ## and does not get trapped into opening in the RStudio Plots pane.
-    if (grDevices::dev.cur()==1) { 
-      ## no window open and not sending to RStudio
-      grDevices::dev.new(rescale="fixed",noRStudioGD=TRUE,
-                         width=windowSize[1],height=windowSize[2],title=ttl)
-    } else if (names(grDevices::dev.cur())=="RStudioGD") {
-      ## sending to RStudio, so try to avoid that
-      grDevices::dev.new(rescale="fixed",noRStudioGD=TRUE,
-                         width=windowSize[1],height=windowSize[2],title=ttl)
-    } else {
-      ## sending to an already open window, close it because it might
-      ## not be the correct window size for the images aspect ratio,
-      ## and then open a new one
-      grDevices::dev.off()
-      grDevices::dev.new(rescale="fixed",noRStudioGD=TRUE,
-                         width=windowSize[1],height=windowSize[2],title=ttl)
+    ## Get window size so image displayed in its native aspect ratio.
+    ## Only needed if windowSize contains one value.
+    if (length(windowSize)==1) {
+      cf <- dim(img)[2:1]
+      windowSize <- windowSize*cf/max(cf) 
     }
+    tmp <- grDevices::dev.cur()
+    ## If a window is already open, close it as its aspect ratio may be wrong 
+    if (tmp!=1 & names(tmp)!="RStudioGD") grDevices::dev.off()
+    ## Open the new window
+    grDevices::dev.new(rescale="fixed",noRStudioGD=TRUE,
+                       width=windowSize[1],height=windowSize[2],
+                       title=paste0("Image: ",basename(fname)))
   }
+  ## Plot the image
   withr::local_par(list(mar=c(0,0,0,0),xaxs="i",yaxs="i"))
   graphics::plot.new()
   graphics::rasterImage(img,0,0,1,1)
-  ## Add ID information if told to do so
+  ## Add ID information to image if told to do so
   if (showInfo) iPlaceText(paste0("ID=",id),pos.info,cex=cex.info,col=col.info)
   ## Return information
   invisible(list(windowSize=windowSize,pixW2H=windowSize[1]/windowSize[2]))
