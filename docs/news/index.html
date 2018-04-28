@@ -126,6 +126,8 @@
 <li>
 <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Added <code>snap2Transect=</code> to address <a href="https://github.com/droglenc/RFishBC/issues/1"><a href='https://github.com/droglenc/RFishBC/issues/1'>#1</a></a>. Modified how <code>fname=</code> was handled if missing (see <code><a href="../reference/FSA-internals.html">iHndlfname()</a></code>) and if selecting an image from outside of the current working directory. Allowed user to choose <code>id=</code> through a dialog box or a console prompt (see <code><a href="../reference/FSA-internals.html">iHndlID()</a></code>), which addresses <a href="https://github.com/droglenc/RFishBC/issues/2"><a href='https://github.com/droglenc/RFishBC/issues/2'>#2</a></a>. Added <code>popID=</code> (again see <code><a href="../reference/FSA-internals.html">iHndlID()</a></code>). Fixed poor directions about the use of the escape key to terminate <code>locator()</code>. Added <code>showInfo=</code>, <code>pos.info=</code>, <code>cex.info=</code>, and <code>col.info=</code> to address <a href="https://github.com/droglenc/RFishBC/issues/6"><a href='https://github.com/droglenc/RFishBC/issues/6'>#6</a></a>.</li>
 <li>
+<code>iGetImage()</code>: Added. Was <code><a href="../reference/FSA-internals.html">iReadImage()</a></code>. Calculated the pixel width-to-height ratio (from image dimensions) and returned in list.</li>
+<li>
 <code><a href="../reference/FSA-internals.html">iHndlfname()</a></code>: Added. Used in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>, <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>, and <code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>.</li>
 <li>
 <code><a href="../reference/FSA-internals.html">iHndlID()</a></code>: Added. Used in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>. Was modified from initial to include the image filename sans extension as the default ID in the Windows dialog box (when used with <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>), which partially addresses <a href="https://github.com/droglenc/RFishBC/issues/5"><a href='https://github.com/droglenc/RFishBC/issues/5'>#5</a></a>.</li>
@@ -134,7 +136,7 @@
 <li>
 <code>iPlaceText()</code>: Added. Used to address <a href="https://github.com/droglenc/RFishBC/issues/6"><a href='https://github.com/droglenc/RFishBC/issues/6'>#6</a></a>.</li>
 <li>
-<code>iReadImg()</code>: Modified. Calculated the pixel width-to-height ratio (from image dimensions) and returned in list.</li>
+<code><a href="../reference/FSA-internals.html">iReadImage()</a></code>: Removed. Changed to <code>iGetImage()</code>.</li>
 <li>
 <code><a href="../reference/FSA-internals.html">iSnap2Transect()</a></code>: Added. Used in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.</li>
 <li>

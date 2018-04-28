@@ -99,8 +99,8 @@ digitizeRadii <- function(img,id,reading,suffix,
   id <- iHndlID(id,inames,popID)
 
   ## Loads image given in img
-  windowInfo <- iReadImage(inames$givennm,id,sepWindow,windowSize,
-                           showInfo,pos.info,cex.info,col.info)
+  windowInfo <- iGetImage(inames$givennm,id,sepWindow,windowSize,
+                          showInfo,pos.info,cex.info,col.info)
   message("** Loaded the ",inames$basenm," image.")
   ## Allows the user to select a scaling bar to get a scaling factor
   SF <- iHndlScalingFactor(scaleBar,scaleBarLength,scalingFactor,

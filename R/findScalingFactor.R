@@ -31,9 +31,8 @@ findScalingFactor <- function(fname,knownLength,
   if (missing(col.scaleBar)) col.scaleBar <- iGetopt("col.scaleBar")
   if (missing(lwd.scaleBar)) lwd.scaleBar <- iGetopt("lwd.scaleBar")
   ## Read the image
-  iReadImage(fname,sepWindow,windowSize)
-  SF <- iHndlScalingFactor(TRUE,knownLength,NULL,
-                           col.scaleBar,lwd.scaleBar)
+  iGetImage(fname,sepWindow,windowSize)
+  SF <- iHndlScalingFactor(TRUE,knownLength,NULL,col.scaleBar,lwd.scaleBar)
   SF$scalingFactor
 }
 

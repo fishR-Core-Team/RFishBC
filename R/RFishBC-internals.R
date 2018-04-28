@@ -4,7 +4,7 @@
 #'
 #' @rdname FSA-internals
 #' @keywords internal
-#' @aliases .onAttach STOP WARN iHndlfname iHndlID iHndlScalingFactor iReadImage iProcessAnnuli iSelectAnulli iSnap2Transect
+#' @aliases .onAttach STOP WARN iHndlfname iHndlID iHndlScalingFactor iGetImage iProcessAnnuli iSelectAnulli iSnap2Transect
 
 
 ################################################################################
@@ -22,7 +22,7 @@ WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
 .onAttach <- function(lib,pkg,...) {
   vers <- read.dcf(system.file("DESCRIPTION",package=pkg,lib.loc=lib),
                    fields="Version")
-  msg <- paste0("## RFishBC v",vers,". See vignettes.\n")
+  msg <- paste0("## RFishBC v",vers,". See vignettes at derekogle.com/RFishBC/.\n")
   packageStartupMessage(msg)
 }
 
@@ -138,7 +138,7 @@ iPlaceText <- function(txt,pos,cex,col) {
 ## added the code for the dialog box for choosing the file and the use
 ## of withr.
 ########################################################################
-iReadImage <- function(fname,id,sepWindow,windowSize,
+iGetImage <- function(fname,id,sepWindow,windowSize,
                        showInfo,pos.info,cex.info,col.info) {
   ## Read the file
   img <- readbitmap::read.bitmap(fname)

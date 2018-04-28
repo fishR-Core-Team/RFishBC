@@ -49,13 +49,13 @@ showDigitizedImage <- function(nm,sepWindow,
     ## Load the data object
     load(fnames$givennm)
     ## Show first image
-    iReadImage(dat$image,NULL,sepWindow,dat$windowSize,FALSE,NULL,NULL,NULL)
+    iGetImage(dat$image,NULL,sepWindow,dat$windowSize,FALSE,NULL,NULL,NULL)
   } else {
     ## One image with multiple points will be shown
     ## Load the data object
     load(fnames[1])
     ## Show first image
-    iReadImage(dat$image,NULL,sepWindow,dat$windowSize,FALSE,NULL,NULL,NULL)
+    iGetImage(dat$image,NULL,sepWindow,dat$windowSize,FALSE,NULL,NULL,NULL)
   }
   ## Show the putative transect ... assumes that the focus and margin
   ## are in the first two rows of dat$pts (as they should be)

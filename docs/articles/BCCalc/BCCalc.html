@@ -103,7 +103,7 @@
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>This vignette demonstrates how to back-calculate lengths at previous ages (<span class="math inline">\(L_{i}\)</span>) from radial measurements made on calcified structures of fish. This vignette assumes that you have an understanding of back-calculation (as described in the <a href="">Short Introduction to Back-calculation</a> vignette) and that you have a data file with, at least, fish length-at-capture (<span class="math inline">\(L_{C}\)</span>), structure radius-at-capture (<span class="math inline">\(S_{C}\)</span>), and radial measurements to each annulus (<span class="math inline">\(S_{i}\)</span>) found on calcified strutures (as would be collected from the structures as described in the <a href="">Collect Radii Data</a> vignette).</p>
+<p>This vignette demonstrates how to back-calculate lengths at previous ages (<span class="math inline">\(L_{i}\)</span>) from radial measurements made on calcified structures of fish. This vignette assumes that you have an understanding of back-calculation (as described in the <a href="../BCIntro/BCIntro.html">Short Introduction to Back-calculation</a> vignette) and that you have a data file with, at least, fish length-at-capture (<span class="math inline">\(L_{C}\)</span>), structure radius-at-capture (<span class="math inline">\(S_{C}\)</span>), and radial measurements to each annulus (<span class="math inline">\(S_{i}\)</span>) found on calcified strutures (as would be collected from the structures as described in the <a href="../MeasureRadii/collectRadiiData.html">Collecting Radii Data</a> vignette).</p>
 <p>Packages used in this vignette are loaded below.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RFishBC)   <span class="co"># for bcFuns()</span>
 <span class="kw">library</span>(FSA)       <span class="co"># for SMBassWB, sumTable()</span>
@@ -156,7 +156,7 @@ wb90 &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyve
 <span class="co">#&gt; 180      NA   NA   NA 1.57989</span>
 <span class="co">#&gt; 181 8.54805   NA   NA 8.54805</span></code></pre></div>
 <p>Back-calculation data is often stored in one of two formats. In <em>wide</em> or <em>one-fish-per-line</em> format, all information about a single fish, including all of the measurements from the calcified structure, is in one row of the data.frame. For efficient back-calculation, the data must be in the <em>long</em> or <em>one-measurement-per-line</em> format where each row contains information about one annulus (e.g., which annulus and the radial measurement).</p>
-<p>The <code>wb90</code> data.frame contains radial measurments in the wide format and, thus, must be converted to long format, which will be described below. Note, however, that the data.frame produced as described in the <a href="">Collecting Radii Data</a> is in long format and the conversion described below would not be needed.</p>
+<p>The <code>wb90</code> data.frame contains radial measurments in the wide format and, thus, must be converted to long format, which will be described below. Note, however, that the data.frame produced as described in the <a href="../MeasureRadii/collectRadiiData.html">Collecting Radii Data</a> is in long format and the conversion described below would not be needed.</p>
 <div id="converting-from-wide-to-long-format" class="section level3">
 <h3 class="hasAnchor">
 <a href="#converting-from-wide-to-long-format" class="anchor"></a>Converting from Wide to Long Format</h3>
@@ -350,7 +350,6 @@ tmp
 </ul>
 <p> </p>
 <p> </p>
-<hr>
 </div>
 <div id="footnotes" class="section level1">
 <h1 class="hasAnchor">

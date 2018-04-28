@@ -7,7 +7,7 @@
 \alias{iHndlfname}
 \alias{iHndlID}
 \alias{iHndlScalingFactor}
-\alias{iReadImage}
+\alias{iGetImage}
 \alias{iProcessAnnuli}
 \alias{iSelectAnulli}
 \alias{iSnap2Transect}

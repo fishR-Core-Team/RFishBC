@@ -28,7 +28,7 @@ eqncaps("BackCalcBPHLinear")
 ```
 
 # Introduction
-This vignette demonstrates how to back-calculate lengths at previous ages ($L_{i}$) from radial measurements made on calcified structures of fish. This vignette assumes that you have an understanding of back-calculation (as described in the [Short Introduction to Back-calculation]() vignette) and that you have a data file with, at least, fish length-at-capture ($L_{C}$), structure radius-at-capture ($S_{C}$), and radial measurements to each annulus ($S_{i}$) found on calcified strutures (as would be collected from the structures as described in the [Collect Radii Data]() vignette).
+This vignette demonstrates how to back-calculate lengths at previous ages ($L_{i}$) from radial measurements made on calcified structures of fish. This vignette assumes that you have an understanding of back-calculation (as described in the [Short Introduction to Back-calculation](../BCIntro/BCIntro.html) vignette) and that you have a data file with, at least, fish length-at-capture ($L_{C}$), structure radius-at-capture ($S_{C}$), and radial measurements to each annulus ($S_{i}$) found on calcified strutures (as would be collected from the structures as described in the [Collecting Radii Data](../MeasureRadii/collectRadiiData.html) vignette).
 
 Packages used in this vignette are loaded below.
 ```{r message=FALSE, warning=FALSE}
@@ -70,7 +70,7 @@ tail(wb90,n=3)
 
 Back-calculation data is often stored in one of two formats. In *wide* or *one-fish-per-line* format, all information about a single fish, including all of the measurements from the calcified structure, is in one row of the data.frame. For efficient back-calculation, the data must be in the *long* or *one-measurement-per-line* format where each row contains information about one annulus (e.g., which annulus and the radial measurement).
 
-The `wb90` data.frame contains radial measurments in the wide format and, thus, must be converted to long format, which will be described below. Note, however, that the data.frame produced as described in the [Collecting Radii Data]() is in long format and the conversion described below would not be needed.
+The `wb90` data.frame contains radial measurments in the wide format and, thus, must be converted to long format, which will be described below. Note, however, that the data.frame produced as described in the [Collecting Radii Data](../MeasureRadii/collectRadiiData.html) is in long format and the conversion described below would not be needed.
 
 ### Converting from Wide to Long Format
 Wide-format data can be converted to long-format data with `gather()`, which uses the following arguments:
@@ -195,8 +195,6 @@ sumTable(FL.len~agecap*agei,data=wb90r,digits=1)
 \  
 
 \  
-
-----
 
 # Footnotes
 
