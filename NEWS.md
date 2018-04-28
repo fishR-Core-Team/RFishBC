@@ -1,3 +1,6 @@
+# RFishBC 0.0.3 ongoing
+
+
 # RFishBC 0.0.2 27-Apr-18
 * `digitizeRadii()`: Modified. Added `snap2Transect=` to address [#1](https://github.com/droglenc/RFishBC/issues/1). Modified how `fname=` was handled if missing (see `iHndlfname()`) and if selecting an image from outside of the current working directory. Allowed user to choose `id=` through a dialog box or a console prompt (see `iHndlID()`), which addresses [#2](https://github.com/droglenc/RFishBC/issues/2). Added `popID=` (again see `iHndlID()`). Fixed poor directions about the use of the escape key to terminate `locator()`. Added `showInfo=`, `pos.info=`, `cex.info=`, and `col.info=` to address [#6](https://github.com/droglenc/RFishBC/issues/6).
 * `iGetImage()`: Added. Was `iReadImage()`. Calculated the pixel width-to-height ratio (from image dimensions) and returned in list.
