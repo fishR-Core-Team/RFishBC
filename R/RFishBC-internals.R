@@ -63,12 +63,12 @@ iHndlFilename <- function(givennm) {
 ##   populated with the basenm in fname) or at the prompt. If an id was
 ##   given then it just passes that value through.
 ########################################################################
-iHndlID <- function(id,fname,popID) {
+iHndlID <- function(id,fn,popID) {
   if (missing(id)) {
     if (grepl('w|W', .Platform$OS.type)) {
       ## we are on Windows
       ## use basename in fname as the default if popID=TRUE
-      defID <- ifelse(popID,tools::file_path_sans_ext(fname$bn),"")
+      defID <- ifelse(popID,tools::file_path_sans_ext(fn$basenm),"")
       id <- utils::winDialogString("Enter a unique ID: ",defID)
     } else {
       ## Not on Windows so prompt in console if in interactive session
@@ -213,7 +213,7 @@ iSelectAnnuli <- function(pch.pts,col.pts,cex.pts,
   } # end repeat
   
   if (!nrow(pts)>2) STOP("No points were selected as annuli.")
-  message("   ",nrow(pts)," points were selected.\n")
+  message("   * ",nrow(pts)," points were selected.\n")
   
   ## Return the two types of selected points
   list(pts=pts,orig.pts=orig.pts)
