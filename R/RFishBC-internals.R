@@ -78,7 +78,7 @@ iHndlScalingFactor <- function(scaleBar,knownLength,scalingFactor,
                                col,lwd,pixW2H) {
   if (scaleBar) {
     ## scaleBar is on the plot
-    message("\n** Find scaling factor from scale bar.\n",
+    message("\n>> Find scaling factor from scale bar.\n",
             "   * Select endpoints on the scale bar.")
     tmp <- as.data.frame(graphics::locator(n=2,type="p",pch=3,col=col))
     if (nrow(tmp)<2) {
@@ -97,7 +97,7 @@ iHndlScalingFactor <- function(scaleBar,knownLength,scalingFactor,
                scalingFactor=scalingFactor)
   } else {
     ## No scale bar on the plot ... using the scaling factor
-    message("\n** Using the 'scalingFactor' provided.")
+    message("** Using the 'scalingFactor' provided.")
     SF <- list(sfSource="Provided",sbPts=NULL,sbLength=NULL,
                scalingFactor=scalingFactor)
   }
@@ -139,7 +139,7 @@ iPlaceText <- function(txt,pos,cex,col) {
 iGetImage <- function(fname,id,sepWindow,windowSize,
                       showInfo,pos.info,cex.info,col.info) {
   ## Read the file
-  img <- readbitmap::read.bitmap(fname)
+  img <- readbitmap::read.bitmap(fname,native=TRUE)
   ## Open separate window if asked to do so (avoids putting in RStudio pane)
   if (sepWindow) {
     ## Get window size so image displayed in its native aspect ratio.
@@ -215,7 +215,7 @@ iProcessAnnuli <- function(nms,pts,id,reading,suffix,description,
 ########################################################################
 iSelectAnnuli <- function(pch.pts,col.pts,cex.pts,
                           addTransect,col.trans,lwd.trans) {
-  message("\n** Select transect endpoints.\n",
+  message("\n>> Select transect endpoints.\n",
           "   * MUST select the focus of the structure FIRST.\n",
           "   * MUST select structure margin SECOND.")
   tmp1 <- as.data.frame(graphics::locator(n=2,type="p",pch=pch.pts,
@@ -223,7 +223,7 @@ iSelectAnnuli <- function(pch.pts,col.pts,cex.pts,
   if (nrow(tmp1)<2) STOP("Either the focus or margin was not selected.")
   if (addTransect) graphics::lines(y~x,data=tmp1,
                                    lwd=lwd.trans,col=col.trans)
-  message("\n** Select points that are annuli.\n",
+  message("\n>> Select points that are annuli.\n",
           "   * When finished selecting points press\n",
           "       the second(right) mouse button and select 'Stop',\n",
           "       the 'Stop' button in Windows, or\n",
