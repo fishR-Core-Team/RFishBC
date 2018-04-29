@@ -1,4 +1,6 @@
-# RFishBC 0.0.5 ongoing
+# RFishBC 0.0.6 ongoing
+
+# RFishBC 0.0.5 29-Apr-18
 * Changed license from MIT to GPL-3.
 * `combineData()`: Modified. Better handles filenames (see `iHndlFilenames()`).
 * `digitizeRadii()`: Modified. Better handles filenames (see `iHndlFilenames()`).
