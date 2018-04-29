@@ -333,7 +333,7 @@ iProcessAnnuli <- function(nms,dat,id,reading,suffix,description,
 ## Show annuli numbers on the showDigitizedImage() image
 ##
 ########################################################################
-iShowAnnuliLabels <- function(dat,col.ann,cex.ann) {
+iShowAnnuliLabels <- function(dat,annuliLabels,col.ann,cex.ann) {
   ## Get points to plot
   pts <- dat$pts
   
@@ -349,8 +349,15 @@ iShowAnnuliLabels <- function(dat,col.ann,cex.ann) {
   else if (deg>135 & deg>=180) pos <- 1 # below
   
   ## Put on text
-  lbls <- c("",1:(nrow(pts)-1))
+  #### make labels from 1 to the number of points marked (-1 for the focus)
+  lbls <- 1:(nrow(pts)-1)
+  #### convert annuli not in annuliLabels to ""
+  lbls[!lbls %in% annuliLabels] <- ""
+  #### add a "" for the focus
+  lbls <- c("",lbls)
+  #### remove the annuli number for the edge if it is not an annulus
   if (!dat$edgeIsAnnulus) lbls[length(lbls)] <- ""
+  #### put the labels on the plot
   graphics::text(y~x,data=dat$pts,labels=lbls,font=2,
                  col=col.ann,cex=cex.ann,pos=pos)
 }

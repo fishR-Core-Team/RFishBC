@@ -34,8 +34,9 @@
 #' \item{\code{showInfo}: }{A single logical that indicates whether the ID information should be shown on the image in \code{\link{digitizeRadii}}. Defaults to \code{TRUE}.}
 #' \item{\code{pos.info}: }{A single character that indicates where the ID information should be placed when \code{showInfo=TRUE}. See \code{\link{legend}} for position choices. Defaults to \code{"topleft"}. Used in \code{\link{digitizeRadii}}.}
 #' \item{\code{cex.info}: }{The character expansion for the ID information when \code{showInfo=TRUE}. Defaults to \code{1.2} Used in \code{\link{digitizeRadii}}.}
-#' \item{\code{col.info}: }{The color for the ID information when \code{showInfo=TRUE}. Defaults to \code{"yellow"}Used in \code{\link{digitizeRadii}}.}
-#' \item{\code{showAnnulusLabels}: }{A single logical that indicates whether annulus labels should be shown on the image from \code{\link{showDigitizedImage}}. Defaults to \code{TRUE}, but is ignored if more than one set of annuli will be plotted.}
+#' \item{\code{col.info}: }{The color for the ID information when \code{showInfo=TRUE}. Defaults to \code{"yellow"}. Used in \code{\link{digitizeRadii}}.}
+#' \item{\code{showAnnuliLabels}: }{A single logical that indicates whether annulus labels should be shown on the image from \code{\link{showDigitizedImage}}. Defaults to \code{TRUE}, but is ignored if more than one set of annuli will be plotted.}
+#' \item{\code{annuliLabels}: }{A numeric vector that indicates the numbers for which annuli should be labeled when \code{showAnnuliLabels=TRUE}. Defaults to \code{NULL} which indicates that all annuli should be labelled. Used in \code{\link{showDigitizedImage}}.}
 #' \item{\code{col.ann}: }{The color of the annuli number text when \code{showAnnuliLabels=TRUE} in \code{\link{showDigitizedImage}}. Defaults to \code{"yellow"}.}
 #' \item{\code{cex.ann}: }{The character expansion value  of the annuli number text when \code{showAnnuliLabels=TRUE} in \code{\link{showDigitizedImage}}. Defaults to \code{1.2}.}
 #' } 
@@ -85,7 +86,8 @@ iRFBCopts <- settings::options_manager(reading=NULL,description=NULL,
                 pch.sel=20,col.sel="yellow",cex.sel=1,
                 pch.show=19,col.show="yellow",cex.show=1,
                 showInfo=TRUE,pos.info="topleft",col.info="yellow",cex.info=1.2,
-                showAnnuliLabels=TRUE,col.ann="yellow",cex.ann=1.2,
+                showAnnuliLabels=TRUE,annuliLabels=NULL,
+                col.ann="yellow",cex.ann=1.2,
               .allowed=list(
                 sepWindow=settings::inlist(TRUE,FALSE),
                 windowSize=settings::inrange(min=1,max=30),

@@ -13,6 +13,7 @@
 #' @param col.scaleBar See details in \code{\link{RFBCoptions}}.
 #' @param lwd.scaleBar See details in \code{\link{RFBCoptions}}.
 #' @param showAnnuliLabels See details in \code{\link{RFBCoptions}}.
+#' @param annuliLabels See details in \code{\link{RFBCoptions}}.
 #' @param col.ann See details in \code{\link{RFBCoptions}}.
 #' @param cex.ann See details in \code{\link{RFBCoptions}}.
 #' @param showOrigPts A logical that indicates whether the original user-selected points (i.e., not snapped to the transect) should be shown or not. If the original selections were not snapped to the transect then this will be ignored.
@@ -39,7 +40,7 @@ showDigitizedImage <- function(nm,sepWindow,
                                pch.show,col.show,cex.show,
                                showTransect,col.transect,lwd.transect,
                                col.scaleBar,lwd.scaleBar,
-                               showAnnuliLabels,col.ann,cex.ann,
+                               showAnnuliLabels,annuliLabels,col.ann,cex.ann,
                                showOrigPts=FALSE,
                                pch.show2,col.show2,cex.show2) {
   ## handle options
@@ -53,6 +54,7 @@ showDigitizedImage <- function(nm,sepWindow,
   if (missing(col.scaleBar)) col.scaleBar <- iGetopt("col.scaleBar")
   if (missing(lwd.scaleBar)) lwd.scaleBar <- iGetopt("lwd.scaleBar")
   if (missing(showAnnuliLabels)) showAnnuliLabels <- iGetopt("showAnnuliLabels")
+  if (missing(annuliLabels)) annuliLabels <- iGetopt("annuliLabels")
   if (missing(col.ann)) col.ann <- iGetopt("col.ann")
   if (missing(cex.ann)) cex.ann <- iGetopt("cex.ann")
   if (missing(pch.show2)) pch.show2 <- pch.show
@@ -84,8 +86,9 @@ showDigitizedImage <- function(nm,sepWindow,
   ## Show points
   graphics::points(dat$pts,pch=pch.show[1],col=col.show[1],cex=cex.show[1])
   ## Show annuli labels if asked to do so
-  if (showAnnuliLabels & num2do==1) iShowAnnuliLabels(dat,col.ann=col.ann,
-                                                      cex.ann=cex.ann)
+  if (showAnnuliLabels & num2do==1) iShowAnnuliLabels(dat,
+                                    annuliLabels=annuliLabels,
+                                    col.ann=col.ann,cex.ann=cex.ann)
   ## Show original points if asked and if snapped to transect
   if (showOrigPts & dat$snap2Transect)
     graphics::points(dat$orig.pts,pch=pch.show2[1],col=col.show2[1],
