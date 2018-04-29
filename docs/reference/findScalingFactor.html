@@ -30,7 +30,7 @@
 
 <meta property="og:title" content="Find scaling factor from object of known length — findScalingFactor" />
 
-<meta property="og:description" content="This computes a scaling factor (i.e., a multiplier that is used to convert image lengths to actual lengths) from user selected endpoints of an object of known length on the image given in fname and the actual known length given in knownLength." />
+<meta property="og:description" content="This computes a scaling factor (i.e., a multiplier that is used to convert image lengths to actual lengths) from user selected endpoints of an object of known length on the image given in img and the actual known length given in knownLength." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -58,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.2.9000</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.3.9000</span>
       </span>
     </div>
 
@@ -125,19 +125,19 @@
 
     <div class="ref-description">
     
-    <p>This computes a scaling factor (i.e., a multiplier that is used to convert image lengths to actual lengths) from user selected endpoints of an object of known length on the image given in <code>fname</code> and the actual known length given in <code>knownLength</code>.</p>
+    <p>This computes a scaling factor (i.e., a multiplier that is used to convert image lengths to actual lengths) from user selected endpoints of an object of known length on the image given in <code>img</code> and the actual known length given in <code>knownLength</code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>findScalingFactor</span>(<span class='no'>fname</span>, <span class='no'>knownLength</span>, <span class='no'>sepWindow</span>, <span class='no'>windowSize</span>, <span class='no'>col.scaleBar</span>,
+    <pre class="usage"><span class='fu'>findScalingFactor</span>(<span class='no'>img</span>, <span class='no'>knownLength</span>, <span class='no'>sepWindow</span>, <span class='no'>windowSize</span>, <span class='no'>col.scaleBar</span>,
   <span class='no'>lwd.scaleBar</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>fname</th>
-      <td><p>A string that indicates the image (must be PNG, JPG, or BMP) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (will look for this file in the current working directory unless a fully pathed name is given).</p></td>
+      <th>img</th>
+      <td><p>A string that indicates the image (must be PNG, JPG, BMP, or TIFF) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (will look for this file in the current working directory unless a fully pathed name is given).</p></td>
     </tr>
     <tr>
       <th>knownLength</th>

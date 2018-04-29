@@ -58,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.2.9000</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.3.9000</span>
       </span>
     </div>
 
@@ -139,7 +139,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>img</th>
-      <td><p>A string that indicates the image (must be PNG, JPG, BMP, or TIFF) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (file must be in the current working directory unless a fully pathed name is given).</p></td>
+      <td><p>A string that indicates the image (must be PNG, JPG, BMP, or TIFF) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file. Either way the file must be in the current working directory.</p></td>
     </tr>
     <tr>
       <th>id</th>
@@ -242,24 +242,23 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list that contains the following:</p><ul>
-<li><p><code>description</code>: The description given in <code>description</code>.</p></li>
 <li><p><code>image</code>: The full filename given in <code>img</code>.</p></li>
-<li><p><code>basenm</code>: The filename given in <code>img</code> without the path.</p></li>
-<li><p><code>dirnm</code>: The directory in which <code>img</code> was located.</p></li>
 <li><p><code>datanm</code>: The filename that contains the RData object.</p></li>
+<li><p><code>description</code>: The description given in <code>description</code>.</p></li>
 <li><p><code>edgeIsAnnulus</code>: The logical given in <code>edgeIsAnnulus</code>.</p></li>
-<li><p><code>slpTransect</code>: The slope of the transect.</p></li>
-<li><p><code>slpTransect</code>: The intercept of the transect.</p></li>
-<li><p><code>pts</code>: A data.frame that contains the <code>x</code> and <code>y</code> coordinates on the image for the selected annuli. These points may be &#8220;snapped&#8221; to the transect if <code>snap2Transect==TRUE</code>.</p></li>
-<li><p><code>orig.pts</code>: A data.frame that contains the &#8220;original&#8221; <code>x</code> and <code>y</code> coordinates on the image for the selected annuli. If <code>snap2Transect=FALSE</code> then these are the same as the points in <code>pts</code>. If <code>snap2Transect=TRUE</code> then these are the originally selected points and will be different then the points in <code>pts</code>.</p></li>
-<li><p><code>radii</code>: A data.frome that contains the unique <code>id</code>, the <code>reading</code> code, the age-at-capture in <code>agecap</code>, the annulus number in <code>ann</code>, the radial measurements in <code>rad</code>, and the radial measurement at capture in <code>radcap</code>.</p></li>
 <li><p><code>snap2Transect</code>: The logical from <code>snap2Transect</code> that identified whether the selected points were &#8220;"snapped"&#8221; to the transect or not.</p></li>
+<li><p><code>scalingFactor</code>: A single numeric used to convert measurements on the structure image to actual measurements on the structure. Measurements on the structure image were multiplied by this value.</p></li>
 <li><p><code>sfSource</code>: A character string that identifies whether the scaling factor was <code>"Provided"</code> through the <code>scalingFactor</code> argument or derived from a <code>"scaleBar"</code>.</p></li>
 <li><p><code>sbPts</code>: A data.frame of <code>x</code> and <code>y</code> coordinates for the endpoints of the scale-bar if the scaling factor was derived from a scale-bar.</p></li>
 <li><p><code>sbLength</code>: A single numeric that is the known (actual) length of the scale-bar if the scaling factor was derived from a scale-bar.</p></li>
-<li><p><code>scalingFactor</code>: A single numeric used to convert measurements on the structure image to actual measurements on the structure. Measurements on the structure image were multiplied by this value.</p></li>
+<li><p><code>slpTransect</code>: The slope of the transect.</p></li>
+<li><p><code>intTransect</code>: The intercept of the transect.</p></li>
+<li><p><code>slpPerpTransect</code>: The slope of the line perpendicular to the transect.</p></li>
 <li><p><code>windowSize</code>: A numeric of length two that contains the width and height of the window used to display the structure image. One of these units was set by the given <code>windowSize</code> value.</p></li>
 <li><p><code>pixW2H</code>: The ratio of pixel width to height. This is used to correct measurements for when an image is not square.</p></li>
+<li><p><code>orig.pts</code>: A data.frame that contains the &#8220;original&#8221; <code>x</code> and <code>y</code> coordinates on the image for the selected annuli. If <code>snap2Transect=FALSE</code> then these are the same as the points in <code>pts</code>. If <code>snap2Transect=TRUE</code> then these are the originally selected points and will be different then the points in <code>pts</code>.</p></li>
+<li><p><code>pts</code>: A data.frame that contains the <code>x</code> and <code>y</code> coordinates on the image for the selected annuli. These points may be &#8220;snapped&#8221; to the transect if <code>snap2Transect==TRUE</code>.</p></li>
+<li><p><code>radii</code>: A data.frome that contains the unique <code>id</code>, the <code>reading</code> code, the age-at-capture in <code>agecap</code>, the annulus number in <code>ann</code>, the radial measurements in <code>rad</code>, and the radial measurement at capture in <code>radcap</code>.</p></li>
 </ul><p>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>

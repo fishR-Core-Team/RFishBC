@@ -55,7 +55,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.2.9000</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.3.9000</span>
       </span>
     </div>
 
@@ -119,9 +119,42 @@
       <small>Source: <a href='https://github.com/droglenc/RFishBC/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="rfishbc-0-0-3-ongoing" class="section level1">
+    <div id="rfishbc-0-0-4-ongoing" class="section level1">
 <h1 class="page-header">
-<a href="#rfishbc-0-0-3-ongoing" class="anchor"></a>RFishBC 0.0.3 ongoing</h1>
+<a href="#rfishbc-0-0-4-ongoing" class="anchor"></a>RFishBC 0.0.4 ongoing</h1>
+<ul>
+<li>Complete reworking of the code. The big difference is a requirement that the data files be in the current working directory.</li>
+<li>
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Incorporated some of the internal files, completely rewored the list that is returned, dealt with working directory change.</li>
+<li>
+<code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>: Modified. Dealth with working directory chagne.</li>
+<li>
+<code>showDigitizedImages()</code>: Modified. Incorporated some of the internal files and dealt with working directory change.</li>
+<li>
+<code>iFindTransect()</code>: Deleted. Moved into <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.</li>
+<li>
+<code>iHndlFilename1()</code>: Added.</li>
+<li>
+<code>iHndlFilenames()</code>: Deleted. Largely replaced with <code>iHndlFilename1()</code>, but some functionality moved to <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>.</li>
+<li>
+<code>iHndlID()</code>: Deleted. Moved into <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.</li>
+<li>
+<code><a href="../reference/FSA-internals.html">iHndlScalingFactor()</a></code>: Deleted.</li>
+<li>
+<code>iHndlScalingFactorFromScaleBar()</code>: Added.</li>
+<li>
+<code>iProcessAnnuli()</code>: Deleted. Moved into <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.</li>
+<li>
+<code><a href="../reference/FSA-internals.html">iPts2Rad()</a></code>: Added.</li>
+<li>
+<code>iSelectAnnuli()</code>: Deleted. Moved into <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.</li>
+<li>
+<code>iShowTransect()</code>: Deleted. Deleted. Moved into <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> and <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>.</li>
+</ul>
+</div>
+    <div id="rfishbc-0-0-3-28-apr-18" class="section level1">
+<h1 class="page-header">
+<a href="#rfishbc-0-0-3-28-apr-18" class="anchor"></a>RFishBC 0.0.3 28-Apr-18</h1>
 <ul>
 <li>
 <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Slight modification to the messages in the console. Re worked the code with <code>locator()</code> so that the points will be shown “snapped to the transect” if <code>snap2Transect=TRUE</code> (this addresses <a href="https://github.com/droglenc/RFishBC/issues/7"><a href='https://github.com/droglenc/RFishBC/issues/7'>#7</a></a>). Added an <code>orig.pts</code> data.frame to the RData object which contains the original (non-snapped to transect) points (which can be plotted with <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>). Changed <code>addTransect=</code> to <code>showTransect=</code> to make more similar to <code>showDigitezedImages()</code>.</li>
@@ -130,7 +163,7 @@
 <li>
 <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>: Modified. Added <code>showAnnuliLabels=</code>, <code>col.ann=</code>, and <code>cex.ann=</code> to shown annuli numbers when just one transect is shown. Added <code>showOrigPts=</code>, <code>pch.show2=</code>, <code>col.show2=</code>, and <code>cex.show2=</code> to handle including original points on the image.</li>
 <li>
-<code><a href="../reference/FSA-internals.html">iFindTransect()</a></code>: Added. Moved this code out of <code>iSelectAnnuli()</code>.</li>
+<code>iFindTransect()</code>: Added. Moved this code out of <code>iSelectAnnuli()</code>.</li>
 <li>
 <code><a href="../reference/FSA-internals.html">iGetImage()</a></code>: Modified. Streamlined code. Added <code>native=TRUE</code> to <code>read.bitmap()</code> call to send to the underlying functions as this is apparently more efficient when using <code>rasterImage()</code> (which this uses).</li>
 <li>
@@ -148,13 +181,13 @@
 <a href="#rfishbc-0-0-2-27-apr-18" class="anchor"></a>RFishBC 0.0.2 27-Apr-18</h1>
 <ul>
 <li>
-<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Added <code>snap2Transect=</code> to address <a href="https://github.com/droglenc/RFishBC/issues/1"><a href='https://github.com/droglenc/RFishBC/issues/1'>#1</a></a>. Modified how <code>fname=</code> was handled if missing (see <code>iHndlfname()</code>) and if selecting an image from outside of the current working directory. Allowed user to choose <code>id=</code> through a dialog box or a console prompt (see <code><a href="../reference/FSA-internals.html">iHndlID()</a></code>), which addresses <a href="https://github.com/droglenc/RFishBC/issues/2"><a href='https://github.com/droglenc/RFishBC/issues/2'>#2</a></a>. Added <code>popID=</code> (again see <code><a href="../reference/FSA-internals.html">iHndlID()</a></code>). Fixed poor directions about the use of the escape key to terminate <code>locator()</code>. Added <code>showInfo=</code>, <code>pos.info=</code>, <code>cex.info=</code>, and <code>col.info=</code> to address <a href="https://github.com/droglenc/RFishBC/issues/6"><a href='https://github.com/droglenc/RFishBC/issues/6'>#6</a></a>.</li>
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Added <code>snap2Transect=</code> to address <a href="https://github.com/droglenc/RFishBC/issues/1"><a href='https://github.com/droglenc/RFishBC/issues/1'>#1</a></a>. Modified how <code>fname=</code> was handled if missing (see <code>iHndlfname()</code>) and if selecting an image from outside of the current working directory. Allowed user to choose <code>id=</code> through a dialog box or a console prompt (see <code>iHndlID()</code>), which addresses <a href="https://github.com/droglenc/RFishBC/issues/2"><a href='https://github.com/droglenc/RFishBC/issues/2'>#2</a></a>. Added <code>popID=</code> (again see <code>iHndlID()</code>). Fixed poor directions about the use of the escape key to terminate <code>locator()</code>. Added <code>showInfo=</code>, <code>pos.info=</code>, <code>cex.info=</code>, and <code>col.info=</code> to address <a href="https://github.com/droglenc/RFishBC/issues/6"><a href='https://github.com/droglenc/RFishBC/issues/6'>#6</a></a>.</li>
 <li>
 <code><a href="../reference/FSA-internals.html">iGetImage()</a></code>: Added. Was <code>iReadImage()</code>. Calculated the pixel width-to-height ratio (from image dimensions) and returned in list.</li>
 <li>
 <code>iHndlfname()</code>: Added. Used in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>, <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>, and <code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>.</li>
 <li>
-<code><a href="../reference/FSA-internals.html">iHndlID()</a></code>: Added. Used in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>. Was modified from initial to include the image filename sans extension as the default ID in the Windows dialog box (when used with <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>), which partially addresses <a href="https://github.com/droglenc/RFishBC/issues/5"><a href='https://github.com/droglenc/RFishBC/issues/5'>#5</a></a>.</li>
+<code>iHndlID()</code>: Added. Used in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>. Was modified from initial to include the image filename sans extension as the default ID in the Windows dialog box (when used with <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>), which partially addresses <a href="https://github.com/droglenc/RFishBC/issues/5"><a href='https://github.com/droglenc/RFishBC/issues/5'>#5</a></a>.</li>
 <li>
 <code><a href="../reference/FSA-internals.html">iHndlScalingFactor()</a></code>: Modified. Added <code>pixW2H=</code> argument to receive the pixel width-to-height ratio to adjust distance calculations for non-square images.</li>
 <li>
@@ -164,9 +197,9 @@
 <li>
 <code><a href="../reference/FSA-internals.html">iSnap2Transect()</a></code>: Added. Used in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.</li>
 <li>
-<code><a href="../reference/FSA-internals.html">iProcessAnnuli()</a></code>: Modified. Added <code>pixW2H=</code> argument to receive the pixel width-to-height ratio to adjust distance calculations for non-square images.</li>
+<code>iProcessAnnuli()</code>: Modified. Added <code>pixW2H=</code> argument to receive the pixel width-to-height ratio to adjust distance calculations for non-square images.</li>
 <li>
-<code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code>: Modified. Added <code>popID=</code> (see <code><a href="../reference/FSA-internals.html">iHndlID()</a></code>). Added <code>showInfo=</code>, <code>pos.info=</code>, <code>cex.inf=</code>, and <code>col.info=</code> (see <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>).</li>
+<code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code>: Modified. Added <code>popID=</code> (see <code>iHndlID()</code>). Added <code>showInfo=</code>, <code>pos.info=</code>, <code>cex.inf=</code>, and <code>col.info=</code> (see <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>).</li>
 <li>
 <code>showDigitizedData()</code>: Modified. Moved <code>file.choose()</code> for <code>fname=</code> out of argument list and into the main function code. Also modified to allow the user to select an object out of the current working directory (only works with a single file).</li>
 </ul>
@@ -184,7 +217,8 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#rfishbc-0-0-3-ongoing">0.0.3</a></li>
+        <li><a href="#rfishbc-0-0-4-ongoing">0.0.4</a></li>
+        <li><a href="#rfishbc-0-0-3-28-apr-18">0.0.3</a></li>
         <li><a href="#rfishbc-0-0-2-27-apr-18">0.0.2</a></li>
         <li><a href="#rfishbc-0-0-1-16-apr-18">0.0.1</a></li>
       </ul>

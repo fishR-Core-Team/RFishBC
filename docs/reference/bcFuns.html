@@ -58,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.2.9000</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.3.9000</span>
       </span>
     </div>
 
@@ -189,14 +189,14 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Simple Examples</span>
 ( <span class='no'>bcm1</span> <span class='kw'>&lt;-</span> <span class='fu'>bcFuns</span>(<span class='fl'>1</span>) )</div><div class='output co'>#&gt; function(Lc,Ri,Rc) { (Ri/Rc)*Lc }
-#&gt; &lt;environment: 0x00000000081fa658&gt;</div><div class='input'><span class='fu'>bcm1</span>(<span class='fl'>20</span>,<span class='fl'>10</span>,<span class='fl'>40</span>)</div><div class='output co'>#&gt; [1] 5</div><div class='input'>
+#&gt; &lt;environment: 0x0000000014cbecf0&gt;</div><div class='input'><span class='fu'>bcm1</span>(<span class='fl'>20</span>,<span class='fl'>10</span>,<span class='fl'>40</span>)</div><div class='output co'>#&gt; [1] 5</div><div class='input'>
 <span class='co'>## Example with dummy length-at-cap, radii-at-cap, and radii-at-age</span>
 <span class='no'>lencap</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>100</span>,<span class='fl'>100</span>,<span class='fl'>100</span>,<span class='fl'>150</span>,<span class='fl'>150</span>)
 <span class='no'>radcap</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>20</span>,<span class='fl'>20</span>,<span class='fl'>20</span>,<span class='fl'>30</span>,<span class='fl'>30</span>)
 <span class='no'>rad</span>    <span class='kw'>&lt;-</span> <span class='fu'>c</span>( <span class='fl'>5</span>,<span class='fl'>10</span>,<span class='fl'>15</span>,<span class='fl'>15</span>,<span class='fl'>25</span>)
 <span class='fu'>bcm1</span>(<span class='no'>lencap</span>,<span class='no'>rad</span>,<span class='no'>radcap</span>)</div><div class='output co'>#&gt; [1]  25  50  75  75 125</div><div class='input'>
 ( <span class='no'>bcm2</span> <span class='kw'>&lt;-</span> <span class='fu'>bcFuns</span>(<span class='st'>"FRALE"</span>) )</div><div class='output co'>#&gt; function(Lc,Ri,Rc,a) { a+(Lc-a)*(Ri/Rc) }
-#&gt; &lt;environment: 0x0000000007f6c0b0&gt;</div><div class='input'><span class='fu'>bcm2</span>(<span class='no'>lencap</span>,<span class='no'>rad</span>,<span class='no'>radcap</span>,<span class='fl'>2</span>)  <span class='co'># demonstrated with a=2</span></div><div class='output co'>#&gt; [1]  26.5000  51.0000  75.5000  76.0000 125.3333</div><div class='input'>
+#&gt; &lt;environment: 0x00000000149e1e40&gt;</div><div class='input'><span class='fu'>bcm2</span>(<span class='no'>lencap</span>,<span class='no'>rad</span>,<span class='no'>radcap</span>,<span class='fl'>2</span>)  <span class='co'># demonstrated with a=2</span></div><div class='output co'>#&gt; [1]  26.5000  51.0000  75.5000  76.0000 125.3333</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
