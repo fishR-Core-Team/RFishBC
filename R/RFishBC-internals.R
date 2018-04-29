@@ -116,14 +116,10 @@ iPts2Rad <- function(pts,edgeIsAnnulus,scalingFactor,pixW2H,id,reading) {
   #### Sort radii in increasing order (probably redundant)
   rad <- rad[order(rad)]
   #### create data.frame with radii information
-  ###### first handle annuli numbers for whether edge is annulus or not
-  if (edgeIsAnnulus) ann <- seq_len(n)
-  else ann <- c(seq_len(n-1),NA)
-  ###### Put together
   data.frame(id=as.character(rep(id,n)),
              reading=as.character(rep(ifelse(is.null(reading),NA,reading),n)),
              agecap=ifelse(edgeIsAnnulus,n,n-1),
-             ann=ann,
+             ann=seq_len(n),
              rad=rad,radcap=max(rad),
              stringsAsFactors=FALSE)
 }

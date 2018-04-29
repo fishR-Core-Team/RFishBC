@@ -188,7 +188,7 @@ Argument values can still be changed from the defaults for a particular call to 
 
 # Data from One Structure
 
-The radial measurements from one structure may be seen by submitting the RData file name to `combineData()` (which assumes that the file is in the current working directory).
+The radial measurements from one structure may be seen by submitting the RData file name to `combineData()`.[^combinedatawd]
 
 ```{r}
 combineData("Scale_1_DHO.RData")
@@ -219,13 +219,11 @@ listFiles("RData")
 ```
 
 This list of names can be further filtered by including other key words for the filenames in `other=`. In this case, the list should be limited to those files with "Scale" in the name and those files with just "DHO" (i.e., exclude "DHO2"). Limiting to "DHO" required limiting to "DHO.", but because the "." is a special character it had to be preceded by "\\".
-
-this list needs to limited to only those files that contain the keyword "Scale".
 ```{r}
 ( fns <- listFiles("RData",other=c("Scale","DHO\\.")) )
 ```
 
-The result of `listFiles()` should be saved to an object so that the list of name can be given to `combineData()` as shown below.
+The result of `listFiles()` should be saved to an object so that the names can be given to `combineData()` as shown below.[^combinedatawd2]
 
 ```{r}
 ( dfrad <- combineData(fns) )
@@ -280,6 +278,10 @@ write.csv(dffish,file="Kiyi2014_BCs.csv",quote=FALSE,row.names=FALSE)
 [^sdifilename]: If no file name is given, then a dialog box will appear from which the data file can be selected.
 
 [^noteabove]: The first set of readings were made in the first section above.
+
+[^combinedatawd]: If no file name is given, then a dialog box will appear from which the data file can be selected. It is also assumed that the file is in the current working directory.
+
+[^combinedatawd2]: If no file names are given, then a dialog box will appear from which multiple data files can be selected.
 
 [^wrongtypesinjoin]: The two files cannot be joined by the "id" variable if the "id" variables are of different types (e.g., character and numeric) in the two files. Thus, as shown here, they must be coerced to be the same type. This line of code would no be needed if the "id" variables were of the same type in the two files as would likely occur if the "id" variable was not simply numbers.
 

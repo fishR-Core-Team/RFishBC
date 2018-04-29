@@ -85,7 +85,7 @@ This list of names can be further filtered by including other key words for the 
 ( fns <- listFiles("RData",other="Scale_1") )
 ```
 
-The multiple readings of "Scale_1" can be seen by giving this set of filenames to `showDigitizedImage()`.
+The multiple readings of "Scale_1" can be seen by giving this set of filenames to `showDigitizedImage()`.[^sdifilename2]
 ```{r eval=FALSE}
 showDigitizedImage(fns)
 ```
@@ -110,4 +110,6 @@ showDigitizedImage(fns,col.transect=c("red","yellow","green"),
 
 # Footnotes
 
-[^sdifilename]: If no file name is given, then a dialog box will appear from which the data file can be selected.
+[^sdifilename]: If no file name is given, then a dialog box will appear from which the data file can be selected. It is assumed that the file is in the current working directory.
+
+[^sdifilename2]: If no file names are given, then a dialog box will appear from which multiple data files can be selected.

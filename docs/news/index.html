@@ -122,10 +122,23 @@
     <div id="rfishbc-0-0-5-ongoing" class="section level1">
 <h1 class="page-header">
 <a href="#rfishbc-0-0-5-ongoing" class="anchor"></a>RFishBC 0.0.5 ongoing</h1>
+<ul>
+<li>Changed license from MIT to GPL-3.</li>
+<li>
+<code><a href="../reference/combineData.html">combineData()</a></code>: Modified. Better handles filenames (see <code><a href="../reference/FSA-internals.html">iHndlFilenames()</a></code>).</li>
+<li>
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Better handles filenames (see <code><a href="../reference/FSA-internals.html">iHndlFilenames()</a></code>).</li>
+<li>
+<code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>: Modified. Better handles filenames (see <code><a href="../reference/FSA-internals.html">iHndlFilenames()</a></code>).</li>
+<li>
+<code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>: Modified. Better handles filenames (see <code><a href="../reference/FSA-internals.html">iHndlFilenames()</a></code>). Streamlined the looping code. Made a catch for the situation where one of the multiple files selected does not appear to be derived from the same structure image as the first file.</li>
+<li>
+<code><a href="../reference/FSA-internals.html">iHndlFilenames()</a></code>: Modified. Streamlined and changed to using <code>choose.files()</code> to allow for more efficient selection of multiple files. Filtered the choices to image files or RData files. Now checks to see if the user is using Windows and if the selected files are in the current working directory.</li>
+</ul>
 </div>
-    <div id="rfishbc-0-0-5-ongoing-1" class="section level1">
+    <div id="rfishbc-0-0-4-29-apr-18" class="section level1">
 <h1 class="page-header">
-<a href="#rfishbc-0-0-5-ongoing-1" class="anchor"></a>RFishBC 0.0.5 ongoing</h1>
+<a href="#rfishbc-0-0-4-29-apr-18" class="anchor"></a>RFishBC 0.0.4 29-Apr-18</h1>
 <ul>
 <li>Complete reworking of the code. The big difference is a requirement that the data files be in the current working directory.</li>
 <li>
@@ -137,13 +150,9 @@
 <li>
 <code>iFindTransect()</code>: Deleted. Moved into <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.</li>
 <li>
-<code>iHndlFilename1()</code>: Added.</li>
-<li>
-<code>iHndlFilenames()</code>: Deleted. Largely replaced with <code>iHndlFilename1()</code>, but some functionality moved to <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>.</li>
-<li>
 <code>iHndlID()</code>: Deleted. Moved into <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.</li>
 <li>
-<code><a href="../reference/FSA-internals.html">iHndlScalingFactor()</a></code>: Deleted.</li>
+<code>iHndlScalingFactor()</code>: Deleted.</li>
 <li>
 <code>iHndlScalingFactorFromScaleBar()</code>: Added.</li>
 <li>
@@ -193,7 +202,7 @@
 <li>
 <code>iHndlID()</code>: Added. Used in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>. Was modified from initial to include the image filename sans extension as the default ID in the Windows dialog box (when used with <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>), which partially addresses <a href="https://github.com/droglenc/RFishBC/issues/5"><a href='https://github.com/droglenc/RFishBC/issues/5'>#5</a></a>.</li>
 <li>
-<code><a href="../reference/FSA-internals.html">iHndlScalingFactor()</a></code>: Modified. Added <code>pixW2H=</code> argument to receive the pixel width-to-height ratio to adjust distance calculations for non-square images.</li>
+<code>iHndlScalingFactor()</code>: Modified. Added <code>pixW2H=</code> argument to receive the pixel width-to-height ratio to adjust distance calculations for non-square images.</li>
 <li>
 <code><a href="../reference/FSA-internals.html">iPlaceText()</a></code>: Added. Used to address <a href="https://github.com/droglenc/RFishBC/issues/6"><a href='https://github.com/droglenc/RFishBC/issues/6'>#6</a></a>.</li>
 <li>
@@ -222,7 +231,7 @@
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
         <li><a href="#rfishbc-0-0-5-ongoing">0.0.5</a></li>
-        <li><a href="#rfishbc-0-0-5-ongoing-1">0.0.5</a></li>
+        <li><a href="#rfishbc-0-0-4-29-apr-18">0.0.4</a></li>
         <li><a href="#rfishbc-0-0-3-28-apr-18">0.0.3</a></li>
         <li><a href="#rfishbc-0-0-2-27-apr-18">0.0.2</a></li>
         <li><a href="#rfishbc-0-0-1-16-apr-18">0.0.1</a></li>

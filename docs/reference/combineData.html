@@ -129,18 +129,14 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>combineData</span>(<span class='no'>nms</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
+    <pre class="usage"><span class='fu'>combineData</span>(<span class='no'>nms</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>nms</th>
-      <td><p>A character vector of RData file names (without the path) created with  <code><a href='digitizeRadii.html'>digitizeRadii</a></code> from which the radii data will be extracted and combined to form one synthetic data.frame. The files should all be in one folder/directory as given in <code>path</code>.</p></td>
-    </tr>
-    <tr>
-      <th>path</th>
-      <td><p>A string that contains the full path name for the folder/directory the files in <code>nms</code>. Defaults to the current working directory (see <code>getwd</code> result).</p></td>
+      <td><p>A character vector of RData file names that were created with  <code><a href='digitizeRadii.html'>digitizeRadii</a></code>. The files must be in the current working directory (see <code>getwd</code> result).</p></td>
     </tr>
     </table>
     

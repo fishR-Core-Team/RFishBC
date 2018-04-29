@@ -146,7 +146,7 @@
 <p>This list of names can be further filtered by including other key words for the filenames in <code>other=</code>. For example, all files with the “RData” extension that contain the keyword “Scale_1” are returned below. For our purposes here, these filenames are saved into an object (e.g., <code>fns</code>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">( fns &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/listFiles.html">listFiles</a></span>(<span class="st">"RData"</span>,<span class="dt">other=</span><span class="st">"Scale_1"</span>) )
 <span class="co">#&gt; [1] "Scale_1_DHO.RData"  "Scale_1_DHO2.RData" "Scale_1_DHO3.RData"</span></code></pre></div>
-<p>The multiple readings of “Scale_1” can be seen by giving this set of filenames to <code><a href="../../reference/showDigitizedImage.html">showDigitizedImage()</a></code>.</p>
+<p>The multiple readings of “Scale_1” can be seen by giving this set of filenames to <code><a href="../../reference/showDigitizedImage.html">showDigitizedImage()</a></code>.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/showDigitizedImage.html">showDigitizedImage</a></span>(fns)</code></pre></div>
 <p><img src="seeRadiiData_files/figure-html/unnamed-chunk-10-1.png" width="480"></p>
 <p>Aspects of the transects and points may be controlled with arguments to <code>showDigitezedData()</code>. For example, the code below uses different colors for each transect and points.</p>
@@ -163,7 +163,8 @@
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p>If no file name is given, then a dialog box will appear from which the data file can be selected.<a href="#fnref1">↩</a></p></li>
+<li id="fn1"><p>If no file name is given, then a dialog box will appear from which the data file can be selected. It is assumed that the file is in the current working directory.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>If no file names are given, then a dialog box will appear from which multiple data files can be selected.<a href="#fnref2">↩</a></p></li>
 </ol>
 </div>
   </div>
