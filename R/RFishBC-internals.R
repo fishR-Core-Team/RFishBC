@@ -27,17 +27,24 @@ WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
 }
 
 
+
 ########################################################################
 ## Handles processes related to a single file name.
 ########################################################################
-iHndlFilename1 <- function(nm) {
+iHndlFilename1 <- function(nm,filter,multi=TRUE) {
   #### Allow user to select the image from a dialog box.
   if (missing(nm)) {
-    nm <- file.choose()
+    if (grepl('w|W', .Platform$OS.type)) {
+      RFBCFilters <- rbind(images=c("Bitmapped image files",
+                                    "*.jpg;*.jpeg;*.png;*.tiff;*.tif;*.bmp"),
+                           RData=c("RData files (*.RData)",".RData;*.rda"))
+      nm <- choose.files(filter=RFBCFilters[filter,],multi=multi,
+                         caption=ifelse(multi,"Select files","Select a file"))
+    }
     if (missing(nm)) STOP("A filename must be provided in the first argument.")
   }
   #### Make sure that the file is in the current working directory
-  dn <- dirname(nm)
+  dn <- dirname(nm[1])
   wd <- getwd()
   if (dn==".") dn <- wd
   if (dn != wd) {
