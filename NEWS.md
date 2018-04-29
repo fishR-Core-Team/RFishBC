@@ -1,6 +1,7 @@
 # RFishBC 0.0.5 ongoing
+* Changed license from MIT to GPL-3.
 
-# RFishBC 0.0.5 ongoing
+# RFishBC 0.0.4 29-Apr-18
 * Complete reworking of the code. The big difference is a requirement that the data files be in the current working directory.
 * `digitizeRadii()`: Modified. Incorporated some of the internal files, completely rewored the list that is returned, dealt with working directory change.
 * `findScalingFactor()`: Modified. Dealth with working directory chagne.
