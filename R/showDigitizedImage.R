@@ -81,9 +81,14 @@ showDigitizedImage <- function(nm,sepWindow,
     #### Load results (will be in an object called dat)
     load(nm[i])
     #### If first then show the image
-    if (i==1) iGetImage(dat$image,id=NULL,sepWindow=sepWindow,
-                        windowSize=dat$windowSize,showInfo=FALSE,
-                        pos.info=NULL,cex.info=NULL,col.info=NULL)
+    if (i==1) {
+      iGetImage(dat$image,id=NULL,sepWindow=sepWindow,
+                windowSize=dat$windowSize,showInfo=FALSE,
+                pos.info=NULL,cex.info=NULL,col.info=NULL)
+      origImage <- dat$image
+    }
+    if (origImage!=dat$image)
+      STOP("Files appear to derive from different structure images.")
     #### Show transect if asked ... assumes that the focus is in the first row
     #### and the margin is in the last row (should be from digitizeRadii)
     if (showTransect) graphics::lines(y~x,data=dat$pts[c(1,nrow(dat$pts)),],

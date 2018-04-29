@@ -3,7 +3,7 @@
 * `combineData()`: Modified. Better handles filenames (see `iHndlFilenames()`).
 * `digitizeRadii()`: Modified. Better handles filenames (see `iHndlFilenames()`).
 * `findScalingFactor()`: Modified. Better handles filenames (see `iHndlFilenames()`).
-* `showDigitizedImage()`: Modified. Better handles filenames (see `iHndlFilenames()`). Streamlined the looping code.
+* `showDigitizedImage()`: Modified. Better handles filenames (see `iHndlFilenames()`). Streamlined the looping code. Made a catch for the situation where one of the multiple files selected does not appear to be derived from the same structure image as the first file.
 * `iHndlFilenames()`: Modified. Streamlined and changed to using `choose.files()` to allow for more efficient selection of multiple files. Filtered the choices to image files or RData files. Now checks to see if the user is using Windows and if the selected files are in the current working directory.
 
 # RFishBC 0.0.4 29-Apr-18
