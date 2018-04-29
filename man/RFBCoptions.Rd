@@ -32,22 +32,25 @@ The arguments that can be set with this function are:
 \item{\code{scalingFactor}: }{A single numeric used to convert measurements on the structure image to actual measurements on the structure. Measurements on the structure image will be multiplied by this value. Ignored if \code{scaleBar=TRUE}. Defaults to \code{1}. Used in \code{\link{digitizeRadii}}.}
 \item{\code{scaleBar}: }{A single logical that indicates whether the user will be prompted to select the endpoints of a scale-bar on the structure image. If \code{TRUE}, then must also use \code{scaleBarLength}. If \code{FALSE}, then consider using \code{scalingFactor}. Defaults to \code{FALSE}. Used in \code{\link{digitizeRadii}}.}
 \item{\code{scaleBarLength}: }{A single numeric that represents the actual length of the scale-bar. Ignored if \code{scaleBar=FALSE}. Defaults to \code{NULL}; thus, the user must enter a value if \code{scaleBar=TRUE}. Used in \code{\link{digitizeRadii}}.}
-\item{\code{col.scaleBar}: }{The color of the scale-bar line if \code{scalebar=TRUE}. Defaults to \code{"red"}. Used in \code{\link{digitizeRadii}}, \code{\link{showDigitizedImage}}, and \code{\link{findScalingFactor}}.}
+\item{\code{col.scaleBar}: }{The color of the scale-bar line if \code{scalebar=TRUE}. Defaults to \code{"yellow"}. Used in \code{\link{digitizeRadii}}, \code{\link{showDigitizedImage}}, and \code{\link{findScalingFactor}}.}
 \item{\code{lwd.scaleBar}: }{The line width of the scale-bar line if \code{scalebar=TRUE}. Defaults to \code{2}. Used in \code{\link{digitizeRadii}}, \code{\link{showDigitizedImage}}, and \code{\link{findScalingFactor}}.}
 \item{\code{showTransect}: }{A single logical that indicates whether the transection between the points selected at the structure center and margin should be shown. Defaults to \code{TRUE}. Used in \code{\link{digitizeRadii}} and  \code{\link{showDigitizedImage}}.}
 \item{\code{snap2Transect}: }{A single logical that indicates whether the coordinates of the selected points that represent annuli should be moved to fall exactly on the transect from the structure center to margin. If \code{TRUE} then the points will be moved perpendicularly to the transect (and the original user-selected point will not be seen on the image). If \code{FALSE} then the points will be where the user selected them. Defaults to \code{TRUE}. Used in \code{\link{digitizeRadii}}.}
-\item{\code{col.transect}: }{The color of the transect line if \code{showTransect=TRUE} in \code{\link{digitizeRadii}} or \code{showTransect=TRUE} in \code{\link{showDigitizedImage}}. Defaults to \code{"yellow"}.}
-\item{\code{lwd.transect}: }{The width of the transect line if \code{showTransect=TRUE} in \code{\link{digitizeRadii}} or \code{showTransect=TRUE} in \code{\link{showDigitizedImage}}. Defaults to \code{1}.}
-\item{\code{pch.sel}: }{The plotting character of points for selected annuli in \code{\link{digitizeRadii}}. Defaults to \code{3} (a \dQuote{cross hairs}).}
-\item{\code{col.sel}: }{The color of points for selected annuli in \code{\link{digitizeRadii}}. Defaults to \code{"red"}.}
+\item{\code{col.transect}: }{The color of the transect line if \code{showTransect=TRUE}. Defaults to \code{"cyan"}. Used  in \code{\link{digitizeRadii}} or \code{showTransect=TRUE} in \code{\link{showDigitizedImage}}.}
+\item{\code{lwd.transect}: }{The width of the transect line if \code{showTransect=TRUE}. Defaults to \code{2}. Used  in \code{\link{digitizeRadii}} or \code{showTransect=TRUE} in \code{\link{showDigitizedImage}}.}
+\item{\code{pch.sel}: }{The plotting character of points for selected annuli in \code{\link{digitizeRadii}}. Defaults to \code{20} (a small solid circle).}
+\item{\code{col.sel}: }{The color of points for selected annuli in \code{\link{digitizeRadii}}. Defaults to \code{"yellow"}.}
 \item{\code{cex.sel}: }{The character expansion value of points for selected annuli in \code{\link{digitizeRadii}}. Defaults to \code{1}.}
-\item{\code{pch.show}: }{The plotting character for points shown in \code{\link{showDigitizedImage}}. Defaults to \code{19} (a solid dot).}
-\item{\code{col.show}: }{The color of points shown in \code{\link{showDigitizedImage}}. Defaults to \code{"red"}.}
+\item{\code{pch.show}: }{The plotting character for points shown in \code{\link{showDigitizedImage}}. Defaults to \code{19} (a solid circle).}
+\item{\code{col.show}: }{The color of points shown in \code{\link{showDigitizedImage}}. Defaults to \code{"yellow"}.}
 \item{\code{cex.show}: }{The character expansion value of points shown in \code{\link{showDigitizedImage}}. Defaults to \code{1}.}
 \item{\code{showInfo}: }{A single logical that indicates whether the ID information should be shown on the image in \code{\link{digitizeRadii}}. Defaults to \code{TRUE}.}
 \item{\code{pos.info}: }{A single character that indicates where the ID information should be placed when \code{showInfo=TRUE}. See \code{\link{legend}} for position choices. Defaults to \code{"topleft"}. Used in \code{\link{digitizeRadii}}.}
-\item{\code{cex.info}: }{The character expansion for the ID information when \code{showInfo=TRUE}. Used in \code{\link{digitizeRadii}}.}
-\item{\code{col.info}: }{The color for the ID information when \code{showInfo=TRUE}. Used in \code{\link{digitizeRadii}}.}
+\item{\code{cex.info}: }{The character expansion for the ID information when \code{showInfo=TRUE}. Defaults to \code{1.2} Used in \code{\link{digitizeRadii}}.}
+\item{\code{col.info}: }{The color for the ID information when \code{showInfo=TRUE}. Defaults to \code{"yellow"}Used in \code{\link{digitizeRadii}}.}
+\item{\code{showAnnulusLabels}: }{A single logical that indicates whether annulus labels should be shown on the image from \code{\link{showDigitizedImage}}. Defaults to \code{TRUE}, but is ignored if more than one set of annuli will be plotted.}
+\item{\code{col.ann}: }{The color of the annuli number text when \code{showAnnuliLabels=TRUE} in \code{\link{showDigitizedImage}}. Defaults to \code{"yellow"}.}
+\item{\code{cex.ann}: }{The character expansion value  of the annuli number text when \code{showAnnuliLabels=TRUE} in \code{\link{showDigitizedImage}}. Defaults to \code{1.2}.}
 } 
 
 The user will likely only use this function to change arguments at the start of a script, so that those values will be used throughout the analyses in the script. If the values for the arguments need to be changed in any instance of \code{\link{digitizeRadii}} or \code{\link{showDigitizedImage}}, then it is more efficient to change the argument within the call to those functions.

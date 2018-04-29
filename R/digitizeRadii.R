@@ -41,6 +41,9 @@
 #'   \item{\code{basenm}: }{The filename given in \code{img} without the path.}
 #'   \item{\code{dirnm}: }{The directory in which \code{img} was located.}
 #'   \item{\code{datanm}: }{The filename that contains the RData object.}
+#'   \item{\code{edgeIsAnnulus}: }{The logical given in \code{edgeIsAnnulus}.}
+#'   \item{\code{slpTransect}: }{The slope of the transect.}
+#'   \item{\code{slpTransect}: }{The intercept of the transect.}
 #'   \item{\code{pts}: }{A data.frame that contains the \code{x} and \code{y} coordinates on the image for the selected annuli. These points may be \dQuote{snapped} to the transect if \code{snap2Transect==TRUE}.}
 #'   \item{\code{orig.pts}: }{A data.frame that contains the \dQuote{original} \code{x} and \code{y} coordinates on the image for the selected annuli. If \code{snap2Transect=FALSE} then these are the same as the points in \code{pts}. If \code{snap2Transect=TRUE} then these are the originally selected points and will be different then the points in \code{pts}.}
 #'   \item{\code{radii}: }{A data.frome that contains the unique \code{id}, the \code{reading} code, the age-at-capture in \code{agecap}, the annulus number in \code{ann}, the radial measurements in \code{rad}, and the radial measurement at capture in \code{radcap}.}

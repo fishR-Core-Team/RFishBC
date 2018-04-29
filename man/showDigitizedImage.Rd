@@ -5,8 +5,8 @@
 \title{Show points selected on a structure image and saved in an RData file}
 \usage{
 showDigitizedImage(nm, sepWindow, pch.show, col.show, cex.show, showTransect,
-  col.transect, lwd.transect, col.scaleBar, lwd.scaleBar, showOrigPts = FALSE,
-  pch.show2, col.show2, cex.show2)
+  col.transect, lwd.transect, col.scaleBar, lwd.scaleBar, showAnnuliLabels,
+  col.ann, cex.ann, showOrigPts = FALSE, pch.show2, col.show2, cex.show2)
 }
 \arguments{
 \item{nm}{A string that indicates the RData file that contains the R object created with  created with \code{\link{digitizeRadii}} (the loaded object will contain the image and the selected points as). By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (file must be in the current working directory unless a fully pathed name is given).}
@@ -28,6 +28,12 @@ showDigitizedImage(nm, sepWindow, pch.show, col.show, cex.show, showTransect,
 \item{col.scaleBar}{See details in \code{\link{RFBCoptions}}.}
 
 \item{lwd.scaleBar}{See details in \code{\link{RFBCoptions}}.}
+
+\item{showAnnuliLabels}{See details in \code{\link{RFBCoptions}}.}
+
+\item{col.ann}{See details in \code{\link{RFBCoptions}}.}
+
+\item{cex.ann}{See details in \code{\link{RFBCoptions}}.}
 
 \item{showOrigPts}{A logical that indicates whether the original user-selected points (i.e., not snapped to the transect) should be shown or not. If the original selections were not snapped to the transect then this will be ignored.}
 

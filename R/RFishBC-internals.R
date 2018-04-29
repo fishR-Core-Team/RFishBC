@@ -171,8 +171,8 @@ iSelectAnnuli <- function(pch.pts,col.pts,cex.pts,
   ## Deal with transect first
   trans <- iFindTransect(pch.pts=pch.pts,col.pts=col.pts,cex.pts=cex.pts)
   if (showTransect) iShowTransect(trans$ptsTransect,
-                                 col.transect=col.transect,
-                                 lwd.transect=lwd.transect)
+                                  col.transect=col.transect,
+                                  lwd.transect=lwd.transect)
   
   ## Deal with annuli second
   message("\n>> Select points that are annuli.\n",
@@ -215,8 +215,13 @@ iSelectAnnuli <- function(pch.pts,col.pts,cex.pts,
   if (!nrow(pts)>2) STOP("No points were selected as annuli.")
   message("   * ",nrow(pts)," points were selected.\n")
   
-  ## Return the two types of selected points
-  list(pts=pts,orig.pts=orig.pts)
+  ## Re-order points by distance from the first point (the focus)
+  pts <- iOrderPts(pts)
+  orig.pts <- iOrderPts(orig.pts)
+  
+  ## Return the two types of selected points and info about the transect
+  list(pts=pts,orig.pts=orig.pts,
+       slpTransect=trans$slpTransect,intTransect=trans$intTransect)
 }
 
 
@@ -299,8 +304,8 @@ iProcessAnnuli <- function(nms,dat,id,reading,suffix,description,
   distxy <- sqrt(distx^2+disty^2)
   ## Correct distances for scalingFactor ... and call a radius
   rad <- distxy*scalingFactor
-  ## Sort the radii to be in increasing order (allows user to select
-  ##   them in any order)
+  ## Sort the radii to be in increasing order (allows user to select the
+  ##   points in any order)
   rad <- rad[order(rad)]
   ## create data.frame with radii information
   reading <- ifelse(is.null(reading),NA,reading)
@@ -316,10 +321,52 @@ iProcessAnnuli <- function(nms,dat,id,reading,suffix,description,
               datanm=paste0(tools::file_path_sans_ext(nms$basenm),
                             ifelse(!is.null(suffix),"_",""),
                             suffix,".RData"),
+              edgeIsAnnulus=edgeIsAnnulus,
+              slpTransect=dat$slpTransect,intTransect=dat$intTransect,
               pts=dat$pts,orig.pts=dat$orig.pts,radii=radii)
   dat
 }
 
+
+
+########################################################################
+## Show annuli numbers on the showDigitizedImage() image
+##
+########################################################################
+iShowAnnuliLabels <- function(dat,col.ann,cex.ann) {
+  ## Get points to plot
+  pts <- dat$pts
+  
+  ## Find the degree of angle for the transect slope
+  deg <- atan(dat$slpTransect)*180/pi
+  #### Adjust for the quadrant in which the transect is in
+  if (pts$x[nrow(pts)]<pts$x[1]) deg <- deg+180
+  ## Convert absolute transect degress into a position for the text
+  deg <- abs(deg)
+  if (deg>=0 & deg<=45) pos <- 1        # below
+  else if (deg>45 & deg<=90) pos <- 4   # right
+  else if (deg>90 & deg<=135) pos <- 2  # left
+  else if (deg>135 & deg>=180) pos <- 1 # below
+  
+  ## Put on text
+  lbls <- c("",1:(nrow(pts)-1))
+  if (!dat$edgeIsAnnulus) lbls[length(lbls)] <- ""
+  graphics::text(y~x,data=dat$pts,labels=lbls,font=2,
+                 col=col.ann,cex=cex.ann,pos=pos)
+}
+
+
+
+
+########################################################################
+## Orders a data.frame of x-y coordinates by distance from first point.
+########################################################################
+iOrderPts <- function(pts) {
+  ## find a matrix of distances from the first point (in the first column
+  ## returned by dist()), finds the order of those distances, and re-orders
+  ## the original points by that order and returns the result
+  pts[order(as.matrix(stats::dist(pts))[,1]),]
+}
 
 
 
