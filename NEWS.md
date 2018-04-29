@@ -1,4 +1,5 @@
 # RFishBC 0.0.6 ongoing
+* `digitizeRadii()`: Modified. Fixed bug related to `showTransect=`.
 
 # RFishBC 0.0.5 29-Apr-18
 * Changed license from MIT to GPL-3.

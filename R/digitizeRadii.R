@@ -153,7 +153,8 @@ digitizeRadii <- function(img,id,reading,suffix,
   intTransect <- trans.pts$y[1]-slpTransect*trans.pts$x[1]
   slpPerpTransect <- -1/slpTransect
   #### Show the transect if asked to
-  graphics::lines(y~x,data=trans.pts,lwd=lwd.transect,col=col.transect)
+  if (showTransect) graphics::lines(y~x,data=trans.pts,
+                                    lwd=lwd.transect,col=col.transect)
   
   ## User selects annuli on the image ==========================================
   message("\n>> Select points that are annuli.\n",
