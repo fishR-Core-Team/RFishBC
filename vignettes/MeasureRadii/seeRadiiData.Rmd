@@ -45,7 +45,7 @@ library(RFishBC)
 ----
 
 # Visualize one Set of Annuli
-You can review the selected annuli on a structure with `showDigitizedImage()`, which requires only the name of an RData file creates from `digitizeRadii()`.[^sdifilename] The plotting character, color, and relative size of the selected points may be changed with `pch.show=`, `col.show=`, and `cex.show=`, respectively. The color and width of the "transect" may be changed with `col.transect=` and `lwd.transect=`, or excluded altogether with `showTransect=FALSE`. Annuli will be numbered if `showAnnuliLabels=TRUE` (the default) with label colors and relative size changed with `col.ann=` and `cex.ann=`, respectively. Annuli for which numbers are plotted may be controlled with `annuliLabels=` (e.g., only the first ten are shown for the Kiyi otolith below). Defaults for these arguments can be set with `RFBCoptions()` as was demonstrated in the [Setting Arguments section of this vignette](collectRadiiData.html#setoptions1)
+You can review the selected annuli on a structure with `showDigitizedImage()`, which requires only the name of an RData file creates from `digitizeRadii()`.[^sdifilename] The plotting character, color, and relative size of the selected points may be changed with `pch.show=`, `col.show=`, and `cex.show=`, respectively. The color and width of the "transect" may be changed with `col.transect=` and `lwd.transect=`, or excluded altogether with `showTransect=FALSE`. Annuli will be numbered if `showAnnuliLabels=TRUE` (the default) with label colors and relative size changed with `col.ann=` and `cex.ann=`, respectively. Annuli for which numbers are plotted may be controlled with `annuliLabels=` (e.g., only the first six are shown for the Kiyi otolith below). Defaults for these arguments can be set with `RFBCoptions()` as was demonstrated in the [Setting Arguments section of this vignette](collectRadiiData.html#setoptions1)
 
 ```{r eval=FALSE}
 showDigitizedImage("Scale_1_DHO.RData")
@@ -58,12 +58,12 @@ showDigitizedImage("Scale_1_DHO.RData",sepWindow=FALSE)
 ```{r eval=FALSE}
 showDigitizedImage("Oto140306_DHO.RData",pch.show="+",col.show="blue",
                    col.transect="white",col.ann="black",cex.ann=1,
-                   annuliLabels=1:10)
+                   annuliLabels=1:6)
 ```
 ```{r echo=FALSE,fig.height=5*228/548,fig.width=5}
 showDigitizedImage("Oto140306_DHO.RData",pch.show="+",col.show="blue",
                    col.transect="white",col.ann="black",cex.ann=1,
-                   annuliLabels=1:10,sepWindow=FALSE)
+                   annuliLabels=1:6,sepWindow=FALSE)
 ```
 
 \  

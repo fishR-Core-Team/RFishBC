@@ -352,7 +352,7 @@ iShowAnnuliLabels <- function(dat,annuliLabels,col.ann,cex.ann) {
   #### make labels from 1 to the number of points marked (-1 for the focus)
   lbls <- 1:(nrow(pts)-1)
   #### convert annuli not in annuliLabels to ""
-  lbls[!lbls %in% annuliLabels] <- ""
+  if (!is.null(annuliLabels)) lbls[!lbls %in% annuliLabels] <- ""
   #### add a "" for the focus
   lbls <- c("",lbls)
   #### remove the annuli number for the edge if it is not an annulus

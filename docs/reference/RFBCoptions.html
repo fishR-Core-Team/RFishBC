@@ -163,22 +163,26 @@ Additionally, a user may want to change a number of these arguments from their d
 <li><p><code>scalingFactor</code>: A single numeric used to convert measurements on the structure image to actual measurements on the structure. Measurements on the structure image will be multiplied by this value. Ignored if <code>scaleBar=TRUE</code>. Defaults to <code>1</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
 <li><p><code>scaleBar</code>: A single logical that indicates whether the user will be prompted to select the endpoints of a scale-bar on the structure image. If <code>TRUE</code>, then must also use <code>scaleBarLength</code>. If <code>FALSE</code>, then consider using <code>scalingFactor</code>. Defaults to <code>FALSE</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
 <li><p><code>scaleBarLength</code>: A single numeric that represents the actual length of the scale-bar. Ignored if <code>scaleBar=FALSE</code>. Defaults to <code>NULL</code>; thus, the user must enter a value if <code>scaleBar=TRUE</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
-<li><p><code>col.scaleBar</code>: The color of the scale-bar line if <code>scalebar=TRUE</code>. Defaults to <code>"red"</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>, <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>, and <code><a href='findScalingFactor.html'>findScalingFactor</a></code>.</p></li>
+<li><p><code>col.scaleBar</code>: The color of the scale-bar line if <code>scalebar=TRUE</code>. Defaults to <code>"yellow"</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>, <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>, and <code><a href='findScalingFactor.html'>findScalingFactor</a></code>.</p></li>
 <li><p><code>lwd.scaleBar</code>: The line width of the scale-bar line if <code>scalebar=TRUE</code>. Defaults to <code>2</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>, <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>, and <code><a href='findScalingFactor.html'>findScalingFactor</a></code>.</p></li>
 <li><p><code>showTransect</code>: A single logical that indicates whether the transection between the points selected at the structure center and margin should be shown. Defaults to <code>TRUE</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code> and  <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>.</p></li>
 <li><p><code>snap2Transect</code>: A single logical that indicates whether the coordinates of the selected points that represent annuli should be moved to fall exactly on the transect from the structure center to margin. If <code>TRUE</code> then the points will be moved perpendicularly to the transect (and the original user-selected point will not be seen on the image). If <code>FALSE</code> then the points will be where the user selected them. Defaults to <code>TRUE</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
-<li><p><code>col.transect</code>: The color of the transect line if <code>showTransect=TRUE</code> in <code><a href='digitizeRadii.html'>digitizeRadii</a></code> or <code>showTransect=TRUE</code> in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>. Defaults to <code>"yellow"</code>.</p></li>
-<li><p><code>lwd.transect</code>: The width of the transect line if <code>showTransect=TRUE</code> in <code><a href='digitizeRadii.html'>digitizeRadii</a></code> or <code>showTransect=TRUE</code> in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>. Defaults to <code>1</code>.</p></li>
-<li><p><code>pch.sel</code>: The plotting character of points for selected annuli in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>. Defaults to <code>3</code> (a &#8220;cross hairs&#8221;).</p></li>
-<li><p><code>col.sel</code>: The color of points for selected annuli in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>. Defaults to <code>"red"</code>.</p></li>
+<li><p><code>col.transect</code>: The color of the transect line if <code>showTransect=TRUE</code>. Defaults to <code>"cyan"</code>. Used  in <code><a href='digitizeRadii.html'>digitizeRadii</a></code> or <code>showTransect=TRUE</code> in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>.</p></li>
+<li><p><code>lwd.transect</code>: The width of the transect line if <code>showTransect=TRUE</code>. Defaults to <code>2</code>. Used  in <code><a href='digitizeRadii.html'>digitizeRadii</a></code> or <code>showTransect=TRUE</code> in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>.</p></li>
+<li><p><code>pch.sel</code>: The plotting character of points for selected annuli in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>. Defaults to <code>20</code> (a small solid circle).</p></li>
+<li><p><code>col.sel</code>: The color of points for selected annuli in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>. Defaults to <code>"yellow"</code>.</p></li>
 <li><p><code>cex.sel</code>: The character expansion value of points for selected annuli in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>. Defaults to <code>1</code>.</p></li>
-<li><p><code>pch.show</code>: The plotting character for points shown in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>. Defaults to <code>19</code> (a solid dot).</p></li>
-<li><p><code>col.show</code>: The color of points shown in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>. Defaults to <code>"red"</code>.</p></li>
+<li><p><code>pch.show</code>: The plotting character for points shown in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>. Defaults to <code>19</code> (a solid circle).</p></li>
+<li><p><code>col.show</code>: The color of points shown in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>. Defaults to <code>"yellow"</code>.</p></li>
 <li><p><code>cex.show</code>: The character expansion value of points shown in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>. Defaults to <code>1</code>.</p></li>
 <li><p><code>showInfo</code>: A single logical that indicates whether the ID information should be shown on the image in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>. Defaults to <code>TRUE</code>.</p></li>
 <li><p><code>pos.info</code>: A single character that indicates where the ID information should be placed when <code>showInfo=TRUE</code>. See <code>legend</code> for position choices. Defaults to <code>"topleft"</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
-<li><p><code>cex.info</code>: The character expansion for the ID information when <code>showInfo=TRUE</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
-<li><p><code>col.info</code>: The color for the ID information when <code>showInfo=TRUE</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
+<li><p><code>cex.info</code>: The character expansion for the ID information when <code>showInfo=TRUE</code>. Defaults to <code>1.2</code> Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
+<li><p><code>col.info</code>: The color for the ID information when <code>showInfo=TRUE</code>. Defaults to <code>"yellow"</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
+<li><p><code>showAnnuliLabels</code>: A single logical that indicates whether annulus labels should be shown on the image from <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>. Defaults to <code>TRUE</code>, but is ignored if more than one set of annuli will be plotted.</p></li>
+<li><p><code>annuliLabels</code>: A numeric vector that indicates the numbers for which annuli should be labeled when <code>showAnnuliLabels=TRUE</code>. Defaults to <code>NULL</code> which indicates that all annuli should be labelled. Used in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>.</p></li>
+<li><p><code>col.ann</code>: The color of the annuli number text when <code>showAnnuliLabels=TRUE</code> in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>. Defaults to <code>"yellow"</code>.</p></li>
+<li><p><code>cex.ann</code>: The character expansion value  of the annuli number text when <code>showAnnuliLabels=TRUE</code> in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>. Defaults to <code>1.2</code>.</p></li>
 </ul>
     <p>The user will likely only use this function to change arguments at the start of a script, so that those values will be used throughout the analyses in the script. If the values for the arguments need to be changed in any instance of <code><a href='digitizeRadii.html'>digitizeRadii</a></code> or <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>, then it is more efficient to change the argument within the call to those functions.</p>
 <p>The argument values can be reset to the original defaults by using <code>reset=TRUE</code>. See examples.</p>
@@ -221,7 +225,7 @@ Additionally, a user may want to change a number of these arguments from their d
 #&gt; NULL
 #&gt; 
 #&gt; $col.scaleBar
-#&gt; [1] "red"
+#&gt; [1] "yellow"
 #&gt; 
 #&gt; $lwd.scaleBar
 #&gt; [1] 2
@@ -233,16 +237,16 @@ Additionally, a user may want to change a number of these arguments from their d
 #&gt; [1] TRUE
 #&gt; 
 #&gt; $col.transect
-#&gt; [1] "yellow"
+#&gt; [1] "cyan"
 #&gt; 
 #&gt; $lwd.transect
-#&gt; [1] 1
+#&gt; [1] 2
 #&gt; 
 #&gt; $pch.sel
-#&gt; [1] 3
+#&gt; [1] 20
 #&gt; 
 #&gt; $col.sel
-#&gt; [1] "red"
+#&gt; [1] "yellow"
 #&gt; 
 #&gt; $cex.sel
 #&gt; [1] 1
@@ -251,7 +255,7 @@ Additionally, a user may want to change a number of these arguments from their d
 #&gt; [1] 19
 #&gt; 
 #&gt; $col.show
-#&gt; [1] "red"
+#&gt; [1] "yellow"
 #&gt; 
 #&gt; $cex.show
 #&gt; [1] 1
@@ -262,11 +266,23 @@ Additionally, a user may want to change a number of these arguments from their d
 #&gt; $pos.info
 #&gt; [1] "topleft"
 #&gt; 
-#&gt; $cex.info
-#&gt; [1] 1.5
-#&gt; 
 #&gt; $col.info
 #&gt; [1] "yellow"
+#&gt; 
+#&gt; $cex.info
+#&gt; [1] 1.2
+#&gt; 
+#&gt; $showAnnuliLabels
+#&gt; [1] TRUE
+#&gt; 
+#&gt; $annuliLabels
+#&gt; NULL
+#&gt; 
+#&gt; $col.ann
+#&gt; [1] "yellow"
+#&gt; 
+#&gt; $cex.ann
+#&gt; [1] 1.2
 #&gt; </div><div class='input'>
 <span class='co'>## Show how to see and set one option</span>
 <span class='fu'>RFBCoptions</span>()$<span class='no'>showTransect</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>RFBCoptions</span>(<span class='kw'>showTransect</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
