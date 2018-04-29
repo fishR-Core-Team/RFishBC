@@ -7,3 +7,4 @@
 ^\.gitignore$
 ^_pkgdown\.yml
 ^README\.md
+^\.travis\.yml$
