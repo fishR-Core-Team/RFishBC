@@ -4,8 +4,7 @@
 \alias{STOP}
 \alias{.onAttach}
 \alias{WARN}
-\alias{iHndlFilenam1}
-\alias{iHndlScalingFactor}
+\alias{iHndlFilenames}
 \alias{iGetImage}
 \alias{iPts2Rad}
 \alias{iSnap2Transect}

@@ -31,7 +31,7 @@ findScalingFactor <- function(img,knownLength,
   if (missing(lwd.scaleBar)) lwd.scaleBar <- iGetopt("lwd.scaleBar")
 
   ## Handle the filename
-  img <- iHndlFilename1(img)
+  img <- iHndlFilenames(img,filter="images",multi=FALSE)
   
   ## Read the image
   windowInfo <- iGetImage(img,sepWindow,windowSize)

@@ -1,5 +1,10 @@
 # RFishBC 0.0.5 ongoing
 * Changed license from MIT to GPL-3.
+* `combineData()`: Modified. Better handles filenames (see `iHndlFilenames()`).
+* `digitizeRadii()`: Modified. Better handles filenames (see `iHndlFilenames()`).
+* `findScalingFactor()`: Modified. Better handles filenames (see `iHndlFilenames()`).
+* `showDigitizedImage()`: Modified. Better handles filenames (see `iHndlFilenames()`). Streamlined the looping code.
+* `iHndlFilenames()`: Modified. Streamlined and changed to using `choose.files()` to allow for more efficient selection of multiple files. Filtered the choices to image files or RData files. Now checks to see if the user is using Windows and if the selected files are in the current working directory.
 
 # RFishBC 0.0.4 29-Apr-18
 * Complete reworking of the code. The big difference is a requirement that the data files be in the current working directory.
@@ -7,8 +12,6 @@
 * `findScalingFactor()`: Modified. Dealth with working directory chagne.
 * `showDigitizedImages()`: Modified. Incorporated some of the internal files and dealt with working directory change.
 * `iFindTransect()`: Deleted. Moved into `digitizeRadii()`.
-* `iHndlFilename1()`: Added.
-* `iHndlFilenames()`: Deleted. Largely replaced with `iHndlFilename1()`, but some functionality moved to `showDigitizedImage()`.
 * `iHndlID()`: Deleted. Moved into `digitizeRadii()`.
 * `iHndlScalingFactor()`: Deleted.
 * `iHndlScalingFactorFromScaleBar()`: Added.

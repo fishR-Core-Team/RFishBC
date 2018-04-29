@@ -12,7 +12,8 @@ digitizeRadii("Scale_2.jpg",id="2",reading="DHO",edgeIsAnnulus=FALSE)
 showDigitizedImage("Scale_1_DHO.RData")
 showDigitizedImage(c("Scale_1_DHO.RData","Scale_1_DHO2.RData","Scale_1_DHO3.RData"))
 
-
+showDigitizedImage()
+combineData()
 
 ## Process the otolith
 digitizeRadii("Oto140306.jpg",id="140306",reading="DHO",

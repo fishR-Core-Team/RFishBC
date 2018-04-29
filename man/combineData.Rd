@@ -4,12 +4,10 @@
 \alias{combineData}
 \title{Combines radii data from multiple files into}
 \usage{
-combineData(nms, path = ".")
+combineData(nms)
 }
 \arguments{
-\item{nms}{A character vector of RData file names (without the path) created with  \code{\link{digitizeRadii}} from which the radii data will be extracted and combined to form one synthetic data.frame. The files should all be in one folder/directory as given in \code{path}.}
-
-\item{path}{A string that contains the full path name for the folder/directory the files in \code{nms}. Defaults to the current working directory (see \code{\link{getwd}} result).}
+\item{nms}{A character vector of RData file names that were created with  \code{\link{digitizeRadii}}. The files must be in the current working directory (see \code{\link{getwd}} result).}
 }
 \value{
 A data.frame that contains the radii data created with \code{\link{digitizeRadii}} for all files given in \code{nms}.

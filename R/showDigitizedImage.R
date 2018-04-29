@@ -63,70 +63,50 @@ showDigitizedImage <- function(nm,sepWindow,
   dat <- NULL # try to avoid "no visible binding" note
   
   ## Get image file names ######################################################
-  if (missing(nm)) {
-    nm <- file.choose()
-    if (missing(nm)) STOP("A filename must be provided.")
-    #### Make sure that the file is in the current working directory
-    if (dirname(nm) != getwd()) {
-      message("The current working directory is ",getwd())
-      message("The directory with the chosen file is ",dirname(nm))
-      STOP("The filename in 'nm' MUST be in the current working directory.\n",
-           "Please use 'setwd()' to change the working directory\n",
-           "and then run 'showDigitizeImage' again.")
-    }
-  }
-  # Must handle filenames differently if one or multiple are given
-  if (is.list(nm)) {
-    ## Only one image will be shown ... load the data object
-    load(nm)
-    num2do <- 1
-  } else {
-    ## One image with multiple points will be shown ... load first data object
-    load(nm[1])
-    num2do <- length(nm)
-  }
-  ## Show the image
-  iGetImage(dat$image,NULL,sepWindow,dat$windowSize,FALSE,NULL,NULL,NULL)
-  ## Show the putative transect ... assumes that the focus is in the first row
-  ## and the margin is in the last row (as they should be from digitizeRadii)
-  if (showTransect) graphics::lines(y~x,data=dat$pts[c(1,nrow(dat$pts)),],
-                                    lwd=lwd.transect[1],col=col.transect[1])
-  ## Show scale-bar, if it was digitized
-  if (!is.null(dat$sbPts)) {
-    graphics::lines(y~x,data=dat$sbPts,col=col.scaleBar,lwd=lwd.scaleBar)
-  }
-  ## Show points
-  graphics::points(dat$pts,pch=pch.show[1],col=col.show[1],cex=cex.show[1])
-  ## Show annuli labels if asked to do so
-  if (showAnnuliLabels & num2do==1) iShowAnnuliLabels(dat,
-                                    annuliLabels=annuliLabels,
-                                    col.ann=col.ann,cex.ann=cex.ann)
-  ## Show original points if asked and if snapped to transect
-  if (showOrigPts & dat$snap2Transect)
-    graphics::points(dat$orig.pts,pch=pch.show2[1],col=col.show2[1],
-                     cex=cex.show2[1])
-  ## Add other results
-  if (num2do>1) {
-    # expand colors
-    pch.show <- rep(pch.show,ceiling(num2do/length(pch.show)))
-    col.show <- rep(col.show,ceiling(num2do/length(col.show)))
-    cex.show <- rep(cex.show,ceiling(num2do/length(cex.show)))
-    col.transect <- rep(col.transect,ceiling(num2do/length(col.transect)))
-    lwd.transect <- rep(lwd.transect,ceiling(num2do/length(lwd.transect)))
-    pch.show2 <- rep(pch.show2,ceiling(num2do/length(pch.show2)))
-    col.show2 <- rep(col.show2,ceiling(num2do/length(col.show2)))
-    cex.show2 <- rep(cex.show2,ceiling(num2do/length(cex.show2)))
-    for (i in 2:num2do) {
-      load(nm[i])
-      if (showTransect) graphics::lines(y~x,data=dat$pts[c(1,nrow(dat$pts)),],
-                                        lwd=lwd.transect[i],col=col.transect[i])
-      graphics::points(dat$pts,pch=pch.show[i],col=col.show[i],cex=cex.show[i])
+  nm <- iHndlFilenames(nm,filter="RData",multi=TRUE)
+  ## Prepare for multiple readings #############################################
+  num2do <- length(nm)
+  # expand pchs, colors, cexs, lwds to number of transects
+  pch.show <- rep(pch.show,ceiling(num2do/length(pch.show)))
+  col.show <- rep(col.show,ceiling(num2do/length(col.show)))
+  cex.show <- rep(cex.show,ceiling(num2do/length(cex.show)))
+  col.transect <- rep(col.transect,ceiling(num2do/length(col.transect)))
+  lwd.transect <- rep(lwd.transect,ceiling(num2do/length(lwd.transect)))
+  pch.show2 <- rep(pch.show2,ceiling(num2do/length(pch.show2)))
+  col.show2 <- rep(col.show2,ceiling(num2do/length(col.show2)))
+  cex.show2 <- rep(cex.show2,ceiling(num2do/length(cex.show2)))
+
+  ## Display results ###########################################################
+  for (i in seq_along(nm)) {
+    #### Load results (will be in an object called dat)
+    load(nm[i])
+    #### If first then show the image
+    if (i==1) iGetImage(dat$image,id=NULL,sepWindow=sepWindow,
+                        windowSize=dat$windowSize,showInfo=FALSE,
+                        pos.info=NULL,cex.info=NULL,col.info=NULL)
+    #### Show transect if asked ... assumes that the focus is in the first row
+    #### and the margin is in the last row (should be from digitizeRadii)
+    if (showTransect) graphics::lines(y~x,data=dat$pts[c(1,nrow(dat$pts)),],
+                                      lwd=lwd.transect[i],col=col.transect[i])
+    #### Show scale-bar, if it was digitized
+    if (!is.null(dat$sbPts)) graphics::lines(y~x,data=dat$sbPts,
+                                             col=col.scaleBar,lwd=lwd.scaleBar)
+    #### Show points
+    graphics::points(dat$pts,pch=pch.show[i],col=col.show[i],cex=cex.show[i])
+    #### Show annuli labels and original points if asked to do so AND only if
+    #### there is one set of readings to show
+    if (num2do==1) {
+      #### Show annuli labels if asked to do so
+      if (showAnnuliLabels) iShowAnnuliLabels(dat,annuliLabels=annuliLabels,
+                                              col.ann=col.ann,cex.ann=cex.ann)
+      ## Show original points if asked and if snapped to transect
       if (showOrigPts & dat$snap2Transect)
-        graphics::points(dat$orig.pts,pch=pch.show2[i],col=col.show2[i],
-                         cex=cex.show2[i])
+        graphics::points(dat$orig.pts,pch=pch.show2[1],col=col.show2[1],
+                         cex=cex.show2[1])      
     }
   }
 }
+
 
 
 

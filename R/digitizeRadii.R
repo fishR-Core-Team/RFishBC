@@ -100,7 +100,7 @@ digitizeRadii <- function(img,id,reading,suffix,
   if (missing(col.info)) col.info <- iGetopt("col.info")
   
   ## Handle getting the image filename =========================================
-  img <- iHndlFilename1(img,filter="images",multi=FALSE)
+  img <- iHndlFilenames(img,filter="images",multi=FALSE)
 
   ## Handle the ID =============================================================
   if (missing(id)) {

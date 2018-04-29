@@ -4,7 +4,7 @@
 #'
 #' @rdname FSA-internals
 #' @keywords internal
-#' @aliases .onAttach STOP WARN iHndlFilenam1 iHndlScalingFactor iGetImage iPts2Rad iSnap2Transect iScalingFactorFromScaleBar iPlaceText
+#' @aliases .onAttach STOP WARN iHndlFilenames iGetImage iPts2Rad iSnap2Transect iScalingFactorFromScaleBar iPlaceText
 
 
 ################################################################################
@@ -31,30 +31,32 @@ WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
 ########################################################################
 ## Handles processes related to a single file name.
 ########################################################################
-iHndlFilename1 <- function(nm,filter,multi=TRUE) {
+iHndlFilenames <- function(nm,filter,multi=TRUE) {
   #### Allow user to select the image from a dialog box.
   if (missing(nm)) {
     if (grepl('w|W', .Platform$OS.type)) {
       RFBCFilters <- rbind(images=c("Bitmapped image files",
                                     "*.jpg;*.jpeg;*.png;*.tiff;*.tif;*.bmp"),
-                           RData=c("RData files (*.RData)",".RData;*.rda"))
-      nm <- choose.files(filter=RFBCFilters[filter,],multi=multi,
-                         caption=ifelse(multi,"Select files","Select a file"))
+                           utils::Filters[c("RData","All"),])
+      nm <- utils::choose.files(filter=RFBCFilters[c("All",filter),,drop=FALSE],
+                                multi=multi,
+                                caption=ifelse(multi,"Select files",
+                                               "Select a file"))
     }
-    if (missing(nm)) STOP("A filename must be provided in the first argument.")
+    if (missing(nm)| length(nm)==0)
+      STOP("A filename must be provided in the first argument.")
   }
   #### Make sure that the file is in the current working directory
   dn <- dirname(nm[1])
   wd <- getwd()
-  if (dn==".") dn <- wd
-  if (dn != wd) {
+  if (!dn %in% c(".",wd)) {
     message("The current working directory is ",wd)
     message("The directory with the chosen image file is ",dn)
     STOP("The filename in MUST be in the current working directory.\n",
          "Please use 'setwd()' to change the working directory\n",
          "and then try the function again.")
   }
-  #### Make sure just the filename (no path info) is returned
+  #### Make sure just the filenames (no path info) is returned
   basename(nm)
 }
 
