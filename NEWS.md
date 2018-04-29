@@ -1,4 +1,20 @@
-# RFishBC 0.0.3 ongoing
+# RFishBC 0.0.4 ongoing
+* Complete reworking of the code. The big difference is a requirement that the data files be in the current working directory.
+* `digitizeRadii()`: Modified. Incorporated some of the internal files, completely rewored the list that is returned, dealt with working directory change.
+* `findScalingFactor()`: Modified. Dealth with working directory chagne.
+* `showDigitizedImages()`: Modified. Incorporated some of the internal files and dealt with working directory change.
+* `iFindTransect()`: Deleted. Moved into `digitizeRadii()`.
+* `iHndlFilename1()`: Added.
+* `iHndlFilenames()`: Deleted. Largely replaced with `iHndlFilename1()`, but some functionality moved to `showDigitizedImage()`.
+* `iHndlID()`: Deleted. Moved into `digitizeRadii()`.
+* `iHndlScalingFactor()`: Deleted.
+* `iHndlScalingFactorFromScaleBar()`: Added.
+* `iProcessAnnuli()`: Deleted. Moved into `digitizeRadii()`.
+* `iPts2Rad()`: Added.
+* `iSelectAnnuli()`: Deleted. Moved into `digitizeRadii()`.
+* `iShowTransect()`: Deleted. Deleted. Moved into `digitizeRadii()` and `showDigitizedImage()`.
+
+# RFishBC 0.0.3 28-Apr-18
 * `digitizeRadii()`: Modified. Slight modification to the messages in the console. Re worked the code with `locator()` so that the points will be shown "snapped to the transect" if `snap2Transect=TRUE` (this addresses [#7](https://github.com/droglenc/RFishBC/issues/7)). Added an `orig.pts` data.frame to the RData object which contains the original (non-snapped to transect) points (which can be plotted with `showDigitizedImage()`). Changed `addTransect=` to `showTransect=` to make more similar to `showDigitezedImages()`.
 * `RFBCoptions()`: Modified. Added `showAnnuliLabels=`, `col.ann=`, and `cex.ann=` for use in `showDigitizedImage()`. Changed defaults of mostly colors, pchs, and cexs.
 * `showDigitizedImage()`: Modified. Added `showAnnuliLabels=`, `col.ann=`, and `cex.ann=` to shown annuli numbers when just one transect is shown. Added `showOrigPts=`, `pch.show2=`, `col.show2=`, and `cex.show2=` to handle including original points on the image.

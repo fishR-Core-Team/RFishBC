@@ -2,7 +2,7 @@
 #' 
 #' @description Show points selected on a structure image to represent annuli that were saved to an RData file using \code{\link{digitizeRadii}}. This allows the user to reexaminine the selected points or overlay selected points from multiple readings of the structure.
 #' 
-#' @param nm A string that indicates the RData file that contains the R object created with  created with \code{\link{digitizeRadii}} (the loaded object will contain the image and the selected points as). By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (file must be in the current working directory unless a fully pathed name is given).
+#' @param nm A string that indicates the RData file created with \code{\link{digitizeRadii}}. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file. Either way the file must be in the current working directory.
 #' @param sepWindow See details in \code{\link{RFBCoptions}}.
 #' @param pch.show See details in \code{\link{RFBCoptions}}.
 #' @param col.show See details in \code{\link{RFBCoptions}}.
@@ -60,25 +60,37 @@ showDigitizedImage <- function(nm,sepWindow,
   if (missing(pch.show2)) pch.show2 <- pch.show
   if (missing(col.show2)) col.show2 <- col.show
   if (missing(cex.show2)) cex.show2 <- cex.show
-  fnames <- iHndlFilename(nm)
   dat <- NULL # try to avoid "no visible binding" note
+  
+  ## Get image file names ######################################################
+  if (missing(nm)) {
+    nm <- file.choose()
+    if (missing(nm)) STOP("A filename must be provided.")
+    #### Make sure that the file is in the current working directory
+    if (dirname(nm) != getwd()) {
+      message("The current working directory is ",getwd())
+      message("The directory with the chosen file is ",dirname(nm))
+      STOP("The filename in 'nm' MUST be in the current working directory.\n",
+           "Please use 'setwd()' to change the working directory\n",
+           "and then run 'showDigitizeImage' again.")
+    }
+  }
   # Must handle filenames differently if one or multiple are given
-  if (is.list(fnames)) {
+  if (is.list(nm)) {
     ## Only one image will be shown ... load the data object
-    load(fnames$givennm)
+    load(nm)
     num2do <- 1
   } else {
     ## One image with multiple points will be shown ... load first data object
-    load(fnames[1])
-    num2do <- length(fnames)
+    load(nm[1])
+    num2do <- length(nm)
   }
   ## Show the image
   iGetImage(dat$image,NULL,sepWindow,dat$windowSize,FALSE,NULL,NULL,NULL)
   ## Show the putative transect ... assumes that the focus is in the first row
   ## and the margin is in the last row (as they should be from digitizeRadii)
-  if (showTransect) iShowTransect(dat$pts[c(1,nrow(dat$pts)),],
-                                  lwd.transect=lwd.transect[1],
-                                  col.transect=col.transect[1])
+  if (showTransect) graphics::lines(y~x,data=dat$pts[c(1,nrow(dat$pts)),],
+                                    lwd=lwd.transect[1],col=col.transect[1])
   ## Show scale-bar, if it was digitized
   if (!is.null(dat$sbPts)) {
     graphics::lines(y~x,data=dat$sbPts,col=col.scaleBar,lwd=lwd.scaleBar)
@@ -105,15 +117,49 @@ showDigitizedImage <- function(nm,sepWindow,
     col.show2 <- rep(col.show2,ceiling(num2do/length(col.show2)))
     cex.show2 <- rep(cex.show2,ceiling(num2do/length(cex.show2)))
     for (i in 2:num2do) {
-      load(fnames[i])
-      if (showTransect) iShowTransect(dat$pts[c(1,nrow(dat$pts)),],
-                                      lwd.transect=lwd.transect[i],
-                                      col.transect=col.transect[i])
-      graphics::points(dat$pts,pch=pch.show[i],col=col.show[i],
-                       cex=cex.show[i])
+      load(nm[i])
+      if (showTransect) graphics::lines(y~x,data=dat$pts[c(1,nrow(dat$pts)),],
+                                        lwd=lwd.transect[i],col=col.transect[i])
+      graphics::points(dat$pts,pch=pch.show[i],col=col.show[i],cex=cex.show[i])
       if (showOrigPts & dat$snap2Transect)
         graphics::points(dat$orig.pts,pch=pch.show2[i],col=col.show2[i],
                          cex=cex.show2[i])
     }
   }
 }
+
+
+
+########################################################################
+## Show annuli numbers on the showDigitizedImage() image
+##
+########################################################################
+iShowAnnuliLabels <- function(dat,annuliLabels,col.ann,cex.ann) {
+  ## Get points to plot
+  pts <- dat$pts
+  
+  ## Find the degree of angle for the transect slope
+  deg <- atan(dat$slpTransect)*180/pi
+  #### Adjust for the quadrant in which the transect is in
+  if (pts$x[nrow(pts)]<pts$x[1]) deg <- deg+180
+  ## Convert absolute transect degress into a position for the text
+  deg <- abs(deg)
+  if (deg>=0 & deg<=45) pos <- 1        # below
+  else if (deg>45 & deg<=90) pos <- 4   # right
+  else if (deg>90 & deg<=135) pos <- 2  # left
+  else if (deg>135 & deg>=180) pos <- 1 # below
+  
+  ## Put on text
+  #### make labels from 1 to the number of points marked (-1 for the focus)
+  lbls <- 1:(nrow(pts)-1)
+  #### convert annuli not in annuliLabels to ""
+  if (!is.null(annuliLabels)) lbls[!lbls %in% annuliLabels] <- ""
+  #### add a "" for the focus
+  lbls <- c("",lbls)
+  #### remove the annuli number for the edge if it is not an annulus
+  if (!dat$edgeIsAnnulus) lbls[length(lbls)] <- ""
+  #### put the labels on the plot
+  graphics::text(y~x,data=dat$pts,labels=lbls,font=2,
+                 col=col.ann,cex=cex.ann,pos=pos)
+}
+

@@ -4,15 +4,12 @@
 \alias{STOP}
 \alias{.onAttach}
 \alias{WARN}
-\alias{iHndlFilename}
-\alias{iHndlID}
+\alias{iHndlFilenam1}
 \alias{iHndlScalingFactor}
 \alias{iGetImage}
-\alias{iSelectAnulli}
-\alias{iFindTransect}
-\alias{iShowTransect}
+\alias{iPts2Rad}
 \alias{iSnap2Transect}
-\alias{iProcessAnnuli}
+\alias{iScalingFactorFromScaleBar}
 \alias{iPlaceText}
 \title{Internal functions.}
 \usage{

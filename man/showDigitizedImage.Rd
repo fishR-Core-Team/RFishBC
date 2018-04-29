@@ -10,7 +10,7 @@ showDigitizedImage(nm, sepWindow, pch.show, col.show, cex.show, showTransect,
   cex.show2)
 }
 \arguments{
-\item{nm}{A string that indicates the RData file that contains the R object created with  created with \code{\link{digitizeRadii}} (the loaded object will contain the image and the selected points as). By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (file must be in the current working directory unless a fully pathed name is given).}
+\item{nm}{A string that indicates the RData file created with \code{\link{digitizeRadii}}. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file. Either way the file must be in the current working directory.}
 
 \item{sepWindow}{See details in \code{\link{RFBCoptions}}.}
 

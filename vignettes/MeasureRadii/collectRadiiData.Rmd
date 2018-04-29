@@ -43,10 +43,15 @@ Ideally, but not necessarily, the image will also contain an object (e.g., a "sc
 
 The process described herein requires all images to be processed to be in the same directory or folder. To be most efficient (and simple), this directory should contain ONLY image files related to a particular project (e.g., one species for one water body for one year) and all image files should be of the same type (e.g., png or jpg).
 
-Generally, the user will use `setwd()` to "set" the current working directory in R to the directory with the images.[^RStudioSETWD] The following is an example of setting a working directory in R.
+The working directory of R should be set to the directory that contains the images. The working directory may be set with `setwd()`. The following is an example of setting a working directory in R.
 
 ```{r eval=FALSE}
 setwd("c:/work/aging/Kiyi2014")
+```
+
+The working directory may also be set by interactively selecting the directory through a dialog box using the following code.[^RStudioSETWD]
+```{r eval=FALSE}
+setwd(choose.dir())
 ```
 
 Finally, note that the process described herein will produce one RData object file (.RData files; hereafter called "RData file") for each set of measurements made on a structure image. These data files will be saved in the current work directory (likely the directory with the structure image files). I suggest keeping the RData and corresponding structure image files together at all times as the RData file serves as an archive of the data collected from an image.
