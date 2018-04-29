@@ -24,10 +24,10 @@ findScalingFactor(img, knownLength, sepWindow, windowSize, col.scaleBar,
 A single numeric that is the scaling factor (a multiplier that is used to convert image lengths to actual lengths).
 }
 \description{
-This computes a scaling factor (i.e., a multiplier that is used to convert image lengths to actual lengths) from user selected endpoints of an object of known length on the image given in \code{img} and the actual known length given in \code{knownLength}.
+This computes a scaling factor (i.e., a multiplier that is used to convert image lengths to actual lengths) from user selected endpoints of an object of known length on the image given in \code{img} and the actual known length given in \code{knownLength}. See Details.
 }
 \details{
-None yet.
+To apply the scaling factor determined with this fuction to images opened in \code{\link{digitizeRadii}} is is important that the images were created with the EXACT same magnfication, are saved with the EXACT same dimensions (and aspect ratio), and the EXACT same value for \code{windowSize=} is used.
 }
 \examples{
 ## None yet
