@@ -20,5 +20,6 @@ Imports:
     withr
 Suggests:
     FSA,
-    testthat
+    testthat,
+    covr
 RoxygenNote: 6.0.1
