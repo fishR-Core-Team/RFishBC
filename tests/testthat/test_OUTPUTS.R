@@ -1,5 +1,35 @@
-context("Growth Utility Functions OUTPUT")
+context("RFishBC MESSAGES")
+
 source("EXS_growthUtils.R")
+source("EXS_collectRadii.R")
+
+test_that("RFBCoptions() important defaults",{
+  expect_true(is.null(RFBCoptions()$reading))
+  expect_true(is.null(RFBCoptions()$description))
+  expect_true(is.null(RFBCoptions()$suffix))
+  expect_true(is.null(RFBCoptions()$edgeIsAnnulus))
+  expect_true(RFBCoptions()$sepWindow)
+  expect_true(RFBCoptions()$popID)
+  expect_true(RFBCoptions()$snap2Transect)
+  expect_equal(RFBCoptions()$pch.sel,20)
+  expect_equal(RFBCoptions()$pch.show,19)
+  expect_true(RFBCoptions()$showInfo)
+  expect_true(RFBCoptions()$showAnnuliLabels)
+})
+
+test_that("bcFuns() output types",{
+  ## List all choices for bcFuns() (TVG is not included because it
+  ## is not yet implemented)
+  tmp <- c("DALE","FRALE","BI","LBI","BPH","LBPH","TVG","SPH","LSPH",
+           "AE","AESPH","AEBPH","MONA","MONA-BPH","MONA-SPH","WAKU",
+           "FRY","MF","ABI","FRY-BPH","ABPH","FRY-SPH","ASPH","QBPH",
+           "QSPH","PBPH","PSPH","EBPH","ESPH")
+  tmp <- tmp[-7]
+  ## Do all choices (by number and name) return a function
+  for (i in c(1:4,6:22)) expect_is(bcFuns(i),"function")
+  for (i in tmp) expect_is(bcFuns(i),"function")
+})
+
 
 test_that("gConvert() output",{
   ## Actually constructs increments from radii ... no plus-growth
@@ -38,3 +68,4 @@ test_that("addRadCap() output",{
   tmp <- addRadCap(tmp,in.pre="inc",var.name="newRadCap")
   expect_equal(tmp$radcap,tmp$newRadCap)
 })
+
