@@ -51,10 +51,10 @@ iHndlFilenames <- function(nm,filter,multi=TRUE) {
   wd <- getwd()
   if (!dn %in% c(".",wd)) {
     message("The current working directory is ",wd)
-    message("The directory with the chosen image file is ",dn)
-    STOP("The filename in MUST be in the current working directory.\n",
-         "Please use 'setwd()' to change the working directory\n",
-         "and then try the function again.")
+    message("The directory with the chosen file is ",dn)
+    STOP("The file MUST be in the current working directory.\n",
+         "       Please use 'setwd()' to change the working directory\n",
+         "       and then try the function again.")
   }
   #### Make sure just the filenames (no path info) is returned
   basename(nm)

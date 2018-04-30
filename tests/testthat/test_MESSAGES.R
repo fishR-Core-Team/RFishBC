@@ -29,6 +29,40 @@ test_that("RFBCoptions() error messages",{
   expect_error(RFBCoptions(cex.ann=11),"value out of range")
 })
 
+
+test_that("RFBCoptions() error messages",{
+  expect_error(digitizeRadii(edgeIsAnnulus="derek"),"must be TRUE or FALSE")
+  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE),
+               "Must provide a")
+  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE,scaleBarLength=0),
+               "must be positive")
+  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE,scaleBarLength=-1),
+               "must be positive")
+  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE,
+                             scaleBarLength="derek"),
+               "must be numeric")
+  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=FALSE,scaleBarLength=1),
+               "Can not use")
+  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE,
+                             scaleBarLength=1,scalingFactor=1),
+               "Can not use both")
+  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scalingFactor="derek"),
+               "must be numeric")
+  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scalingFactor=0),
+               "must be positive")
+  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scalingFactor=-1),
+               "must be positive")
+  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,windowSize="derek"),
+               "must be numeric")
+  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,windowSize=0),
+               "must be positive")
+  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,windowSize=-1),
+               "must be positive")
+  expect_error(digitizeRadii("testdata/small_ex.jpg",id=1,edgeIsAnnulus=TRUE),
+               "The file MUST be in the current working directory")
+})
+
+
 test_that("bcFuns() messages",{
   expect_error(bcFuns(),"must be chosen")
   expect_error(bcFuns(0),"BCM number must be")

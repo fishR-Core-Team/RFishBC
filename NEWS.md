@@ -1,5 +1,6 @@
 # RFishBC 0.0.6 ongoing
-* `digitizeRadii()`: Modified. Fixed bug related to `showTransect=`.
+* `digitizeRadii()`: Modified. Fixed bug related to `showTransect=`. Added tests for the messages related to arguments (found early in the function).
+* `iHndlFilenames()`: Modified. Slight modification of the error messages.
 
 # RFishBC 0.0.5 29-Apr-18
 * Changed license from MIT to GPL-3.
