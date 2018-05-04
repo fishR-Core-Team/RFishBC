@@ -55,6 +55,8 @@ showDigitizedImage <- function(nm,sepWindow,
   if (missing(lwd.scaleBar)) lwd.scaleBar <- iGetopt("lwd.scaleBar")
   if (missing(showAnnuliLabels)) showAnnuliLabels <- iGetopt("showAnnuliLabels")
   if (missing(annuliLabels)) annuliLabels <- iGetopt("annuliLabels")
+  if (!showAnnuliLabels) if (!is.null(annuliLabels))
+    STOP("'annuliLabels' no needed when 'showAnnuliLabels=FALSE'")
   if (missing(col.ann)) col.ann <- iGetopt("col.ann")
   if (missing(cex.ann)) cex.ann <- iGetopt("cex.ann")
   if (missing(pch.show2)) pch.show2 <- pch.show
