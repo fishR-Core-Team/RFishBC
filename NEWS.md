@@ -1,4 +1,5 @@
 # RFishBC 0.0.6 ongoing
+* `combineData()`: Modified. Added a check that the RData file has a `radii` object.
 * `digitizeRadii()`: Modified. Fixed bug related to `showTransect=`. Added tests for the messages related to arguments (found early in the function).
 * `iHndlFilenames()`: Modified. Slight modification of the error messages.
 

@@ -30,7 +30,7 @@ test_that("RFBCoptions() error messages",{
 })
 
 
-test_that("RFBCoptions() error messages",{
+test_that("digitizeRadii() error messages",{
   expect_error(digitizeRadii(edgeIsAnnulus="derek"),"must be TRUE or FALSE")
   expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE),
                "Must provide a")

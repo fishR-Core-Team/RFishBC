@@ -39,4 +39,4 @@ digitizeRadii("Oto140306.jpg",id="140306",reading="DHO2",
 
 #### Copy this to test suite so that an error is thrown if something changed
 ####    Need to do this because everything is interactive
-file.copy(listFiles(".RData"),"../../tests/testthat/",overwrite=TRUE)
+file.copy(listFiles(".RData"),"../../tests/testthat/testdata/",overwrite=TRUE)
