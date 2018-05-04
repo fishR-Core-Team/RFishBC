@@ -24,6 +24,7 @@ combineData <- function(nms) {
   d <- dat <- NULL # try to avoid "no visible binding" note
   for (i in seq_along(nms)) {
     load(nms[i])
+    if (!"radii" %in% names(dat)) STOP("RData file does not contain a 'radii' object.")
     d <- rbind(d,dat$radii)
   }
   d
