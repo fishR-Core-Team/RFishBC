@@ -16,6 +16,20 @@ WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
 }
 
 
+
+################################################################################
+# Functions to allow symbols in the messages. Basically taken from fcuk package.
+################################################################################
+CATLINE <- function(...) cat(..., "\n", sep = "")
+BULLET <- function(lines,bullet) CATLINE(paste0(bullet," ",lines))
+DONE <- function(...,sep="") 
+  BULLET(paste0(...,sep=sep),bullet=crayon::green(clisymbols::symbol$tick))
+NOTE <- function(...,sep="") 
+  BULLET(paste0(...,sep=sep),bullet=crayon::blue(clisymbols::symbol$checkbox_on))
+
+
+
+
 ########################################################################
 ## Sends a start-up message to the console when the package is loaded.
 ########################################################################

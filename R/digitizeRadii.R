@@ -135,29 +135,27 @@ digitizeRadii <- function(img,id,reading,suffix,
   ## Loads image given in img ==================================================
   windowInfo <- iGetImage(img,id,sepWindow,windowSize,
                           showInfo,pos.info,cex.info,col.info)
-  message("\n\n** Loaded the ",img," image.")
+  DONE("Loaded the ",img," image.")
   
   ## Allows user to select a scaling bar to get a scaling factor ===============
   if (scaleBar) { ## scaleBar is on the plot
-    message("\n>> Find scaling factor from scale bar.\n",
-            "   * Select endpoints on the scale bar.")
+    NOTE("Select the endpoints of the scale-bar.")
     sfSource <- "scaleBar"
     sbInfo <- iScalingFactorFromScaleBar(scaleBarLength,windowInfo$pixW2H,
                                          col.scaleBar=col.scaleBar,
                                          lwd.scaleBar=lwd.scaleBar)
     sbPts <- sbInfo$sbPts
     scalingFactor <- sbInfo$scalingFactor
+    DONE("Found scaling factor from the selected scale-bar.")
   } else { ## No scale bar on the plot ... using the scaling factor
-    message("** Using the 'scalingFactor' provided.")
+    DONE("Using the scaling factor provided in 'scalingFactor'.")
     sbPts <- NULL
     scaleBarLength <- NULL
     sfSource <- "Provided"
   }
 
   ## User selects a transect on the image ======================================
-  message("\n>> Select transect endpoints.\n",
-          "   * MUST select the focus of the structure FIRST.\n",
-          "   * MUST select structure margin SECOND.")
+  NOTE("Select FOCUS and then MARGIN of the structure")
   #### Ask user to select two points at the structure focus and margin
   #### that will serve as the transect. Returns the coords of those points.
   trans.pts <- as.data.frame(graphics::locator(n=2,type="p",pch=pch.sel,
@@ -169,15 +167,18 @@ digitizeRadii <- function(img,id,reading,suffix,
   intTransect <- trans.pts$y[1]-slpTransect*trans.pts$x[1]
   slpPerpTransect <- -1/slpTransect
   #### Show the transect if asked to
-  if (showTransect) graphics::lines(y~x,data=trans.pts,
-                                    lwd=lwd.transect,col=col.transect)
+  if (showTransect) {
+    graphics::lines(y~x,data=trans.pts,lwd=lwd.transect,col=col.transect)
+    DONE("Transect selected and shown on image.")
+  } else {
+    DONE("Transect selected.")
+  }
   
   ## User selects annuli on the image ==========================================
-  message("\n>> Select points that are annuli.\n",
-          "   * When finished selecting points press\n",
-          "       the second(right) mouse button and select 'Stop',\n",
-          "       the 'Stop' button in Windows, or\n",
-          "       the 'Finish' button in RStudio.")
+  NOTE("Select points that are annuli.\n",
+          "   When finished selecting points press\n",
+          "     the second (right) mouse button and select 'Stop',\n",
+          "     the 'Stop' button in Windows, or 'Finish' button in RStudio.")
   #### Initially populate pts and orig.pts with transect points
   pts <- orig.pts <- trans.pts
   #### Allow user to select one point at-a-time until locator stopped
@@ -215,7 +216,7 @@ digitizeRadii <- function(img,id,reading,suffix,
   pts <- iOrderPts(pts)
   orig.pts <- iOrderPts(orig.pts)
   #### Tell the user how many points were selected
-  message("   * ",nrow(pts)," points were selected.\n")
+  DONE(nrow(pts)," points were selected.")
   
   ## Converts selected points to radial measurements ===========================
   radii <- iPts2Rad(pts,edgeIsAnnulus=edgeIsAnnulus,scalingFactor=scalingFactor,
@@ -239,7 +240,7 @@ digitizeRadii <- function(img,id,reading,suffix,
   #### Write the RData file
   save(dat,file=datanm)
   #### Tell user what happend and invisibly return the R object
-  message("** All results written to ",datanm)
+  DONE("Results written to ",datanm)
   invisible(dat)
 }
 

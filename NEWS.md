@@ -1,6 +1,8 @@
 # RFishBC 0.0.6 ongoing
+* Added some tests.
+* Added importFrom for `clisymbols` and `crayon` packages.
 * `combineData()`: Modified. Added a check that the RData file has a `radii` object.
-* `digitizeRadii()`: Modified. Fixed bug related to `showTransect=`. Added tests for the messages related to arguments (found early in the function).
+* `digitizeRadii()`: Modified. Fixed bug related to `showTransect=`. Added `clisymbols` to messages (and had to change `message()`s to `cat()`s). Added tests for the messages related to arguments (found early in the function).
 * `iHndlFilenames()`: Modified. Slight modification of the error messages.
 
 # RFishBC 0.0.5 29-Apr-18
