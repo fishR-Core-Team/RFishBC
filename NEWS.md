@@ -1,4 +1,7 @@
-# RFishBC 0.0.6 ongoing
+# RFishBC 0.0.7 ongoing
+
+
+# RFishBC 0.0.6 9-May-18
 * Added some tests.
 * Added importFrom for `clisymbols` and `crayon` packages.
 * `combineData()`: Modified. Added a check that the RData file has a `radii` object.
