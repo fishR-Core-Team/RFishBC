@@ -170,6 +170,7 @@ digitizeRadii <- function(img,id,reading,suffix,
                          snap2Transect=FALSE,slpTransect=NULL,
                          intTransect=NULL,slpPerpTransect=NULL)
   if (nrow(trans.pts)<2) STOP("Either the FOCUS or MARGIN was not selected.")
+  if (nrow(trans.pts)>2) STOP("Only the FOCUS and MARGIN should be selected.")
   #### Calculate slope, intercept, and perpendicular slope to transect
   slpTransect <- diff(trans.pts$y)/diff(trans.pts$x)
   intTransect <- trans.pts$y[1]-slpTransect*trans.pts$x[1]

@@ -128,9 +128,9 @@ iScalingFactorFromScaleBar <- function(msg2,knownLength,pixW2H,
                      snap2Transect=FALSE,slpTransect=NULL,
                      intTransect=NULL,slpPerpTransect=NULL)
   if (nrow(sbPts)<2) {
-    WARN("Two endpoints were not selected for the scale bar;\n","
-           thus, a scaling factor of 1 will be used.")
-    scalingFactor <- 1
+    STOP("Two endpoints were not selected for the scale-bar.")
+  } else if (nrow(sbPts)>2) {
+    STOP("Only two endpoints may be selected for the scale-bar.")
   } else {
     ## Show the user-selected marking on the image
     graphics::lines(y~x,data=sbPts,col=col.scaleBar,lwd=lwd.scaleBar)

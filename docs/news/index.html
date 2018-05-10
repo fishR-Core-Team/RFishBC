@@ -55,7 +55,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.5.9000</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.6.9000</span>
       </span>
     </div>
 
@@ -119,9 +119,37 @@
       <small>Source: <a href='https://github.com/droglenc/RFishBC/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="rfishbc-0-0-6-ongoing" class="section level1">
+    <div id="rfishbc-0-0-7-ongoing" class="section level1">
 <h1 class="page-header">
-<a href="#rfishbc-0-0-6-ongoing" class="anchor"></a>RFishBC 0.0.6 ongoing</h1>
+<a href="#rfishbc-0-0-7-ongoing" class="anchor"></a>RFishBC 0.0.7 ongoing</h1>
+<ul>
+<li>Updated tests.</li>
+<li>
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Added ability (using <code>iSelectPt()</code>) to delete points after selection for scale-bar, transect, and annuli selection. This removed the use of <code>locator()</code> and thus key-presses are used to terminate the selection of points. Added the <code>pch.del=</code> and <code>col.del=</code> arguments. Removed the <code>orig.pts</code> data.frame from the returned object.</li>
+<li>
+<code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>: Modified. Added ability (using <code>iSelectPt()</code>) to delete points after selection for scale-bar. Added <code>pch.sel=</code>, <code>col.sel=</code>, <code>cex.sel=</code>, <code>pch.del=</code>, and <code>col.del=</code> arguments.</li>
+<li>
+<code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code>: Modified. Added the <code>pch.del=</code> and <code>col.del=</code> arguments. Removed <code>pch.show2=</code>, <code>col.show2=</code>, and <code>cex.show2=</code>
+</li>
+<li>
+<code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>: Modified. Removed the ability to show the original (before snapping to the transect) points. Thus, removed <code>showOrigPts=</code>, <code>pch.show2=</code>, <code>col.show2=</code>, and <code>cex.show2=</code>.</li>
+<li>
+<code>iSelectPt()</code>: Added.</li>
+</ul>
+</div>
+    <div id="rfishbc-0-0-6-9-may-18" class="section level1">
+<h1 class="page-header">
+<a href="#rfishbc-0-0-6-9-may-18" class="anchor"></a>RFishBC 0.0.6 9-May-18</h1>
+<ul>
+<li>Added some tests.</li>
+<li>Added importFrom for <code>clisymbols</code> and <code>crayon</code> packages.</li>
+<li>
+<code><a href="../reference/combineData.html">combineData()</a></code>: Modified. Added a check that the RData file has a <code>radii</code> object.</li>
+<li>
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Fixed bug related to <code>showTransect=</code>. Added <code>clisymbols</code> to messages (and had to change <code>message()</code>s to <code>cat()</code>s). Added tests for the messages related to arguments (found early in the function).</li>
+<li>
+<code><a href="../reference/FSA-internals.html">iHndlFilenames()</a></code>: Modified. Slight modification of the error messages.</li>
+</ul>
 </div>
     <div id="rfishbc-0-0-5-29-apr-18" class="section level1">
 <h1 class="page-header">
@@ -162,7 +190,7 @@
 <li>
 <code>iProcessAnnuli()</code>: Deleted. Moved into <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.</li>
 <li>
-<code><a href="../reference/FSA-internals.html">iPts2Rad()</a></code>: Added.</li>
+<code>iPts2Rad()</code>: Added.</li>
 <li>
 <code>iSelectAnnuli()</code>: Deleted. Moved into <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.</li>
 <li>
@@ -212,7 +240,7 @@
 <li>
 <code>iReadImage()</code>: Removed. Changed to <code><a href="../reference/FSA-internals.html">iGetImage()</a></code>.</li>
 <li>
-<code><a href="../reference/FSA-internals.html">iSnap2Transect()</a></code>: Added. Used in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.</li>
+<code>iSnap2Transect()</code>: Added. Used in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.</li>
 <li>
 <code>iProcessAnnuli()</code>: Modified. Added <code>pixW2H=</code> argument to receive the pixel width-to-height ratio to adjust distance calculations for non-square images.</li>
 <li>
@@ -234,7 +262,8 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#rfishbc-0-0-6-ongoing">0.0.6</a></li>
+        <li><a href="#rfishbc-0-0-7-ongoing">0.0.7</a></li>
+        <li><a href="#rfishbc-0-0-6-9-may-18">0.0.6</a></li>
         <li><a href="#rfishbc-0-0-5-29-apr-18">0.0.5</a></li>
         <li><a href="#rfishbc-0-0-4-29-apr-18">0.0.4</a></li>
         <li><a href="#rfishbc-0-0-3-28-apr-18">0.0.3</a></li>

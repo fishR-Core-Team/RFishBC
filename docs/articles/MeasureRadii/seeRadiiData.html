@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">RFishBC</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.5.9000</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.6.9000</span>
       </span>
     </div>
 
@@ -91,7 +91,7 @@
       <h1>Visualize Points Selected on a Calcified Structure</h1>
                         <h4 class="author">Derek H. Ogle</h4>
             
-            <h4 class="date">2018-04-29</h4>
+            <h4 class="date">2018-05-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/droglenc/RFishBC/blob/master/vignettes/MeasureRadii/seeRadiiData.Rmd"><code>vignettes/MeasureRadii/seeRadiiData.Rmd</code></a></small>
       <div class="hidden name"><code>seeRadiiData.Rmd</code></div>
@@ -141,8 +141,8 @@
 <p>In some instances, you may be interested in visually comparing the selected points from multiple readings of the same structure. The <code><a href="../../reference/showDigitizedImage.html">showDigitizedImage()</a></code> function can accomplish this if it is given a vector of RData file names created from the same structure.</p>
 <p>The <code><a href="../../reference/listFiles.html">listFiles()</a></code> function (described in the <a href="collectRadiiData.html">Collecting Radial Measurements</a> vignette) may be used to identify all filenames in the current working directory that have the file extension given in the first argument. For example, all files with the “RData” extension are found below.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/listFiles.html">listFiles</a></span>(<span class="st">"RData"</span>)
-<span class="co">#&gt; [1] "Oto140306_DHO.RData" "Scale_1_DHO.RData"   "Scale_1_DHO2.RData" </span>
-<span class="co">#&gt; [4] "Scale_1_DHO3.RData"  "Scale_2_DHO.RData"</span></code></pre></div>
+<span class="co">#&gt; [1] "Oto140306_DHO.RData"  "Oto140306_DHO2.RData" "Scale_1_DHO.RData"   </span>
+<span class="co">#&gt; [4] "Scale_1_DHO2.RData"   "Scale_1_DHO3.RData"   "Scale_2_DHO.RData"</span></code></pre></div>
 <p>This list of names can be further filtered by including other key words for the filenames in <code>other=</code>. For example, all files with the “RData” extension that contain the keyword “Scale_1” are returned below. For our purposes here, these filenames are saved into an object (e.g., <code>fns</code>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">( fns &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/listFiles.html">listFiles</a></span>(<span class="st">"RData"</span>,<span class="dt">other=</span><span class="st">"Scale_1"</span>) )
 <span class="co">#&gt; [1] "Scale_1_DHO.RData"  "Scale_1_DHO2.RData" "Scale_1_DHO3.RData"</span></code></pre></div>
