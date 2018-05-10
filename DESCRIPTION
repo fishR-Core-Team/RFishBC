@@ -1,6 +1,6 @@
 Package: RFishBC
 Title: Back-Calculation of Fish Length
-Version: 0.0.6.9000
+Version: 0.0.7
 Authors@R: person("Derek","Ogle",email="derek@derekogle.com",role=c("aut","cre"))
 Description: Helps fisheries scientists collect growth data from calcified
     structures and back-calculate estimated lengths at previous ages. The
