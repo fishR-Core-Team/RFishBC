@@ -1,3 +1,5 @@
+# RFishBC 0.0.8 ongoing
+
 # RFishBC 0.0.7 10-May-18
 * Updated tests.
 * `digitizeRadii()`: Modified. Added ability (using `iSelectPt()`) to delete points after selection for scale-bar, transect, and annuli selection. This removed the use of `locator()` and thus key-presses are used to terminate the selection of points. Added the `pch.del=` and `col.del=` arguments. Removed the `orig.pts` data.frame from the returned object.
