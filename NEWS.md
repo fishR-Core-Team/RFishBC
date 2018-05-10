@@ -1,5 +1,10 @@
 # RFishBC 0.0.7 ongoing
-
+* Updated tests.
+* `digitizeRadii()`: Modified. Added ability (using `iSelectPt()`) to delete points after selection for scale-bar, transect, and annuli selection. This removed the use of `locator()` and thus key-presses are used to terminate the selection of points. Added the `pch.del=` and `col.del=` arguments. Removed the `orig.pts` data.frame from the returned object.
+* `findScalingFactor()`: Modified. Added ability (using `iSelectPt()`) to delete points after selection for scale-bar. Added `pch.sel=`, `col.sel=`, `cex.sel=`, `pch.del=`, and `col.del=` arguments.
+* `RFBCoptions()`: Modified. Added the `pch.del=` and `col.del=` arguments. Removed `pch.show2=`, `col.show2=`, and `cex.show2=`
+* `showDigitizedImage()`: Modified. Removed the ability to show the original (before snapping to the transect) points. Thus, removed `showOrigPts=`, `pch.show2=`, `col.show2=`, and `cex.show2=`.
+* `iSelectPt()`: Added.
 
 # RFishBC 0.0.6 9-May-18
 * Added some tests.

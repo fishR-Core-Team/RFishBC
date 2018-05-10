@@ -22,7 +22,7 @@ test_that("digitizeRadii() results without scale-bar",{
   expect_equal(names(dat1),c("image","datanm","description","edgeIsAnnulus",
                              "snap2Transect","scalingFactor","sfSource","sbPts",
                              "sbLength","slpTransect","intTransect","slpPerpTransect",
-                             "windowSize","pixW2H","orig.pts","pts","radii"))
+                             "windowSize","pixW2H","pts","radii"))
   expect_type(dat1$image,"character")
   expect_type(dat1$datanm,"character")
   expect_null(dat1$description)
@@ -47,9 +47,6 @@ test_that("digitizeRadii() results without scale-bar",{
   expect_type(dat1$windowSize,"double")
   expect_equal(length(dat1$windowSize),2)
   expect_type(dat1$pixW2H,"double")
-  expect_type(dat1$orig.pts,"list")
-  expect_s3_class(dat1$orig.pts,"data.frame")
-  expect_equal(names(dat1$orig.pts),c("x","y"))
   expect_type(dat1$pts,"list")
   expect_s3_class(dat1$pts,"data.frame")
   expect_equal(names(dat1$pts),c("x","y"))
@@ -63,7 +60,7 @@ test_that("digitizeRadii() results with scale-bar",{
   expect_equal(names(dat2),c("image","datanm","description","edgeIsAnnulus",
                             "snap2Transect","scalingFactor","sfSource","sbPts",
                             "sbLength","slpTransect","intTransect","slpPerpTransect",
-                            "windowSize","pixW2H","orig.pts","pts","radii"))
+                            "windowSize","pixW2H","pts","radii"))
   expect_type(dat2$image,"character")
   expect_type(dat2$datanm,"character")
   expect_type(dat2$description,"character")
@@ -92,9 +89,6 @@ test_that("digitizeRadii() results with scale-bar",{
   expect_type(dat2$windowSize,"double")
   expect_equal(length(dat2$windowSize),2)
   expect_type(dat2$pixW2H,"double")
-  expect_type(dat2$orig.pts,"list")
-  expect_s3_class(dat2$orig.pts,"data.frame")
-  expect_equal(names(dat2$orig.pts),c("x","y"))
   expect_type(dat2$pts,"list")
   expect_s3_class(dat2$pts,"data.frame")
   expect_equal(names(dat2$pts),c("x","y"))
@@ -154,4 +148,3 @@ test_that("addRadCap() output",{
   tmp <- addRadCap(tmp,in.pre="inc",var.name="newRadCap")
   expect_equal(tmp$radcap,tmp$newRadCap)
 })
-

@@ -7,7 +7,8 @@
 digitizeRadii(img, id, reading, suffix, description, edgeIsAnnulus, popID,
   sepWindow, windowSize, scaleBar, scaleBarLength, col.scaleBar, lwd.scaleBar,
   scalingFactor, showTransect, snap2Transect, col.transect, lwd.transect,
-  pch.sel, col.sel, cex.sel, showInfo, pos.info, cex.info, col.info)
+  pch.sel, col.sel, cex.sel, pch.del, col.del, showInfo, pos.info, cex.info,
+  col.info)
 }
 \arguments{
 \item{img}{A string that indicates the image (must be PNG, JPG, BMP, or TIFF) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file. Either way the file must be in the current working directory.}
@@ -52,6 +53,10 @@ digitizeRadii(img, id, reading, suffix, description, edgeIsAnnulus, popID,
 
 \item{cex.sel}{See details in \code{\link{RFBCoptions}}.}
 
+\item{pch.del}{See details in \code{\link{RFBCoptions}}.}
+
+\item{col.del}{See details in \code{\link{RFBCoptions}}.}
+
 \item{showInfo}{See details in \code{\link{RFBCoptions}}.}
 
 \item{pos.info}{See details in \code{\link{RFBCoptions}}.}
@@ -77,7 +82,6 @@ A list that contains the following:
   \item{\code{slpPerpTransect}: }{The slope of the line perpendicular to the transect.}
   \item{\code{windowSize}: }{A numeric of length two that contains the width and height of the window used to display the structure image. One of these units was set by the given \code{windowSize} value.}
   \item{\code{pixW2H}: }{The ratio of pixel width to height. This is used to correct measurements for when an image is not square.}
-  \item{\code{orig.pts}: }{A data.frame that contains the \dQuote{original} \code{x} and \code{y} coordinates on the image for the selected annuli. If \code{snap2Transect=FALSE} then these are the same as the points in \code{pts}. If \code{snap2Transect=TRUE} then these are the originally selected points and will be different then the points in \code{pts}.}
   \item{\code{pts}: }{A data.frame that contains the \code{x} and \code{y} coordinates on the image for the selected annuli. These points may be \dQuote{snapped} to the transect if \code{snap2Transect==TRUE}.}
   \item{\code{radii}: }{A data.frome that contains the unique \code{id}, the \code{reading} code, the age-at-capture in \code{agecap}, the annulus number in \code{ann}, the radial measurements in \code{rad}, and the radial measurement at capture in \code{radcap}.}
 }.

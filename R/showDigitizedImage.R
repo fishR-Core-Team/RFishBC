@@ -16,11 +16,6 @@
 #' @param annuliLabels See details in \code{\link{RFBCoptions}}.
 #' @param col.ann See details in \code{\link{RFBCoptions}}.
 #' @param cex.ann See details in \code{\link{RFBCoptions}}.
-#' @param showOrigPts A logical that indicates whether the original user-selected points (i.e., not snapped to the transect) should be shown or not. If the original selections were not snapped to the transect then this will be ignored.
-#' @param pch.show2 The plotting character for the original points (i.e., not snapped to the transect) selected by the user. Defaults to same as \code{pch.show}.
-#' @param col.show2 The color for the original points (i.e., not snapped to the transect) selected by the user. Defaults to same as \code{pch.show}.
-#' @param cex.show2 The character expansion value for the original points (i.e., not snapped to the transect) selected by the user. Defaults to same as \code{pch.show}.
-
 #'
 #' @details This function requires interaction from the user. A detailed description of its use is in \href{http://derekogle.com/RFishBC/articles/MeasureRadii/seeRadiiData.html}{this vignette} on the \href{http://derekogle.com/RFishBC/index.html}{RFishBC website}.
 #'
@@ -40,9 +35,7 @@ showDigitizedImage <- function(nm,sepWindow,
                                pch.show,col.show,cex.show,
                                showTransect,col.transect,lwd.transect,
                                col.scaleBar,lwd.scaleBar,
-                               showAnnuliLabels,annuliLabels,col.ann,cex.ann,
-                               showOrigPts=FALSE,
-                               pch.show2,col.show2,cex.show2) {
+                               showAnnuliLabels,annuliLabels,col.ann,cex.ann) {
   ## handle options
   if (missing(sepWindow)) sepWindow <- iGetopt("sepWindow")
   if (missing(pch.show)) pch.show <- iGetopt("pch.show")
@@ -59,9 +52,6 @@ showDigitizedImage <- function(nm,sepWindow,
     STOP("'annuliLabels' no needed when 'showAnnuliLabels=FALSE'")
   if (missing(col.ann)) col.ann <- iGetopt("col.ann")
   if (missing(cex.ann)) cex.ann <- iGetopt("cex.ann")
-  if (missing(pch.show2)) pch.show2 <- pch.show
-  if (missing(col.show2)) col.show2 <- col.show
-  if (missing(cex.show2)) cex.show2 <- cex.show
   dat <- NULL # try to avoid "no visible binding" note
   
   ## Get image file names ######################################################
@@ -74,9 +64,6 @@ showDigitizedImage <- function(nm,sepWindow,
   cex.show <- rep(cex.show,ceiling(num2do/length(cex.show)))
   col.transect <- rep(col.transect,ceiling(num2do/length(col.transect)))
   lwd.transect <- rep(lwd.transect,ceiling(num2do/length(lwd.transect)))
-  pch.show2 <- rep(pch.show2,ceiling(num2do/length(pch.show2)))
-  col.show2 <- rep(col.show2,ceiling(num2do/length(col.show2)))
-  cex.show2 <- rep(cex.show2,ceiling(num2do/length(cex.show2)))
 
   ## Display results ###########################################################
   for (i in seq_along(nm)) {
@@ -100,16 +87,11 @@ showDigitizedImage <- function(nm,sepWindow,
                                              col=col.scaleBar,lwd=lwd.scaleBar)
     #### Show points
     graphics::points(dat$pts,pch=pch.show[i],col=col.show[i],cex=cex.show[i])
-    #### Show annuli labels and original points if asked to do so AND only if
-    #### there is one set of readings to show
+    #### Show annuli labels if asked to do so AND only if one set of readings
     if (num2do==1) {
       #### Show annuli labels if asked to do so
       if (showAnnuliLabels) iShowAnnuliLabels(dat,annuliLabels=annuliLabels,
                                               col.ann=col.ann,cex.ann=cex.ann)
-      ## Show original points if asked and if snapped to transect
-      if (showOrigPts & dat$snap2Transect)
-        graphics::points(dat$orig.pts,pch=pch.show2[1],col=col.show2[1],
-                         cex=cex.show2[1])      
     }
   }
 }

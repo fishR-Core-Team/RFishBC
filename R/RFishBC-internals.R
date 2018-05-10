@@ -4,7 +4,7 @@
 #'
 #' @rdname FSA-internals
 #' @keywords internal
-#' @aliases .onAttach STOP WARN CATLINE BULLET DONE NOTE iHndlFilenames iGetImage iSelectPts iPts2Rad iSnap2Transect iScalingFactorFromScaleBar iPlaceText
+#' @aliases .onAttach STOP WARN CATLINE BULLET DONE NOTE iHndlFilenames iGetImage iScalingFactorFromScaleBar iPlaceText
 
 
 ########################################################################
@@ -115,70 +115,18 @@ iGetImage <- function(fname,id,sepWindow,windowSize,
 }
 
 
-
-
-iSelectPt <- function(msg,pch.sel,col.sel,cex.sel,pch.del,col.del) {
-  ## Internal function for handling mouse down event
-  mouseDown <- function(buttons,x,y) {
-    tmp <- data.frame(x=grconvertX(x,"ndc","user"),
-                      y=grconvertY(y,"ndc","user"))
-    points(y~x,data=tmp,pch=pch.sel,col=col.sel,cex=cex.sel)
-    dat <<- rbind(dat,tmp)
-    NULL
-  }
-  ## Internal function for handling key press event
-  keyPress <- function(key) {
-    if (key %in% c("f","q")) return(invisible(1))
-    if (key %in% c("d","r")) {
-      n <- nrow(dat)
-      if (n>=1) {
-        points(y~x,data=dat[n,],pch=pch.del,col=col.del,cex=cex.sel)
-        dat <<- dat[-n,]
-      }
-      NULL
-    }
-  }
-  ## Main function
-  dat <- data.frame(x=NULL,y=NULL)
-  getGraphicsEvent(msg,onMouseDown=mouseDown,onKeybd=keyPress)
-  dat
-}
-
-
-
 ########################################################################
-## Convert selected x-y points to radial measurements
+## Finds the scaling factor from two points selected by the user.
 ########################################################################
-iPts2Rad <- function(pts,edgeIsAnnulus,scalingFactor,pixW2H,id,reading) {
-  #### Number of radial measurements is one less than number of points selected
-  n <- nrow(pts)-1
-  #### Distances in x- and y- directions, corrected for pixel w to h ratio
-  distx <- (pts$x[2:(n+1)]-pts$x[1])*pixW2H
-  disty <- pts$y[2:(n+1)]-pts$y[1]
-  #### Distances between points
-  distxy <- sqrt(distx^2+disty^2)
-  #### Correct distances for scalingFactor ... and call a radius
-  rad <- distxy*scalingFactor
-  #### Sort radii in increasing order (probably redundant)
-  rad <- rad[order(rad)]
-  #### create data.frame with radii information
-  data.frame(id=as.character(rep(id,n)),
-             reading=as.character(rep(ifelse(is.null(reading),NA,reading),n)),
-             agecap=ifelse(edgeIsAnnulus,n,n-1),
-             ann=seq_len(n),
-             rad=rad,radcap=max(rad),
-             stringsAsFactors=FALSE)
-}
-
-
-
-iScalingFactorFromScaleBar <- function(knownLength,pixW2H,
+iScalingFactorFromScaleBar <- function(msg2,knownLength,pixW2H,
                                        col.scaleBar,lwd.scaleBar,
                                        pch.sel,col.sel,cex.sel,
                                        pch.del,col.del) {
-  sbPts <- iSelectPt("     Press 'f' when finished, 'd' to delete selection.",
+  sbPts <- iSelectPt("Select ends of scale-bar:",msg2,
                      pch.sel=pch.sel,col.sel=col.sel,cex.sel=cex.sel,
-                     pch.del=pch.del,col.del=col.del)
+                     pch.del=pch.del,col.del=col.del,
+                     snap2Transect=FALSE,slpTransect=NULL,
+                     intTransect=NULL,slpPerpTransect=NULL)
   if (nrow(sbPts)<2) {
     WARN("Two endpoints were not selected for the scale bar;\n","
            thus, a scaling factor of 1 will be used.")
