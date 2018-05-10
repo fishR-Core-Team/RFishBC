@@ -4,30 +4,7 @@
 #'
 #' @rdname FSA-internals
 #' @keywords internal
-#' @aliases .onAttach STOP WARN iHndlFilenames iGetImage iPts2Rad iSnap2Transect iScalingFactorFromScaleBar iPlaceText
-
-
-################################################################################
-# Same as stop() and warning() but with call.=FALSE as default
-################################################################################
-STOP <- function(...,call.=FALSE,domain=NULL) stop(...,call.=call.,domain=domain)
-WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
-  warning(...,call.=call.,immediate.=immediate.,noBreaks.=noBreaks.,domain=domain)
-}
-
-
-
-################################################################################
-# Functions to allow symbols in the messages. Basically taken from fcuk package.
-################################################################################
-CATLINE <- function(...) cat(..., "\n", sep = "")
-BULLET <- function(lines,bullet) CATLINE(paste0(bullet," ",lines))
-DONE <- function(...,sep="") 
-  BULLET(paste0(...,sep=sep),bullet=crayon::green(clisymbols::symbol$tick))
-NOTE <- function(...,sep="") 
-  BULLET(paste0(...,sep=sep),bullet=crayon::blue(clisymbols::symbol$checkbox_on))
-
-
+#' @aliases .onAttach STOP WARN CATLINE BULLET DONE NOTE iHndlFilenames iGetImage iSelectPts iPts2Rad iSnap2Transect iScalingFactorFromScaleBar iPlaceText
 
 
 ########################################################################
@@ -39,6 +16,29 @@ NOTE <- function(...,sep="")
   msg <- paste0("## RFishBC v",vers,". See vignettes at derekogle.com/RFishBC/.\n")
   packageStartupMessage(msg)
 }
+
+
+
+################################################################################
+## Same as stop() and warning() but with call.=FALSE as default
+################################################################################
+STOP <- function(...,call.=FALSE,domain=NULL) stop(...,call.=call.,domain=domain)
+WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
+  warning(...,call.=call.,immediate.=immediate.,noBreaks.=noBreaks.,domain=domain)
+}
+
+
+
+################################################################################
+## Functions to allow symbols in the messages. Basically taken from fcuk package.
+################################################################################
+CATLINE <- function(...) cat(..., "\n", sep = "")
+BULLET <- function(lines,bullet) CATLINE(paste0(bullet," ",lines))
+DONE <- function(...,sep="") 
+  BULLET(paste0(...,sep=sep),bullet=crayon::green(clisymbols::symbol$tick))
+NOTE <- function(...,sep="") 
+  BULLET(paste0(...,sep=sep),bullet=crayon::blue(clisymbols::symbol$menu))
+
 
 
 
@@ -73,6 +73,7 @@ iHndlFilenames <- function(nm,filter,multi=TRUE) {
   #### Make sure just the filenames (no path info) is returned
   basename(nm)
 }
+
 
 
 ########################################################################
@@ -114,6 +115,37 @@ iGetImage <- function(fname,id,sepWindow,windowSize,
 }
 
 
+
+
+iSelectPt <- function(msg,pch.sel,col.sel,cex.sel,pch.del,col.del) {
+  ## Internal function for handling mouse down event
+  mouseDown <- function(buttons,x,y) {
+    tmp <- data.frame(x=grconvertX(x,"ndc","user"),
+                      y=grconvertY(y,"ndc","user"))
+    points(y~x,data=tmp,pch=pch.sel,col=col.sel,cex=cex.sel)
+    dat <<- rbind(dat,tmp)
+    NULL
+  }
+  ## Internal function for handling key press event
+  keyPress <- function(key) {
+    if (key %in% c("f","q")) return(invisible(1))
+    if (key %in% c("d","r")) {
+      n <- nrow(dat)
+      if (n>=1) {
+        points(y~x,data=dat[n,],pch=pch.del,col=col.del,cex=cex.sel)
+        dat <<- dat[-n,]
+      }
+      NULL
+    }
+  }
+  ## Main function
+  dat <- data.frame(x=NULL,y=NULL)
+  getGraphicsEvent(msg,onMouseDown=mouseDown,onKeybd=keyPress)
+  dat
+}
+
+
+
 ########################################################################
 ## Convert selected x-y points to radial measurements
 ########################################################################
@@ -141,8 +173,12 @@ iPts2Rad <- function(pts,edgeIsAnnulus,scalingFactor,pixW2H,id,reading) {
 
 
 iScalingFactorFromScaleBar <- function(knownLength,pixW2H,
-                                       col.scaleBar,lwd.scaleBar) {
-  sbPts <- as.data.frame(graphics::locator(n=2,type="p",pch=3,col=col.scaleBar))
+                                       col.scaleBar,lwd.scaleBar,
+                                       pch.sel,col.sel,cex.sel,
+                                       pch.del,col.del) {
+  sbPts <- iSelectPt("     Press 'f' when finished, 'd' to delete selection.",
+                     pch.sel=pch.sel,col.sel=col.sel,cex.sel=cex.sel,
+                     pch.del=pch.del,col.del=col.del)
   if (nrow(sbPts)<2) {
     WARN("Two endpoints were not selected for the scale bar;\n","
            thus, a scaling factor of 1 will be used.")

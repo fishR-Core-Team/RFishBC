@@ -65,11 +65,12 @@
 #' 
 digitizeRadii <- function(img,id,reading,suffix,
                           description,edgeIsAnnulus,popID,
-                          sepWindow,windowSize,scaleBar,
-                          scaleBarLength,col.scaleBar,lwd.scaleBar,
+                          sepWindow,windowSize,confirmSelection,
+                          scaleBar,scaleBarLength,col.scaleBar,lwd.scaleBar,
                           scalingFactor,showTransect,snap2Transect,
                           col.transect,lwd.transect,
                           pch.sel,col.sel,cex.sel,
+                          pch.del,col.del,
                           showInfo,pos.info,cex.info,col.info) {
   ## Process argument defaults
   if (missing(reading)) reading <- iGetopt("reading")
@@ -84,27 +85,27 @@ digitizeRadii <- function(img,id,reading,suffix,
   if (missing(scaleBarLength)) scaleBarLength <- iGetopt("scaleBarLength")
   if (scaleBar & is.null(scaleBarLength))
     STOP("Must provide a 'scaleBarLength' when 'scaleBar=TRUE'.")
-  if (!is.null(scaleBarLength) & !is.numeric(scaleBarLength))
-    STOP("'scaleBarLength' must be numeric.")
-  if (!is.null(scaleBarLength))
+  if (!is.null(scaleBarLength)) {
+    if (!is.numeric(scaleBarLength)) STOP("'scaleBarLength' must be numeric.")
     if (scaleBarLength<=0) STOP("'scaleBarLength' must be positive.")
+  }
   if (!scaleBar & !is.null(scaleBarLength)) 
     STOP("Can not use 'scaleBarLength=' with 'scaleBar=FALSE'.")
   if (missing(col.scaleBar)) col.scaleBar <- iGetopt("col.scaleBar")
   if (missing(lwd.scaleBar)) lwd.scaleBar <- iGetopt("lwd.scaleBar")
   if (missing(scalingFactor)) scalingFactor <- iGetopt("scalingFactor")
-  if (!is.null(scalingFactor))
+  if (!is.null(scalingFactor)) {
     if (!is.numeric(scalingFactor)) STOP("'scalingFactor' must be numeric.")
-  if (!is.null(scalingFactor) & scalingFactor<=0)
-    STOP("'scalingFactor' must be positive.")
-  if (scaleBar & !is.null(scalingFactor)) 
-    STOP("Can not use both 'scalingFactor' and 'scaleBar=TRUE'.")
+    if (scalingFactor<=0) STOP("'scalingFactor' must be positive.")
+  }
   if (missing(showTransect)) showTransect<- iGetopt("showTransect")
   if (missing(snap2Transect)) snap2Transect<- iGetopt("snap2Transect")
   if (missing(col.transect)) col.transect <- iGetopt("col.transect")
   if (missing(lwd.transect)) lwd.transect <- iGetopt("lwd.transect")
   if (missing(pch.sel)) pch.sel <- iGetopt("pch.sel")
   if (missing(col.sel)) col.sel <- iGetopt("col.sel")
+  if (missing(pch.del)) pch.del <- iGetopt("pch.del")
+  if (missing(col.del)) col.del <- iGetopt("col.del")
   if (missing(cex.sel)) cex.sel <- iGetopt("cex.sel")
   if (missing(sepWindow)) sepWindow <- iGetopt("sepWindow")
   if (missing(windowSize)) windowSize <- iGetopt("windowSize")
@@ -143,7 +144,10 @@ digitizeRadii <- function(img,id,reading,suffix,
     sfSource <- "scaleBar"
     sbInfo <- iScalingFactorFromScaleBar(scaleBarLength,windowInfo$pixW2H,
                                          col.scaleBar=col.scaleBar,
-                                         lwd.scaleBar=lwd.scaleBar)
+                                         lwd.scaleBar=lwd.scaleBar,
+                                         pch.sel=pch.sel,col.sel=col.sel,
+                                         cex.sel=cex.sel,
+                                         pch.del=pch.del,col.del=col.del)
     sbPts <- sbInfo$sbPts
     scalingFactor <- sbInfo$scalingFactor
     DONE("Found scaling factor from the selected scale-bar.")
@@ -155,13 +159,11 @@ digitizeRadii <- function(img,id,reading,suffix,
   }
 
   ## User selects a transect on the image ======================================
-  NOTE("Select FOCUS and then MARGIN of the structure")
-  #### Ask user to select two points at the structure focus and margin
-  #### that will serve as the transect. Returns the coords of those points.
-  trans.pts <- as.data.frame(graphics::locator(n=2,type="p",pch=pch.sel,
-                                               col=col.sel,cex=cex.sel))
-  if (nrow(trans.pts)<2) STOP("Either the focus or margin was not selected.")
-  
+  NOTE("Select the FOCUS (center) and MARGIN (edge) of the structure.")
+  trans.pts <- iSelectPt("     Press 'f' when finished, 'd' to delete selection.",
+                         pch.sel=pch.sel,col.sel=col.sel,cex.sel=cex.sel,
+                         pch.del=pch.del,col.del=col.del)
+  if (nrow(trans.pts)<2) STOP("Either the FOCUSE or MARGIN was not selected.")
   #### Calculate slope, intercept, and perpendicular slope to transect
   slpTransect <- diff(trans.pts$y)/diff(trans.pts$x)
   intTransect <- trans.pts$y[1]-slpTransect*trans.pts$x[1]
@@ -175,13 +177,9 @@ digitizeRadii <- function(img,id,reading,suffix,
   }
   
   ## User selects annuli on the image ==========================================
-  NOTE("Select points that are annuli.\n",
-          "   When finished selecting points press\n",
-          "     the second (right) mouse button and select 'Stop',\n",
-          "     the 'Stop' button in Windows, or 'Finish' button in RStudio.")
+  NOTE("Select points that are annuli.")
   #### Initially populate pts and orig.pts with transect points
   pts <- orig.pts <- trans.pts
-  #### Allow user to select one point at-a-time until locator stopped
   #### Selected points will be snapped to transect if snap2Transect==TRUE
   #### orig.pts are as selected by the user, pts may be on transect if
   ####   snap2Transect==TRUE but may not be if snap2Transect==FALSE
