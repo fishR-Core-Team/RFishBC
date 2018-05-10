@@ -89,17 +89,17 @@ digitizeRadii("Scale_1.jpg",id="1",reading="DHO",edgeIsAnnulus=FALSE)
 Further specifics of `digitizeRadii()` and many of its arguments[^DRargs] are described below.
 
 ### Basics
-The `digitizeRadii()` function requires only three arguments.
+The `digitizeRadii()` function **requires** only three arguments.
 
-* `img`: File name for the structure image. This is just the file name if the file is in the current working directory. However it may be the fully pathed name if the image file is not in the current working directory. A dialog box will be provided from which the image file can be selected if this argument is not given and you are on a Windows machine.
-* `id=`: The **required** unique identifier for the fish/structure. If this argument is missing, then the ID can be entered in a dialog box if using Windows or in the console. The Windows dialog will be populated with the filename (sans the extension) if the `popID=TRUE` argument is included.
-* `edgeIsAnnulus=`: A **required** logical that indicates whether the point selected at the structure margin should be considered an annulus (`edgeIsAnnulus=TRUE`) or not (`edgeIsAnnulus=FALSE`). If the fish was captured such that the margin shows growth, but not a complete year's worth of growth, then use `edgeIsAnnulus=FALSE`. However, if the fish was captured before the current year's growth has commenced or after it has completed then use `edgeIsAnnulus=TRUE`. Identifying whether the structure margin is an annulus or not is critical to properly recording radial measurements. As such, there is no default value for this argument (i.e., it **MUST** be set by the user).
+* `img`: File name for the structure image (should be in the current working directory). A dialog box will be provided from which the image file can be selected if this argument is not given and you are on a Windows machine.
+* `id=`: The unique identifier for the fish/structure. If this argument is missing, then the ID can be entered in a dialog box (if using Windows) or in the console. The Windows dialog will be populated with the filename (sans the extension) if the `popID=TRUE` argument is included.
+* `edgeIsAnnulus=`: A logical that indicates whether the point selected at the structure margin should be considered an annulus or not. If the fish was captured such that the margin shows growth, but not a complete year's worth of growth, then use `edgeIsAnnulus=FALSE`. However, if the fish was captured before the current year's growth has commenced or after it has completed then use `edgeIsAnnulus=TRUE`. Identifying whether the structure margin is an annulus or not is critical to properly recording radial measurements. As such, there is no default value for this argument (i.e., it **MUST** be set by the user).
 
-Other arguments that are likely to be commonly used are:
+Other **optional** arguments that are likely to be commonly used are:
 
-* `reading=`: Optional label for the reading.[^readings]
-* `description=`: Optional detailed description about the structure. This will be saved in the RData file and could be extracted in the future. For example, one may use `description="Cisco scale read once by Ogle on 22-Apr-18"` to provide more information about the structure reading.
-* `sepWindow=`: A logical that indicates whether the image should be opened in a separate window (`sepWindow=TRUE`) or not (`sepWindow=FALSE`). The default is `sepWindow=TRUE` as opening the image in a separate window allows it to conform to its native aspect ratio, which is important when meausuring distances on the image.
+* `reading=`: Label for the reading.[^readings]
+* `description=`: Detailed description about the structure. This will be saved in the RData file and could be extracted in the future. For example, one may use `description="Kiyi scale read once by Ogle on 22-Apr-18"` to provide more information about the structure reading.
+* `sepWindow=`: A logical that indicates whether the image should be opened in a separate window (`sepWindow=TRUE`) or not (`sepWindow=FALSE`). The default is `sepWindow=TRUE`, as opening the image in a separate window allows it to conform to its native aspect ratio, which is important when meausuring distances on the image.
 * `windowSize=`: A value that sets the size of the separate window (only used if `sepWindow=TRUE`). This value will become the larger of the two dimensions, with the other value proportionate so that the original aspect ratio is maintained. Use `windowSize=` to "zoom in" on an image. Note that the default is `windowSize=7`; so values larger than 7 represent a "zooming in."
 
 Finally, note that the RData file that will be created after the annuli have been selected will have the same name as the image file[^excludeextension] but including the suffix optionally provided in `suffix=`. If nothing is given in `suffix=`, then a suffix will be created from `reading=` (if it exists). For example, if the structure image file was named "Scale_1.jpg", then the resultant RData file will be named "Scale_1_DHO.RData" if `reading="DHO"` or "Scale_1_TESTING.RData" if `reading="DHO"` and `suffix="TESTING"`.
@@ -117,9 +117,9 @@ Other arguments to `digitizeRadii()` are described in the specific sections belo
 ### Setting the Scale
 If actual lengths, rather than arbitrary (but proportional) lengths are needed,[^actuallength] then a scaling factor is needed to convert measurements on the image to actual measurements on the structure. This scaling factor may be calculated from a scale-bar found on the image or provided by the user.
 
-**Scale-bar On Image:** If a scale-bar of known length exists on the image, then use `scaleBar=TRUE` with the actual length of the scale bar given in `scaleBarLength=`. You will then need to select the two end points of the scale-bar on the structure image prior to selecting points that represent annuli. An appropriate scaling factor will then be computed from your selections and the radial measurements on the image will be converted to actual lengths on the structure.
+**Scale-bar On Image:** If a scale-bar of known length exists on the image, then use `scaleBar=TRUE` with the actual length of the scale bar given in `scaleBarLength=`. You will then select the two end points of the scale-bar on the structure image prior to selecting points that represent annuli. Press the 'f' key (for "finished") after selecting the end points of the scale-bar.[^deletekey] An appropriate scaling factor will be computed from your selections and the radial measurements on the image will be converted to actual lengths on the structure.
 
-**Separately Defined Scaling Factor:** In applications where a scale-bar does not exist on the image, the user can provide a value to `scalingFactor=` which will be used to multiply lengths on the structure image to derive actual lengths. One way to derive this scaling factor is to capture an image of the structure at a specific magnification on the microscope and then capture an image of an object of known length at that same magnification. Note that these captured images should be of the same size so that the aspect ratio is consistent. A scaling factor may then be computed from the image with the object of known length and applied to the structure image. This scaling factor can be found by giving `findScalingFactor()` the file name with the object of known length and that known length in `knownLength=`. The value returned from `findScalingFactor()` can then be given to `scalingFactor=` in `digitizeRadii()`.[^sforder]
+**Separately Defined Scaling Factor:** In applications where a scale-bar does not exist on the image, the user can provide a value to `scalingFactor=`, which will be multiplied by lengths on the structure image to derive actual lengths. One way to derive this scaling factor is to capture an image of the structure at a specific magnification on the microscope and then capture an image of an object of known length at that same magnification. Note that these captured images must be of the same size so that the aspect ratio is consistent. A scaling factor may then be computed from the image with the object of known length and applied to the structure image. This scaling factor can be found by giving `findScalingFactor()` the file name with the object of known length and that known length in `knownLength=`. The value returned from `findScalingFactor()` can then be given to `scalingFactor=` in `digitizeRadii()`.[^sforder]
 
 If no `scalingFactor=` is derived from a scale-bar or provided, then the radial measurements returned by `digitizeRadii()` are simply proportional to the unknown actual lengths on the structure.
 
@@ -130,7 +130,7 @@ At this point, the image may look something like that below.
 \  
 
 ### Selecting a Transect
-After the scaling factor has been determined, you will be asked to select a transect on the structure image on which annular marks will be selected. This transect is selected by **first selecting the structure focus** and **then selecting the structure margin/edge**. If `showTransect=TRUE` (the default), then a line connecting these two points will be drawn on the structure image. The color of the transect may be changed with `col.transect=`. The width of the transect may be increased by including a number greater than 1 in `lwd.transect=`.
+After the scaling factor has been determined (or provided), you will select a transect on the structure image on which annular marks will be selected. This transect is selected by **first selecting the structure focus** and **then selecting the structure margin/edge** and pressing the 'f' key.[^deletekey] If `showTransect=TRUE` (the default), then a line connecting these two points will be drawn on the structure image. The color of the transect may be changed with `col.transect=`. The width of the transect may be increased by including a number greater than 1 in `lwd.transect=`.
 
 At this point, the image may look something like that below.
 
@@ -139,13 +139,13 @@ At this point, the image may look something like that below.
 \  
 
 ### Selecting Annuli
-Once a transect has been identified on the structure, then you will be asked to select points on the structure that represent annuli. Points are selected by clicking on the image at the point with the first (left) mouse button. Be careful in your selections because the point cannot be immediately removed. When the last point has been selected, the user must press the second (right) mouse button and select 'Stop' or, in Windows, select 'STOP' in the menu on the structure image window.
+Once a transect has been identified on the structure, then you will be asked to select points on the structure that represent annuli. Points are selected by clicking on the image at the point with the first (left) mouse button. The last selected point can be removed by pressing the 'd' or 'r' keys (for "delete" or "remove"). When the last point has been selected, press the 'f' or 'q' (for "finished" or "quit") keys.
 
-Selected points will be marked with the plotting character given in `pch.sel=` (defaults to "cross-hairs") with a color given in `col.sel=`.
+Selected points will be marked with the plotting character given in `pch.sel=` (defaults to a filled circle) with a color given in `col.sel=`. Any deleted points will be marked with the color and character in `col.del=` and `pch.del=` (defaults to a red circle with an "x" in it).
 
 In theory all selected points should fall on the selected transect. In practice, you may select a point slightly off of the transect. The selected point can be "moved" perpendicularly to fall exactly on the transect by including `snap2Transect=TRUE`, which is the default behavior.
 
-At this point, the image may look something like that below.
+At this point, the image may look something like that below (*note that two points were deleted in the selection process for this image*).
 
 ![](figures/oto140306_D.jpg)
 
@@ -258,6 +258,8 @@ write.csv(dffish,file="Kiyi2014_BCs.csv",quote=FALSE,row.names=FALSE)
 [^RStudioSETWD]: In RStudio, the working directory can be set with any of the options under the Session ... Set Working Directory menu.  My preference is to start a script that will contain all of the code described later in this vignette. If this script is saved to the same directory with the structure images then the working directory can be set in RStudio with the Session ... Set Working Directory ... to Source File Location menu items. I then copy the resultant `setwd()` code to my script so that I do not have to use the menu items when I run this script again.
 
 [^inwd]: This assumes that the `Scale_1.jpg` file is in the current working directory. Use `getwd()` to see the current working directory.
+
+[^deletekey]: The last selected point can be deleted by pressing the 'd' or 'r' keys. This can be done multiple times such that the last number of selections can be deleted. The deleted points will be marked with the plotting character and color in `pch.del=` and `col.del=` (defaults to a red circle with an 'x' in it).
 
 [^saveex1]: Actually much more than the radial measurements are recorded in the RData file (see [here](http://derekogle.com/RFishBC/reference/digitizeRadii.html#value)). Also note that the radii are on an arbitrary scale in this case because no scale-bar was available on the image.
 

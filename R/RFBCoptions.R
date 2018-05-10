@@ -28,6 +28,8 @@
 #' \item{\code{pch.sel}: }{The plotting character of points for selected annuli in \code{\link{digitizeRadii}}. Defaults to \code{20} (a small solid circle).}
 #' \item{\code{col.sel}: }{The color of points for selected annuli in \code{\link{digitizeRadii}}. Defaults to \code{"yellow"}.}
 #' \item{\code{cex.sel}: }{The character expansion value of points for selected annuli in \code{\link{digitizeRadii}}. Defaults to \code{1}.}
+#' \item{\code{pch.del}: }{The plotting character of points for DEselected annuli in \code{\link{digitizeRadii}}. Defaults to \code{13} (a circle with an X in it).}
+#' \item{\code{col.del}: }{The color of points for DEselected annuli in \code{\link{digitizeRadii}}. Defaults to \code{"red"}.}
 #' \item{\code{pch.show}: }{The plotting character for points shown in \code{\link{showDigitizedImage}}. Defaults to \code{19} (a solid circle).}
 #' \item{\code{col.show}: }{The color of points shown in \code{\link{showDigitizedImage}}. Defaults to \code{"yellow"}.}
 #' \item{\code{cex.show}: }{The character expansion value of points shown in \code{\link{showDigitizedImage}}. Defaults to \code{1}.}
@@ -84,6 +86,7 @@ iRFBCopts <- settings::options_manager(reading=NULL,description=NULL,
                 showTransect=TRUE,snap2Transect=TRUE,
                 col.transect="cyan",lwd.transect=2,
                 pch.sel=20,col.sel="yellow",cex.sel=1,
+                pch.del=13,col.del="red",
                 pch.show=19,col.show="yellow",cex.show=1,
                 showInfo=TRUE,pos.info="topleft",col.info="yellow",cex.info=1.2,
                 showAnnuliLabels=TRUE,annuliLabels=NULL,

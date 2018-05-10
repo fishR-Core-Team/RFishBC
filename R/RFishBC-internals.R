@@ -4,30 +4,7 @@
 #'
 #' @rdname FSA-internals
 #' @keywords internal
-#' @aliases .onAttach STOP WARN iHndlFilenames iGetImage iPts2Rad iSnap2Transect iScalingFactorFromScaleBar iPlaceText
-
-
-################################################################################
-# Same as stop() and warning() but with call.=FALSE as default
-################################################################################
-STOP <- function(...,call.=FALSE,domain=NULL) stop(...,call.=call.,domain=domain)
-WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
-  warning(...,call.=call.,immediate.=immediate.,noBreaks.=noBreaks.,domain=domain)
-}
-
-
-
-################################################################################
-# Functions to allow symbols in the messages. Basically taken from fcuk package.
-################################################################################
-CATLINE <- function(...) cat(..., "\n", sep = "")
-BULLET <- function(lines,bullet) CATLINE(paste0(bullet," ",lines))
-DONE <- function(...,sep="") 
-  BULLET(paste0(...,sep=sep),bullet=crayon::green(clisymbols::symbol$tick))
-NOTE <- function(...,sep="") 
-  BULLET(paste0(...,sep=sep),bullet=crayon::blue(clisymbols::symbol$checkbox_on))
-
-
+#' @aliases .onAttach STOP WARN CATLINE BULLET DONE NOTE iHndlFilenames iGetImage iScalingFactorFromScaleBar iPlaceText
 
 
 ########################################################################
@@ -39,6 +16,29 @@ NOTE <- function(...,sep="")
   msg <- paste0("## RFishBC v",vers,". See vignettes at derekogle.com/RFishBC/.\n")
   packageStartupMessage(msg)
 }
+
+
+
+################################################################################
+## Same as stop() and warning() but with call.=FALSE as default
+################################################################################
+STOP <- function(...,call.=FALSE,domain=NULL) stop(...,call.=call.,domain=domain)
+WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
+  warning(...,call.=call.,immediate.=immediate.,noBreaks.=noBreaks.,domain=domain)
+}
+
+
+
+################################################################################
+## Functions to allow symbols in the messages. Basically taken from fcuk package.
+################################################################################
+CATLINE <- function(...) cat(..., "\n", sep = "")
+BULLET <- function(lines,bullet) CATLINE(paste0(bullet," ",lines))
+DONE <- function(...,sep="") 
+  BULLET(paste0(...,sep=sep),bullet=crayon::green(clisymbols::symbol$tick))
+NOTE <- function(...,sep="") 
+  BULLET(paste0(...,sep=sep),bullet=crayon::blue(clisymbols::symbol$menu))
+
 
 
 
@@ -73,6 +73,7 @@ iHndlFilenames <- function(nm,filter,multi=TRUE) {
   #### Make sure just the filenames (no path info) is returned
   basename(nm)
 }
+
 
 
 ########################################################################
@@ -115,38 +116,21 @@ iGetImage <- function(fname,id,sepWindow,windowSize,
 
 
 ########################################################################
-## Convert selected x-y points to radial measurements
+## Finds the scaling factor from two points selected by the user.
 ########################################################################
-iPts2Rad <- function(pts,edgeIsAnnulus,scalingFactor,pixW2H,id,reading) {
-  #### Number of radial measurements is one less than number of points selected
-  n <- nrow(pts)-1
-  #### Distances in x- and y- directions, corrected for pixel w to h ratio
-  distx <- (pts$x[2:(n+1)]-pts$x[1])*pixW2H
-  disty <- pts$y[2:(n+1)]-pts$y[1]
-  #### Distances between points
-  distxy <- sqrt(distx^2+disty^2)
-  #### Correct distances for scalingFactor ... and call a radius
-  rad <- distxy*scalingFactor
-  #### Sort radii in increasing order (probably redundant)
-  rad <- rad[order(rad)]
-  #### create data.frame with radii information
-  data.frame(id=as.character(rep(id,n)),
-             reading=as.character(rep(ifelse(is.null(reading),NA,reading),n)),
-             agecap=ifelse(edgeIsAnnulus,n,n-1),
-             ann=seq_len(n),
-             rad=rad,radcap=max(rad),
-             stringsAsFactors=FALSE)
-}
-
-
-
-iScalingFactorFromScaleBar <- function(knownLength,pixW2H,
-                                       col.scaleBar,lwd.scaleBar) {
-  sbPts <- as.data.frame(graphics::locator(n=2,type="p",pch=3,col=col.scaleBar))
+iScalingFactorFromScaleBar <- function(msg2,knownLength,pixW2H,
+                                       col.scaleBar,lwd.scaleBar,
+                                       pch.sel,col.sel,cex.sel,
+                                       pch.del,col.del) {
+  sbPts <- iSelectPt("Select ends of scale-bar:",msg2,
+                     pch.sel=pch.sel,col.sel=col.sel,cex.sel=cex.sel,
+                     pch.del=pch.del,col.del=col.del,
+                     snap2Transect=FALSE,slpTransect=NULL,
+                     intTransect=NULL,slpPerpTransect=NULL)
   if (nrow(sbPts)<2) {
-    WARN("Two endpoints were not selected for the scale bar;\n","
-           thus, a scaling factor of 1 will be used.")
-    scalingFactor <- 1
+    STOP("Two endpoints were not selected for the scale-bar.")
+  } else if (nrow(sbPts)>2) {
+    STOP("Only two endpoints may be selected for the scale-bar.")
   } else {
     ## Show the user-selected marking on the image
     graphics::lines(y~x,data=sbPts,col=col.scaleBar,lwd=lwd.scaleBar)

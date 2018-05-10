@@ -44,8 +44,8 @@ test_that("digitizeRadii() error messages",{
   expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=FALSE,scaleBarLength=1),
                "Can not use")
   expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE,
-                             scaleBarLength=1,scalingFactor=1),
-               "Can not use both")
+                             scaleBarLength=1,scalingFactor=1.1),
+               "Can not set both")
   expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scalingFactor="derek"),
                "must be numeric")
   expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scalingFactor=0),

@@ -5,7 +5,7 @@
 \title{Find scaling factor from object of known length}
 \usage{
 findScalingFactor(img, knownLength, sepWindow, windowSize, col.scaleBar,
-  lwd.scaleBar)
+  lwd.scaleBar, pch.sel, col.sel, cex.sel, pch.del, col.del)
 }
 \arguments{
 \item{img}{A string that indicates the image (must be PNG, JPG, BMP, or TIFF) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (will look for this file in the current working directory unless a fully pathed name is given).}
@@ -19,6 +19,16 @@ findScalingFactor(img, knownLength, sepWindow, windowSize, col.scaleBar,
 \item{col.scaleBar}{See details in \code{\link{RFBCoptions}}.}
 
 \item{lwd.scaleBar}{See details in \code{\link{RFBCoptions}}.}
+
+\item{pch.sel}{See details in \code{\link{RFBCoptions}}.}
+
+\item{col.sel}{See details in \code{\link{RFBCoptions}}.}
+
+\item{cex.sel}{See details in \code{\link{RFBCoptions}}.}
+
+\item{pch.del}{See details in \code{\link{RFBCoptions}}.}
+
+\item{col.del}{See details in \code{\link{RFBCoptions}}.}
 }
 \value{
 A single numeric that is the scaling factor (a multiplier that is used to convert image lengths to actual lengths).

@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">RFishBC</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.5.9000</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.6.9000</span>
       </span>
     </div>
 
@@ -91,7 +91,7 @@
       <h1>Collect radial measurements from a calcified structure by interactively selecting annuli</h1>
                         <h4 class="author">Derek H. Ogle</h4>
             
-            <h4 class="date">2018-04-29</h4>
+            <h4 class="date">2018-05-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/droglenc/RFishBC/blob/master/vignettes/MeasureRadii/collectRadiiData.Rmd"><code>vignettes/MeasureRadii/collectRadiiData.Rmd</code></a></small>
       <div class="hidden name"><code>collectRadiiData.Rmd</code></div>
@@ -162,24 +162,24 @@
 <div id="basics" class="section level3">
 <h3 class="hasAnchor">
 <a href="#basics" class="anchor"></a>Basics</h3>
-<p>The <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> function requires only three arguments.</p>
+<p>The <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> function <strong>requires</strong> only three arguments.</p>
 <ul>
 <li>
-<code>img</code>: File name for the structure image. This is just the file name if the file is in the current working directory. However it may be the fully pathed name if the image file is not in the current working directory. A dialog box will be provided from which the image file can be selected if this argument is not given and you are on a Windows machine.</li>
+<code>img</code>: File name for the structure image (should be in the current working directory). A dialog box will be provided from which the image file can be selected if this argument is not given and you are on a Windows machine.</li>
 <li>
-<code>id=</code>: The <strong>required</strong> unique identifier for the fish/structure. If this argument is missing, then the ID can be entered in a dialog box if using Windows or in the console. The Windows dialog will be populated with the filename (sans the extension) if the <code>popID=TRUE</code> argument is included.</li>
+<code>id=</code>: The unique identifier for the fish/structure. If this argument is missing, then the ID can be entered in a dialog box (if using Windows) or in the console. The Windows dialog will be populated with the filename (sans the extension) if the <code>popID=TRUE</code> argument is included.</li>
 <li>
-<code>edgeIsAnnulus=</code>: A <strong>required</strong> logical that indicates whether the point selected at the structure margin should be considered an annulus (<code>edgeIsAnnulus=TRUE</code>) or not (<code>edgeIsAnnulus=FALSE</code>). If the fish was captured such that the margin shows growth, but not a complete year’s worth of growth, then use <code>edgeIsAnnulus=FALSE</code>. However, if the fish was captured before the current year’s growth has commenced or after it has completed then use <code>edgeIsAnnulus=TRUE</code>. Identifying whether the structure margin is an annulus or not is critical to properly recording radial measurements. As such, there is no default value for this argument (i.e., it <strong>MUST</strong> be set by the user).</li>
+<code>edgeIsAnnulus=</code>: A logical that indicates whether the point selected at the structure margin should be considered an annulus or not. If the fish was captured such that the margin shows growth, but not a complete year’s worth of growth, then use <code>edgeIsAnnulus=FALSE</code>. However, if the fish was captured before the current year’s growth has commenced or after it has completed then use <code>edgeIsAnnulus=TRUE</code>. Identifying whether the structure margin is an annulus or not is critical to properly recording radial measurements. As such, there is no default value for this argument (i.e., it <strong>MUST</strong> be set by the user).</li>
 </ul>
-<p>Other arguments that are likely to be commonly used are:</p>
+<p>Other <strong>optional</strong> arguments that are likely to be commonly used are:</p>
 <ul>
 <li>
-<code>reading=</code>: Optional label for the reading.<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>
+<code>reading=</code>: Label for the reading.<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>
 </li>
 <li>
-<code>description=</code>: Optional detailed description about the structure. This will be saved in the RData file and could be extracted in the future. For example, one may use <code>description="Cisco scale read once by Ogle on 22-Apr-18"</code> to provide more information about the structure reading.</li>
+<code>description=</code>: Detailed description about the structure. This will be saved in the RData file and could be extracted in the future. For example, one may use <code>description="Kiyi scale read once by Ogle on 22-Apr-18"</code> to provide more information about the structure reading.</li>
 <li>
-<code>sepWindow=</code>: A logical that indicates whether the image should be opened in a separate window (<code>sepWindow=TRUE</code>) or not (<code>sepWindow=FALSE</code>). The default is <code>sepWindow=TRUE</code> as opening the image in a separate window allows it to conform to its native aspect ratio, which is important when meausuring distances on the image.</li>
+<code>sepWindow=</code>: A logical that indicates whether the image should be opened in a separate window (<code>sepWindow=TRUE</code>) or not (<code>sepWindow=FALSE</code>). The default is <code>sepWindow=TRUE</code>, as opening the image in a separate window allows it to conform to its native aspect ratio, which is important when meausuring distances on the image.</li>
 <li>
 <code>windowSize=</code>: A value that sets the size of the separate window (only used if <code>sepWindow=TRUE</code>). This value will become the larger of the two dimensions, with the other value proportionate so that the original aspect ratio is maintained. Use <code>windowSize=</code> to “zoom in” on an image. Note that the default is <code>windowSize=7</code>; so values larger than 7 represent a “zooming in.”</li>
 </ul>
@@ -196,8 +196,8 @@
 <h3 class="hasAnchor">
 <a href="#setting-the-scale" class="anchor"></a>Setting the Scale</h3>
 <p>If actual lengths, rather than arbitrary (but proportional) lengths are needed,<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a> then a scaling factor is needed to convert measurements on the image to actual measurements on the structure. This scaling factor may be calculated from a scale-bar found on the image or provided by the user.</p>
-<p><strong>Scale-bar On Image:</strong> If a scale-bar of known length exists on the image, then use <code>scaleBar=TRUE</code> with the actual length of the scale bar given in <code>scaleBarLength=</code>. You will then need to select the two end points of the scale-bar on the structure image prior to selecting points that represent annuli. An appropriate scaling factor will then be computed from your selections and the radial measurements on the image will be converted to actual lengths on the structure.</p>
-<p><strong>Separately Defined Scaling Factor:</strong> In applications where a scale-bar does not exist on the image, the user can provide a value to <code>scalingFactor=</code> which will be used to multiply lengths on the structure image to derive actual lengths. One way to derive this scaling factor is to capture an image of the structure at a specific magnification on the microscope and then capture an image of an object of known length at that same magnification. Note that these captured images should be of the same size so that the aspect ratio is consistent. A scaling factor may then be computed from the image with the object of known length and applied to the structure image. This scaling factor can be found by giving <code><a href="../../reference/findScalingFactor.html">findScalingFactor()</a></code> the file name with the object of known length and that known length in <code>knownLength=</code>. The value returned from <code><a href="../../reference/findScalingFactor.html">findScalingFactor()</a></code> can then be given to <code>scalingFactor=</code> in <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>.<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a></p>
+<p><strong>Scale-bar On Image:</strong> If a scale-bar of known length exists on the image, then use <code>scaleBar=TRUE</code> with the actual length of the scale bar given in <code>scaleBarLength=</code>. You will then select the two end points of the scale-bar on the structure image prior to selecting points that represent annuli. Press the ‘f’ key (for “finished”) after selecting the end points of the scale-bar.<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a> An appropriate scaling factor will be computed from your selections and the radial measurements on the image will be converted to actual lengths on the structure.</p>
+<p><strong>Separately Defined Scaling Factor:</strong> In applications where a scale-bar does not exist on the image, the user can provide a value to <code>scalingFactor=</code>, which will be multiplied by lengths on the structure image to derive actual lengths. One way to derive this scaling factor is to capture an image of the structure at a specific magnification on the microscope and then capture an image of an object of known length at that same magnification. Note that these captured images must be of the same size so that the aspect ratio is consistent. A scaling factor may then be computed from the image with the object of known length and applied to the structure image. This scaling factor can be found by giving <code><a href="../../reference/findScalingFactor.html">findScalingFactor()</a></code> the file name with the object of known length and that known length in <code>knownLength=</code>. The value returned from <code><a href="../../reference/findScalingFactor.html">findScalingFactor()</a></code> can then be given to <code>scalingFactor=</code> in <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>.<a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a></p>
 <p>If no <code>scalingFactor=</code> is derived from a scale-bar or provided, then the radial measurements returned by <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> are simply proportional to the unknown actual lengths on the structure.</p>
 <p>At this point, the image may look something like that below.</p>
 <div class="figure">
@@ -208,7 +208,7 @@
 <div id="selecting-a-transect" class="section level3">
 <h3 class="hasAnchor">
 <a href="#selecting-a-transect" class="anchor"></a>Selecting a Transect</h3>
-<p>After the scaling factor has been determined, you will be asked to select a transect on the structure image on which annular marks will be selected. This transect is selected by <strong>first selecting the structure focus</strong> and <strong>then selecting the structure margin/edge</strong>. If <code>showTransect=TRUE</code> (the default), then a line connecting these two points will be drawn on the structure image. The color of the transect may be changed with <code>col.transect=</code>. The width of the transect may be increased by including a number greater than 1 in <code>lwd.transect=</code>.</p>
+<p>After the scaling factor has been determined (or provided), you will select a transect on the structure image on which annular marks will be selected. This transect is selected by <strong>first selecting the structure focus</strong> and <strong>then selecting the structure margin/edge</strong> and pressing the ‘f’ key.<a href="#fn10" class="footnoteRef" id="fnref10"><sup>10</sup></a> If <code>showTransect=TRUE</code> (the default), then a line connecting these two points will be drawn on the structure image. The color of the transect may be changed with <code>col.transect=</code>. The width of the transect may be increased by including a number greater than 1 in <code>lwd.transect=</code>.</p>
 <p>At this point, the image may look something like that below.</p>
 <div class="figure">
 <img src="figures/oto140306_C.jpg">
@@ -218,10 +218,10 @@
 <div id="selecting-annuli" class="section level3">
 <h3 class="hasAnchor">
 <a href="#selecting-annuli" class="anchor"></a>Selecting Annuli</h3>
-<p>Once a transect has been identified on the structure, then you will be asked to select points on the structure that represent annuli. Points are selected by clicking on the image at the point with the first (left) mouse button. Be careful in your selections because the point cannot be immediately removed. When the last point has been selected, the user must press the second (right) mouse button and select ‘Stop’ or, in Windows, select ‘STOP’ in the menu on the structure image window.</p>
-<p>Selected points will be marked with the plotting character given in <code>pch.sel=</code> (defaults to “cross-hairs”) with a color given in <code>col.sel=</code>.</p>
+<p>Once a transect has been identified on the structure, then you will be asked to select points on the structure that represent annuli. Points are selected by clicking on the image at the point with the first (left) mouse button. The last selected point can be removed by pressing the ‘d’ or ‘r’ keys (for “delete” or “remove”). When the last point has been selected, press the ‘f’ or ‘q’ (for “finished” or “quit”) keys.</p>
+<p>Selected points will be marked with the plotting character given in <code>pch.sel=</code> (defaults to a filled circle) with a color given in <code>col.sel=</code>. Any deleted points will be marked with the color and character in <code>col.del=</code> and <code>pch.del=</code> (defaults to a red circle with an “x” in it).</p>
 <p>In theory all selected points should fall on the selected transect. In practice, you may select a point slightly off of the transect. The selected point can be “moved” perpendicularly to fall exactly on the transect by including <code>snap2Transect=TRUE</code>, which is the default behavior.</p>
-<p>At this point, the image may look something like that below.</p>
+<p>At this point, the image may look something like that below (<em>note that two points were deleted in the selection process for this image</em>).</p>
 <div class="figure">
 <img src="figures/oto140306_D.jpg">
 </div>
@@ -251,15 +251,15 @@
 <div id="data-from-one-structure" class="section level1">
 <h1 class="hasAnchor">
 <a href="#data-from-one-structure" class="anchor"></a>Data from One Structure</h1>
-<p>The radial measurements from one structure may be seen by submitting the RData file name to <code><a href="../../reference/combineData.html">combineData()</a></code>.<a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a></p>
+<p>The radial measurements from one structure may be seen by submitting the RData file name to <code><a href="../../reference/combineData.html">combineData()</a></code>.<a href="#fn11" class="footnoteRef" id="fnref11"><sup>11</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/combineData.html">combineData</a></span>(<span class="st">"Scale_1_DHO.RData"</span>)
 <span class="co">#&gt;   id reading agecap ann       rad    radcap</span>
-<span class="co">#&gt; 1  1     DHO      5   1 0.2144439 0.5177147</span>
-<span class="co">#&gt; 2  1     DHO      5   2 0.2788870 0.5177147</span>
-<span class="co">#&gt; 3  1     DHO      5   3 0.3381906 0.5177147</span>
-<span class="co">#&gt; 4  1     DHO      5   4 0.4584539 0.5177147</span>
-<span class="co">#&gt; 5  1     DHO      5   5 0.4968143 0.5177147</span>
-<span class="co">#&gt; 6  1     DHO      5   6 0.5177147 0.5177147</span></code></pre></div>
+<span class="co">#&gt; 1  1     DHO      5   1 0.2196863 0.5195844</span>
+<span class="co">#&gt; 2  1     DHO      5   2 0.2929321 0.5195844</span>
+<span class="co">#&gt; 3  1     DHO      5   3 0.3434871 0.5195844</span>
+<span class="co">#&gt; 4  1     DHO      5   4 0.4603219 0.5195844</span>
+<span class="co">#&gt; 5  1     DHO      5   5 0.5021181 0.5195844</span>
+<span class="co">#&gt; 6  1     DHO      5   6 0.5195844 0.5195844</span></code></pre></div>
 <p> </p>
 <p> </p>
 <hr>
@@ -274,58 +274,58 @@
 <p>With this, “Scale_1_DHO.RData” and “Scale_2_DHO.RData” would both exist in the current working directory.</p>
 <p>Radial measurements from multiple structures can be easily combined into one data.frame with <code><a href="../../reference/combineData.html">combineData()</a></code> if the appropriate RData file names are in a list. The <code><a href="../../reference/listFiles.html">listFiles()</a></code> function may be used to identify all filenames in the current working directory that have the file extension given in the first argument. For example, all files in the current working directory with the “RData” extension are identified below.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/listFiles.html">listFiles</a></span>(<span class="st">"RData"</span>)
-<span class="co">#&gt; [1] "Oto140306_DHO.RData" "Scale_1_DHO.RData"   "Scale_1_DHO2.RData" </span>
-<span class="co">#&gt; [4] "Scale_1_DHO3.RData"  "Scale_2_DHO.RData"</span></code></pre></div>
+<span class="co">#&gt; [1] "Oto140306_DHO.RData"  "Oto140306_DHO2.RData" "Scale_1_DHO.RData"   </span>
+<span class="co">#&gt; [4] "Scale_1_DHO2.RData"   "Scale_1_DHO3.RData"   "Scale_2_DHO.RData"</span></code></pre></div>
 <p>This list of names can be further filtered by including other key words for the filenames in <code>other=</code>. In this case, the list should be limited to those files with “Scale” in the name and those files with just “DHO” (i.e., exclude “DHO2”). Limiting to “DHO” required limiting to “DHO.”, but because the “.” is a special character it had to be preceded by “\”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">( fns &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/listFiles.html">listFiles</a></span>(<span class="st">"RData"</span>,<span class="dt">other=</span><span class="kw">c</span>(<span class="st">"Scale"</span>,<span class="st">"DHO</span><span class="ch">\\</span><span class="st">."</span>)) )
 <span class="co">#&gt; [1] "Scale_1_DHO.RData" "Scale_2_DHO.RData"</span></code></pre></div>
-<p>The result of <code><a href="../../reference/listFiles.html">listFiles()</a></code> should be saved to an object so that the names can be given to <code><a href="../../reference/combineData.html">combineData()</a></code> as shown below.<a href="#fn10" class="footnoteRef" id="fnref10"><sup>10</sup></a></p>
+<p>The result of <code><a href="../../reference/listFiles.html">listFiles()</a></code> should be saved to an object so that the names can be given to <code><a href="../../reference/combineData.html">combineData()</a></code> as shown below.<a href="#fn12" class="footnoteRef" id="fnref12"><sup>12</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">( dfrad &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/combineData.html">combineData</a></span>(fns) )
 <span class="co">#&gt;    id reading agecap ann       rad    radcap</span>
-<span class="co">#&gt; 1   1     DHO      5   1 0.2144439 0.5177147</span>
-<span class="co">#&gt; 2   1     DHO      5   2 0.2788870 0.5177147</span>
-<span class="co">#&gt; 3   1     DHO      5   3 0.3381906 0.5177147</span>
-<span class="co">#&gt; 4   1     DHO      5   4 0.4584539 0.5177147</span>
-<span class="co">#&gt; 5   1     DHO      5   5 0.4968143 0.5177147</span>
-<span class="co">#&gt; 6   1     DHO      5   6 0.5177147 0.5177147</span>
-<span class="co">#&gt; 7   2     DHO      5   1 0.1297846 0.3916125</span>
-<span class="co">#&gt; 8   2     DHO      5   2 0.2273747 0.3916125</span>
-<span class="co">#&gt; 9   2     DHO      5   3 0.3009213 0.3916125</span>
-<span class="co">#&gt; 10  2     DHO      5   4 0.3457023 0.3916125</span>
-<span class="co">#&gt; 11  2     DHO      5   5 0.3778149 0.3916125</span>
-<span class="co">#&gt; 12  2     DHO      5   6 0.3916125 0.3916125</span></code></pre></div>
+<span class="co">#&gt; 1   1     DHO      5   1 0.2196863 0.5195844</span>
+<span class="co">#&gt; 2   1     DHO      5   2 0.2929321 0.5195844</span>
+<span class="co">#&gt; 3   1     DHO      5   3 0.3434871 0.5195844</span>
+<span class="co">#&gt; 4   1     DHO      5   4 0.4603219 0.5195844</span>
+<span class="co">#&gt; 5   1     DHO      5   5 0.5021181 0.5195844</span>
+<span class="co">#&gt; 6   1     DHO      5   6 0.5195844 0.5195844</span>
+<span class="co">#&gt; 7   2     DHO      5   1 0.1432675 0.4050100</span>
+<span class="co">#&gt; 8   2     DHO      5   2 0.2302988 0.4050100</span>
+<span class="co">#&gt; 9   2     DHO      5   3 0.2877875 0.4050100</span>
+<span class="co">#&gt; 10  2     DHO      5   4 0.3398335 0.4050100</span>
+<span class="co">#&gt; 11  2     DHO      5   5 0.3735663 0.4050100</span>
+<span class="co">#&gt; 12  2     DHO      5   6 0.4050100 0.4050100</span></code></pre></div>
 </div>
 <div id="output-data-file" class="section level1">
 <h1 class="hasAnchor">
 <a href="#output-data-file" class="anchor"></a>Output Data File</h1>
-<p>Other information about the fish (e.g., location of capture, length, sex) is likely held in a separate file. Below, example “other” data are loaded into the <code>dffish</code> data.frame. Note that the <code>id</code> variable created from processing the structure images above are characters. In this case, <code>read.csv()</code> reads the <code>id</code> variable from the external data file as numeric (because the unique IDs were simple numbers). The second line of code below converts these numeric IDs to characters so that this data.frame can be joined with the radial measurements data.frame from above.<a href="#fn11" class="footnoteRef" id="fnref11"><sup>11</sup></a></p>
+<p>Other information about the fish (e.g., location of capture, length, sex) is likely held in a separate file. Below, example “other” data are loaded into the <code>dffish</code> data.frame. Note that the <code>id</code> variable created from processing the structure images above are characters. In this case, <code>read.csv()</code> reads the <code>id</code> variable from the external data file as numeric (because the unique IDs were simple numbers). The second line of code below converts these numeric IDs to characters so that this data.frame can be joined with the radial measurements data.frame from above.<a href="#fn13" class="footnoteRef" id="fnref13"><sup>13</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dffish &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">"FishData.csv"</span>,<span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id=</span><span class="kw">as.character</span>(id)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">inner_join</span>(dfrad,<span class="dt">by=</span><span class="st">"id"</span>)
 dffish
 <span class="co">#&gt;    id  loc sex len reading agecap ann       rad    radcap</span>
-<span class="co">#&gt; 1   1 MI-5   M 189     DHO      5   1 0.2144439 0.5177147</span>
-<span class="co">#&gt; 2   1 MI-5   M 189     DHO      5   2 0.2788870 0.5177147</span>
-<span class="co">#&gt; 3   1 MI-5   M 189     DHO      5   3 0.3381906 0.5177147</span>
-<span class="co">#&gt; 4   1 MI-5   M 189     DHO      5   4 0.4584539 0.5177147</span>
-<span class="co">#&gt; 5   1 MI-5   M 189     DHO      5   5 0.4968143 0.5177147</span>
-<span class="co">#&gt; 6   1 MI-5   M 189     DHO      5   6 0.5177147 0.5177147</span>
-<span class="co">#&gt; 7   2 MI-6   F 210     DHO      5   1 0.1297846 0.3916125</span>
-<span class="co">#&gt; 8   2 MI-6   F 210     DHO      5   2 0.2273747 0.3916125</span>
-<span class="co">#&gt; 9   2 MI-6   F 210     DHO      5   3 0.3009213 0.3916125</span>
-<span class="co">#&gt; 10  2 MI-6   F 210     DHO      5   4 0.3457023 0.3916125</span>
-<span class="co">#&gt; 11  2 MI-6   F 210     DHO      5   5 0.3778149 0.3916125</span>
-<span class="co">#&gt; 12  2 MI-6   F 210     DHO      5   6 0.3916125 0.3916125</span></code></pre></div>
+<span class="co">#&gt; 1   1 MI-5   M 189     DHO      5   1 0.2196863 0.5195844</span>
+<span class="co">#&gt; 2   1 MI-5   M 189     DHO      5   2 0.2929321 0.5195844</span>
+<span class="co">#&gt; 3   1 MI-5   M 189     DHO      5   3 0.3434871 0.5195844</span>
+<span class="co">#&gt; 4   1 MI-5   M 189     DHO      5   4 0.4603219 0.5195844</span>
+<span class="co">#&gt; 5   1 MI-5   M 189     DHO      5   5 0.5021181 0.5195844</span>
+<span class="co">#&gt; 6   1 MI-5   M 189     DHO      5   6 0.5195844 0.5195844</span>
+<span class="co">#&gt; 7   2 MI-6   F 210     DHO      5   1 0.1432675 0.4050100</span>
+<span class="co">#&gt; 8   2 MI-6   F 210     DHO      5   2 0.2302988 0.4050100</span>
+<span class="co">#&gt; 9   2 MI-6   F 210     DHO      5   3 0.2877875 0.4050100</span>
+<span class="co">#&gt; 10  2 MI-6   F 210     DHO      5   4 0.3398335 0.4050100</span>
+<span class="co">#&gt; 11  2 MI-6   F 210     DHO      5   5 0.3735663 0.4050100</span>
+<span class="co">#&gt; 12  2 MI-6   F 210     DHO      5   6 0.4050100 0.4050100</span></code></pre></div>
 <p>Some people prefer that the data be presented in “one-fish-per-line” rather than “one-measurement-per-line” (as in <code>dffish</code>) format. The one-measurement-per-line data.frame can be converted to one-fish-per-line by including it as the first argument to <code>spread()</code>. In addition, the variable that identifies the annuli number must be included in <code>key=</code> and the variable that identifies the radial measurements must be included in <code>value=</code>. The <code>sep=</code> argument is used here as well so that the column names in the resultant data.frame are not simply numbers. In this case, the new variable names will be a combination of the variable name in <code>key=</code>, the string in <code>sep=</code>, and the numbers in the <code>value=</code> variable.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dffish2 &lt;-<span class="st"> </span><span class="kw">spread</span>(dffish,<span class="dt">key=</span>ann,<span class="dt">value=</span>rad,<span class="dt">sep=</span><span class="st">"rad"</span>)
 dffish2
 <span class="co">#&gt;   id  loc sex len reading agecap    radcap   annrad1   annrad2   annrad3</span>
-<span class="co">#&gt; 1  1 MI-5   M 189     DHO      5 0.5177147 0.2144439 0.2788870 0.3381906</span>
-<span class="co">#&gt; 2  2 MI-6   F 210     DHO      5 0.3916125 0.1297846 0.2273747 0.3009213</span>
+<span class="co">#&gt; 1  1 MI-5   M 189     DHO      5 0.5195844 0.2196863 0.2929321 0.3434871</span>
+<span class="co">#&gt; 2  2 MI-6   F 210     DHO      5 0.4050100 0.1432675 0.2302988 0.2877875</span>
 <span class="co">#&gt;     annrad4   annrad5   annrad6</span>
-<span class="co">#&gt; 1 0.4584539 0.4968143 0.5177147</span>
-<span class="co">#&gt; 2 0.3457023 0.3778149 0.3916125</span></code></pre></div>
-<p>Either file can be written to a “comma-separated values” (CSV) file<a href="#fn12" class="footnoteRef" id="fnref12"><sup>12</sup></a> with <code>write.csv()</code> using the R object name (e.g., <code>dffish</code> or <code>dffish2</code>) as the first argument and a name for the file in <code>file=</code>. Additionally, I prefer to have non-quoted values by using <code>quote=FALSE</code> and no row names by using <code>row.names=FALSE</code>. For example, the “one-measurement-per-line” data can be output to “Kiyi2014_BCs.csv” as follows.</p>
+<span class="co">#&gt; 1 0.4603219 0.5021181 0.5195844</span>
+<span class="co">#&gt; 2 0.3398335 0.3735663 0.4050100</span></code></pre></div>
+<p>Either file can be written to a “comma-separated values” (CSV) file<a href="#fn14" class="footnoteRef" id="fnref14"><sup>14</sup></a> with <code>write.csv()</code> using the R object name (e.g., <code>dffish</code> or <code>dffish2</code>) as the first argument and a name for the file in <code>file=</code>. Additionally, I prefer to have non-quoted values by using <code>quote=FALSE</code> and no row names by using <code>row.names=FALSE</code>. For example, the “one-measurement-per-line” data can be output to “Kiyi2014_BCs.csv” as follows.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write.csv</span>(dffish,<span class="dt">file=</span><span class="st">"Kiyi2014_BCs.csv"</span>,<span class="dt">quote=</span><span class="ot">FALSE</span>,<span class="dt">row.names=</span><span class="ot">FALSE</span>)</code></pre></div>
 <p> </p>
 <p> </p>
@@ -344,11 +344,13 @@ dffish2
 <li id="fn5"><p>The <code>reading=</code> argument is primarily used when the structure is read more than once. However, I suggest giving a descriptive label to <code>reading=</code> even if there are no plans to read the structure again in the future.<a href="#fnref5">↩</a></p></li>
 <li id="fn6"><p>The extension (e.g., “png” or “jpg”) will not be included in the resultant R data object file.<a href="#fnref6">↩</a></p></li>
 <li id="fn7"><p>Some back-calculation methods require knowing the relationship between actual scale length and fish length. See the <a href="../BCIntro/BCIntro.html">Short Introducton to Back-Calculation</a> vignette for more details.<a href="#fnref7">↩</a></p></li>
-<li id="fn8"><p>Thus, <code><a href="../../reference/findScalingFactor.html">findScalingFactor()</a></code> would be run prior to <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>.<a href="#fnref8">↩</a></p></li>
-<li id="fn9"><p>If no file name is given, then a dialog box will appear from which the data file can be selected. It is also assumed that the file is in the current working directory.<a href="#fnref9">↩</a></p></li>
-<li id="fn10"><p>If no file names are given, then a dialog box will appear from which multiple data files can be selected.<a href="#fnref10">↩</a></p></li>
-<li id="fn11"><p>The two files cannot be joined by the “id” variable if the “id” variables are of different types (e.g., character and numeric) in the two files. Thus, as shown here, they must be coerced to be the same type. This line of code would no be needed if the “id” variables were of the same type in the two files as would likely occur if the “id” variable was not simply numbers.<a href="#fnref11">↩</a></p></li>
-<li id="fn12"><p>CSV files are small, portable, and can be opened directly in most spreadsheet softwares.<a href="#fnref12">↩</a></p></li>
+<li id="fn8"><p>The last selected point can be deleted by pressing the ‘d’ or ‘r’ keys. This can be done multiple times such that the last number of selections can be deleted. The deleted points will be marked with the plotting character and color in <code>pch.del=</code> and <code>col.del=</code> (defaults to a red circle with an ‘x’ in it).<a href="#fnref8">↩</a></p></li>
+<li id="fn9"><p>Thus, <code><a href="../../reference/findScalingFactor.html">findScalingFactor()</a></code> would be run prior to <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>.<a href="#fnref9">↩</a></p></li>
+<li id="fn10"><p>The last selected point can be deleted by pressing the ‘d’ or ‘r’ keys. This can be done multiple times such that the last number of selections can be deleted. The deleted points will be marked with the plotting character and color in <code>pch.del=</code> and <code>col.del=</code> (defaults to a red circle with an ‘x’ in it).<a href="#fnref10">↩</a></p></li>
+<li id="fn11"><p>If no file name is given, then a dialog box will appear from which the data file can be selected. It is also assumed that the file is in the current working directory.<a href="#fnref11">↩</a></p></li>
+<li id="fn12"><p>If no file names are given, then a dialog box will appear from which multiple data files can be selected.<a href="#fnref12">↩</a></p></li>
+<li id="fn13"><p>The two files cannot be joined by the “id” variable if the “id” variables are of different types (e.g., character and numeric) in the two files. Thus, as shown here, they must be coerced to be the same type. This line of code would no be needed if the “id” variables were of the same type in the two files as would likely occur if the “id” variable was not simply numbers.<a href="#fnref13">↩</a></p></li>
+<li id="fn14"><p>CSV files are small, portable, and can be opened directly in most spreadsheet softwares.<a href="#fnref14">↩</a></p></li>
 </ol>
 </div>
   </div>

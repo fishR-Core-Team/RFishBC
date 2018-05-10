@@ -58,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.5.9000</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.6.9000</span>
       </span>
     </div>
 
@@ -132,7 +132,8 @@
     <pre class="usage"><span class='fu'>digitizeRadii</span>(<span class='no'>img</span>, <span class='no'>id</span>, <span class='no'>reading</span>, <span class='no'>suffix</span>, <span class='no'>description</span>, <span class='no'>edgeIsAnnulus</span>, <span class='no'>popID</span>,
   <span class='no'>sepWindow</span>, <span class='no'>windowSize</span>, <span class='no'>scaleBar</span>, <span class='no'>scaleBarLength</span>, <span class='no'>col.scaleBar</span>, <span class='no'>lwd.scaleBar</span>,
   <span class='no'>scalingFactor</span>, <span class='no'>showTransect</span>, <span class='no'>snap2Transect</span>, <span class='no'>col.transect</span>, <span class='no'>lwd.transect</span>,
-  <span class='no'>pch.sel</span>, <span class='no'>col.sel</span>, <span class='no'>cex.sel</span>, <span class='no'>showInfo</span>, <span class='no'>pos.info</span>, <span class='no'>cex.info</span>, <span class='no'>col.info</span>)</pre>
+  <span class='no'>pch.sel</span>, <span class='no'>col.sel</span>, <span class='no'>cex.sel</span>, <span class='no'>pch.del</span>, <span class='no'>col.del</span>, <span class='no'>showInfo</span>, <span class='no'>pos.info</span>, <span class='no'>cex.info</span>,
+  <span class='no'>col.info</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -222,6 +223,14 @@
       <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
     </tr>
     <tr>
+      <th>pch.del</th>
+      <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>col.del</th>
+      <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
+    </tr>
+    <tr>
       <th>showInfo</th>
       <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
     </tr>
@@ -256,7 +265,6 @@
 <li><p><code>slpPerpTransect</code>: The slope of the line perpendicular to the transect.</p></li>
 <li><p><code>windowSize</code>: A numeric of length two that contains the width and height of the window used to display the structure image. One of these units was set by the given <code>windowSize</code> value.</p></li>
 <li><p><code>pixW2H</code>: The ratio of pixel width to height. This is used to correct measurements for when an image is not square.</p></li>
-<li><p><code>orig.pts</code>: A data.frame that contains the &#8220;original&#8221; <code>x</code> and <code>y</code> coordinates on the image for the selected annuli. If <code>snap2Transect=FALSE</code> then these are the same as the points in <code>pts</code>. If <code>snap2Transect=TRUE</code> then these are the originally selected points and will be different then the points in <code>pts</code>.</p></li>
 <li><p><code>pts</code>: A data.frame that contains the <code>x</code> and <code>y</code> coordinates on the image for the selected annuli. These points may be &#8220;snapped&#8221; to the transect if <code>snap2Transect==TRUE</code>.</p></li>
 <li><p><code>radii</code>: A data.frome that contains the unique <code>id</code>, the <code>reading</code> code, the age-at-capture in <code>agecap</code>, the annulus number in <code>ann</code>, the radial measurements in <code>rad</code>, and the radial measurement at capture in <code>radcap</code>.</p></li>
 </ul><p>.</p>
