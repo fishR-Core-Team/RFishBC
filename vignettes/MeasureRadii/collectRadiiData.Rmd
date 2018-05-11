@@ -153,6 +153,11 @@ At this point, the image may look something like that below (*note that two poin
 
 When you have finished selecting points, information about your selections, including the calculated radial measurements, are saved to the RData file. The contents of this file are described further [here](http://derekogle.com/RFishBC/reference/digitizeRadii.html#value).
 
+\  
+
+\  
+
+----
 
 # Setting Argument Defaults for a Session {#setoptions1}
 
@@ -167,10 +172,10 @@ digitizeRadii("Scale_1.jpg",id="1",reading="DHO",edgeIsAnnulus=FALSE,
               lwd.transect=3,scaleBar=TRUE,scaleBarLength=0.6)
 ```
 
-However, changing the arguments withing `digitizeRadii()` like this is inefficient if you will be processing many images with the same arguments. Thus, the default values for these arguments can be set for the entire session (i.e., until you change them or close R and open it again) by including the argument name set equal to the desired default value within `RFBCoptions()`. For example, if the code below is run at the beginning of a session (i.e., early in the script), then every call to `digitizeRadii()` after that will default to using "DHO" as the reading label, not treating the edge as an annulus, using a thicker line for the transect, and identifying that a scale-bar with a known length of 0.6 exists on the image.
+However, changing the arguments within `digitizeRadii()` is inefficient if you will be processing many images with the same arguments. Thus, the default values for these arguments can be set for the entire session (i.e., until you change them or close R and open it again) by including the argument name set equal to the desired default value within `RFBCoptions()`. For example, if the code below is run at the beginning of a session (i.e., early in the script), then every call to `digitizeRadii()` after that will default to using "DHO" as the reading label, not treating the edge as an annulus, using a thicker line for the transect, and identifying that a scale-bar with a known length of 0.6 exists on the image.
 ```{r eval=FALSE}
-RFBC(reading="DHO",edgeIsAnnulus=FALSE,lwd.transect=3,
-     scaleBar=TRUE,scaleBarLength=0.6)
+RFBCoptions(reading="DHO",edgeIsAnnulus=FALSE,lwd.transect=3,
+            scaleBar=TRUE,scaleBarLength=0.6)
 ```
 
 With these changes to the default settings, the last call to `digitizeRadii()` above could be simplified as shown below.
@@ -178,7 +183,7 @@ With these changes to the default settings, the last call to `digitizeRadii()` a
 digitizeRadii("Scale_1.jpg",id="1")
 ```
 
-Argument values can still be changed from the defaults for a particular call to `digitizeRadii()` by including that argument in the specific call. For example if the edge was an annulus for only one of the structures then include `edgeIsAnnulus=TRUE` in `digitizeRadii()`.
+Argument values can still be changed from the defaults for a particular call to `digitizeRadii()` by including that argument in the specific call. For example if the edge was an annulus for only one of the structures, then include `edgeIsAnnulus=TRUE` in `digitizeRadii()`.
 
 \  
 

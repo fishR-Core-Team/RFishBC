@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">RFishBC</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.7</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.7.9000</span>
       </span>
     </div>
 
@@ -91,7 +91,7 @@
       <h1>Collect radial measurements from a calcified structure by interactively selecting annuli</h1>
                         <h4 class="author">Derek H. Ogle</h4>
             
-            <h4 class="date">2018-05-10</h4>
+            <h4 class="date">2018-05-11</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/droglenc/RFishBC/blob/master/vignettes/MeasureRadii/collectRadiiData.Rmd"><code>vignettes/MeasureRadii/collectRadiiData.Rmd</code></a></small>
       <div class="hidden name"><code>collectRadiiData.Rmd</code></div>
@@ -227,6 +227,9 @@
 </div>
 <p> </p>
 <p>When you have finished selecting points, information about your selections, including the calculated radial measurements, are saved to the RData file. The contents of this file are described further <a href="http://derekogle.com/RFishBC/reference/digitizeRadii.html#value">here</a>.</p>
+<p> </p>
+<p> </p>
+<hr>
 </div>
 </div>
 <div id="setoptions1" class="section level1">
@@ -238,12 +241,12 @@
 <p>Default values for these arguments may be changed within <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>. For example, the code below sets the “reading” label to “DHO”, the edge to not be considered an annulus, the width of the transect line to be thicker, and a scale-bar is present with a known length of 0.6 mm. You can set these items in <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> as below.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/digitizeRadii.html">digitizeRadii</a></span>(<span class="st">"Scale_1.jpg"</span>,<span class="dt">id=</span><span class="st">"1"</span>,<span class="dt">reading=</span><span class="st">"DHO"</span>,<span class="dt">edgeIsAnnulus=</span><span class="ot">FALSE</span>,
               <span class="dt">lwd.transect=</span><span class="dv">3</span>,<span class="dt">scaleBar=</span><span class="ot">TRUE</span>,<span class="dt">scaleBarLength=</span><span class="fl">0.6</span>)</code></pre></div>
-<p>However, changing the arguments withing <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> like this is inefficient if you will be processing many images with the same arguments. Thus, the default values for these arguments can be set for the entire session (i.e., until you change them or close R and open it again) by including the argument name set equal to the desired default value within <code><a href="../../reference/RFBCoptions.html">RFBCoptions()</a></code>. For example, if the code below is run at the beginning of a session (i.e., early in the script), then every call to <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> after that will default to using “DHO” as the reading label, not treating the edge as an annulus, using a thicker line for the transect, and identifying that a scale-bar with a known length of 0.6 exists on the image.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">RFBC</span>(<span class="dt">reading=</span><span class="st">"DHO"</span>,<span class="dt">edgeIsAnnulus=</span><span class="ot">FALSE</span>,<span class="dt">lwd.transect=</span><span class="dv">3</span>,
-     <span class="dt">scaleBar=</span><span class="ot">TRUE</span>,<span class="dt">scaleBarLength=</span><span class="fl">0.6</span>)</code></pre></div>
+<p>However, changing the arguments within <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> is inefficient if you will be processing many images with the same arguments. Thus, the default values for these arguments can be set for the entire session (i.e., until you change them or close R and open it again) by including the argument name set equal to the desired default value within <code><a href="../../reference/RFBCoptions.html">RFBCoptions()</a></code>. For example, if the code below is run at the beginning of a session (i.e., early in the script), then every call to <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> after that will default to using “DHO” as the reading label, not treating the edge as an annulus, using a thicker line for the transect, and identifying that a scale-bar with a known length of 0.6 exists on the image.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/RFBCoptions.html">RFBCoptions</a></span>(<span class="dt">reading=</span><span class="st">"DHO"</span>,<span class="dt">edgeIsAnnulus=</span><span class="ot">FALSE</span>,<span class="dt">lwd.transect=</span><span class="dv">3</span>,
+            <span class="dt">scaleBar=</span><span class="ot">TRUE</span>,<span class="dt">scaleBarLength=</span><span class="fl">0.6</span>)</code></pre></div>
 <p>With these changes to the default settings, the last call to <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> above could be simplified as shown below.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/digitizeRadii.html">digitizeRadii</a></span>(<span class="st">"Scale_1.jpg"</span>,<span class="dt">id=</span><span class="st">"1"</span>)</code></pre></div>
-<p>Argument values can still be changed from the defaults for a particular call to <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> by including that argument in the specific call. For example if the edge was an annulus for only one of the structures then include <code>edgeIsAnnulus=TRUE</code> in <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>.</p>
+<p>Argument values can still be changed from the defaults for a particular call to <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> by including that argument in the specific call. For example if the edge was an annulus for only one of the structures, then include <code>edgeIsAnnulus=TRUE</code> in <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>.</p>
 <p> </p>
 <p> </p>
 <hr>
