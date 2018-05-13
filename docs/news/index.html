@@ -55,7 +55,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.7.9000</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.8.9000</span>
       </span>
     </div>
 
@@ -119,9 +119,25 @@
       <small>Source: <a href='https://github.com/droglenc/RFishBC/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="rfishbc-0-0-8-ongoing" class="section level1">
+    <div id="rfishbc-0-0-8-9000-ongoing" class="section level1">
 <h1 class="page-header">
-<a href="#rfishbc-0-0-8-ongoing" class="anchor"></a>RFishBC 0.0.8 ongoing</h1>
+<a href="#rfishbc-0-0-8-9000-ongoing" class="anchor"></a>RFishBC 0.0.8.9000 ongoing</h1>
+</div>
+    <div id="rfishbc-0-0-8-13-may-18" class="section level1">
+<h1 class="page-header">
+<a href="#rfishbc-0-0-8-13-may-18" class="anchor"></a>RFishBC 0.0.8 13-May-18</h1>
+<ul>
+<li>Added tests.</li>
+<li>Changed to using <code>.rds</code> files rather than <code>.RData</code> files to save the data. This required using <code>saveRDS()</code> in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> and <code>readRDS()</code> in <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code> and <code><a href="../reference/combineData.html">combineData()</a></code>.</li>
+<li>
+<code><a href="../reference/combineData.html">combineData()</a></code>: Modified. See note above. Added a check that the file is an “R Data” file (using <code><a href="../reference/FSA-internals.html">isRData()</a></code>) and of the <code>RFishBC</code> class.</li>
+<li>
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. See note above. Added the <code>RFishBC</code> class to the saved and returned object.</li>
+<li>
+<code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>: Modified. See note above. Added a check that the file is an “R Data” file (using <code><a href="../reference/FSA-internals.html">isRData()</a></code>) and of the <code>RFishBC</code> class.</li>
+<li>
+<code>isRdata()</code>: Added.</li>
+</ul>
 </div>
     <div id="rfishbc-0-0-7-10-may-18" class="section level1">
 <h1 class="page-header">
@@ -266,7 +282,8 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#rfishbc-0-0-8-ongoing">0.0.8</a></li>
+        <li><a href="#rfishbc-0-0-8-9000-ongoing">0.0.8.9000</a></li>
+        <li><a href="#rfishbc-0-0-8-13-may-18">0.0.8</a></li>
         <li><a href="#rfishbc-0-0-7-10-may-18">0.0.7</a></li>
         <li><a href="#rfishbc-0-0-6-9-may-18">0.0.6</a></li>
         <li><a href="#rfishbc-0-0-5-29-apr-18">0.0.5</a></li>

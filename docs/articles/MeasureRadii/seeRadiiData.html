@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">RFishBC</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.7.9000</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.8.9000</span>
       </span>
     </div>
 
@@ -91,7 +91,7 @@
       <h1>Visualize Points Selected on a Calcified Structure</h1>
                         <h4 class="author">Derek H. Ogle</h4>
             
-            <h4 class="date">2018-05-11</h4>
+            <h4 class="date">2018-05-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/droglenc/RFishBC/blob/master/vignettes/MeasureRadii/seeRadiiData.Rmd"><code>vignettes/MeasureRadii/seeRadiiData.Rmd</code></a></small>
       <div class="hidden name"><code>seeRadiiData.Rmd</code></div>
@@ -103,13 +103,13 @@
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>A method for visualizing annular points that a user (or users) selected on a calcified structure is described in this vignette. This vignette assumes that you have an RData file or files created from selecting points on a calcified structure using <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> as described in the <a href="collectRadiiData.html">Collecting Radial Measurements</a> vignette. It also assumes that you understand the language and functions introducted in that vignette.</p>
-<p>This vignette will use the following RData files:</p>
+<p>A method for visualizing annular points that a user (or users) selected on a calcified structure is described in this vignette. This vignette assumes that you have an R data file or files created from selecting points on a calcified structure using <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> as described in the <a href="collectRadiiData.html">Collecting Radial Measurements</a> vignette. It also assumes that you understand the language and functions introducted in that vignette.</p>
+<p>This vignette will use the following R data files:</p>
 <ul>
-<li>“Scale_1_DHO.RData”: annular points selected on the “Scale_1.jpg” file in the <a href="collectRadiiData.html">Collecting Radial Measurements</a> vignette.</li>
-<li>“Scale_1_DHO2.RData”: a second set of annular points selected on the “Scale_1.jpg” file in the <a href="collectRadiiData.html">Collecting Radial Measurements</a> vignette.</li>
-<li>“Scale_1_DHO3.RData”: a third set of annular points selected on the “Scale_1.jpg” file in the <a href="collectRadiiData.html">Collecting Radial Measurements</a> vignette.</li>
-<li>“Oto140306_DHO.RData”: annular points selected on the “Oto140306.jpg” file. In contrast to the previous two images, this image had a 1-mm scale-bar. This RData file was created with the following code.</li>
+<li>“Scale_1_DHO.rds”: annular points selected on the “Scale_1.jpg” file in the <a href="collectRadiiData.html">Collecting Radial Measurements</a> vignette.</li>
+<li>“Scale_1_DHO2.rds”: a second set of annular points selected on the “Scale_1.jpg” file in the <a href="collectRadiiData.html">Collecting Radial Measurements</a> vignette.</li>
+<li>“Scale_1_DHO3.rds”: a third set of annular points selected on the “Scale_1.jpg” file in the <a href="collectRadiiData.html">Collecting Radial Measurements</a> vignette.</li>
+<li>“Oto140306_DHO.rds”: annular points selected on the “Oto140306.jpg” file. In contrast to the previous two images, this image had a 1-mm scale-bar. This R data file was created with the following code.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/digitizeRadii.html">digitizeRadii</a></span>(<span class="st">"Oto140306.jpg"</span>,<span class="dt">id=</span><span class="st">"140306"</span>,<span class="dt">reading=</span><span class="st">"DHO"</span>,
               <span class="dt">description=</span><span class="st">"Used to demonstrate use of scale-bar."</span>,
@@ -124,10 +124,10 @@
 <div id="visualize-one-set-of-annuli" class="section level1">
 <h1 class="hasAnchor">
 <a href="#visualize-one-set-of-annuli" class="anchor"></a>Visualize one Set of Annuli</h1>
-<p>You can review the selected annuli on a structure with <code><a href="../../reference/showDigitizedImage.html">showDigitizedImage()</a></code>, which requires only the name of an RData file creates from <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> The plotting character, color, and relative size of the selected points may be changed with <code>pch.show=</code>, <code>col.show=</code>, and <code>cex.show=</code>, respectively. The color and width of the “transect” may be changed with <code>col.transect=</code> and <code>lwd.transect=</code>, or excluded altogether with <code>showTransect=FALSE</code>. Annuli will be numbered if <code>showAnnuliLabels=TRUE</code> (the default) with label colors and relative size changed with <code>col.ann=</code> and <code>cex.ann=</code>, respectively. Annuli for which numbers are plotted may be controlled with <code>annuliLabels=</code> (e.g., only the first six are shown for the Kiyi otolith below). Defaults for these arguments can be set with <code><a href="../../reference/RFBCoptions.html">RFBCoptions()</a></code> as was demonstrated in the <a href="collectRadiiData.html#setoptions1">Setting Arguments section of this vignette</a></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/showDigitizedImage.html">showDigitizedImage</a></span>(<span class="st">"Scale_1_DHO.RData"</span>)</code></pre></div>
+<p>You can review the selected annuli on a structure with <code><a href="../../reference/showDigitizedImage.html">showDigitizedImage()</a></code>, which requires only the name of an R data file creates from <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> The plotting character, color, and relative size of the selected points may be changed with <code>pch.show=</code>, <code>col.show=</code>, and <code>cex.show=</code>, respectively. The color and width of the “transect” may be changed with <code>col.transect=</code> and <code>lwd.transect=</code>, or excluded altogether with <code>showTransect=FALSE</code>. Annuli will be numbered if <code>showAnnuliLabels=TRUE</code> (the default) with label colors and relative size changed with <code>col.ann=</code> and <code>cex.ann=</code>, respectively. Annuli for which numbers are plotted may be controlled with <code>annuliLabels=</code> (e.g., only the first six are shown for the Kiyi otolith below). Defaults for these arguments can be set with <code><a href="../../reference/RFBCoptions.html">RFBCoptions()</a></code> as was demonstrated in the <a href="collectRadiiData.html#setoptions1">Setting Arguments section of this vignette</a></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/showDigitizedImage.html">showDigitizedImage</a></span>(<span class="st">"Scale_1_DHO.rds"</span>)</code></pre></div>
 <p><img src="seeRadiiData_files/figure-html/unnamed-chunk-4-1.png" width="480"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/showDigitizedImage.html">showDigitizedImage</a></span>(<span class="st">"Oto140306_DHO.RData"</span>,<span class="dt">pch.show=</span><span class="st">"+"</span>,<span class="dt">col.show=</span><span class="st">"blue"</span>,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/showDigitizedImage.html">showDigitizedImage</a></span>(<span class="st">"Oto140306_DHO.rds"</span>,<span class="dt">pch.show=</span><span class="st">"+"</span>,<span class="dt">col.show=</span><span class="st">"blue"</span>,
                    <span class="dt">col.transect=</span><span class="st">"white"</span>,<span class="dt">col.ann=</span><span class="st">"black"</span>,<span class="dt">cex.ann=</span><span class="dv">1</span>,
                    <span class="dt">annuliLabels=</span><span class="dv">1</span><span class="op">:</span><span class="dv">6</span>)</code></pre></div>
 <p><img src="seeRadiiData_files/figure-html/unnamed-chunk-6-1.png" width="480"></p>
@@ -138,14 +138,14 @@
 <div id="visualize-multiple-readings-of-same-structure" class="section level1">
 <h1 class="hasAnchor">
 <a href="#visualize-multiple-readings-of-same-structure" class="anchor"></a>Visualize Multiple Readings of Same Structure</h1>
-<p>In some instances, you may be interested in visually comparing the selected points from multiple readings of the same structure. The <code><a href="../../reference/showDigitizedImage.html">showDigitizedImage()</a></code> function can accomplish this if it is given a vector of RData file names created from the same structure.</p>
-<p>The <code><a href="../../reference/listFiles.html">listFiles()</a></code> function (described in the <a href="collectRadiiData.html">Collecting Radial Measurements</a> vignette) may be used to identify all filenames in the current working directory that have the file extension given in the first argument. For example, all files with the “RData” extension are found below.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/listFiles.html">listFiles</a></span>(<span class="st">"RData"</span>)
-<span class="co">#&gt; [1] "Oto140306_DHO.RData"  "Oto140306_DHO2.RData" "Scale_1_DHO.RData"   </span>
-<span class="co">#&gt; [4] "Scale_1_DHO2.RData"   "Scale_1_DHO3.RData"   "Scale_2_DHO.RData"</span></code></pre></div>
-<p>This list of names can be further filtered by including other key words for the filenames in <code>other=</code>. For example, all files with the “RData” extension that contain the keyword “Scale_1” are returned below. For our purposes here, these filenames are saved into an object (e.g., <code>fns</code>).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">( fns &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/listFiles.html">listFiles</a></span>(<span class="st">"RData"</span>,<span class="dt">other=</span><span class="st">"Scale_1"</span>) )
-<span class="co">#&gt; [1] "Scale_1_DHO.RData"  "Scale_1_DHO2.RData" "Scale_1_DHO3.RData"</span></code></pre></div>
+<p>In some instances, you may be interested in visually comparing the selected points from multiple readings of the same structure. The <code><a href="../../reference/showDigitizedImage.html">showDigitizedImage()</a></code> function can accomplish this if it is given a vector of R data file names created from the same structure.</p>
+<p>The <code><a href="../../reference/listFiles.html">listFiles()</a></code> function (described in the <a href="collectRadiiData.html">Collecting Radial Measurements</a> vignette) may be used to identify all filenames in the current working directory that have the file extension given in the first argument. For example, all files with the “rds” extension are found below.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/listFiles.html">listFiles</a></span>(<span class="st">"rds"</span>)
+<span class="co">#&gt; [1] "Oto140306_DHO.rds"  "Oto140306_DHO2.rds" "Scale_1_DHO.rds"   </span>
+<span class="co">#&gt; [4] "Scale_1_DHO2.rds"   "Scale_1_DHO3.rds"   "Scale_2_DHO.rds"</span></code></pre></div>
+<p>This list of names can be further filtered by including other key words for the filenames in <code>other=</code>. For example, all files with the “rds” extension that contain the keyword “Scale_1” are returned below. For our purposes here, these filenames are saved into an object (e.g., <code>fns</code>).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">( fns &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/listFiles.html">listFiles</a></span>(<span class="st">"rds"</span>,<span class="dt">other=</span><span class="st">"Scale_1"</span>) )
+<span class="co">#&gt; [1] "Scale_1_DHO.rds"  "Scale_1_DHO2.rds" "Scale_1_DHO3.rds"</span></code></pre></div>
 <p>The multiple readings of “Scale_1” can be seen by giving this set of filenames to <code><a href="../../reference/showDigitizedImage.html">showDigitizedImage()</a></code>.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/showDigitizedImage.html">showDigitizedImage</a></span>(fns)</code></pre></div>
 <p><img src="seeRadiiData_files/figure-html/unnamed-chunk-10-1.png" width="480"></p>

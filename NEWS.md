@@ -1,3 +1,5 @@
+# RFishBC 0.0.8.9000 ongoing
+
 # RFishBC 0.0.8 13-May-18
 * Added tests.
 * Changed to using `.rds` files rather than `.RData` files to save the data. This required using `saveRDS()` in `digitizeRadii()` and `readRDS()` in `showDigitizedImage()` and `combineData()`.
