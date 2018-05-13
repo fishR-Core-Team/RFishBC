@@ -218,6 +218,7 @@ digitizeRadii <- function(img,id,reading,suffix,
               windowSize=windowInfo$windowSize,
               pixW2H=windowInfo$pixW2H,
               pts=pts,radii=radii)
+  class(dat) <- "RFishBC"
   #### Write the RData file
   saveRDS(dat,file=datanm)
   #### Tell user what happend and invisibly return the R object

@@ -17,7 +17,10 @@ test_that("RFBCoptions() important defaults",{
   expect_true(RFBCoptions()$showAnnuliLabels)
 })
 
+
+
 test_that("digitizeRadii() results without scale-bar",{
+  expect_s3_class(dat1,"RFishBC")
   expect_type(dat1,"list")
   expect_equal(names(dat1),c("image","datanm","description","edgeIsAnnulus",
                              "snap2Transect","scalingFactor","sfSource","sbPts",
@@ -55,7 +58,10 @@ test_that("digitizeRadii() results without scale-bar",{
   expect_equal(names(dat1$radii),c("id","reading","agecap","ann","rad","radcap"))
 })
 
+
+
 test_that("digitizeRadii() results with scale-bar",{
+  expect_s3_class(dat2,"RFishBC")
   expect_type(dat2,"list")
   expect_equal(names(dat2),c("image","datanm","description","edgeIsAnnulus",
                             "snap2Transect","scalingFactor","sfSource","sbPts",
@@ -97,7 +103,9 @@ test_that("digitizeRadii() results with scale-bar",{
   expect_equal(names(dat2$radii),c("id","reading","agecap","ann","rad","radcap"))
 })
 
-test_that("digitizeRadii() results with scale-bar",{
+
+
+test_that("combineData() results",{
   tmp <- combineData("Scale_1_DHO.rds")
   expect_s3_class(tmp,"data.frame")
   expect_equal(names(tmp),c("id","reading","agecap","ann","rad","radcap"))
@@ -110,6 +118,7 @@ test_that("digitizeRadii() results with scale-bar",{
   expect_equal(names(tmp),c("id","reading","agecap","ann","rad","radcap"))
   expect_equal(nrow(tmp),12)
 })
+
 
 
 test_that("bcFuns() output types",{

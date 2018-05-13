@@ -17,13 +17,14 @@
 #' 
 
 combineData <- function(nms) {
-  d <- dat <- NULL # try to avoid "no visible binding" note
+  d <- NULL
   ## Get files
   nms <- iHndlFilenames(nms,filter="RData",multi=TRUE)
   ## Row-bind radii data.frames from dat object loaded from the RData files
   for (i in seq_along(nms)) {
     if (!isRData(nms[i])) STOP("File is not an RData file saved from 'digitizeRadii().")
     dat <- readRDS(nms[i])
+    if (!inherits(dat,"RFishBC")) STOP("File does not appear to be from 'digitizeRadii().")
     d <- rbind(d,dat$radii)
   }
   d

@@ -67,8 +67,11 @@ showDigitizedImage <- function(nm,sepWindow,
 
   ## Display results ###########################################################
   for (i in seq_along(nm)) {
-    #### Load results (will be in an object called dat)
+    if (!isRData(nm[i]))
+      STOP("File is not an RData file saved from 'digitizeRadii().")
     dat <- readRDS(nm[i])
+    if (!inherits(dat,"RFishBC"))
+      STOP("File does not appear to be from 'digitizeRadii().")
     #### If first then show the image
     if (i==1) {
       iGetImage(dat$image,id=NULL,sepWindow=sepWindow,

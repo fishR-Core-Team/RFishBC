@@ -63,8 +63,21 @@ test_that("digitizeRadii() error messages",{
 })
 
 
+
 test_that("combineData() messages",{
   expect_error(combineData("small_ex.jpg"),"not an RData file")
+  expect_error(combineData("notRFishBC.rds"),"does not appear to be from")
+})
+
+
+
+test_that("showDigitizedImage() messages",{
+  expect_error(showDigitizedImage("small_ex.jpg"),"not an RData file")
+  expect_error(showDigitizedImage("notRFishBC.rds"),"does not appear to be from")
+  expect_error(showDigitizedImage(c("Scale_1_DHO.rds","Scale_2_DHO.rds")),
+               "from different structure images")
+  expect_error(showDigitizedImage(c("Scale_1_DHO.rds","Oto140306_DHO.rds")),
+               "from different structure images")
 })
 
 
