@@ -69,7 +69,7 @@ digitizeRadii(img, id, reading, suffix, description, edgeIsAnnulus, popID,
 A list that contains the following:
 \itemize{
   \item{\code{image}: }{The full filename given in \code{img}.}
-  \item{\code{datanm}: }{The filename that contains the RData object.}
+  \item{\code{datanm}: }{The R data filename.}
   \item{\code{description}: }{The description given in \code{description}.}
   \item{\code{edgeIsAnnulus}: }{The logical given in \code{edgeIsAnnulus}.}
   \item{\code{snap2Transect}: }{The logical from \code{snap2Transect} that identified whether the selected points were \dQuote{"snapped"} to the transect or not.}

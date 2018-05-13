@@ -54,7 +54,7 @@ The working directory may also be set by interactively selecting the directory t
 setwd(choose.dir())
 ```
 
-Finally, note that the process described herein will produce one RData object file (.RData files; hereafter called "RData file") for each set of measurements made on a structure image. These data files will be saved in the current work directory (likely the directory with the structure image files). I suggest keeping the RData and corresponding structure image files together at all times as the RData file serves as an archive of the data collected from an image.
+Finally, note that the process described herein will produce one R data object file (.rds files; hereafter called "R data file") for each set of measurements made on a structure image. These data files will be saved in the current work directory (likely the directory with the structure image files). I suggest keeping the R data file and corresponding structure image files together at all times, as the R data file serves as an archive of the data collected from an image.
 
 ### R Packages
 The methods described in this vignette require the following packages.
@@ -78,9 +78,9 @@ The `digitizeRadii()` function is used to
 1. Optionally provide a scale for the image.
 1. Interactively select the structure focus and margin (to form a transect on which annuli will be marked).
 1. Interactively select annuli on the structure image.
-1. Create an RData file that contains the radial measurements to selected annuli and other information about the structure and the data extraction process.
+1. Create an R data file that contains the radial measurements to selected annuli and other information about the structure and the data extraction process.
 
-For example (*but described thoroughly further below*), the line below identifies "Scale_1.jpg" as the structure image, this fish has an identification number of "1", this reading of the image should be labelled as "DHO", and the structure margin or edge should not be considered as an annulus. When this line is run it will open the image[^inwd], allow the user to select points that represent a transect and annuli on that transect, and save radial measurements to "Scale_1_DHO.RData".[^saveex1]
+For example (*but described thoroughly further below*), the line below identifies "Scale_1.jpg" as the structure image, this fish has an identification number of "1", this reading of the image should be labelled as "DHO", and the structure margin or edge should not be considered as an annulus. When this line is run it will open the image[^inwd], allow the user to select points that represent a transect and annuli on that transect, and save radial measurements to "Scale_1_DHO.rds".[^saveex1]
 
 ```{r eval=FALSE}
 digitizeRadii("Scale_1.jpg",id="1",reading="DHO",edgeIsAnnulus=FALSE)
@@ -98,11 +98,11 @@ The `digitizeRadii()` function **requires** only three arguments.
 Other **optional** arguments that are likely to be commonly used are:
 
 * `reading=`: Label for the reading.[^readings]
-* `description=`: Detailed description about the structure. This will be saved in the RData file and could be extracted in the future. For example, one may use `description="Kiyi scale read once by Ogle on 22-Apr-18"` to provide more information about the structure reading.
+* `description=`: Detailed description about the structure. This will be saved in the R data file and could be extracted in the future. For example, one may use `description="Kiyi scale read once by Ogle on 22-Apr-18"` to provide more information about the structure reading.
 * `sepWindow=`: A logical that indicates whether the image should be opened in a separate window (`sepWindow=TRUE`) or not (`sepWindow=FALSE`). The default is `sepWindow=TRUE`, as opening the image in a separate window allows it to conform to its native aspect ratio, which is important when meausuring distances on the image.
 * `windowSize=`: A value that sets the size of the separate window (only used if `sepWindow=TRUE`). This value will become the larger of the two dimensions, with the other value proportionate so that the original aspect ratio is maintained. Use `windowSize=` to "zoom in" on an image. Note that the default is `windowSize=7`; so values larger than 7 represent a "zooming in."
 
-Finally, note that the RData file that will be created after the annuli have been selected will have the same name as the image file[^excludeextension] but including the suffix optionally provided in `suffix=`. If nothing is given in `suffix=`, then a suffix will be created from `reading=` (if it exists). For example, if the structure image file was named "Scale_1.jpg", then the resultant RData file will be named "Scale_1_DHO.RData" if `reading="DHO"` or "Scale_1_TESTING.RData" if `reading="DHO"` and `suffix="TESTING"`.
+Finally, note that the R data file that will be created after the annuli have been selected will have the same name as the image file[^excludeextension] but including the suffix optionally provided in `suffix=`. If nothing is given in `suffix=`, then a suffix will be created from `reading=` (if it exists). For example, if the structure image file was named "Scale_1.jpg", then the resultant R data file will be named "Scale_1_DHO.rds" if `reading="DHO"` or "Scale_1_TESTING.rds" if `reading="DHO"` and `suffix="TESTING"`.
 
 By default the ID will be shown in the top-left corner of the image. This may be moved by giving a different location to `pos.info=`. For example, `pos.info="bottomright"` would move this information to the bottom-right corner of the image. The color of this info may be changed with `col.info=` and the relative size may be changed with `cex.info=`.
 
@@ -151,7 +151,7 @@ At this point, the image may look something like that below (*note that two poin
 
 \  
 
-When you have finished selecting points, information about your selections, including the calculated radial measurements, are saved to the RData file. The contents of this file are described further [here](http://derekogle.com/RFishBC/reference/digitizeRadii.html#value).
+When you have finished selecting points, information about your selections, including the calculated radial measurements, are saved to the R data file. The contents of this file are described further [here](http://derekogle.com/RFishBC/reference/digitizeRadii.html#value).
 
 \  
 
@@ -193,10 +193,10 @@ Argument values can still be changed from the defaults for a particular call to 
 
 # Data from One Structure
 
-The radial measurements from one structure may be seen by submitting the RData file name to `combineData()`.[^combinedatawd]
+The radial measurements from one structure may be seen by submitting the R data file name to `combineData()`.[^combinedatawd]
 
 ```{r}
-combineData("Scale_1_DHO.RData")
+combineData("Scale_1_DHO.rds")
 ```
 
 
@@ -216,16 +216,16 @@ RFBCoptions(reading="DHO",edgeIsAnnulus=FALSE)
 digitizeRadii()  # Use multiple times, select image & enter ID in dialog boxes
 ```
 
-With this, "Scale_1_DHO.RData" and "Scale_2_DHO.RData" would both exist in the current working directory.
+With this, "Scale_1_DHO.rds" and "Scale_2_DHO.rds" would both exist in the current working directory.
 
-Radial measurements from multiple structures can be easily combined into one data.frame with `combineData()` if the appropriate RData file names are in a list. The `listFiles()` function may be used to identify all filenames in the current working directory that have the file extension given in the first argument. For example, all files in the current working directory with the "RData" extension are identified below.
+Radial measurements from multiple structures can be easily combined into one data.frame with `combineData()` if the appropriate R data file names are in a list. The `listFiles()` function may be used to identify all filenames in the current working directory that have the file extension given in the first argument. For example, all files in the current working directory with the "rds" extension are identified below.
 ```{r}
-listFiles("RData")
+listFiles("rds")
 ```
 
 This list of names can be further filtered by including other key words for the filenames in `other=`. In this case, the list should be limited to those files with "Scale" in the name and those files with just "DHO" (i.e., exclude "DHO2"). Limiting to "DHO" required limiting to "DHO.", but because the "." is a special character it had to be preceded by "\\".
 ```{r}
-( fns <- listFiles("RData",other=c("Scale","DHO\\.")) )
+( fns <- listFiles("rds",other=c("Scale","DHO\\.")) )
 ```
 
 The result of `listFiles()` should be saved to an object so that the names can be given to `combineData()` as shown below.[^combinedatawd2]
@@ -266,7 +266,7 @@ write.csv(dffish,file="Kiyi2014_BCs.csv",quote=FALSE,row.names=FALSE)
 
 [^deletekey]: The last selected point can be deleted by pressing the 'd' or 'r' keys. This can be done multiple times such that the last number of selections can be deleted. The deleted points will be marked with the plotting character and color in `pch.del=` and `col.del=` (defaults to a red circle with an 'x' in it).
 
-[^saveex1]: Actually much more than the radial measurements are recorded in the RData file (see [here](http://derekogle.com/RFishBC/reference/digitizeRadii.html#value)). Also note that the radii are on an arbitrary scale in this case because no scale-bar was available on the image.
+[^saveex1]: Actually much more than the radial measurements are recorded in the R data file (see [here](http://derekogle.com/RFishBC/reference/digitizeRadii.html#value)). Also note that the radii are on an arbitrary scale in this case because no scale-bar was available on the image.
 
 [^DRargs]: The many specific arguments to `digitizeRadii()` are controlled with `RFBCoptions()` (described later) and described in detail [here](http://derekogle.com/RFishBC/reference/RFBCoptions.html#details).
 

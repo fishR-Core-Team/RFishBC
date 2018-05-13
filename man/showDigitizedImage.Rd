@@ -2,14 +2,14 @@
 % Please edit documentation in R/showDigitizedImage.R
 \name{showDigitizedImage}
 \alias{showDigitizedImage}
-\title{Show points selected on a structure image and saved in an RData file}
+\title{Show points selected on a structure image and saved in an R data file}
 \usage{
 showDigitizedImage(nm, sepWindow, pch.show, col.show, cex.show, showTransect,
   col.transect, lwd.transect, col.scaleBar, lwd.scaleBar, showAnnuliLabels,
   annuliLabels, col.ann, cex.ann)
 }
 \arguments{
-\item{nm}{A string that indicates the RData file created with \code{\link{digitizeRadii}}. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file. Either way the file must be in the current working directory.}
+\item{nm}{A string that indicates the R data file created with \code{\link{digitizeRadii}}. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file. Either way the file must be in the current working directory.}
 
 \item{sepWindow}{See details in \code{\link{RFBCoptions}}.}
 
@@ -41,7 +41,7 @@ showDigitizedImage(nm, sepWindow, pch.show, col.show, cex.show, showTransect,
 None, but an image is plotted with, at least, the selected points.
 }
 \description{
-Show points selected on a structure image to represent annuli that were saved to an RData file using \code{\link{digitizeRadii}}. This allows the user to reexaminine the selected points or overlay selected points from multiple readings of the structure.
+Show points selected on a structure image to represent annuli that were saved to an R data file using \code{\link{digitizeRadii}}. This allows the user to reexaminine the selected points or overlay selected points from multiple readings of the structure.
 }
 \details{
 This function requires interaction from the user. A detailed description of its use is in \href{http://derekogle.com/RFishBC/articles/MeasureRadii/seeRadiiData.html}{this vignette} on the \href{http://derekogle.com/RFishBC/index.html}{RFishBC website}.

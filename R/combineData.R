@@ -1,10 +1,10 @@
 #' @title Combines radii data from multiple files into one data.frame
 #' 
-#' @description Combines radial measurements made on calcified structures and saved to an RData file with \code{\link{digitizeRadii}} into a single data.frame that can then be post-processed (e.g., back-calculate length at a previous age).
+#' @description Combines radial measurements made on calcified structures and saved to an R data file with \code{\link{digitizeRadii}} into a single data.frame that can then be post-processed (e.g., back-calculate length at a previous age).
 #'  
-#' @param nms A character vector of RData file names created with \code{\link{digitizeRadii}}. The files must be in the current working directory (see \code{\link{getwd}} result).
+#' @param nms A character vector of R data file names created with \code{\link{digitizeRadii}}. The files must be in the current working directory (see \code{\link{getwd}} result).
 #'
-#' @details A detailed description of its use is in \href{http://derekogle.com/RFishBC/articles/MeasureRadii/collectRadiiData.html}{this vignette} on the \href{http://derekogle.com/RFishBC/index.html}{RFishBC website}. The list of RData file names may be efficiently created with \code{\link{listFiles}} as described in that vignette. The RData file names may also be selected from a dialog box if using Windows.
+#' @details A detailed description of its use is in \href{http://derekogle.com/RFishBC/articles/MeasureRadii/collectRadiiData.html}{this vignette} on the \href{http://derekogle.com/RFishBC/index.html}{RFishBC website}. The list of R data file names may be efficiently created with \code{\link{listFiles}} as described in that vignette. The R data file names may also be selected from a dialog box if using Windows.
 #' 
 #' @return A data.frame that contains the radii data created with \code{\link{digitizeRadii}} for all files given in \code{nms}.
 #' 

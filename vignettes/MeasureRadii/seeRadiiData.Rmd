@@ -17,14 +17,14 @@ knitr::opts_chunk$set(
 
 
 # Introduction
-A method for visualizing annular points that a user (or users) selected on a calcified structure is described in this vignette. This vignette assumes that you have an RData file or files created from selecting points on a calcified structure using `digitizeRadii()` as described in the [Collecting Radial Measurements](collectRadiiData.html) vignette. It also assumes that you understand the language and functions introducted in that vignette.
+A method for visualizing annular points that a user (or users) selected on a calcified structure is described in this vignette. This vignette assumes that you have an R data file or files created from selecting points on a calcified structure using `digitizeRadii()` as described in the [Collecting Radial Measurements](collectRadiiData.html) vignette. It also assumes that you understand the language and functions introducted in that vignette.
 
-This vignette will use the following RData files:
+This vignette will use the following R data files:
 
-* "Scale_1_DHO.RData": annular points selected on the "Scale_1.jpg" file in the [Collecting Radial Measurements](collectRadiiData.html) vignette.
-* "Scale_1_DHO2.RData": a second set of annular points selected on the "Scale_1.jpg" file in the [Collecting Radial Measurements](collectRadiiData.html) vignette.
-* "Scale_1_DHO3.RData": a third set of annular points selected on the "Scale_1.jpg" file in the [Collecting Radial Measurements](collectRadiiData.html) vignette.
-* "Oto140306_DHO.RData": annular points selected on the "Oto140306.jpg" file. In contrast to the previous two images, this image had a 1-mm scale-bar. This RData file was created with the following code.
+* "Scale_1_DHO.rds": annular points selected on the "Scale_1.jpg" file in the [Collecting Radial Measurements](collectRadiiData.html) vignette.
+* "Scale_1_DHO2.rds": a second set of annular points selected on the "Scale_1.jpg" file in the [Collecting Radial Measurements](collectRadiiData.html) vignette.
+* "Scale_1_DHO3.rds": a third set of annular points selected on the "Scale_1.jpg" file in the [Collecting Radial Measurements](collectRadiiData.html) vignette.
+* "Oto140306_DHO.rds": annular points selected on the "Oto140306.jpg" file. In contrast to the previous two images, this image had a 1-mm scale-bar. This R data file was created with the following code.
 
 ```{r eval=FALSE}
 digitizeRadii("Oto140306.jpg",id="140306",reading="DHO",
@@ -45,23 +45,23 @@ library(RFishBC)
 ----
 
 # Visualize one Set of Annuli
-You can review the selected annuli on a structure with `showDigitizedImage()`, which requires only the name of an RData file creates from `digitizeRadii()`.[^sdifilename] The plotting character, color, and relative size of the selected points may be changed with `pch.show=`, `col.show=`, and `cex.show=`, respectively. The color and width of the "transect" may be changed with `col.transect=` and `lwd.transect=`, or excluded altogether with `showTransect=FALSE`. Annuli will be numbered if `showAnnuliLabels=TRUE` (the default) with label colors and relative size changed with `col.ann=` and `cex.ann=`, respectively. Annuli for which numbers are plotted may be controlled with `annuliLabels=` (e.g., only the first six are shown for the Kiyi otolith below). Defaults for these arguments can be set with `RFBCoptions()` as was demonstrated in the [Setting Arguments section of this vignette](collectRadiiData.html#setoptions1)
+You can review the selected annuli on a structure with `showDigitizedImage()`, which requires only the name of an R data file creates from `digitizeRadii()`.[^sdifilename] The plotting character, color, and relative size of the selected points may be changed with `pch.show=`, `col.show=`, and `cex.show=`, respectively. The color and width of the "transect" may be changed with `col.transect=` and `lwd.transect=`, or excluded altogether with `showTransect=FALSE`. Annuli will be numbered if `showAnnuliLabels=TRUE` (the default) with label colors and relative size changed with `col.ann=` and `cex.ann=`, respectively. Annuli for which numbers are plotted may be controlled with `annuliLabels=` (e.g., only the first six are shown for the Kiyi otolith below). Defaults for these arguments can be set with `RFBCoptions()` as was demonstrated in the [Setting Arguments section of this vignette](collectRadiiData.html#setoptions1)
 
 ```{r eval=FALSE}
-showDigitizedImage("Scale_1_DHO.RData")
+showDigitizedImage("Scale_1_DHO.rds")
 ```
 ```{r echo=FALSE,fig.height=5*381/446,fig.width=5}
-showDigitizedImage("Scale_1_DHO.RData",sepWindow=FALSE)
+showDigitizedImage("Scale_1_DHO.rds",sepWindow=FALSE)
 ```
 
 
 ```{r eval=FALSE}
-showDigitizedImage("Oto140306_DHO.RData",pch.show="+",col.show="blue",
+showDigitizedImage("Oto140306_DHO.rds",pch.show="+",col.show="blue",
                    col.transect="white",col.ann="black",cex.ann=1,
                    annuliLabels=1:6)
 ```
 ```{r echo=FALSE,fig.height=5*228/548,fig.width=5}
-showDigitizedImage("Oto140306_DHO.RData",pch.show="+",col.show="blue",
+showDigitizedImage("Oto140306_DHO.rds",pch.show="+",col.show="blue",
                    col.transect="white",col.ann="black",cex.ann=1,
                    annuliLabels=1:6,sepWindow=FALSE)
 ```
@@ -73,16 +73,16 @@ showDigitizedImage("Oto140306_DHO.RData",pch.show="+",col.show="blue",
 ----
 
 # Visualize Multiple Readings of Same Structure
-In some instances, you may be interested in visually comparing the selected points from multiple readings of the same structure. The `showDigitizedImage()` function can accomplish this if it is given a vector of RData file names created from the same structure.
+In some instances, you may be interested in visually comparing the selected points from multiple readings of the same structure. The `showDigitizedImage()` function can accomplish this if it is given a vector of R data file names created from the same structure.
 
-The `listFiles()` function (described in the [Collecting Radial Measurements](collectRadiiData.html) vignette) may be used to identify all filenames in the current working directory that have the file extension given in the first argument. For example, all files with the "RData" extension are found below.
+The `listFiles()` function (described in the [Collecting Radial Measurements](collectRadiiData.html) vignette) may be used to identify all filenames in the current working directory that have the file extension given in the first argument. For example, all files with the "rds" extension are found below.
 ```{r}
-listFiles("RData")
+listFiles("rds")
 ```
 
-This list of names can be further filtered by including other key words for the filenames in `other=`. For example, all files with the "RData" extension that contain the keyword "Scale_1" are returned below. For our purposes here, these filenames are saved into an object (e.g., `fns`).
+This list of names can be further filtered by including other key words for the filenames in `other=`. For example, all files with the "rds" extension that contain the keyword "Scale_1" are returned below. For our purposes here, these filenames are saved into an object (e.g., `fns`).
 ```{r}
-( fns <- listFiles("RData",other="Scale_1") )
+( fns <- listFiles("rds",other="Scale_1") )
 ```
 
 The multiple readings of "Scale_1" can be seen by giving this set of filenames to `showDigitizedImage()`.[^sdifilename2]

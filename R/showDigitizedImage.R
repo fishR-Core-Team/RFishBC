@@ -1,8 +1,8 @@
-#' @title Show points selected on a structure image and saved in an RData file
+#' @title Show points selected on a structure image and saved in an R data file
 #' 
-#' @description Show points selected on a structure image to represent annuli that were saved to an RData file using \code{\link{digitizeRadii}}. This allows the user to reexaminine the selected points or overlay selected points from multiple readings of the structure.
+#' @description Show points selected on a structure image to represent annuli that were saved to an R data file using \code{\link{digitizeRadii}}. This allows the user to reexaminine the selected points or overlay selected points from multiple readings of the structure.
 #' 
-#' @param nm A string that indicates the RData file created with \code{\link{digitizeRadii}}. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file. Either way the file must be in the current working directory.
+#' @param nm A string that indicates the R data file created with \code{\link{digitizeRadii}}. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file. Either way the file must be in the current working directory.
 #' @param sepWindow See details in \code{\link{RFBCoptions}}.
 #' @param pch.show See details in \code{\link{RFBCoptions}}.
 #' @param col.show See details in \code{\link{RFBCoptions}}.
