@@ -97,6 +97,21 @@ test_that("digitizeRadii() results with scale-bar",{
   expect_equal(names(dat2$radii),c("id","reading","agecap","ann","rad","radcap"))
 })
 
+test_that("digitizeRadii() results with scale-bar",{
+  tmp <- combineData("Scale_1_DHO.rds")
+  expect_s3_class(tmp,"data.frame")
+  expect_equal(names(tmp),c("id","reading","agecap","ann","rad","radcap"))
+  expect_equal(nrow(tmp),6)
+  tmp <- combineData("Oto140306_DHO.rds")
+  expect_s3_class(tmp,"data.frame")
+  expect_equal(names(tmp),c("id","reading","agecap","ann","rad","radcap"))
+  tmp <- combineData(c("Scale_1_DHO.rds","Scale_1_DHO2.rds"))
+  expect_s3_class(tmp,"data.frame")
+  expect_equal(names(tmp),c("id","reading","agecap","ann","rad","radcap"))
+  expect_equal(nrow(tmp),12)
+})
+
+
 test_that("bcFuns() output types",{
   ## List all choices for bcFuns() (TVG is not included because it
   ## is not yet implemented)

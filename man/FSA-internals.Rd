@@ -12,6 +12,7 @@
 \alias{iGetImage}
 \alias{iScalingFactorFromScaleBar}
 \alias{iPlaceText}
+\alias{isRData}
 \title{Internal functions.}
 \usage{
 .onAttach(lib, pkg, ...)

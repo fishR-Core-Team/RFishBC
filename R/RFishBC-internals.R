@@ -4,7 +4,7 @@
 #'
 #' @rdname FSA-internals
 #' @keywords internal
-#' @aliases .onAttach STOP WARN CATLINE BULLET DONE NOTE iHndlFilenames iGetImage iScalingFactorFromScaleBar iPlaceText
+#' @aliases .onAttach STOP WARN CATLINE BULLET DONE NOTE iHndlFilenames iGetImage iScalingFactorFromScaleBar iPlaceText isRData
 
 
 ########################################################################
@@ -51,7 +51,8 @@ iHndlFilenames <- function(nm,filter,multi=TRUE) {
     if (grepl('w|W', .Platform$OS.type)) {
       RFBCFilters <- rbind(images=c("Bitmapped image files",
                                     "*.jpg;*.jpeg;*.png;*.tiff;*.tif;*.bmp"),
-                           utils::Filters[c("RData","All"),])
+                           RData=c("RData files","*.rds;*.RData;*.rda"),
+                           All=utils::Filters["All",])
       nm <- utils::choose.files(filter=RFBCFilters[c("All",filter),,drop=FALSE],
                                 multi=multi,
                                 caption=ifelse(multi,"Select files",
@@ -166,4 +167,15 @@ iPlaceText <- function(txt,pos,cex,col) {
   } else if (pos=="left") {
     graphics::text(usr[1],mean(usr[3:4]),txt,adj=c(0,0.5),col=col,cex=cex)
   }
+}
+
+
+########################################################################
+## Uses magic numbers to determine if fn is an RData file as saved
+## from digitizeRadii(). The magic numbers are from here ...
+## https://www.loc.gov/preservation/digital/formats/fdd/fdd000470.shtml
+########################################################################
+isRData <- function(fn) {
+  magic <- readBin(fn,what=0L,n=2,size=1L,signed=FALSE)
+  ifelse(isTRUE(all.equal(magic,c(31,139))),TRUE,FALSE)
 }

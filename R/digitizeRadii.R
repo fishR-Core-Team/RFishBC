@@ -207,7 +207,7 @@ digitizeRadii <- function(img,id,reading,suffix,
   #### Name of RData file
   datanm <- paste0(tools::file_path_sans_ext(img),
                    ifelse(!is.null(suffix),"_",""),
-                   suffix,".RData")
+                   suffix,".rds")
   #### Master data object
   dat <- list(image=img,datanm=datanm,description=description,
               edgeIsAnnulus=edgeIsAnnulus,snap2Transect=snap2Transect,
@@ -219,7 +219,7 @@ digitizeRadii <- function(img,id,reading,suffix,
               pixW2H=windowInfo$pixW2H,
               pts=pts,radii=radii)
   #### Write the RData file
-  save(dat,file=datanm)
+  saveRDS(dat,file=datanm)
   #### Tell user what happend and invisibly return the R object
   DONE("Results written to ",datanm,"\n")
   invisible(dat)

@@ -63,6 +63,12 @@ test_that("digitizeRadii() error messages",{
 })
 
 
+test_that("combineData() messages",{
+  expect_error(combineData("small_ex.jpg"),"not an RData file")
+})
+
+
+
 test_that("bcFuns() messages",{
   expect_error(bcFuns(),"must be chosen")
   expect_error(bcFuns(0),"BCM number must be")

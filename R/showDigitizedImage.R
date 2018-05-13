@@ -68,7 +68,7 @@ showDigitizedImage <- function(nm,sepWindow,
   ## Display results ###########################################################
   for (i in seq_along(nm)) {
     #### Load results (will be in an object called dat)
-    load(nm[i])
+    dat <- readRDS(nm[i])
     #### If first then show the image
     if (i==1) {
       iGetImage(dat$image,id=NULL,sepWindow=sepWindow,
