@@ -78,6 +78,15 @@ test_that("showDigitizedImage() messages",{
                "from different structure images")
   expect_error(showDigitizedImage(c("Scale_1_DHO.rds","Oto140306_DHO.rds")),
                "from different structure images")
+  expect_error(showDigitizedImage("Oto140306_DHO.rds",showAnnuliLabels=FALSE,
+                                  annuliLabels=1:3),"not needed when")
+})
+
+
+  expect_error(listFiles("bmp"),"No files have a")
+  expect_error(listFiles(c("rds","jpg")),"can take only one string")
+  expect_error(listFiles("rds",path=c("c:","c:\\temp")),"can take only one string")
+  expect_error(listFiles("rds",other="Derek"),"contain the patterns given in")
 })
 
 

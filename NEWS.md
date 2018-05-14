@@ -1,4 +1,5 @@
 # RFishBC 0.0.8.9000 ongoing
+* Added tests.
 
 # RFishBC 0.0.8 13-May-18
 * Added tests.

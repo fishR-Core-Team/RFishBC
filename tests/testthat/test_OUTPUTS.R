@@ -1,4 +1,4 @@
-context("RFishBC MESSAGES")
+context("RFishBC OUTPUTS")
 
 source("EXS_collectRadii.R")
 source("EXS_growthUtils.R")
@@ -117,6 +117,18 @@ test_that("combineData() results",{
   expect_s3_class(tmp,"data.frame")
   expect_equal(names(tmp),c("id","reading","agecap","ann","rad","radcap"))
   expect_equal(nrow(tmp),12)
+})
+
+
+
+test_that("listFiles() output",{
+  expect_equal(listFiles("R"),c("EXS_collectRadii.R","EXS_growthUtils.R",
+                                "test_MESSAGES.R","test_OUTPUTS.R"))
+  expect_equal(listFiles("jpg"),c("Oto140306.jpg","Scale_1.jpg",
+                                  "Scale_2.jpg","small_ex.jpg"))
+  expect_equal(listFiles("jpg",other="Scale"),c("Scale_1.jpg","Scale_2.jpg"))
+  expect_equal(listFiles("rds",other="DHO2"),
+               c("Oto140306_DHO2.rds","Scale_1_DHO2.rds"))
 })
 
 
