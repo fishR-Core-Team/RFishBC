@@ -83,6 +83,8 @@ test_that("showDigitizedImage() messages",{
 })
 
 
+
+test_that("listFiles() messages",{
   expect_error(listFiles("bmp"),"No files have a")
   expect_error(listFiles(c("rds","jpg")),"can take only one string")
   expect_error(listFiles("rds",path=c("c:","c:\\temp")),"can take only one string")
