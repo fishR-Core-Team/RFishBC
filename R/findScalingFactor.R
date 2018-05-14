@@ -32,6 +32,7 @@ findScalingFactor <- function(img,knownLength,
                               pch.del,col.del) {
   ## Handle options
   if (missing(knownLength)) STOP("Must provide a 'knownLength'.")
+  if (knownLength<=0) STOP("'knownLength' must be positive.")
   if (missing(sepWindow)) sepWindow <- iGetopt("sepWindow")
   if (missing(windowSize)) windowSize <- iGetopt("windowSize")
   if (missing(col.scaleBar)) col.scaleBar <- iGetopt("col.scaleBar")
