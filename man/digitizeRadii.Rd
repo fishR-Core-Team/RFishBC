@@ -72,7 +72,7 @@ A list that contains the following:
   \item{\code{datanm}: }{The R data filename.}
   \item{\code{description}: }{The description given in \code{description}.}
   \item{\code{edgeIsAnnulus}: }{The logical given in \code{edgeIsAnnulus}.}
-  \item{\code{snap2Transect}: }{The logical from \code{snap2Transect} that identified whether the selected points were \dQuote{"snapped"} to the transect or not.}
+  \item{\code{snap2Transect}: }{The logical from \code{snap2Transect} that identified whether the selected points were \dQuote{snapped} to the transect or not.}
   \item{\code{scalingFactor}: }{A single numeric used to convert measurements on the structure image to actual measurements on the structure. Measurements on the structure image were multiplied by this value.}
   \item{\code{sfSource}: }{A character string that identifies whether the scaling factor was \code{"Provided"} through the \code{scalingFactor} argument or derived from a \code{"scaleBar"}.}
   \item{\code{sbPts}: }{A data.frame of \code{x} and \code{y} coordinates for the endpoints of the scale-bar if the scaling factor was derived from a scale-bar.}

@@ -49,7 +49,7 @@ showDigitizedImage <- function(nm,sepWindow,
   if (missing(showAnnuliLabels)) showAnnuliLabels <- iGetopt("showAnnuliLabels")
   if (missing(annuliLabels)) annuliLabels <- iGetopt("annuliLabels")
   if (!showAnnuliLabels) if (!is.null(annuliLabels))
-    STOP("'annuliLabels' no needed when 'showAnnuliLabels=FALSE'")
+    STOP("'annuliLabels' not needed when 'showAnnuliLabels=FALSE'")
   if (missing(col.ann)) col.ann <- iGetopt("col.ann")
   if (missing(cex.ann)) cex.ann <- iGetopt("cex.ann")
   dat <- NULL # try to avoid "no visible binding" note
