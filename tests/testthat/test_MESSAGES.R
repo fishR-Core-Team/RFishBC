@@ -32,7 +32,7 @@ test_that("RFBCoptions() error messages",{
 
 test_that("digitizeRadii() error messages",{
   expect_error(digitizeRadii("notRFishBC.rds",edgeIsAnnulus=TRUE,id="1"),
-               "does not appear to be a PNG, BMP, JPEG, or TIFF")
+               "does not appear to be a")
   expect_error(digitizeRadii(edgeIsAnnulus="derek"),"must be TRUE or FALSE")
   expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE),
                "Must provide a")
@@ -88,7 +88,7 @@ test_that("showDigitizedImage() messages",{
 
 test_that("findScalingFactor() error messages",{
   expect_error(findScalingFactor("Scale_1_DHO.rds",knownLength=1),
-               "does not appear to be a PNG, BMP, JPEG, or TIFF")
+               "does not appear to be a")
   expect_error(findScalingFactor("Scale_1.jpg"),"Must provide a 'knownLength'")
   expect_error(findScalingFactor("Scale_1.jpg",knownLength=-1),"must be positive")
   expect_error(findScalingFactor("Scale_1.jpg",knownLength=0),"must be positive")

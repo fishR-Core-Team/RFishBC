@@ -1,5 +1,6 @@
 # RFishBC 0.0.8.9000 ongoing
 * Added tests.
+* `findScalingFactor()`: Modified. Added a catch for non-positive `knownLength=`.
 
 # RFishBC 0.0.8 13-May-18
 * Added tests.
