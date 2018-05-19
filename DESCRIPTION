@@ -19,6 +19,7 @@ Imports:
     crayon,
     readbitmap,
     settings,
+    tidyr,
     withr
 Suggests:
     FSA,

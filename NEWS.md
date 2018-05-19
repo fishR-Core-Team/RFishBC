@@ -4,6 +4,7 @@
 * `bcUtilChecker()`: Modified. Changed to using `STOP()` and `WARN()`.
 * `BiolInt()`: Added (including tests).
 * `BPH()`: Added (including tests).
+* `combineData()`: Modified. Added `outFormat=` and `deletePlusGrowth=` arguments (and corresponding tests).
 * `DahlLea()`: Added (including tests).
 * `FraserLee()`: Added (including tests).
 * `findScalingFactor()`: Modified. Added a catch for non-positive `knownLength=`.
