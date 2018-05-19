@@ -69,6 +69,8 @@ test_that("digitizeRadii() error messages",{
 test_that("combineData() messages",{
   expect_error(combineData("small_ex.jpg"),"not an RData file")
   expect_error(combineData("notRFishBC.rds"),"does not appear to be from")
+  expect_error(combineData("Scale_1_DHO.rds",outFormat="Derek"),
+               "should be one of")
 })
 
 

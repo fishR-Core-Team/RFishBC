@@ -61,8 +61,7 @@ The methods described in this vignette require the following packages.
 
 ```{r message=FALSE}
 library(RFishBC)
-library(dplyr)    # for mutate(), inner_join()
-library(tidyr)    # for spread()
+library(dplyr)    # for mutate(), inner_join(), %>%
 ```
 
 \  
@@ -193,12 +192,17 @@ Argument values can still be changed from the defaults for a particular call to 
 
 # Data from One Structure
 
-The radial measurements from one structure may be seen by submitting the R data file name to `combineData()`.[^combinedatawd]
+The radial measurements from one structure may be seen by submitting the R data file name to `combineData()`.[^combinedatawd] Note that by default the radial measurement that includes the "plus-growth" will be omitted (as this radial measurement is equal to the total radial measurement and is thus redundant). To include the radial measurement with "plus-growth" then use `deletePlusGrowth=FALSE`.
 
 ```{r}
 combineData("Scale_1_DHO.rds")
 ```
 
+By default the data are shown in "long" format where each row consists of one radial measurement and all radial measurements for an individual fish are distributed across several rows. The radial data can be shown in "wide" format where each rows consists of all the radial measurements (in separate columns) for an individual fish by including `outFormat="wide"`.
+
+```{r}
+combineData("Scale_1_DHO.rds",outFormat="wide")
+```
 
 \  
 
@@ -209,16 +213,14 @@ combineData("Scale_1_DHO.rds")
 # Combine Data from Multiple Structures {#multiplestructures}
 Of course, most analyses will consist of collecting radial measurements from structures from many fish. In this section, I demonstrate how to combine measurements from multiple structures.
 
-This demonstration assumes that many structure images in the current working directory were processed with `digitizeRadii()` as described above. For the purposes of this demonstration assume that "Scale_1.jpg" and "Scale_2.jpg" were both read by "DHO". For example, these images could have been processed with the following code.
+This demonstration assumes that many structure images in the current working directory were processed with `digitizeRadii()` as described above. For the purposes of this demonstration assume that "Scale_1.jpg" and "Scale_2.jpg" were both read by "DHO". For example, these images could have been processed with the following code, such that "Scale_1_DHO.rds" and "Scale_2_DHO.rds" would both exist in the current working directory.
 
 ```{r eval=FALSE}
 RFBCoptions(reading="DHO",edgeIsAnnulus=FALSE)
 digitizeRadii()  # Use multiple times, select image & enter ID in dialog boxes
 ```
 
-With this, "Scale_1_DHO.rds" and "Scale_2_DHO.rds" would both exist in the current working directory.
-
-Radial measurements from multiple structures can be easily combined into one data.frame with `combineData()` if the appropriate R data file names are in a list. The `listFiles()` function may be used to identify all filenames in the current working directory that have the file extension given in the first argument. For example, all files in the current working directory with the "rds" extension are identified below.
+Radial measurements from multiple structures can be easily combined into one data.frame with `combineData()` if the appropriate R data file names are listed in a vector. The `listFiles()` function may be used to identify all filenames in the current working directory that have the file extension given in the first argument. For example, all files in the current working directory with the "rds" extension are identified below.
 ```{r}
 listFiles("rds")
 ```
@@ -234,24 +236,43 @@ The result of `listFiles()` should be saved to an object so that the names can b
 ( dfrad <- combineData(fns) )
 ```
 
+Again, the data can be shown in "wide" format by including `outFormat="wide"`.
+
+```{r}
+( dfrad2 <- combineData(fns,outFormat="wide") )
+```
+
+\  
+
+\  
+
+----
+
 # Output Data File
-Other information about the fish (e.g., location of capture, length, sex) is likely held in a separate file. Below, example "other" data are loaded into the `dffish` data.frame. Note that the `id` variable created from processing the structure images above are characters. In this case, `read.csv()` reads the `id` variable from the external data file as numeric (because the unique IDs were simple numbers). The second line of code below converts these numeric IDs to characters so that this data.frame can be joined with the radial measurements data.frame from above.[^wrongtypesinjoin]
+Other information about the fish (e.g., location of capture, length, sex) is likely held in a separate file. Below, example "other" data are loaded into the `dffish` data.frame. Note that the `id` variable created from processing the structure images above are characters. In this case, `read.csv()` reads the `id` variable from the external data file as numeric because the unique IDs were simple numbers. The second line of code below converts these numeric IDs to characters so that this data.frame can be joined with the radial measurements data.frame from above.[^wrongtypesinjoin]
 ```{r}
 dffish <- read.csv("FishData.csv",stringsAsFactors=FALSE) %>%
-  mutate(id=as.character(id)) %>% 
-  inner_join(dfrad,by="id")
-dffish
+  mutate(id=as.character(id))
 ```
 
-Some people prefer that the data be presented in "one-fish-per-line" rather than "one-measurement-per-line" (as in `dffish`) format. The one-measurement-per-line data.frame can be converted to one-fish-per-line by including it as the first argument to `spread()`. In addition, the variable that identifies the annuli number must be included in `key=` and the variable that identifies the radial measurements must be included in `value=`. The `sep=` argument is used here as well so that the column names in the resultant data.frame are not simply numbers. In this case, the new variable names will be a combination of the variable name in `key=`, the string in `sep=`, and the numbers in the `value=` variable.
+The data in the `dffish` and `dfrad` data.frames are then joined by the common `id` variable using `inner_join()`.
+
 ```{r}
-dffish2 <- spread(dffish,key=ann,value=rad,sep="rad")
-dffish2
+fishdat <- dffish %>%
+  inner_join(dfrad,by="id")
+fishdat
 ```
 
-Either file can be written to a "comma-separated values" (CSV) file[^csvfile] with `write.csv()` using the R object name (e.g., `dffish` or `dffish2`) as the first argument and a name for the file in `file=`. Additionally, I prefer to have non-quoted values by using `quote=FALSE` and no row names by using `row.names=FALSE`. For example, the "one-measurement-per-line" data can be output to "Kiyi2014_BCs.csv" as follows.
+One could also join with the "wide" data.
+```{r}
+fishdat2 <- dffish %>%
+  inner_join(dfrad2,by="id")
+fishdat2
+```
+
+Either file can be written to a "comma-separated values" (CSV) file[^csvfile] with `write.csv()` using the R object name (e.g., `fishdat` or `fishdat2`) as the first argument and a name for the file in `file=`. Additionally, I prefer to have non-quoted values by using `quote=FALSE` and no row names by using `row.names=FALSE`. For example, the "one-measurement-per-line" data can be output to "Kiyi2014_BCs.csv" as follows.
 ```{r eval=FALSE}
-write.csv(dffish,file="Kiyi2014_BCs.csv",quote=FALSE,row.names=FALSE)
+write.csv(fishdat,file="Kiyi2014_BCs.csv",quote=FALSE,row.names=FALSE)
 ```
 
 \  
