@@ -147,6 +147,19 @@ test_that("bcFuns() output types",{
 })
 
 
+test_that("Specific BCFunctions output values",{
+  expect_equal(DahlLea(100,5,10),50)
+  expect_equal(DahlLea(c(100,100),c(5,8),c(10,10)),c(50,80))
+  expect_equal(FraserLee(100,5,10,10),55)
+  expect_equal(FraserLee(c(100,100),c(5,8),c(10,10),10),c(55,82))
+  expect_equal(SPH(100,5,10,5,0.5),45)
+  expect_equal(SPH(100,5,10,-5,0.5),55) # same as Fraser-Lee
+  expect_equal(SPH(100,5,10,0,0.5),50)  # same as Dahl-Lea
+  expect_equal(BPH(100,5,10,1,1),100*(1+1*5)/(1+1*10))
+  expect_equal(BPH(100,5,10,0,0.5),50)  # same as Dahl-Lea
+})
+
+
 test_that("gConvert() output",{
   ## Actually constructs increments from radii ... no plus-growth
   tmp <- gConvert(bctmp,in.pre="anu")

@@ -12,7 +12,7 @@ bcFuns(BCM, verbose = FALSE)
 \item{verbose}{A logical that indicates whether a message about the model and parameter definitions should be output.}
 }
 \value{
-A function that can be used to predict length at previous age (Li) given length-at-capture (Lc), hard-part radius-at-age i (Ri), and hard-part radius-at-capture (Rc).  In addition, some functions/models may require the previous age (agei) and the age-at-capture (agec), certain parameters related to the biological intercept (R0p & L0p), or certain parameters estimated from various regression models (a,b,c,A,B,C).  See source for more information.
+A function that can be used to predict length at previous age (Li) given length-at-capture (Lcap), hard-part radius-at-age i (Ri), and hard-part radius-at-capture (Rcap). In addition, some functions/models may require the previous age (agei) and the age-at-capture (agec), certain parameters related to the biological intercept (R0p & L0p), or certain parameters estimated from various regression models (a,b,c,A,B,C). See source for more information.
 }
 \description{
 Creates a function for a specific model based on definitions in Vigliola and Meekan (2009).
@@ -66,7 +66,7 @@ bcm2(lencap,rad,radcap,2)  # demonstrated with a=2
 
 }
 \references{
-Vigliola, L. and M.G. Meekan.  2009.  The back-calculation of fish growth from otoliths.  pp. 174-211.  in B.S. Green et al. (editors).  Tropical Fish Otoliths: Information for Assessment, Management and Ecology.  Review: Methods and Technologies in Fish Biology and Fisheries 11.  Springer.  [Was (is?) available from https://www.researchgate.net/publication/226394736_The_Back-Calculation_of_Fish_Growth_From_Otoliths.]
+Vigliola, L. and M.G. Meekan. 2009. The back-calculation of fish growth from otoliths. pp. 174-211. in B.S. Green et al. (editors). Tropical Fish Otoliths: Information for Assessment, Management and Ecology. Review: Methods and Technologies in Fish Biology and Fisheries 11. Springer. [Was (is?) available from https://www.researchgate.net/publication/226394736_The_Back-Calculation_of_Fish_Growth_From_Otoliths.]
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}

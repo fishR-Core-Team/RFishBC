@@ -1,6 +1,14 @@
 # RFishBC 0.0.8.9000 ongoing
 * Added tests.
+* `bcFuns()`: Modified. Changed to using `STOP()`. Changed all `Lc` to `Lcap` and `Rc` to `Rcap`.
+* `bcUtilChecker()`: Modified. Changed to using `STOP()` and `WARN()`.
+* `BiolInt()`: Added (including tests).
+* `BPH()`: Added (including tests).
+* `DahlLea()`: Added (including tests).
+* `FraserLee()`: Added (including tests).
 * `findScalingFactor()`: Modified. Added a catch for non-positive `knownLength=`.
+* `ModFry()`: Added (including tests).
+* `SPH()`: Added (including tests).
 
 # RFishBC 0.0.8 13-May-18
 * Added tests.
