@@ -1,4 +1,5 @@
 # RFishBC 0.0.8.9000 ongoing
+* Added `rlang`, `stringr`, and `tidyr` to Imports.
 * Added tests.
 * Updated "Collect Data" vignette for changes to `combineData()`.
 * `bcFuns()`: Modified. Changed to using `STOP()`. Changed all `Lc` to `Lcap` and `Rc` to `Rcap`.

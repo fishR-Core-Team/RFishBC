@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 library(captioner)
 figcaps <- captioner(prefix="Figure")
-figcaps("BackCalcEx704","Plot of length-at-capture versus scale radius for West Bearskin Lake Smallmouth Bass in 1990. All four methods of backcalculation are shown for fish 704 ($S_{2}$=3.498, $L_{C}$=218, and $S_{C}$=7.44389; red point and line) with calculational steps shown with the arrows. Fish 701 is shown as the green point and line for comparative purposes.")
+figcaps("BackCalcEx704","Plot of length-at-capture versus scale radius for West Bearskin Lake Smallmouth Bass in 1990. All four methods of backcalculation are shown for fish 704 ($S_{2}$=3.498, $L_{Cap}$=218, and $S_{Cap}$=7.44389; red point and line) with calculational steps shown with the arrows. Fish 701 is shown as the green point and line for comparative purposes.")
 
 eqncaps <- captioner(prefix="Equation")
 eqncaps("BackCalcESL")
@@ -28,7 +28,7 @@ eqncaps("BackCalcBPHLinear")
 ```
 
 # Introduction
-This vignette demonstrates how to back-calculate lengths at previous ages ($L_{i}$) from radial measurements made on calcified structures of fish. This vignette assumes that you have an understanding of back-calculation (as described in the [Short Introduction to Back-calculation](../BCIntro/BCIntro.html) vignette) and that you have a data file with, at least, fish length-at-capture ($L_{C}$), structure radius-at-capture ($S_{C}$), and radial measurements to each annulus ($S_{i}$) found on calcified strutures (as would be collected from the structures as described in the [Collecting Radii Data](../MeasureRadii/collectRadiiData.html) vignette).
+This vignette demonstrates how to back-calculate lengths at previous ages ($L_{i}$) from radial measurements made on calcified structures of fish. This vignette assumes that you have an understanding of back-calculation (as described in the [Short Introduction to Back-calculation](../BCIntro/BCIntro.html) vignette) and that you have a data file with, at least, fish length-at-capture ($L_{Cap}$), structure radius-at-capture ($S_{Cap}$), and radial measurements to each annulus ($S_{i}$) found on calcified strutures (as would be collected from the structures as described in the [Collecting Radii Data](../MeasureRadii/collectRadiiData.html) vignette).
 
 Packages used in this vignette are loaded below.
 ```{r message=FALSE, warning=FALSE}
