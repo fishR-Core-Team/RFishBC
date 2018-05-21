@@ -2,6 +2,7 @@
 
 export(RFBCoptions)
 export(addRadCap)
+export(backCalc)
 export(bcFuns)
 export(combineData)
 export(digitizeRadii)

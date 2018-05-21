@@ -4,10 +4,14 @@
 \alias{combineData}
 \title{Combines radii data from multiple files into one data.frame}
 \usage{
-combineData(nms)
+combineData(nms, outFormat = c("long", "wide"), deletePlusGrowth = TRUE)
 }
 \arguments{
 \item{nms}{A character vector of R data file names created with \code{\link{digitizeRadii}}. The files must be in the current working directory (see \code{\link{getwd}} result).}
+
+\item{outFormat}{A string that indicates the output format for the combined data. The \code{"wide"} (DEFAULT) format has one-radius-per-line (i.e., each radial measurement for a fish in on a separate row), whereas the \code{"long"} format has one-fish-per-line (i.e., each radial measurement for a fish is in a separate column).}
+
+\item{deletePlusGrowth}{A logical that indicates whether the radial measurement that corresponds to \dQuote{plus-growth} should be deleted from the returned data.frame (\code{TRUE}; DEFAULT) or not (\code{FALSE}).}
 }
 \value{
 A data.frame that contains the radii data created with \code{\link{digitizeRadii}} for all files given in \code{nms}.

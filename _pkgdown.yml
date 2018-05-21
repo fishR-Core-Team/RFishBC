@@ -23,6 +23,7 @@ reference:
   - title: Back-calculation
     desc: Functions to aid back-calculation of lengths at previous ages
     contents:
+      - backCalc
       - bcFuns
   - title: Utilities
     desc: Functions to perform miscellaneous utilities.
@@ -30,6 +31,11 @@ reference:
       - listFiles
       - addRadCap
       - gConvert
+  - title: Data
+    desc: Data files.
+    contents:
+      - SMBassWB1
+      - SMBassWB2
 
 navbar:
   type: inverse
@@ -44,7 +50,7 @@ navbar:
           href: articles/MeasureRadii/collectRadiiData.html
         - text: Visualize Radii Data
           href: articles/MeasureRadii/seeRadiiData.html
-        - text: Compute Back-Calculated Lengths
+        - text: Back-Calculating Lengths
           href: articles/BCCalc/BCCalc.html
     - text: Reference
       href: reference/index.html

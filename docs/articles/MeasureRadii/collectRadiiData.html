@@ -58,7 +58,7 @@
       <a href="../../articles/MeasureRadii/seeRadiiData.html">Visualize Radii Data</a>
     </li>
     <li>
-      <a href="../../articles/BCCalc/BCCalc.html">Compute Back-Calculated Lengths</a>
+      <a href="../../articles/BCCalc/BCCalc.html">Back-Calculating Lengths</a>
     </li>
   </ul>
 </li>
@@ -91,7 +91,7 @@
       <h1>Collect radial measurements from a calcified structure by interactively selecting annuli</h1>
                         <h4 class="author">Derek H. Ogle</h4>
             
-            <h4 class="date">2018-05-13</h4>
+            <h4 class="date">2018-05-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/droglenc/RFishBC/blob/master/vignettes/MeasureRadii/collectRadiiData.Rmd"><code>vignettes/MeasureRadii/collectRadiiData.Rmd</code></a></small>
       <div class="hidden name"><code>collectRadiiData.Rmd</code></div>
@@ -138,8 +138,7 @@
 <a href="#r-packages" class="anchor"></a>R Packages</h3>
 <p>The methods described in this vignette require the following packages.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RFishBC)
-<span class="kw">library</span>(dplyr)    <span class="co"># for mutate(), inner_join()</span>
-<span class="kw">library</span>(tidyr)    <span class="co"># for spread()</span></code></pre></div>
+<span class="kw">library</span>(dplyr)    <span class="co"># for mutate(), inner_join(), %&gt;%</span></code></pre></div>
 <p> </p>
 <p> </p>
 <hr>
@@ -254,15 +253,20 @@
 <div id="data-from-one-structure" class="section level1">
 <h1 class="hasAnchor">
 <a href="#data-from-one-structure" class="anchor"></a>Data from One Structure</h1>
-<p>The radial measurements from one structure may be seen by submitting the R data file name to <code><a href="../../reference/combineData.html">combineData()</a></code>.<a href="#fn11" class="footnoteRef" id="fnref11"><sup>11</sup></a></p>
+<p>The radial measurements from one structure may be seen by submitting the R data file name to <code><a href="../../reference/combineData.html">combineData()</a></code>.<a href="#fn11" class="footnoteRef" id="fnref11"><sup>11</sup></a> Note that by default the radial measurement that includes the “plus-growth” will be omitted (as this radial measurement is equal to the total radial measurement and is thus redundant). To include the radial measurement with “plus-growth” then use <code>deletePlusGrowth=FALSE</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/combineData.html">combineData</a></span>(<span class="st">"Scale_1_DHO.rds"</span>)
 <span class="co">#&gt;   id reading agecap ann       rad    radcap</span>
 <span class="co">#&gt; 1  1     DHO      5   1 0.2111413 0.5146925</span>
 <span class="co">#&gt; 2  1     DHO      5   2 0.2773676 0.5146925</span>
 <span class="co">#&gt; 3  1     DHO      5   3 0.3402496 0.5146925</span>
 <span class="co">#&gt; 4  1     DHO      5   4 0.4571022 0.5146925</span>
-<span class="co">#&gt; 5  1     DHO      5   5 0.4989547 0.5146925</span>
-<span class="co">#&gt; 6  1     DHO      5   6 0.5146925 0.5146925</span></code></pre></div>
+<span class="co">#&gt; 5  1     DHO      5   5 0.4989547 0.5146925</span></code></pre></div>
+<p>By default the data are shown in “long” format where each row consists of one radial measurement and all radial measurements for an individual fish are distributed across several rows. The radial data can be shown in “wide” format where each rows consists of all the radial measurements (in separate columns) for an individual fish by including <code>outFormat="wide"</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/combineData.html">combineData</a></span>(<span class="st">"Scale_1_DHO.rds"</span>,<span class="dt">outFormat=</span><span class="st">"wide"</span>)
+<span class="co">#&gt;   id reading agecap    radcap      rad1      rad2      rad3      rad4</span>
+<span class="co">#&gt; 1  1     DHO      5 0.5146925 0.2111413 0.2773676 0.3402496 0.4571022</span>
+<span class="co">#&gt;        rad5</span>
+<span class="co">#&gt; 1 0.4989547</span></code></pre></div>
 <p> </p>
 <p> </p>
 <hr>
@@ -271,11 +275,10 @@
 <h1 class="hasAnchor">
 <a href="#multiplestructures" class="anchor"></a>Combine Data from Multiple Structures</h1>
 <p>Of course, most analyses will consist of collecting radial measurements from structures from many fish. In this section, I demonstrate how to combine measurements from multiple structures.</p>
-<p>This demonstration assumes that many structure images in the current working directory were processed with <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> as described above. For the purposes of this demonstration assume that “Scale_1.jpg” and “Scale_2.jpg” were both read by “DHO”. For example, these images could have been processed with the following code.</p>
+<p>This demonstration assumes that many structure images in the current working directory were processed with <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> as described above. For the purposes of this demonstration assume that “Scale_1.jpg” and “Scale_2.jpg” were both read by “DHO”. For example, these images could have been processed with the following code, such that “Scale_1_DHO.rds” and “Scale_2_DHO.rds” would both exist in the current working directory.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/RFBCoptions.html">RFBCoptions</a></span>(<span class="dt">reading=</span><span class="st">"DHO"</span>,<span class="dt">edgeIsAnnulus=</span><span class="ot">FALSE</span>)
 <span class="kw"><a href="../../reference/digitizeRadii.html">digitizeRadii</a></span>()  <span class="co"># Use multiple times, select image &amp; enter ID in dialog boxes</span></code></pre></div>
-<p>With this, “Scale_1_DHO.rds” and “Scale_2_DHO.rds” would both exist in the current working directory.</p>
-<p>Radial measurements from multiple structures can be easily combined into one data.frame with <code><a href="../../reference/combineData.html">combineData()</a></code> if the appropriate R data file names are in a list. The <code><a href="../../reference/listFiles.html">listFiles()</a></code> function may be used to identify all filenames in the current working directory that have the file extension given in the first argument. For example, all files in the current working directory with the “rds” extension are identified below.</p>
+<p>Radial measurements from multiple structures can be easily combined into one data.frame with <code><a href="../../reference/combineData.html">combineData()</a></code> if the appropriate R data file names are listed in a vector. The <code><a href="../../reference/listFiles.html">listFiles()</a></code> function may be used to identify all filenames in the current working directory that have the file extension given in the first argument. For example, all files in the current working directory with the “rds” extension are identified below.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/listFiles.html">listFiles</a></span>(<span class="st">"rds"</span>)
 <span class="co">#&gt; [1] "Oto140306_DHO.rds"  "Oto140306_DHO2.rds" "Scale_1_DHO.rds"   </span>
 <span class="co">#&gt; [4] "Scale_1_DHO2.rds"   "Scale_1_DHO3.rds"   "Scale_2_DHO.rds"</span></code></pre></div>
@@ -290,44 +293,54 @@
 <span class="co">#&gt; 3   1     DHO      5   3 0.3402496 0.5146925</span>
 <span class="co">#&gt; 4   1     DHO      5   4 0.4571022 0.5146925</span>
 <span class="co">#&gt; 5   1     DHO      5   5 0.4989547 0.5146925</span>
-<span class="co">#&gt; 6   1     DHO      5   6 0.5146925 0.5146925</span>
 <span class="co">#&gt; 7   2     DHO      4   1 0.1369752 0.3948274</span>
 <span class="co">#&gt; 8   2     DHO      4   2 0.2083183 0.3948274</span>
 <span class="co">#&gt; 9   2     DHO      4   3 0.2958363 0.3948274</span>
-<span class="co">#&gt; 10  2     DHO      4   4 0.3533809 0.3948274</span>
-<span class="co">#&gt; 11  2     DHO      4   5 0.3948274 0.3948274</span></code></pre></div>
+<span class="co">#&gt; 10  2     DHO      4   4 0.3533809 0.3948274</span></code></pre></div>
+<p>Again, the data can be shown in “wide” format by including <code>outFormat="wide"</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">( dfrad2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/combineData.html">combineData</a></span>(fns,<span class="dt">outFormat=</span><span class="st">"wide"</span>) )
+<span class="co">#&gt;   id reading agecap    radcap      rad1      rad2      rad3      rad4</span>
+<span class="co">#&gt; 1  1     DHO      5 0.5146925 0.2111413 0.2773676 0.3402496 0.4571022</span>
+<span class="co">#&gt; 2  2     DHO      4 0.3948274 0.1369752 0.2083183 0.2958363 0.3533809</span>
+<span class="co">#&gt;        rad5</span>
+<span class="co">#&gt; 1 0.4989547</span>
+<span class="co">#&gt; 2        NA</span></code></pre></div>
+<p> </p>
+<p> </p>
+<hr>
 </div>
-<div id="output-data-file" class="section level1">
+<div id="outputdata" class="section level1">
 <h1 class="hasAnchor">
-<a href="#output-data-file" class="anchor"></a>Output Data File</h1>
-<p>Other information about the fish (e.g., location of capture, length, sex) is likely held in a separate file. Below, example “other” data are loaded into the <code>dffish</code> data.frame. Note that the <code>id</code> variable created from processing the structure images above are characters. In this case, <code>read.csv()</code> reads the <code>id</code> variable from the external data file as numeric (because the unique IDs were simple numbers). The second line of code below converts these numeric IDs to characters so that this data.frame can be joined with the radial measurements data.frame from above.<a href="#fn13" class="footnoteRef" id="fnref13"><sup>13</sup></a></p>
+<a href="#outputdata" class="anchor"></a>Output Data File</h1>
+<p>Other information about the fish (e.g., location of capture, length, sex) is likely held in a separate file. Below, example “other” data are loaded into the <code>dffish</code> data.frame. Note that the <code>id</code> variable created from processing the structure images above are characters. In this case, <code>read.csv()</code> reads the <code>id</code> variable from the external data file as numeric because the unique IDs were simple numbers. The second line of code below converts these numeric IDs to characters so that this data.frame can be joined with the radial measurements data.frame from above.<a href="#fn13" class="footnoteRef" id="fnref13"><sup>13</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dffish &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">"FishData.csv"</span>,<span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id=</span><span class="kw">as.character</span>(id)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id=</span><span class="kw">as.character</span>(id))</code></pre></div>
+<p>The data in the <code>dffish</code> and <code>dfrad</code> data.frames are then joined by the common <code>id</code> variable using <code>inner_join()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fishdat &lt;-<span class="st"> </span>dffish <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">inner_join</span>(dfrad,<span class="dt">by=</span><span class="st">"id"</span>)
-dffish
-<span class="co">#&gt;    id  loc sex len reading agecap ann       rad    radcap</span>
-<span class="co">#&gt; 1   1 MI-5   M 189     DHO      5   1 0.2111413 0.5146925</span>
-<span class="co">#&gt; 2   1 MI-5   M 189     DHO      5   2 0.2773676 0.5146925</span>
-<span class="co">#&gt; 3   1 MI-5   M 189     DHO      5   3 0.3402496 0.5146925</span>
-<span class="co">#&gt; 4   1 MI-5   M 189     DHO      5   4 0.4571022 0.5146925</span>
-<span class="co">#&gt; 5   1 MI-5   M 189     DHO      5   5 0.4989547 0.5146925</span>
-<span class="co">#&gt; 6   1 MI-5   M 189     DHO      5   6 0.5146925 0.5146925</span>
-<span class="co">#&gt; 7   2 MI-6   F 210     DHO      4   1 0.1369752 0.3948274</span>
-<span class="co">#&gt; 8   2 MI-6   F 210     DHO      4   2 0.2083183 0.3948274</span>
-<span class="co">#&gt; 9   2 MI-6   F 210     DHO      4   3 0.2958363 0.3948274</span>
-<span class="co">#&gt; 10  2 MI-6   F 210     DHO      4   4 0.3533809 0.3948274</span>
-<span class="co">#&gt; 11  2 MI-6   F 210     DHO      4   5 0.3948274 0.3948274</span></code></pre></div>
-<p>Some people prefer that the data be presented in “one-fish-per-line” rather than “one-measurement-per-line” (as in <code>dffish</code>) format. The one-measurement-per-line data.frame can be converted to one-fish-per-line by including it as the first argument to <code>spread()</code>. In addition, the variable that identifies the annuli number must be included in <code>key=</code> and the variable that identifies the radial measurements must be included in <code>value=</code>. The <code>sep=</code> argument is used here as well so that the column names in the resultant data.frame are not simply numbers. In this case, the new variable names will be a combination of the variable name in <code>key=</code>, the string in <code>sep=</code>, and the numbers in the <code>value=</code> variable.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dffish2 &lt;-<span class="st"> </span><span class="kw">spread</span>(dffish,<span class="dt">key=</span>ann,<span class="dt">value=</span>rad,<span class="dt">sep=</span><span class="st">"rad"</span>)
-dffish2
-<span class="co">#&gt;   id  loc sex len reading agecap    radcap   annrad1   annrad2   annrad3</span>
+fishdat
+<span class="co">#&gt;   id  loc sex len reading agecap ann       rad    radcap</span>
+<span class="co">#&gt; 1  1 MI-5   M 189     DHO      5   1 0.2111413 0.5146925</span>
+<span class="co">#&gt; 2  1 MI-5   M 189     DHO      5   2 0.2773676 0.5146925</span>
+<span class="co">#&gt; 3  1 MI-5   M 189     DHO      5   3 0.3402496 0.5146925</span>
+<span class="co">#&gt; 4  1 MI-5   M 189     DHO      5   4 0.4571022 0.5146925</span>
+<span class="co">#&gt; 5  1 MI-5   M 189     DHO      5   5 0.4989547 0.5146925</span>
+<span class="co">#&gt; 6  2 MI-6   F 210     DHO      4   1 0.1369752 0.3948274</span>
+<span class="co">#&gt; 7  2 MI-6   F 210     DHO      4   2 0.2083183 0.3948274</span>
+<span class="co">#&gt; 8  2 MI-6   F 210     DHO      4   3 0.2958363 0.3948274</span>
+<span class="co">#&gt; 9  2 MI-6   F 210     DHO      4   4 0.3533809 0.3948274</span></code></pre></div>
+<p>One could also join with the “wide” data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fishdat2 &lt;-<span class="st"> </span>dffish <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">inner_join</span>(dfrad2,<span class="dt">by=</span><span class="st">"id"</span>)
+fishdat2
+<span class="co">#&gt;   id  loc sex len reading agecap    radcap      rad1      rad2      rad3</span>
 <span class="co">#&gt; 1  1 MI-5   M 189     DHO      5 0.5146925 0.2111413 0.2773676 0.3402496</span>
 <span class="co">#&gt; 2  2 MI-6   F 210     DHO      4 0.3948274 0.1369752 0.2083183 0.2958363</span>
-<span class="co">#&gt;     annrad4   annrad5   annrad6</span>
-<span class="co">#&gt; 1 0.4571022 0.4989547 0.5146925</span>
-<span class="co">#&gt; 2 0.3533809 0.3948274        NA</span></code></pre></div>
-<p>Either file can be written to a “comma-separated values” (CSV) file<a href="#fn14" class="footnoteRef" id="fnref14"><sup>14</sup></a> with <code>write.csv()</code> using the R object name (e.g., <code>dffish</code> or <code>dffish2</code>) as the first argument and a name for the file in <code>file=</code>. Additionally, I prefer to have non-quoted values by using <code>quote=FALSE</code> and no row names by using <code>row.names=FALSE</code>. For example, the “one-measurement-per-line” data can be output to “Kiyi2014_BCs.csv” as follows.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write.csv</span>(dffish,<span class="dt">file=</span><span class="st">"Kiyi2014_BCs.csv"</span>,<span class="dt">quote=</span><span class="ot">FALSE</span>,<span class="dt">row.names=</span><span class="ot">FALSE</span>)</code></pre></div>
+<span class="co">#&gt;        rad4      rad5</span>
+<span class="co">#&gt; 1 0.4571022 0.4989547</span>
+<span class="co">#&gt; 2 0.3533809        NA</span></code></pre></div>
+<p>Either file can be written to a “comma-separated values” (CSV) file<a href="#fn14" class="footnoteRef" id="fnref14"><sup>14</sup></a> with <code>write.csv()</code> using the R object name (e.g., <code>fishdat</code> or <code>fishdat2</code>) as the first argument and a name for the file in <code>file=</code>. Additionally, I prefer to have non-quoted values by using <code>quote=FALSE</code> and no row names by using <code>row.names=FALSE</code>. For example, the “one-measurement-per-line” data can be output to “Kiyi2014_BCs.csv” as follows.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write.csv</span>(fishdat,<span class="dt">file=</span><span class="st">"Kiyi2014_BCs.csv"</span>,<span class="dt">quote=</span><span class="ot">FALSE</span>,<span class="dt">row.names=</span><span class="ot">FALSE</span>)</code></pre></div>
 <p> </p>
 <p> </p>
 </div>
@@ -367,7 +380,7 @@ dffish2
       <li><a href="#setoptions1">Setting Argument Defaults for a Session</a></li>
       <li><a href="#data-from-one-structure">Data from One Structure</a></li>
       <li><a href="#multiplestructures">Combine Data from Multiple Structures</a></li>
-      <li><a href="#output-data-file">Output Data File</a></li>
+      <li><a href="#outputdata">Output Data File</a></li>
       <li><a href="#footnotes">Footnotes</a></li>
       </ul>
 </div>

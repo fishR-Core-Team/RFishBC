@@ -87,7 +87,7 @@
       <a href="../articles/MeasureRadii/seeRadiiData.html">Visualize Radii Data</a>
     </li>
     <li>
-      <a href="../articles/BCCalc/BCCalc.html">Compute Back-Calculated Lengths</a>
+      <a href="../articles/BCCalc/BCCalc.html">Back-Calculating Lengths</a>
     </li>
   </ul>
 </li>
@@ -146,7 +146,7 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A function that can be used to predict length at previous age (Li) given length-at-capture (Lc), hard-part radius-at-age i (Ri), and hard-part radius-at-capture (Rc).  In addition, some functions/models may require the previous age (agei) and the age-at-capture (agec), certain parameters related to the biological intercept (R0p &amp; L0p), or certain parameters estimated from various regression models (a,b,c,A,B,C).  See source for more information.</p>
+    <p>A function that can be used to predict length at previous age (Li) given length-at-capture (Lcap), hard-part radius-at-age i (Ri), and hard-part radius-at-capture (Rcap). In addition, some functions/models may require the previous age (agei) and the age-at-capture (agec), certain parameters related to the biological intercept (R0p &amp; L0p), or certain parameters estimated from various regression models (a,b,c,A,B,C). See source for more information.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -183,20 +183,20 @@
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Vigliola, L. and M.G. Meekan.  2009.  The back-calculation of fish growth from otoliths.  pp. 174-211.  in B.S. Green et al. (editors).  Tropical Fish Otoliths: Information for Assessment, Management and Ecology.  Review: Methods and Technologies in Fish Biology and Fisheries 11.  Springer.  [Was (is?) available from https://www.researchgate.net/publication/226394736_The_Back-Calculation_of_Fish_Growth_From_Otoliths.]</p>
+    <p>Vigliola, L. and M.G. Meekan. 2009. The back-calculation of fish growth from otoliths. pp. 174-211. in B.S. Green et al. (editors). Tropical Fish Otoliths: Information for Assessment, Management and Ecology. Review: Methods and Technologies in Fish Biology and Fisheries 11. Springer. [Was (is?) available from https://www.researchgate.net/publication/226394736_The_Back-Calculation_of_Fish_Growth_From_Otoliths.]</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Simple Examples</span>
-( <span class='no'>bcm1</span> <span class='kw'>&lt;-</span> <span class='fu'>bcFuns</span>(<span class='fl'>1</span>) )</div><div class='output co'>#&gt; function(Lc,Ri,Rc) { (Ri/Rc)*Lc }
-#&gt; &lt;environment: 0x000000001698d8f8&gt;</div><div class='input'><span class='fu'>bcm1</span>(<span class='fl'>20</span>,<span class='fl'>10</span>,<span class='fl'>40</span>)</div><div class='output co'>#&gt; [1] 5</div><div class='input'>
+( <span class='no'>bcm1</span> <span class='kw'>&lt;-</span> <span class='fu'>bcFuns</span>(<span class='fl'>1</span>) )</div><div class='output co'>#&gt; function(Lcap,Ri,Rcap,...) { (Ri/Rcap)*Lcap }
+#&gt; &lt;environment: 0x1760d0e8&gt;</div><div class='input'><span class='fu'>bcm1</span>(<span class='fl'>20</span>,<span class='fl'>10</span>,<span class='fl'>40</span>)</div><div class='output co'>#&gt; [1] 5</div><div class='input'>
 <span class='co'>## Example with dummy length-at-cap, radii-at-cap, and radii-at-age</span>
 <span class='no'>lencap</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>100</span>,<span class='fl'>100</span>,<span class='fl'>100</span>,<span class='fl'>150</span>,<span class='fl'>150</span>)
 <span class='no'>radcap</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>20</span>,<span class='fl'>20</span>,<span class='fl'>20</span>,<span class='fl'>30</span>,<span class='fl'>30</span>)
 <span class='no'>rad</span>    <span class='kw'>&lt;-</span> <span class='fu'>c</span>( <span class='fl'>5</span>,<span class='fl'>10</span>,<span class='fl'>15</span>,<span class='fl'>15</span>,<span class='fl'>25</span>)
 <span class='fu'>bcm1</span>(<span class='no'>lencap</span>,<span class='no'>rad</span>,<span class='no'>radcap</span>)</div><div class='output co'>#&gt; [1]  25  50  75  75 125</div><div class='input'>
-( <span class='no'>bcm2</span> <span class='kw'>&lt;-</span> <span class='fu'>bcFuns</span>(<span class='st'>"FRALE"</span>) )</div><div class='output co'>#&gt; function(Lc,Ri,Rc,a) { a+(Lc-a)*(Ri/Rc) }
-#&gt; &lt;environment: 0x0000000016680cd8&gt;</div><div class='input'><span class='fu'>bcm2</span>(<span class='no'>lencap</span>,<span class='no'>rad</span>,<span class='no'>radcap</span>,<span class='fl'>2</span>)  <span class='co'># demonstrated with a=2</span></div><div class='output co'>#&gt; [1]  26.5000  51.0000  75.5000  76.0000 125.3333</div><div class='input'>
+( <span class='no'>bcm2</span> <span class='kw'>&lt;-</span> <span class='fu'>bcFuns</span>(<span class='st'>"FRALE"</span>) )</div><div class='output co'>#&gt; function(Lcap,Ri,Rcap,a,...) { a+(Lcap-a)*(Ri/Rcap) }
+#&gt; &lt;environment: 0x183a25a8&gt;</div><div class='input'><span class='fu'>bcm2</span>(<span class='no'>lencap</span>,<span class='no'>rad</span>,<span class='no'>radcap</span>,<span class='fl'>2</span>)  <span class='co'># demonstrated with a=2</span></div><div class='output co'>#&gt; [1]  26.5000  51.0000  75.5000  76.0000 125.3333</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

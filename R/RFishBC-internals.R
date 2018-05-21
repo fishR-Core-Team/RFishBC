@@ -179,3 +179,38 @@ isRData <- function(fn) {
   magic <- readBin(fn,what=0L,n=2,size=1L,signed=FALSE)
   ifelse(isTRUE(all.equal(magic,c(31,139))),TRUE,FALSE)
 }
+
+
+########################################################################
+## Determines if the back-calculation method is a valid choice and
+## converts the wordy name to a number
+########################################################################
+iGetBCMethod <- function(BCM) {
+  BCMethodsNms <- c("DALE","FRALE","BI","LBI","BPH","LBPH","TVG","SPH",
+                    "LSPH","AE","AESPH","AEBPH","MONA","MONA-BPH",
+                    "MONA-SPH","WAKU","FRY","MF","ABI","FRY-BPH","ABPH",
+                    "FRY-SPH","ASPH","QBPH","QSPH","PBPH","PSPH","EBPH",
+                    "ESPH")
+  BCMethodsNums <- c(1,2,3,3,4,4,5,6,6,7,7,8,9,10,11,12,13,14,14,15,15,
+                     16,16,17,18,19,20,21,22)
+  ## Do some checking
+  if (missing(BCM)) STOP("A back-calculation function must be chosen with 'BCM'")
+  if (length(BCM)>1) STOP("Only one value may be given to 'BCM'")
+  if (is.numeric(BCM)) {
+    ## Function declared numerically
+    if (BCM<1 | BCM>22) STOP("BCM number must be between 1 and 22 inclusive.")
+  } else {
+    ## Function declared by name
+    BCM <- toupper(BCM)
+    if (!(BCM %in% BCMethodsNms)) {
+      msg <- paste(strwrap(paste("'BCM' must be one of:",
+                                 paste(BCMethodsNms,collapse=", ")),
+                           width=62),collapse="\n")
+      STOP(msg)
+    } else {
+      # All is good ... convert string to numeric
+      BCM <- BCMethodsNums[which(BCMethodsNms %in% BCM)]
+    }
+  }  
+  BCM
+}

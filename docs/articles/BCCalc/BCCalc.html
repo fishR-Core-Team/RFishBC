@@ -58,7 +58,7 @@
       <a href="../../articles/MeasureRadii/seeRadiiData.html">Visualize Radii Data</a>
     </li>
     <li>
-      <a href="../../articles/BCCalc/BCCalc.html">Compute Back-Calculated Lengths</a>
+      <a href="../../articles/BCCalc/BCCalc.html">Back-Calculating Lengths</a>
     </li>
   </ul>
 </li>
@@ -91,7 +91,7 @@
       <h1>Compute Back-Calculated Lengths</h1>
                         <h4 class="author">Derek H. Ogle</h4>
             
-            <h4 class="date">2018-05-13</h4>
+            <h4 class="date">2018-05-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/droglenc/RFishBC/blob/master/vignettes/BCCalc/BCCalc.Rmd"><code>vignettes/BCCalc/BCCalc.Rmd</code></a></small>
       <div class="hidden name"><code>BCCalc.Rmd</code></div>
@@ -103,240 +103,208 @@
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>This vignette demonstrates how to back-calculate lengths at previous ages (<span class="math inline">\(L_{i}\)</span>) from radial measurements made on calcified structures of fish. This vignette assumes that you have an understanding of back-calculation (as described in the <a href="../BCIntro/BCIntro.html">Short Introduction to Back-calculation</a> vignette) and that you have a data file with, at least, fish length-at-capture (<span class="math inline">\(L_{C}\)</span>), structure radius-at-capture (<span class="math inline">\(S_{C}\)</span>), and radial measurements to each annulus (<span class="math inline">\(S_{i}\)</span>) found on calcified strutures (as would be collected from the structures as described in the <a href="../MeasureRadii/collectRadiiData.html">Collecting Radii Data</a> vignette).</p>
+<p>This vignette demonstrates how to back-calculate lengths at previous ages from radial measurements made on calcified structures of fish. This vignette assumes that you have and understanding of</p>
+<ul>
+<li>back-calculation (as described in the <a href="../BCIntro/BCIntro.html">Short Introduction to Back-calculation</a> vignette),</li>
+<li>how to use <code><a href="../../reference/combineData.html">combineData()</a></code> to combine R data files created from <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> and join fish-specific information as described in the <a href="../MeasureRadii/collectRadiiData.html">Collecting Radii Data</a> vignette.</li>
+</ul>
 <p>Packages used in this vignette are loaded below.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RFishBC)   <span class="co"># for bcFuns()</span>
-<span class="kw">library</span>(FSA)       <span class="co"># for SMBassWB, sumTable()</span>
+<span class="kw">library</span>(FSA)       <span class="co"># for validn(), sumTable()</span>
 <span class="kw">library</span>(magrittr)  <span class="co"># for %&lt;&gt;%</span>
-<span class="kw">library</span>(tidyr)     <span class="co"># for gather()</span>
-<span class="kw">library</span>(stringr)   <span class="co"># for str_replace_all()</span>
-<span class="kw">library</span>(dplyr)     <span class="co"># for %&gt;%, filter(), select(), arrange(), mutate()</span>
-                   <span class="co">#     group_by, summarize()</span></code></pre></div>
-<p>All analyses in this supplement use the West Bearskin Lake (MN) Smallmouth Bass (<em>Micropterus dolomieu</em>) data from Weisberg (1993) found in <code>SMBassWB</code> in the <code>FSA</code> package. The analysis in this supplement will focus on those fish captured in 1990. Three variables that were constant and not used in this analysis and three measurement variables that corresponded to ages that did not exist after reducing to only fish capted in 1990 were removed, simply to save space. Finally, the fish were sorted by fish identification number to aid comparisons throuughout the document.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(SMBassWB,<span class="dt">package=</span><span class="st">"FSA"</span>)
-wb90 &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(SMBassWB,yearcap<span class="op">==</span><span class="dv">1990</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="op">-</span>(species<span class="op">:</span>yearcap),<span class="op">-</span>(anu10<span class="op">:</span>anu12)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(fish)</code></pre></div>
-<p>Note that the variables in this case are defined as follows:</p>
+<span class="kw">library</span>(dplyr)     <span class="co"># for %&gt;%, arrange(), group_by, summarize()</span></code></pre></div>
+<p>Finally, some of the data manipulations used in this vignette, which may not be familiar to all readers, are described in detail in Ogle (2016).</p>
+<p> </p>
+<p> </p>
+<hr>
+</div>
+<div id="data-for-back-calculation" class="section level1">
+<h1 class="hasAnchor">
+<a href="#data-for-back-calculation" class="anchor"></a>Data for Back-Calculation</h1>
+<p>The radial measurements from multiple fish should be combined into one data.frame using <code><a href="../../reference/combineData.html">combineData()</a></code>. In addition, the length-at-capture for each fish should be appended to that data.frame. A method to combine radial measurements from multiple fish and append a length-at-capture variable was demonstrated in the <a href="../MeasureRadii/collectRadiiData.html#outputdata">Output Data File section of the Collecting Radii Data</a> vignette.</p>
+<p>Several of the back-calculation methods require estimating parameters from the relationship between fish length and structure radius or structure radius and fish length (as described in <a href="../BCIntro/BCIntro.html">Short Introduction to Back-calculation</a> vignette). These methods cannot be demonstrated well with a small number of fish (as in the <a href="../MeasureRadii/collectRadiiData.html">Collecting Radii Data</a> vignette). Thus, data from a large number of Smallmouth Bass (<em>Micropterus dolomieu</em>) collected from West Bearskin Lake (MN) in 1990 will be used in this vignette.</p>
+<p>A data.frame of the Smallmouth Bass data as it would appear from <code><a href="../../reference/combineData.html">combineData()</a></code> is obtained as follows.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(SMBassWB2,<span class="dt">package=</span><span class="st">"RFishBC"</span>)
+<span class="kw">head</span>(SMBassWB2)
+<span class="co">#&gt;    id reading agecap  radcap    rad1    rad2 rad3 rad4 rad5 rad6 rad7 rad8</span>
+<span class="co">#&gt; 1 482     DHO      1 1.51076 1.51076      NA   NA   NA   NA   NA   NA   NA</span>
+<span class="co">#&gt; 2 768     DHO      1 1.57989 1.57989      NA   NA   NA   NA   NA   NA   NA</span>
+<span class="co">#&gt; 3 428     DHO      1 1.48721 1.48721      NA   NA   NA   NA   NA   NA   NA</span>
+<span class="co">#&gt; 4 478     DHO      2 2.73596 1.60554 2.73596   NA   NA   NA   NA   NA   NA</span>
+<span class="co">#&gt; 5 379     DHO      2 3.05503 1.59628 3.05503   NA   NA   NA   NA   NA   NA</span>
+<span class="co">#&gt; 6 477     DHO      2 2.44914 1.32061 2.44914   NA   NA   NA   NA   NA   NA</span>
+<span class="co">#&gt;   rad9</span>
+<span class="co">#&gt; 1   NA</span>
+<span class="co">#&gt; 2   NA</span>
+<span class="co">#&gt; 3   NA</span>
+<span class="co">#&gt; 4   NA</span>
+<span class="co">#&gt; 5   NA</span>
+<span class="co">#&gt; 6   NA</span></code></pre></div>
+<p>A data.frame of fish-specific information, most importantly the length-at-capture, is obtained as follows.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(SMBassWB1,<span class="dt">package=</span><span class="st">"RFishBC"</span>)
+<span class="kw">head</span>(SMBassWB1)
+<span class="co">#&gt;   id species lake gear yearcap lencap</span>
+<span class="co">#&gt; 1  5     SMB   WB    E    1988     71</span>
+<span class="co">#&gt; 2  3     SMB   WB    E    1988     64</span>
+<span class="co">#&gt; 3  2     SMB   WB    E    1988     57</span>
+<span class="co">#&gt; 4  4     SMB   WB    E    1988     68</span>
+<span class="co">#&gt; 5  6     SMB   WB    E    1988     72</span>
+<span class="co">#&gt; 6  7     SMB   WB    E    1988     80</span></code></pre></div>
+<p>These data can be joined by the common <code>id</code> variable as shown in the <a href="../MeasureRadii/collectRadiiData.html#outputdata">Output Data File section of the Collecting Radii Data</a> vignette. The data were also arranged by <code>id</code> to facilitate comparisons throughout this vignette.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">SMBassWB &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/join.html">inner_join</a></span>(SMBassWB1,SMBassWB2,<span class="dt">by=</span><span class="st">"id"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(id)
+<span class="kw">head</span>(SMBassWB,<span class="dt">n=</span><span class="dv">3</span>)
+<span class="co">#&gt;    id species lake gear yearcap lencap reading agecap  radcap    rad1</span>
+<span class="co">#&gt; 1 374     SMB   WB    E    1990    243     DHO      7 7.57375 1.01672</span>
+<span class="co">#&gt; 2 375     SMB   WB    E    1990    293     DHO      7 9.74397 1.76579</span>
+<span class="co">#&gt; 3 376     SMB   WB    E    1990    214     DHO      7 5.34522 1.02621</span>
+<span class="co">#&gt;      rad2    rad3    rad4    rad5    rad6    rad7 rad8 rad9</span>
+<span class="co">#&gt; 1 2.39296 3.47635 4.37718 5.18976 6.09176 7.57375   NA   NA</span>
+<span class="co">#&gt; 2 3.26580 4.35377 5.41608 7.14118 8.79697 9.74397   NA   NA</span>
+<span class="co">#&gt; 3 1.93058 2.58000 3.24923 4.05444 4.73920 5.34522   NA   NA</span>
+<span class="kw">tail</span>(SMBassWB,<span class="dt">n=</span><span class="dv">3</span>)
+<span class="co">#&gt;      id species lake gear yearcap lencap reading agecap  radcap    rad1</span>
+<span class="co">#&gt; 179 767     SMB   WB    E    1990     99     DHO      2 2.34205 1.44159</span>
+<span class="co">#&gt; 180 768     SMB   WB    E    1990     75     DHO      1 1.57989 1.57989</span>
+<span class="co">#&gt; 181 998     SMB   WB    E    1990    298     DHO      7 8.54805 1.37828</span>
+<span class="co">#&gt;        rad2    rad3    rad4    rad5   rad6    rad7 rad8 rad9</span>
+<span class="co">#&gt; 179 2.34205      NA      NA      NA     NA      NA   NA   NA</span>
+<span class="co">#&gt; 180      NA      NA      NA      NA     NA      NA   NA   NA</span>
+<span class="co">#&gt; 181 2.70647 3.60701 4.48222 5.17646 6.6224 8.54805   NA   NA</span></code></pre></div>
+<p>Note that the variables in this data frame are defined as follows:<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></p>
 <ul>
 <li>
-<strong>fish</strong>: A fish’s unique identification number.</li>
+<strong>id</strong>: A fish’s unique identification number.</li>
 <li>
-<strong>agecap</strong>: Fish age at the time of capture.</li>
+<strong>species</strong>: Species of fish.</li>
+<li>
+<strong>lake</strong>: Lake where fish was collected.</li>
+<li>
+<strong>gear</strong>: Gear used to collect the fish.</li>
+<li>
+<strong>yearcap</strong>: Year that the fish was captured.</li>
 <li>
 <strong>lencap</strong>: Fish length at the time of capture.</li>
 <li>
-<strong>anuX</strong>: A radial measurement to the “X”th annulus. Note the many “NA” values to annuli that were larger than the age-at-capture.</li>
+<strong>reading</strong>: The specific reading of the structure.</li>
+<li>
+<strong>agecap</strong>: Fish age at the time of capture.</li>
 <li>
 <strong>radcap</strong>: Total structure radius at the time of capture.</li>
-</ul>
-<p>Finally, some of the data manipulations used in this vignette may not be familiar to all readers, but they are described in detail in Ogle (2016).</p>
-<p> </p>
-</div>
-<div id="data-organization-manipulation" class="section level1">
-<h1 class="hasAnchor">
-<a href="#data-organization-manipulation" class="anchor"></a>Data Organization &amp; Manipulation</h1>
-<p>The back-calculation of fish length at previous ages requires radial, and not incremental, measurements. The Smallmouth Bass data loaded above <strong>does</strong> contain radial measurments, so no conversion is needed.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(wb90,<span class="dt">n=</span><span class="dv">3</span>)
-<span class="co">#&gt;   fish agecap lencap    anu1    anu2    anu3    anu4    anu5    anu6</span>
-<span class="co">#&gt; 1  374      7    243 1.01672 2.39296 3.47635 4.37718 5.18976 6.09176</span>
-<span class="co">#&gt; 2  375      7    293 1.76579 3.26580 4.35377 5.41608 7.14118 8.79697</span>
-<span class="co">#&gt; 3  376      7    214 1.02621 1.93058 2.58000 3.24923 4.05444 4.73920</span>
-<span class="co">#&gt;      anu7 anu8 anu9  radcap</span>
-<span class="co">#&gt; 1 7.57375   NA   NA 7.57375</span>
-<span class="co">#&gt; 2 9.74397   NA   NA 9.74397</span>
-<span class="co">#&gt; 3 5.34522   NA   NA 5.34522</span>
-<span class="kw">tail</span>(wb90,<span class="dt">n=</span><span class="dv">3</span>)
-<span class="co">#&gt;     fish agecap lencap    anu1    anu2    anu3    anu4    anu5   anu6</span>
-<span class="co">#&gt; 179  767      2     99 1.44159 2.34205      NA      NA      NA     NA</span>
-<span class="co">#&gt; 180  768      1     75 1.57989      NA      NA      NA      NA     NA</span>
-<span class="co">#&gt; 181  998      7    298 1.37828 2.70647 3.60701 4.48222 5.17646 6.6224</span>
-<span class="co">#&gt;        anu7 anu8 anu9  radcap</span>
-<span class="co">#&gt; 179      NA   NA   NA 2.34205</span>
-<span class="co">#&gt; 180      NA   NA   NA 1.57989</span>
-<span class="co">#&gt; 181 8.54805   NA   NA 8.54805</span></code></pre></div>
-<p>Back-calculation data is often stored in one of two formats. In <em>wide</em> or <em>one-fish-per-line</em> format, all information about a single fish, including all of the measurements from the calcified structure, is in one row of the data.frame. For efficient back-calculation, the data must be in the <em>long</em> or <em>one-measurement-per-line</em> format where each row contains information about one annulus (e.g., which annulus and the radial measurement).</p>
-<p>The <code>wb90</code> data.frame contains radial measurments in the wide format and, thus, must be converted to long format, which will be described below. Note, however, that the data.frame produced as described in the <a href="../MeasureRadii/collectRadiiData.html">Collecting Radii Data</a> is in long format and the conversion described below would not be needed.</p>
-<div id="converting-from-wide-to-long-format" class="section level3">
-<h3 class="hasAnchor">
-<a href="#converting-from-wide-to-long-format" class="anchor"></a>Converting from Wide to Long Format</h3>
-<p>Wide-format data can be converted to long-format data with <code><a href="http://www.rdocumentation.org/packages/tidyr/topics/gather">gather()</a></code>, which uses the following arguments:</p>
-<ul>
-<li>the <em>wide-format data.frame</em> [as the first argument],</li>
-<li>the variables in the <em>wide-format data.frame</em> that contain the values (i.e., the radial measurements) [as the second argument].</li>
 <li>
-<code>key=</code>: a name for the new variable <em>in the long format</em> that will identify the individual (i.e., which annulus),</li>
-<li>
-<code>value=</code>: a name for the new variable <em>in the long format</em> that will contain the value for the individual (i.e., the radial measurement), and</li>
+<strong>radX</strong>: A radial measurement to the “X”th annulus. Note the many “NA” values to annuli that were larger than the age-at-capture.</li>
 </ul>
-<p>The data are sorted by fish identification number and annulus number below to better see what was accomplished.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wb90r &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tidyr/topics/gather">gather</a></span>(wb90,anu1<span class="op">:</span>anu9,<span class="dt">key=</span>agei,<span class="dt">value=</span>radi) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(fish,agei)
-<span class="kw">head</span>(wb90r)
-<span class="co">#&gt;   fish agecap lencap  radcap agei    radi</span>
-<span class="co">#&gt; 1  374      7    243 7.57375 anu1 1.01672</span>
-<span class="co">#&gt; 2  374      7    243 7.57375 anu2 2.39296</span>
-<span class="co">#&gt; 3  374      7    243 7.57375 anu3 3.47635</span>
-<span class="co">#&gt; 4  374      7    243 7.57375 anu4 4.37718</span>
-<span class="co">#&gt; 5  374      7    243 7.57375 anu5 5.18976</span>
-<span class="co">#&gt; 6  374      7    243 7.57375 anu6 6.09176</span>
-<span class="kw">tail</span>(wb90r)
-<span class="co">#&gt;      fish agecap lencap  radcap agei    radi</span>
-<span class="co">#&gt; 1624  998      7    298 8.54805 anu4 4.48222</span>
-<span class="co">#&gt; 1625  998      7    298 8.54805 anu5 5.17646</span>
-<span class="co">#&gt; 1626  998      7    298 8.54805 anu6 6.62240</span>
-<span class="co">#&gt; 1627  998      7    298 8.54805 anu7 8.54805</span>
-<span class="co">#&gt; 1628  998      7    298 8.54805 anu8      NA</span>
-<span class="co">#&gt; 1629  998      7    298 8.54805 anu9      NA</span></code></pre></div>
-<p>There are three problems with this result. First, the new <code>agei</code> variable contains the names of the variables from the original wide format data.frame (e.g., <code>anu1</code>, <code>anu2</code>) rather than numbers that correspond to the age that the annulus was formed. Converting these labels to numbers begins by replacing the “anu” prefix with blanks (or an empty string) using <code><a href="http://www.rdocumentation.org/packages/stringr/topics/str_replace">str_replace_all()</a></code> with the vector of names, the string to replace (i.e., “anu”), and the replacement string as the first three arguments. The result from <code><a href="http://www.rdocumentation.org/packages/stringr/topics/str_replace">str_replace_all()</a></code>, however, is a character that must be converted to a numeric with <code>as.numeric()</code>.</p>
-<p>The second problem is that several of the radial measurements contain <code>NA</code> values. The non-<code>NA</code> values are found and retained by using <code>!is.na()</code> within <code><a href="http://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>.</p>
-<p>The third problem, while not an issue with these particular data, is that “plus growth” may have been recorded. “Plus growth” is growth on the margin of the calcified structure that does not represent a complete year of growth. If “plus growth” is present, then the new <code>agei</code> variable will have a value greater than the age-at-capture value. These instances should be removed from the new long format data.frame.</p>
-<p>The following code adjusts for these three issues.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wb90r <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">agei=</span><span class="kw">as.numeric</span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/stringr/topics/str_replace">str_replace_all</a></span>(agei,<span class="st">"anu"</span>,<span class="st">""</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="op">!</span><span class="kw">is.na</span>(radi)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(agei<span class="op">&lt;=</span>agecap)
-<span class="kw">head</span>(wb90r)
-<span class="co">#&gt;   fish agecap lencap  radcap agei    radi</span>
-<span class="co">#&gt; 1  374      7    243 7.57375    1 1.01672</span>
-<span class="co">#&gt; 2  374      7    243 7.57375    2 2.39296</span>
-<span class="co">#&gt; 3  374      7    243 7.57375    3 3.47635</span>
-<span class="co">#&gt; 4  374      7    243 7.57375    4 4.37718</span>
-<span class="co">#&gt; 5  374      7    243 7.57375    5 5.18976</span>
-<span class="co">#&gt; 6  374      7    243 7.57375    6 6.09176</span>
-<span class="kw">tail</span>(wb90r)
-<span class="co">#&gt;     fish agecap lencap  radcap agei    radi</span>
-<span class="co">#&gt; 762  998      7    298 8.54805    2 2.70647</span>
-<span class="co">#&gt; 763  998      7    298 8.54805    3 3.60701</span>
-<span class="co">#&gt; 764  998      7    298 8.54805    4 4.48222</span>
-<span class="co">#&gt; 765  998      7    298 8.54805    5 5.17646</span>
-<span class="co">#&gt; 766  998      7    298 8.54805    6 6.62240</span>
-<span class="co">#&gt; 767  998      7    298 8.54805    7 8.54805</span></code></pre></div>
 <p> </p>
-</div>
+<p> </p>
+<hr>
 </div>
 <div id="computing-back-calculated-lengths" class="section level1">
 <h1 class="hasAnchor">
 <a href="#computing-back-calculated-lengths" class="anchor"></a>Computing Back-Calculated Lengths</h1>
-<div id="scale-length-relationships" class="section level3">
-<h3 class="hasAnchor">
-<a href="#scale-length-relationships" class="anchor"></a>Scale-Length Relationships</h3>
-<p>Coefficients from either the scale-length (Equation 1) and length-scale (Equation 2) relationships are required for all but the Dahl-Lea method. Computation of these results requires knowing the length- an structure radius-at-capture for each fish. It is important that this pair of data is recorded only once for each fish, not one for each annulus on the fish like in the long-format data.frame. Thus, a new data.frame<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> with one length- and structure radius-at-capture pair per each fish must be extracted from the long-format data.frame. While this can be accomplished in many ways in R, one easy way (as long as the fish identification number is truly unique) is to reduce the long-format data.fram to only the fish identification number, length-at-capture, and structure radius-at-capture variables and submit those to <code>unique()</code> to remove all duplicate lines.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wb90slr &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(wb90r,fish,lencap,radcap) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">unique</span>()
-<span class="kw">head</span>(wb90slr,<span class="dt">n=</span><span class="dv">3</span>)
-<span class="co">#&gt;    fish lencap  radcap</span>
-<span class="co">#&gt; 1   374    243 7.57375</span>
-<span class="co">#&gt; 8   375    293 9.74397</span>
-<span class="co">#&gt; 15  376    214 5.34522</span>
-<span class="kw">tail</span>(wb90slr,<span class="dt">n=</span><span class="dv">3</span>)
-<span class="co">#&gt;     fish lencap  radcap</span>
-<span class="co">#&gt; 758  767     99 2.34205</span>
-<span class="co">#&gt; 760  768     75 1.57989</span>
-<span class="co">#&gt; 761  998    298 8.54805</span></code></pre></div>
-<p>Both linear relationships are fit with <code>lm()</code> and the coefficients are extracted with <code>coef()</code> and saved into objects for later use.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm.sl &lt;-<span class="st"> </span><span class="kw">lm</span>(radcap<span class="op">~</span>lencap,<span class="dt">data=</span>wb90)
-( a &lt;-<span class="st"> </span><span class="kw">coef</span>(lm.sl)[[<span class="dv">1</span>]] )
-<span class="co">#&gt; [1] -1.304391</span>
-( b &lt;-<span class="st"> </span><span class="kw">coef</span>(lm.sl)[[<span class="dv">2</span>]] )
-<span class="co">#&gt; [1] 0.03537477</span>
-
-lm.ls &lt;-<span class="st"> </span><span class="kw">lm</span>(lencap<span class="op">~</span>radcap,<span class="dt">data=</span>wb90)
-( c &lt;-<span class="st"> </span><span class="kw">coef</span>(lm.ls)[[<span class="dv">1</span>]] )
-<span class="co">#&gt; [1] 41.65166</span>
-( d &lt;-<span class="st"> </span><span class="kw">coef</span>(lm.ls)[[<span class="dv">2</span>]] )
-<span class="co">#&gt; [1] 27.35597</span></code></pre></div>
+<p>A data.frame of back-calculated lengths (<span class="math inline">\(L_{i}\)</span>) can be constructed from a data.frame that contains at least the length-at-capture (<span class="math inline">\(L_{cap}\)</span>), structure radius-at-capture (<span class="math inline">\(R_{cap}\)</span>), and the structure radius at each annulus (<span class="math inline">\(R_{i}\)</span>) with <code><a href="../../reference/backCalc.html">backCalc()</a></code>.</p>
+<p>The first argument to this function is a data.frame with the <span class="math inline">\(L_{cap}\)</span>, <span class="math inline">\(R_{cap}\)</span>, and <span class="math inline">\(R_{i}\)</span> data in either “long” or “wide” format. A long-format data.frame <strong>MUST</strong> have the following variable names:</p>
+<ul>
+<li>
+<code>id</code>: Unique fish identification variable.</li>
+<li>
+<code>agecap</code>: The fish’s age at capture.</li>
+<li>
+<code>ann</code>: The annulus number.</li>
+<li>
+<code>rad</code>: The structure radius (at an annulus).</li>
+<li>
+<code>radcap</code>: The total structure radius at the time of capture.</li>
+</ul>
+<p>A wide-format data.frame <strong>MUST</strong> have the following variable names:</p>
+<ul>
+<li>
+<code>id</code>: Unique fish identification variable.</li>
+<li>
+<code>agecap</code>: The fish’s age at capture.</li>
+<li>
+<code>radcap</code>: The total structure radius at the time of capture.</li>
+<li>
+<code>radX</code>: Multiple variables that contain the structure radius to the Xth annulus.</li>
+</ul>
+<p>These data.frames will be in these required formats if the data originated from the <code><a href="../../reference/combineData.html">combineData()</a></code> function.<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a> Other variables may exist in the data.frame, but these variables must exist with the names and contents shown here.</p>
+<p>The data.frame <strong>MUST</strong> also have a variable that contains the fish’s length-at-capture. The name for this variable <strong>MUST</strong> be given (without quotes) in the second or <code>lencap=</code> argument.</p>
+<p>The format for the input data.frame <strong>MUST</strong> be given in <code>inFormat=</code>. The two choices for this argument are <code>"long"</code> and <code>"wide"</code>.</p>
+<p>Finally, one of the many back-calculation models discussed in Vigliola and Meekan (2009) must be selected for use with the <code>BCM=</code> argument. The back-calculation model can be chosen by “name” or number, both of which can be seen in <a href="../../reference/bcFuns.html">the documentation for <code><a href="../../reference/bcFuns.html">bcFuns()</a></code></a>. For example, the popular Fraser-Lee model can be selected with <code>BCM="FRALE"</code> or <code>BCM=2</code>.</p>
+<p>Some of the models require parameters estimated from models fit to the relationship between fish length and structure radius or structure radius and fish length. These models will be fit “behind-the-scenes” in <code><a href="../../reference/backCalc.html">backCalc()</a></code>. However, some models also require parameters estimated without the observed data, which must then be provided by the user. For example, the Fraser-Lee model uses a length correction factor that may be the estimated length when the structure first forms or a standard published value for a species (Carlander 1980). If the user wants to provide one of these values, then it is given in the <code>a=</code> argument.<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a> Other parameters for other models may be given in other arguments to <code><a href="../../reference/backCalc.html">backCalc()</a></code> (see <a href="../../reference/backCalc.html">the documentation for <code><a href="../../reference/backCalc.html">backCalc()</a></code></a>).</p>
+<p>The results of <code><a href="../../reference/backCalc.html">backCalc()</a></code> can be returned in either “long” or “wide” format as identified with <code>outFormat=</code> (which defaults to be the same as <code>inFormat=</code>). The number of digits for the back-calculated lengths may be controlled with <code>digits=</code>.</p>
+<p>For example, back-calculated lengths were constructed from the wide-format data in <code>SMBassWB</code>, which has length-at-capture data in the <code>lencap</code> variable, using the Fraser-Lee model (with the “a” parameter estimated from the data) with the code below. The lengths were rounded to whole numbers (i.e., <code>digits=0</code>) and the results were returned in wide-format (the same as the input format).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">SMBassWB_FL &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/backCalc.html">backCalc</a></span>(SMBassWB,lencap,<span class="dt">BCM=</span><span class="st">"FRALE"</span>,<span class="dt">inFormat=</span><span class="st">"wide"</span>,<span class="dt">digits=</span><span class="dv">0</span>)
+<span class="kw">head</span>(SMBassWB_FL,<span class="dt">n=</span><span class="dv">3</span>)
+<span class="co">#&gt;    id species lake gear yearcap lencap reading agecap len1 len2 len3 len4</span>
+<span class="co">#&gt; 1 374     SMB   WB    E    1990    243     DHO      7   69  105  134  158</span>
+<span class="co">#&gt; 2 375     SMB   WB    E    1990    293     DHO      7   87  126  154  181</span>
+<span class="co">#&gt; 3 376     SMB   WB    E    1990    214     DHO      7   75  104  125  146</span>
+<span class="co">#&gt;   len5 len6 len7 len8 len9</span>
+<span class="co">#&gt; 1  180  204  243   NA   NA</span>
+<span class="co">#&gt; 2  226  269  293   NA   NA</span>
+<span class="co">#&gt; 3  172  194  214   NA   NA</span>
+<span class="kw">tail</span>(SMBassWB_FL,<span class="dt">n=</span><span class="dv">3</span>)
+<span class="co">#&gt;      id species lake gear yearcap lencap reading agecap len1 len2 len3</span>
+<span class="co">#&gt; 179 767     SMB   WB    E    1990     99     DHO      2   77   99   NA</span>
+<span class="co">#&gt; 180 768     SMB   WB    E    1990     75     DHO      1   75   NA   NA</span>
+<span class="co">#&gt; 181 998     SMB   WB    E    1990    298     DHO      7   83  123  150</span>
+<span class="co">#&gt;     len4 len5 len6 len7 len8 len9</span>
+<span class="co">#&gt; 179   NA   NA   NA   NA   NA   NA</span>
+<span class="co">#&gt; 180   NA   NA   NA   NA   NA   NA</span>
+<span class="co">#&gt; 181  176  197  240  298   NA   NA</span></code></pre></div>
+<p>The example below uses the same data and same back-calculation model, but with the results returned in long-format which is more conducive to statistical summarization and modeling.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">SMBassWB_FL2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/backCalc.html">backCalc</a></span>(SMBassWB,lencap,<span class="dt">BCM=</span><span class="st">"FRALE"</span>,
+                         <span class="dt">inFormat=</span><span class="st">"wide"</span>,<span class="dt">outFormat=</span><span class="st">"long"</span>,<span class="dt">digits=</span><span class="dv">0</span>)
+<span class="kw">head</span>(SMBassWB_FL2,<span class="dt">n=</span><span class="dv">6</span>)
+<span class="co">#&gt;      id species lake gear yearcap lencap reading agecap ann bclen</span>
+<span class="co">#&gt; 1   374     SMB   WB    E    1990    243     DHO      7   1    69</span>
+<span class="co">#&gt; 182 374     SMB   WB    E    1990    243     DHO      7   2   105</span>
+<span class="co">#&gt; 363 374     SMB   WB    E    1990    243     DHO      7   3   134</span>
+<span class="co">#&gt; 544 374     SMB   WB    E    1990    243     DHO      7   4   158</span>
+<span class="co">#&gt; 725 374     SMB   WB    E    1990    243     DHO      7   5   180</span>
+<span class="co">#&gt; 906 374     SMB   WB    E    1990    243     DHO      7   6   204</span>
+<span class="kw">tail</span>(SMBassWB_FL2,<span class="dt">n=</span><span class="dv">6</span>)
+<span class="co">#&gt;       id species lake gear yearcap lencap reading agecap ann bclen</span>
+<span class="co">#&gt; 362  998     SMB   WB    E    1990    298     DHO      7   2   123</span>
+<span class="co">#&gt; 543  998     SMB   WB    E    1990    298     DHO      7   3   150</span>
+<span class="co">#&gt; 724  998     SMB   WB    E    1990    298     DHO      7   4   176</span>
+<span class="co">#&gt; 905  998     SMB   WB    E    1990    298     DHO      7   5   197</span>
+<span class="co">#&gt; 1086 998     SMB   WB    E    1990    298     DHO      7   6   240</span>
+<span class="co">#&gt; 1267 998     SMB   WB    E    1990    298     DHO      7   7   298</span></code></pre></div>
 <p> </p>
-</div>
-<div id="applying-the-back-calculation-models" class="section level3">
-<h3 class="hasAnchor">
-<a href="#applying-the-back-calculation-models" class="anchor"></a>Applying the Back-Calculation Models</h3>
-<p>The lengths at a previous age (i.e., the <span class="math inline">\(L_{i}\)</span>) estimated with a back-calculation model are most easily added to the long format data.frame as a new variable with <code><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>. For example, the <span class="math inline">\(L_{i}\)</span> computed with all four back-calculation models are added to <code>wb90r</code> below.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wb90r <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">DL.len=</span>(radi<span class="op">/</span>radcap)<span class="op">*</span>lencap,
-                  <span class="dt">FL.len=</span>(radi<span class="op">/</span>radcap)<span class="op">*</span>(lencap<span class="op">-</span>c)<span class="op">+</span>c,
-                  <span class="dt">SPH.len=</span>(<span class="op">-</span>a<span class="op">/</span>b)<span class="op">+</span>(lencap<span class="op">+</span>a<span class="op">/</span>b)<span class="op">*</span>(radi<span class="op">/</span>radcap),
-                  <span class="dt">BPH.len=</span>lencap<span class="op">*</span>(c<span class="op">+</span>d<span class="op">*</span>radi)<span class="op">/</span>(c<span class="op">+</span>d<span class="op">*</span>radcap))
-<span class="kw">head</span>(wb90r,<span class="dt">n=</span><span class="dv">3</span>)
-<span class="co">#&gt;   fish agecap lencap  radcap agei    radi    DL.len    FL.len   SPH.len</span>
-<span class="co">#&gt; 1  374      7    243 7.57375    1 1.01672  32.62096  68.68119  64.54444</span>
-<span class="co">#&gt; 2  374      7    243 7.57375    2 2.39296  76.77693 105.26856 102.00007</span>
-<span class="co">#&gt; 3  374      7    243 7.57375    3 3.47635 111.53696 134.07052 131.48552</span>
-<span class="co">#&gt;     BPH.len</span>
-<span class="co">#&gt; 1  67.83504</span>
-<span class="co">#&gt; 2 104.60001</span>
-<span class="co">#&gt; 3 133.54177</span>
-<span class="kw">tail</span>(wb90r,<span class="dt">n=</span><span class="dv">3</span>)
-<span class="co">#&gt;     fish agecap lencap  radcap agei    radi   DL.len   FL.len  SPH.len</span>
-<span class="co">#&gt; 765  998      7    298 8.54805    5 5.17646 180.4605 196.8890 195.0044</span>
-<span class="co">#&gt; 766  998      7    298 8.54805    6 6.62240 230.8685 240.2515 239.1751</span>
-<span class="co">#&gt; 767  998      7    298 8.54805    7 8.54805 298.0000 298.0000 298.0000</span>
-<span class="co">#&gt;      BPH.len</span>
-<span class="co">#&gt; 765 198.2313</span>
-<span class="co">#&gt; 766 241.0181</span>
-<span class="co">#&gt; 767 298.0000</span></code></pre></div>
-<p>The <code><a href="../../reference/bcFuns.html">bcFuns()</a></code> function can also be used to create functions that compute most of the back-calculation models described in Vigliola and Meekan (2009). These function do not do anything fundamentally different than what was done above, but it may be easier for some of the more complicated back-calculation models. The function simply takes the name of one of the back-calculation models as its first argument. Names of the functions can be seen in <a href="../../reference/bcFuns.html">the documentation for <code><a href="../../reference/bcFuns.html">bcFuns()</a></code></a>.</p>
-<p>The result from <code><a href="../../reference/bcFuns.html">bcFuns()</a></code> should be saved to a name that will then serve as an R function to calculate the back-calculated length for that model. For example, the code below creates functions to compute the four back-calculation models used above. In each case, the first three arguments to the function created are the length-at-capture, the length of the structure radius to an annulus, and the structure radius-at-capture. Additional arguments are specific to the back-calculation model, but if it requires results from one of the linear relationships fit above then the intercept is given first followed by the slope.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dahllea &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bcFuns.html">bcFuns</a></span>(<span class="st">"DALE"</span>)
-fraserlee &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bcFuns.html">bcFuns</a></span>(<span class="st">"FRALE"</span>)
-sph &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bcFuns.html">bcFuns</a></span>(<span class="st">"SPH"</span>)
-bph &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/bcFuns.html">bcFuns</a></span>(<span class="st">"BPH"</span>)</code></pre></div>
-<p>With these functions, the results from above are duplicated below.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wb90r <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">DL.len2=</span><span class="kw">dahllea</span>(lencap,radi,radcap),
-                  <span class="dt">FL.len2=</span><span class="kw">fraserlee</span>(lencap,radi,radcap,c),
-                  <span class="dt">SPH.len2=</span><span class="kw">sph</span>(lencap,radi,radcap,a,b),
-                  <span class="dt">BPH.len2=</span><span class="kw">bph</span>(lencap,radi,radcap,c,d))
-<span class="kw">head</span>(wb90r,<span class="dt">n=</span><span class="dv">3</span>)
-<span class="co">#&gt;   fish agecap lencap  radcap agei    radi    DL.len    FL.len   SPH.len</span>
-<span class="co">#&gt; 1  374      7    243 7.57375    1 1.01672  32.62096  68.68119  64.54444</span>
-<span class="co">#&gt; 2  374      7    243 7.57375    2 2.39296  76.77693 105.26856 102.00007</span>
-<span class="co">#&gt; 3  374      7    243 7.57375    3 3.47635 111.53696 134.07052 131.48552</span>
-<span class="co">#&gt;     BPH.len   DL.len2   FL.len2  SPH.len2  BPH.len2</span>
-<span class="co">#&gt; 1  67.83504  32.62096  68.68119  64.54444  67.83504</span>
-<span class="co">#&gt; 2 104.60001  76.77693 105.26856 102.00007 104.60001</span>
-<span class="co">#&gt; 3 133.54177 111.53696 134.07052 131.48552 133.54177</span>
-<span class="kw">tail</span>(wb90r,<span class="dt">n=</span><span class="dv">3</span>)
-<span class="co">#&gt;     fish agecap lencap  radcap agei    radi   DL.len   FL.len  SPH.len</span>
-<span class="co">#&gt; 765  998      7    298 8.54805    5 5.17646 180.4605 196.8890 195.0044</span>
-<span class="co">#&gt; 766  998      7    298 8.54805    6 6.62240 230.8685 240.2515 239.1751</span>
-<span class="co">#&gt; 767  998      7    298 8.54805    7 8.54805 298.0000 298.0000 298.0000</span>
-<span class="co">#&gt;      BPH.len  DL.len2  FL.len2 SPH.len2 BPH.len2</span>
-<span class="co">#&gt; 765 198.2313 180.4605 196.8890 195.0044 198.2313</span>
-<span class="co">#&gt; 766 241.0181 230.8685 240.2515 239.1751 241.0181</span>
-<span class="co">#&gt; 767 298.0000 298.0000 298.0000 298.0000 298.0000</span></code></pre></div>
 <p> </p>
 <hr>
-</div>
 </div>
 <div id="summarizing-back-calculated-lengths" class="section level1">
 <h1 class="hasAnchor">
 <a href="#summarizing-back-calculated-lengths" class="anchor"></a>Summarizing Back-Calculated Lengths</h1>
-<p>For example, the mean back-calculated length-at-age may be computed with <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> and <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code> as shown below for the Fraser-Lee results.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tmp &lt;-<span class="st"> </span>wb90r <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(agei) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span>(<span class="dt">n=</span><span class="kw"><a href="http://www.rdocumentation.org/packages/FSA/topics/validn">validn</a></span>(FL.len),
-            <span class="dt">mn=</span><span class="kw">round</span>(<span class="kw">mean</span>(FL.len),<span class="dv">1</span>),
-            <span class="dt">sd=</span><span class="kw">round</span>(<span class="kw">sd</span>(FL.len),<span class="dv">2</span>)) <span class="op">%&gt;%</span>
+<p>For example, the mean back-calculated length-at-age may be computed with <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> and <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code> as shown below for the long-format Fraser-Lee results.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tmp &lt;-<span class="st"> </span>SMBassWB_FL2 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(ann) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span>(<span class="dt">n=</span><span class="kw"><a href="http://www.rdocumentation.org/packages/FSA/topics/validn">validn</a></span>(bclen),
+            <span class="dt">mn=</span><span class="kw">round</span>(<span class="kw">mean</span>(bclen),<span class="dv">0</span>),
+            <span class="dt">sd=</span><span class="kw">round</span>(<span class="kw">sd</span>(bclen),<span class="dv">1</span>)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">as.data.frame</span>()
 tmp
-<span class="co">#&gt;   agei   n    mn    sd</span>
-<span class="co">#&gt; 1    1 181  78.6  6.47</span>
-<span class="co">#&gt; 2    2 178 114.2 10.45</span>
-<span class="co">#&gt; 3    3 155 146.8 13.90</span>
-<span class="co">#&gt; 4    4  71 172.7 15.34</span>
-<span class="co">#&gt; 5    5  64 201.0 17.48</span>
-<span class="co">#&gt; 6    6  64 235.4 23.35</span>
-<span class="co">#&gt; 7    7  50 268.6 25.29</span>
-<span class="co">#&gt; 8    8   2 283.2 26.91</span>
-<span class="co">#&gt; 9    9   2 314.5 20.51</span></code></pre></div>
+<span class="co">#&gt;   ann   n  mn   sd</span>
+<span class="co">#&gt; 1   1 181  79  6.5</span>
+<span class="co">#&gt; 2   2 178 114 10.5</span>
+<span class="co">#&gt; 3   3 155 147 13.9</span>
+<span class="co">#&gt; 4   4  71 173 15.3</span>
+<span class="co">#&gt; 5   5  64 201 17.5</span>
+<span class="co">#&gt; 6   6  64 235 23.3</span>
+<span class="co">#&gt; 7   7  50 269 25.3</span>
+<span class="co">#&gt; 8   8   2 283 26.9</span>
+<span class="co">#&gt; 9   9   2 314 20.5</span></code></pre></div>
 <p>Additionally, the mean length at each back-calculated age computed separately for each age-at-capture is found with <code><a href="http://www.rdocumentation.org/packages/FSA/topics/sumTable">sumTable()</a></code>, where the left side of the formula is the quantitative variable to be summarized and the right side has grouping variables presented in <code>row*column</code> format.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="http://www.rdocumentation.org/packages/FSA/topics/sumTable">sumTable</a></span>(FL.len<span class="op">~</span>agecap<span class="op">*</span>agei,<span class="dt">data=</span>wb90r,<span class="dt">digits=</span><span class="dv">1</span>)
-<span class="co">#&gt;      1     2     3     4     5     6     7     8     9</span>
-<span class="co">#&gt; 1 73.7    NA    NA    NA    NA    NA    NA    NA    NA</span>
-<span class="co">#&gt; 2 79.7 113.3    NA    NA    NA    NA    NA    NA    NA</span>
-<span class="co">#&gt; 3 77.3 112.8 148.9    NA    NA    NA    NA    NA    NA</span>
-<span class="co">#&gt; 4 71.3 121.8 160.9 194.0    NA    NA    NA    NA    NA</span>
-<span class="co">#&gt; 6 79.8 107.9 136.0 169.6 198.8 229.7    NA    NA    NA</span>
-<span class="co">#&gt; 7 81.6 118.2 144.7 170.7 201.8 237.0 269.1    NA    NA</span>
-<span class="co">#&gt; 9 71.2  99.8 135.0 166.1 197.5 236.0 256.4 283.2 314.5</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="http://www.rdocumentation.org/packages/FSA/topics/sumTable">sumTable</a></span>(bclen<span class="op">~</span>agecap<span class="op">*</span>ann,<span class="dt">data=</span>SMBassWB_FL2,<span class="dt">digits=</span><span class="dv">0</span>)
+<span class="co">#&gt;    1   2   3   4   5   6   7   8   9</span>
+<span class="co">#&gt; 1 74  NA  NA  NA  NA  NA  NA  NA  NA</span>
+<span class="co">#&gt; 2 80 113  NA  NA  NA  NA  NA  NA  NA</span>
+<span class="co">#&gt; 3 77 113 149  NA  NA  NA  NA  NA  NA</span>
+<span class="co">#&gt; 4 71 122 161 194  NA  NA  NA  NA  NA</span>
+<span class="co">#&gt; 6 80 108 136 169 199 230  NA  NA  NA</span>
+<span class="co">#&gt; 7 82 118 145 171 202 237 269  NA  NA</span>
+<span class="co">#&gt; 9 72 100 135 166 198 236 256 283 314</span></code></pre></div>
 <p> </p>
 <p> </p>
 <hr>
@@ -345,6 +313,7 @@ tmp
 <h1 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h1>
 <ul>
+<li><p>Carlander, K.D. 1982. Standard intercepts for calculating lengths from scale measurements for some centrarchid and percid fishes. Transactions of the American Fisheries Society 111:332–336. <a href="https://www.tandfonline.com/doi/abs/10.1577/1548-8659(1982)111%3C332%3ASIFCLF%3E2.0.CO%3B2">Abstract</a></p></li>
 <li><p>Ogle, D.H. 2016. Introductory Fisheries Analyses with R. CRC Press/Chapman &amp; Hall. <a href="http://derekogle.com/IFAR/">Webpage</a></p></li>
 <li><p>Vigliola, L., and M.G. Meekan. 2009. The back-calculation of fish growth from otoliths. Pages 174-211 in Green, B., B. Mapstone, G. Carlos, and G. Begg, editors. Tropical fish otoliths: information for assessment, management and ecology, volume 11. Springer, Dordrecht, Netherlands. <a href="https://www.researchgate.net/publication/226394736_The_Back-Calculation_of_Fish_Growth_From_Otoliths">Full Text</a></p></li>
 </ul>
@@ -358,9 +327,12 @@ tmp
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p>If the data.frame had contained incremental measurements, then it could be converted to radial measurements with <code><a href="../../reference/gConvert.html">gConvert()</a></code>.<a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>The length- and structure radius-at-capture variables could be used here instead as those pairs of data only appear once for each fish in the data.frame.<a href="#fnref2">↩</a></p></li>
-<li id="fn3"><p>The two brackets are used here when extracting the specific coefficients so that the name (i.e., label) for the coefficient is not included. This removes the distracting “[Intercept]” or variable name labels above the coefficients.<a href="#fnref3">↩</a></p></li>
+<li id="fn1"><p>Both of these data.frames are available in the <code>RFishBC</code> package. However, these types of data could be the result of using <code>comineData()</code> and <code><a href="http://dplyr.tidyverse.org/reference/join.html">inner_join()</a></code> or from loading a relevant CSV file as demonstrated in <a href="../MeasureRadii/collectRadiiData.html#outputdata">Output Data File section of the Collecting Radii Data</a> vignette.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>Note that this file contains information from fish captured in years other than 1990.<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>Arranging the data by fish id is not required for the work below. It is simply used here for demonstration purposes.<a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p>The <code>species</code>, <code>lake</code>, <code>gear</code>, <code>yearcap</code>, and <code>reading</code> variables are not needed in this vignette, but could be needed in further statistical analyses.<a href="#fnref4">↩</a></p></li>
+<li id="fn5"><p>If your data originated from somewhere else, then you may need to rename your variables to meet these conventions.<a href="#fnref5">↩</a></p></li>
+<li id="fn6"><p>If <code>a</code> is not provided by the user for the Fraser-Lee model, then it will be estimated from the intercepts of the linear regression of fish length on structure radius.<a href="#fnref6">↩</a></p></li>
 </ol>
 </div>
   </div>
@@ -371,7 +343,7 @@ tmp
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#introduction">Introduction</a></li>
-      <li><a href="#data-organization-manipulation">Data Organization &amp; Manipulation</a></li>
+      <li><a href="#data-for-back-calculation">Data for Back-Calculation</a></li>
       <li><a href="#computing-back-calculated-lengths">Computing Back-Calculated Lengths</a></li>
       <li><a href="#summarizing-back-calculated-lengths">Summarizing Back-Calculated Lengths</a></li>
       <li><a href="#references">References</a></li>

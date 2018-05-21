@@ -18,7 +18,10 @@ Imports:
     clisymbols,
     crayon,
     readbitmap,
+    rlang,
     settings,
+    stringr,
+    tidyr,
     withr
 Suggests:
     FSA,

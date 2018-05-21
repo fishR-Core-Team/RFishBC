@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • RFishBC</title>
+<title>Radial measurements for for West Bearskin Lake Smallmouth Bass. — SMBassWB2 • RFishBC</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,7 +28,10 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="Radial measurements for for West Bearskin Lake Smallmouth Bass. — SMBassWB2" />
+
+<meta property="og:description" content="Radial measurement data for West Bearskin Lake Smallmouth Bass. Data are in &#8220;wide&#8221; or one-fish-per-line (with radial measurements in separate variables) format." />
+<meta name="twitter:card" content="summary" />
 
 
 <!-- mathjax -->
@@ -43,7 +46,7 @@
   </head>
 
   <body>
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -115,21 +118,58 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>Radial measurements for for West Bearskin Lake Smallmouth Bass.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/droglenc/RFishBC/blob/master/R/SMBassWB2.R'><code>R/SMBassWB2.R</code></a></small>
+    <div class="hidden name"><code>SMBassWB2.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <ul>
-        <li><a href="BCCalc/BCCalc.html">Compute Back-Calculated Lengths</a></li>
-        <li><a href="BCCalc/BCCalc_old.html">Compute Back-Calculated Lengths</a></li>
-        <li><a href="BCIntro/BCIntro.html">Short Introduction to Back-Calculation</a></li>
-        <li><a href="MeasureRadii/collectRadiiData.html">Collect radial measurements from a calcified structure by interactively selecting annuli</a></li>
-        <li><a href="MeasureRadii/seeRadiiData.html">Visualize Points Selected on a Calcified Structure</a></li>
-      </ul>
+    <div class="ref-description">
+    
+    <p>Radial measurement data for West Bearskin Lake Smallmouth Bass. Data are in &#8220;wide&#8221; or one-fish-per-line (with radial measurements in separate variables) format.</p>
+    
     </div>
+
+    <pre class="usage"><span class='no'>SMBassWB2</span></pre>
+        
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>A data frame with 181 rows and 13 variables:</p><dl class='dl-horizontal'>
+  <dt>id</dt><dd><p>An identification number unique to each fish.</p></dd>
+  <dt>reading</dt><dd><p>A reading specific identifier (all are &#8220;DHO&#8221;).</p></dd>
+  <dt>agecap</dt><dd><p>Age-at-capture.</p></dd>
+  <dt>radcap</dt><dd><p>Total structure radius at capture (magnified mm).</p></dd>
+  <dt>rad1</dt><dd><p>Structure radius to annulus 1.</p></dd>
+  <dt>rad2</dt><dd><p>Structure radius to annulus 2.</p></dd>
+  <dt>rad3</dt><dd><p>Structure radius to annulus 3.</p></dd>
+  <dt>rad4</dt><dd><p>Structure radius to annulus 4.</p></dd>
+  <dt>rad5</dt><dd><p>Structure radius to annulus 5.</p></dd>
+  <dt>rad6</dt><dd><p>Structure radius to annulus 6.</p></dd>
+  <dt>rad7</dt><dd><p>Structure radius to annulus 7.</p></dd>
+  <dt>rad8</dt><dd><p>Structure radius to annulus 8.</p></dd>
+  <dt>rad9</dt><dd><p>Structure radius to annulus 9.</p></dd>
+</dl>
+    
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p>Originally from XXX in <span class="pkg">alr4</span>. Rearranged to demonstrate functions in this package.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='SMBassWB1.html'>SMBassWB1</a></code></p></div>
+    
+
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      
+      <li><a href="#format">Format</a></li>
+
+      <li><a href="#source">Source</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+          </ul>
+
   </div>
 </div>
 

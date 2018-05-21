@@ -58,7 +58,7 @@
       <a href="../../articles/MeasureRadii/seeRadiiData.html">Visualize Radii Data</a>
     </li>
     <li>
-      <a href="../../articles/BCCalc/BCCalc.html">Compute Back-Calculated Lengths</a>
+      <a href="../../articles/BCCalc/BCCalc.html">Back-Calculating Lengths</a>
     </li>
   </ul>
 </li>
@@ -91,7 +91,7 @@
       <h1>Short Introduction to Back-Calculation</h1>
                         <h4 class="author">Derek H. Ogle</h4>
             
-            <h4 class="date">2018-05-13</h4>
+            <h4 class="date">2018-05-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/droglenc/RFishBC/blob/master/vignettes/BCIntro/BCIntro.Rmd"><code>vignettes/BCIntro/BCIntro.Rmd</code></a></small>
       <div class="hidden name"><code>BCIntro.Rmd</code></div>
@@ -114,9 +114,9 @@
 <a href="#terminology" class="anchor"></a>Terminology</h1>
 <p><strong>Calcified structures</strong> are scales, spines, fin rays, otoliths, or other bones from fish that can be processed in such a way as to show marks that represent annuli, or yearly benchmarks. Hereafter, “structure” will refer to “calcified structure.”</p>
 <p>Two types of measurements can be made on structures. A <strong>radial</strong> measurement is the distance from the center of the structure (e.g., focus of scale or nucleus of otolith) to the edge of an annulus. An <strong>incremental</strong> measurement is the distance between two successive annuli. Radial measurements are required for back-calculation of fish length. Incremental measurements are used in some forms of modeling growth [e.g., Weisberg (1993) and Weisberg <em>et al.</em> (2010)].</p>
-<p>Back-calculation models estimate length at previous age <span class="math inline">\(i\)</span> (i.e., <span class="math inline">\(L_{i}\)</span>) from known values of length at time of capture (<span class="math inline">\(L_{C}\)</span>), scale radius to the <span class="math inline">\(i\)</span>th annulus (<span class="math inline">\(S_{i}\)</span>), and scale radius at time of capture (<span class="math inline">\(S_{C}\)</span>). Several back-calculation models rely on the relationship between <span class="math inline">\(S_{C}\)</span> and <span class="math inline">\(L_{C}\)</span>. Depending on the model, a function of mean <span class="math inline">\(S_{C}\)</span> for a given <span class="math inline">\(L_{C}\)</span> (i.e., <span class="math inline">\(E(S_{C}|L_{C})\)</span> ) or mean <span class="math inline">\(L_{C}\)</span> for a given <span class="math inline">\(S_{C}\)</span> (i.e., <span class="math inline">\(E(L_{C}|S_{C})\)</span>) is used. These functions are not required to be linear, but often are, and in their linear form are represented as</p>
-<p><span class="math display">\[ E(S_{C}|L_{C})=a+bL_{C} \quad \quad \text{(1)} \]</span></p>
-<p><span class="math display">\[ E(L_{C}|S_{C})=c+dS_{C} \quad \quad \text{(2)} \]</span></p>
+<p>Back-calculation models estimate length at previous age <span class="math inline">\(i\)</span> (i.e., <span class="math inline">\(L_{i}\)</span>) from known values of length at time of capture (<span class="math inline">\(L_{Cap}\)</span>), scale radius to the <span class="math inline">\(i\)</span>th annulus (<span class="math inline">\(R_{i}\)</span>), and scale radius at time of capture (<span class="math inline">\(R_{Cap}\)</span>). Several back-calculation models rely on the relationship between <span class="math inline">\(R_{Cap}\)</span> and <span class="math inline">\(L_{Cap}\)</span>. Depending on the model, a function of mean <span class="math inline">\(R_{Cap}\)</span> for a given <span class="math inline">\(L_{Cap}\)</span> (i.e., <span class="math inline">\(E(R_{Cap}|L_{Cap})\)</span> ) or mean <span class="math inline">\(L_{Cap}\)</span> for a given <span class="math inline">\(R_{Cap}\)</span> (i.e., <span class="math inline">\(E(L_{Cap}|R_{Cap})\)</span>) is used. These functions are not required to be linear, but often are, and in their linear form are represented as</p>
+<p><span class="math display">\[ E(L_{Cap}|R_{Cap})=a+bR_{Cap} \quad \quad \text{(1)} \]</span></p>
+<p><span class="math display">\[ E(R_{Cap}|L_{Cap})=A+BL_{Cap} \quad \quad \text{(2)} \]</span></p>
 <p> </p>
 <p> </p>
 <hr>
@@ -124,31 +124,31 @@
 <div id="back-calculation-models" class="section level1">
 <h1 class="hasAnchor">
 <a href="#back-calculation-models" class="anchor"></a>Back-Calculation Models</h1>
-<p>The first back-calculation model was jointly developed by Knut Dahl and Einar Lea and appeared in Lea (1910). The underlying concept of the <em>Dahl-Lea model</em> is that growth of the calcified structure is in exact proportion to growth in length of the fish. With this, the ratio of <span class="math inline">\(S_{i}\)</span> to <span class="math inline">\(S_{C}\)</span> is the same as the ratio of <span class="math inline">\(L_{i}\)</span> to <span class="math inline">\(L_{C}\)</span>. Rearrangement of this equality yields the Dahl-Lea back-calculation model</p>
-<p><span class="math display">\[ L_{i}=\frac{S_{i}}{S_{C}}L_{C} \quad \quad \text{(3)} \]</span></p>
-<p>The Dahl-Lea model describes a family of straight lines that pass through the <strong>origin</strong> and each observed (<span class="math inline">\(S_{C},L_{C}\)</span>) point. Visually (Figure 1), the estimated <span class="math inline">\(L_{i}\)</span> for a particular fish is found by locating <span class="math inline">\(S_{i}\)</span> along the x-axis, moving vertically until the straight line for that fish is met, and then moving horizontally to the point on the y-axis.</p>
+<p>The first back-calculation model was jointly developed by Knut Dahl and Einar Lea and appeared in Lea (1910). The underlying concept of the <em>Dahl-Lea model</em> is that growth of the calcified structure is in exact proportion to growth in length of the fish. With this, the ratio of <span class="math inline">\(R_{i}\)</span> to <span class="math inline">\(R_{Cap}\)</span> is the same as the ratio of <span class="math inline">\(L_{i}\)</span> to <span class="math inline">\(L_{Cap}\)</span>. Rearrangement of this equality yields the Dahl-Lea back-calculation model</p>
+<p><span class="math display">\[ L_{i}=\frac{R_{i}}{R_{Cap}}L_{Cap} \quad \quad \text{(3)} \]</span></p>
+<p>The Dahl-Lea model describes a family of straight lines that pass through the <strong>origin</strong> and each observed (<span class="math inline">\(R_{Cap},L_{Cap}\)</span>) point. Visually (Figure 1), the estimated <span class="math inline">\(L_{i}\)</span> for a particular fish is found by locating <span class="math inline">\(R_{i}\)</span> along the x-axis, moving vertically until the straight line for that fish is met, and then moving horizontally to the point on the y-axis.</p>
 <p> </p>
 <p><img src="BCIntro_files/figure-html/BackCalcEx704-1.png" width="672"></p>
-<p>Figure 1: Plot of length-at-capture versus scale radius for West Bearskin Lake Smallmouth Bass in 1990. All four methods of backcalculation are shown for fish 704 (<span class="math inline">\(S_{2}\)</span>=3.498, <span class="math inline">\(L_{C}\)</span>=218, and <span class="math inline">\(S_{C}\)</span>=7.44389; red point and line) with calculational steps shown with the arrows. Fish 701 is shown as the green point and line for comparative purposes.</p>
+<p>Figure 1: Plot of length-at-capture versus scale radius for West Bearskin Lake Smallmouth Bass in 1990. All four methods of backcalculation are shown for fish 704 (<span class="math inline">\(R_{2}\)</span>=3.498, <span class="math inline">\(L_{Cap}\)</span>=218, and <span class="math inline">\(R_{Cap}\)</span>=7.44389; red point and line) with calculational steps shown with the arrows. Fish 701 is shown as the green point and line for comparative purposes.</p>
 <p> </p>
-<p>Fraser (1916) was the first to describe, but Lee (1920) was the first to formally derive, the back-calculation model from the concept that “the growth <em>increment</em> of the scale is, on the average …, a constant proportion of the growth <em>increment</em> of the fish” (Francis 1990). In practice, the <em>Fraser-Lee model</em> modified the Dahl-Lea model by adjusting for the length of the fish when the structure forms (i.e., <span class="math inline">\(L=c\)</span> when <span class="math inline">\(S=0\)</span>), that is,</p>
-<p><span class="math display">\[ L_{i}=\frac{S_{i}}{S_{C}}(L_{C}-c)+c \quad \quad \text{(4)} \]</span></p>
-<p>where <span class="math inline">\(c\)</span> comes from the length of the fish at the time of structure formation, the intercept of the length-structure relationship regression (e.g., from Equation 2), or, when using scales, from published “standards” for a species (Carlander 1982). The Fraser-Lee model describes a family of lines with an intercept of <span class="math inline">\(c\)</span> that pass through the (<span class="math inline">\(S_{C},L_{C}\)</span>) point (Francis 1990; Figure 1).</p>
+<p>Fraser (1916) was the first to describe, but Lee (1920) was the first to formally derive, the back-calculation model from the concept that “the growth <em>increment</em> of the scale is, on the average …, a constant proportion of the growth <em>increment</em> of the fish” (Francis 1990). In practice, the <em>Fraser-Lee model</em> modified the Dahl-Lea model by adjusting for the length of the fish when the structure forms (i.e., <span class="math inline">\(L=c\)</span> when <span class="math inline">\(R=0\)</span>), that is,</p>
+<p><span class="math display">\[ L_{i}=\frac{R_{i}}{R_{Cap}}(L_{Cap}-a)+a \quad \quad \text{(4)} \]</span></p>
+<p>where <span class="math inline">\(a\)</span> comes from the length of the fish at the time of structure formation, the intercept of the length-structure relationship regression (e.g., from Equation 1), or, when using scales, from published “standards” for a species (Carlander 1982). The Fraser-Lee model describes a family of lines with an intercept of <span class="math inline">\(a\)</span> that pass through the (<span class="math inline">\(R_{Cap},L_{Cap}\)</span>) point (Francis 1990; Figure 1).</p>
 <p>The <em>scale proportional hypothesis</em> (SPH) model was named by Francis (1990), but was first recognized by Whitney and Carlander (1956) when they said “<em>{i}f the scale was 10 per cent larger when the fish was caught than the average scale for that size of fish, [then] the scale would be 10 per cent larger than normal throughout the life.</em>” If “average” and “normal” are considered to be expected values, then this hypothesis can be written as</p>
-<p><span class="math display">\[ \frac{S_{i}}{E[S|L_{i}]}=\frac{S_{C}}{E[S|L_{C}]} \]</span></p>
-<p>If it is assumed that the scale-length relationship is linear, then the two expected values in these ratios are computed by plugging <span class="math inline">\(L_{i}\)</span> and <span class="math inline">\(L_{C}\)</span>, respectively, into the scale-length relationship (i.e., Equation 1) to produce</p>
-<p><span class="math display">\[ \frac{S_{i}}{a+bL_{i}}=\frac{S_{C}}{a+bL_{C}} \]</span></p>
+<p><span class="math display">\[ \frac{R_{i}}{E[R|L_{i}]}=\frac{R_{Cap}}{E[R|L_{Cap}]} \]</span></p>
+<p>If it is assumed that the scale-length relationship is linear, then the two expected values in these ratios are computed by plugging <span class="math inline">\(L_{i}\)</span> and <span class="math inline">\(L_{Cap}\)</span>, respectively, into the scale-length relationship (i.e., Equation 2) to produce</p>
+<p><span class="math display">\[ \frac{R_{i}}{A+BL_{i}}=\frac{R_{Cap}}{A+BL_{Cap}} \]</span></p>
 <p>which can be solved for <span class="math inline">\(L_{i}\)</span> to yield the general SPH back-calculation model</p>
-<p><span class="math display">\[ L_{i} = \frac{S_{i}}{S_{C}}\left(L_{C}+\frac{a}{b}\right) - \frac{a}{b} \quad \quad \text{(5)} \]</span></p>
-<p>The linear SPH model produces a family of lines that all have an intercept of <span class="math inline">\(-\frac{a}{b}\)</span> and pass through each observed (<span class="math inline">\(S_{C},L_{C}\)</span>) point (Figure 1). The SPH model is the same as the Fraser-Lee model except that the intercept from Equation 2 is replaced with <span class="math inline">\(-\frac{a}{b}\)</span>. Further note that the SPH model is the same as the Dahl-Lea model if <span class="math inline">\(a=0\)</span>.</p>
+<p><span class="math display">\[ L_{i} = \frac{R_{i}}{R_{Cap}}\left(L_{Cap}+\frac{A}{B}\right) - \frac{A}{B} \quad \quad \text{(5)} \]</span></p>
+<p>The linear SPH model produces a family of lines that all have an intercept of <span class="math inline">\(-\frac{A}{B}\)</span> and pass through each observed (<span class="math inline">\(R_{Cap},L_{Cap}\)</span>) point (Figure 1). The SPH model is the same as the Fraser-Lee model except that the intercept from Equation 1 is replaced with <span class="math inline">\(-\frac{A}{B}\)</span>. The SPH model is the same as the Dahl-Lea model if <span class="math inline">\(A=0\)</span>.</p>
 <p>The <em>body proportional hypothesis</em> (BPH) model was also named by Francis (1990) and was also first recognized by Whitney and Carlander (1956) when they said “<em>{i}f a fish at time of capture were 10 per cent smaller than the average fish with that size of scale, [then] the fish would be 10 per cent smaller than the expected length for the size of that scale throughout life.</em>” This hypothesis can be written as</p>
-<p><span class="math display">\[ \frac{L_{i}}{E[L|S_{i}]}=\frac{L_{C}}{E[L|S_{C}]} \]</span></p>
-<p>If the length-scale relationship is linear then the expected values can be found by plugging <span class="math inline">\(S_{i}\)</span> and <span class="math inline">\(S_{c}\)</span> into Equation 2 to get</p>
-<p><span class="math display">\[ \frac{L_{i}}{c+dS_{i}}=\frac{L_{C}}{c+dS_{C}} \]</span></p>
+<p><span class="math display">\[ \frac{L_{i}}{E[L|R_{i}]}=\frac{L_{Cap}}{E[L|R_{Cap}]} \]</span></p>
+<p>If the length-scale relationship is linear then the expected values can be found by plugging <span class="math inline">\(R_{i}\)</span> and <span class="math inline">\(R_{Cap}\)</span> into Equation 1 to get</p>
+<p><span class="math display">\[ \frac{L_{i}}{a+bR_{i}}=\frac{L_{Cap}}{a+bR_{Cap}} \]</span></p>
 <p>which can be solved for <span class="math inline">\(L_{i}\)</span> to yield the general BPH back-calculation model</p>
-<p><span class="math display">\[ L_{i}=L_{C}\frac{c+dS_{i}}{c+dS_{c}} \quad \quad \text{(6)} \]</span></p>
-<p>The linear BPH model produces a family of lines that have an intercept of <span class="math inline">\(\frac{cL_{C}}{c+dS_{C}}\)</span> and pass through each observed (<span class="math inline">\(S_{C},L_{C}\)</span>) point (Figure 1). In contrast to the other back-calculation models, the BPH model uses lines with a different intercept for each fish. The linear BPH model is the same as the Dahl-Lea model if <span class="math inline">\(c=0\)</span>.</p>
-<p>Vigliola and Meekan (2009) described 18 other models for the back-calculation of fish length. Functions for each of these models can be created with <code><a href="../../reference/bcFuns.html">bcFuns()</a></code> as described in THIS VIGNETTE.</p>
+<p><span class="math display">\[ L_{i}=L_{Cap}\frac{a+bR_{i}}{a+bR_{Cap}} \quad \quad \text{(6)} \]</span></p>
+<p>The linear BPH model produces a family of lines that have an intercept of <span class="math inline">\(\frac{aL_{Cap}}{a+bR_{Cap}}\)</span> and pass through each observed (<span class="math inline">\(R_{Cap},L_{Cap}\)</span>) point (Figure 1). In contrast to the other back-calculation models, the BPH model uses lines with a different intercept for each fish. The linear BPH model is the same as the Dahl-Lea model if <span class="math inline">\(a=0\)</span>.</p>
+<p>Vigliola and Meekan (2009) described 18 other models for the back-calculation of fish length.</p>
 <p> </p>
 <p> </p>
 <hr>
