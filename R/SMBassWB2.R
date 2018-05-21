@@ -19,7 +19,7 @@
 #'   \item{rad9}{Structure radius to annulus 9.}
 #' }
 #' 
-#' @source Originally from XXX in \pkg{alr4}. Rearranged to demonstrate functions in this package.
+#' @source Originally from \code{\link[FSA]{SMBassWB}} in \pkg{FSA}. Rearranged to demonstrate functions in this package.
 #' 
 #' @seealso \code{\link{SMBassWB1}}
 "SMBassWB2"

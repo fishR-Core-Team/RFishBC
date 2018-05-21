@@ -14,7 +14,7 @@
   \item{lencap}{Total length-at-capture (mm)}
 }}
 \source{
-Originally from XXX in \pkg{alr4}. Rearranged to demonstrate functions in this package.
+Originally from \code{\link[FSA]{SMBassWB}} in \pkg{FSA}. Rearranged to demonstrate functions in this package.
 }
 \usage{
 SMBassWB1
