@@ -58,6 +58,8 @@ $$ E(R_{Cap}|L_{Cap})=A+BL_{Cap} \quad \quad \text{`r paste0("(",eqncaps("BackCa
 
 # Back-Calculation Models
 
+## Four Most Common Models
+
 The first back-calculation model was jointly developed by Knut Dahl and Einar Lea and appeared in Lea (1910). The underlying concept of the *Dahl-Lea model* is that growth of the calcified structure is in exact proportion to growth in length of the fish. With this, the ratio of $R_{i}$ to $R_{Cap}$ is the same as the ratio of $L_{i}$ to $L_{Cap}$. Rearrangement of this equality yields the Dahl-Lea back-calculation model
 
 $$ L_{i}=\frac{R_{i}}{R_{Cap}}L_{Cap} \quad \quad \text{`r paste0("(",eqncaps("BackCalcDahlLea",display="num"),")")`} $$
@@ -188,7 +190,11 @@ $$ L_{i}=L_{Cap}\frac{a+bR_{i}}{a+bR_{Cap}} \quad \quad \text{`r paste0("(",eqnc
 
 The linear BPH model produces a family of lines that have an intercept of $\frac{aL_{Cap}}{a+bR_{Cap}}$ and pass through each observed ($R_{Cap},L_{Cap}$) point (`r figcaps("BackCalcEx704",display="cite")`). In contrast to the other back-calculation models, the BPH model uses lines with a different intercept for each fish. The linear BPH model is the same as the Dahl-Lea model if $a=0$.
 
-Vigliola and Meekan (2009) described 18 other models for the back-calculation of fish length.
+\  
+
+## Many Other Models
+
+[Vigliola and Meekan (2009)](https://www.researchgate.net/publication/226394736_The_Back-Calculation_of_Fish_Growth_From_Otoliths) described 18 other models for the back-calculation of fish length. Many of these models are variations of the BPH and SPH models described above, but assuming an other than (geometrically) linear model (e.g., quadratic or other polynomials, or exponential models that are either linearized or fit with non-linear regression). Still other models model the effect of age or time on the the relationship between $L_{Cap}$ and $R_{Cap}$ or $R_{Cap}$ and $L_{Cap}$. Some of these other models have been shown to be more useful when using otoliths, modeling daily increments, or for specific fishes. See [Vigliola and Meekan (2009)](https://www.researchgate.net/publication/226394736_The_Back-Calculation_of_Fish_Growth_From_Otoliths) and Section 11.2.3.1 in Shoup and Michaeletz (2017) for more details.
 
 \  
 
