@@ -2,16 +2,15 @@
 * Added `rlang`, `stringr`, and `tidyr` to Imports.
 * Added tests.
 * Updated "Collect Data" vignette for changes to `combineData()`.
-* `bcFuns()`: Modified. Changed to using `STOP()`. Changed all `Lc` to `Lcap` and `Rc` to `Rcap`.
+* Changed "Back-calculating Lengths" vignette for new `backCalc()`.
+* `backCalc()`: Added.
+* `bcFuns()`: Modified. Changed to using `STOP()`. Changed all `Lc` to `Lcap`, `Rc` to `Rcap`, `agec` to `Acap`, and `agei` to `Ai`. Changed all BPH-related models to use `a`, `b`, and `c` and all SPH-related odels to use `A`, `B`, and `C`. Started using `iGetBCMethod()`. Removed `verbose=` (moved to within the returned function).
 * `bcUtilChecker()`: Modified. Changed to using `STOP()` and `WARN()`.
-* `BiolInt()`: Added (including tests).
-* `BPH()`: Added (including tests).
 * `combineData()`: Modified. Added `outFormat=` and `deletePlusGrowth=` arguments (and corresponding tests).
-* `DahlLea()`: Added (including tests).
-* `FraserLee()`: Added (including tests).
 * `findScalingFactor()`: Modified. Added a catch for non-positive `knownLength=`.
-* `ModFry()`: Added (including tests).
-* `SPH()`: Added (including tests).
+* `iGetBCMethod()`: Added. Used in `backCalc()` and `bcFuns()`.
+* `SMBassWB1`: Added.
+* `SMBassWB2`: Added.
 
 # RFishBC 0.0.8 13-May-18
 * Added tests.

@@ -84,7 +84,7 @@
       <a href="../articles/MeasureRadii/seeRadiiData.html">Visualize Radii Data</a>
     </li>
     <li>
-      <a href="../articles/BCCalc/BCCalc.html">Compute Back-Calculated Lengths</a>
+      <a href="../articles/BCCalc/BCCalc.html">Back-Calculating Lengths</a>
     </li>
   </ul>
 </li>
@@ -122,6 +122,27 @@
     <div id="rfishbc-0-0-8-9000-ongoing" class="section level1">
 <h1 class="page-header">
 <a href="#rfishbc-0-0-8-9000-ongoing" class="anchor"></a>RFishBC 0.0.8.9000 ongoing</h1>
+<ul>
+<li>Added <code>rlang</code>, <code>stringr</code>, and <code>tidyr</code> to Imports.</li>
+<li>Added tests.</li>
+<li>Updated “Collect Data” vignette for changes to <code><a href="../reference/combineData.html">combineData()</a></code>.</li>
+<li>
+<code><a href="../reference/backCalc.html">backCalc()</a></code>: Added.</li>
+<li>
+<code><a href="../reference/bcFuns.html">bcFuns()</a></code>: Modified. Changed to using <code><a href="../reference/FSA-internals.html">STOP()</a></code>. Changed all <code>Lc</code> to <code>Lcap</code>, <code>Rc</code> to <code>Rcap</code>, <code>agec</code> to <code>Acap</code>, and <code>agei</code> to <code>Ai</code>. Changed all BPH-related models to use <code>a</code>, <code>b</code>, and <code>c</code> and all SPH-related odels to use <code>A</code>, <code>B</code>, and <code>C</code>. Started using <code>iGetBCMethod()</code>.</li>
+<li>
+<code>bcUtilChecker()</code>: Modified. Changed to using <code><a href="../reference/FSA-internals.html">STOP()</a></code> and <code><a href="../reference/FSA-internals.html">WARN()</a></code>.</li>
+<li>
+<code><a href="../reference/combineData.html">combineData()</a></code>: Modified. Added <code>outFormat=</code> and <code>deletePlusGrowth=</code> arguments (and corresponding tests).</li>
+<li>
+<code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>: Modified. Added a catch for non-positive <code>knownLength=</code>.</li>
+<li>
+<code>iGetBCMethod()</code>: Added. Used in <code><a href="../reference/backCalc.html">backCalc()</a></code> and <code><a href="../reference/bcFuns.html">bcFuns()</a></code>.</li>
+<li>
+<code>SMBassWB1</code>: Added.</li>
+<li>
+<code>SMBassWB2</code>: Added.</li>
+</ul>
 </div>
     <div id="rfishbc-0-0-8-13-may-18" class="section level1">
 <h1 class="page-header">

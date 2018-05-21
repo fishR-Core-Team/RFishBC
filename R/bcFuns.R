@@ -3,7 +3,6 @@
 #' @description Creates a function for a specific model based on definitions in Vigliola and Meekan (2009).
 #'
 #' @param BCM A single numeric between 1 and 22 or a string that indicates which model to use (based on numbers and names in Vigliola and Meekan (2009)).
-#' @param verbose A logical that indicates whether a message about the model and parameter definitions should be output.
 #'
 #' @details The following models, based on definitions with abbreviations and model numbers from Vigliola and Meekan (2009), are supported.
 #'
@@ -58,108 +57,117 @@
 #' bcm2(lencap,rad,radcap,2)  # demonstrated with a=2
 #'
 #' @export
-bcFuns <- function(BCM,verbose=FALSE) {
-  ## Do some checking
-  if (missing(BCM)) STOP("A back-calculation function must be chosen with 'BCM'")
-  if (length(BCM)>1) STOP("Only one value may be given to 'BCM'")
-  if (is.numeric(BCM)) {
-    ## Function declared numerically
-    if (BCM<1 | BCM>22) STOP("BCM number must be between 1 and 22 inclusive.")
-  } else {
-    ## Function declared by name
-    BCM.nms <- c("DALE","FRALE","BI","LBI","BPH","LBPH","TVG","SPH",
-                 "LSPH","AE","AESPH","AEBPH","MONA","MONA-BPH",
-                 "MONA-SPH","WAKU","FRY","MF","ABI","FRY-BPH","ABPH",
-                 "FRY-SPH","ASPH","QBPH","QSPH","PBPH","PSPH","EBPH",
-                 "ESPH")
-    BCM.nums <- c(1,2,3,3,4,4,5,6,6,7,7,8,9,10,11,12,13,14,14,15,15,
-                  16,16,17,18,19,20,21,22)
-    BCM <- toupper(BCM)
-    if (!(BCM %in% BCM.nms)) {
-      msg <- paste(strwrap(paste("'BCM' must be one of:",
-                                 paste(BCM.nms,collapse=", ")),
-                           width=62),collapse="\n")
-      STOP(msg)
-    } else {
-      # All is good ... convert string to numeric
-      BCM <- BCM.nums[which(BCM.nms %in% BCM)]
-    }
-  }
-
+bcFuns <- function(BCM) {
+  ## Check if BCM is viable and convert to number
+  BCM <- iGetBCMethod(BCM)
   ## identify the functions
   if (BCM==1) {
-      if (verbose) message("You chose the BCM1 or DALE model.\n\n")
-      function(Lcap,Ri,Rcap) { (Ri/Rcap)*Lcap }
+      function(Lcap,Ri,Rcap,...,verbose=TRUE) {
+        if (verbose) DONE("Using the Dahl-Lea model.")
+        (Ri/Rcap)*Lcap
+      }
   } else if (BCM==2) {
-      if (verbose) message("You chose the BCM2 or FRALE model.\n\n")
-      function(Lcap,Ri,Rcap,a) { a+(Lcap-a)*(Ri/Rcap) }
+      function(Lcap,Ri,Rcap,a,...,verbose=TRUE) {
+        if (verbose) DONE("Using the Fraser-Lee model with a=",a,".")
+        a+(Lcap-a)*(Ri/Rcap)
+      }
   } else if (BCM==3) {
-      if (verbose) message("You chose the BCM3, BI, or LBI model.\n\n")
-      function(Lcap,Ri,Rcap,L0p,R0p) { Lcap+(Ri-Rcap)*(Lcap-L0p)/(Rcap-R0p) }
+      function(Lcap,Ri,Rcap,L0p,R0p,...,verbose=TRUE) {
+        if (verbose) DONE("Using the Biological Intercept model with L0p=",L0p,
+                          " and R0p=",R0p,".")
+        Lcap+(Ri-Rcap)*(Lcap-L0p)/(Rcap-R0p)
+      }
   } else if (BCM==4) {
-      if (verbose) message("You chose the BCM4 or LBPH model.\n\n")
-      function(Lcap,Ri,Rcap,a,b) { (a+b*Ri)*Lcap/(a+b*Rcap) }
+      function(Lcap,Ri,Rcap,a,b,...,verbose=TRUE) {
+        if (verbose) DONE("Using the Linear BPH with a=",a," and b=",b,".")
+        (a+b*Ri)*Lcap/(a+b*Rcap)
+      }
   } else if (BCM==5) {
-      STOP("The BCM5 (TVG) function is not yet implemented.",call.=FALSE)
+      STOP("The BCM5 (TVG) function is not yet implemented.")
   } else if (BCM==6) {
-      if (verbose) message("You chose the BCM6 or LSPH model.\n\n")
-      function(Lcap,Ri,Rcap,A,B) { (Ri/Rcap*(A+B*Lcap)-A)/B }
+      function(Lcap,Ri,Rcap,A,B,...,verbose=TRUE) {
+        if (verbose) DONE("Using the Linear SPH model with A=",A," and B=",B,".")
+        (Ri/Rcap*(A+B*Lcap)-A)/B
+      }
   } else if (BCM==7) {
-      if (verbose) message("You chose the BCM7, AE, or AESPH model.\n\n")
-      function(Lcap,Ri,Rcap,agei,agec,a,b,c) { -a/b+(Lcap+a/b+c/b*agec)*Ri/Rcap-c/b*agei }
+      function(Lcap,Ri,Rcap,Ai,Acap,A,B,C,...,verbose=TRUE) {
+        if (verbose) DONE("Using the Age-Effects SPH model with A=",A," B=",B,
+                          " and C=",C,".")
+        -A/B+(Lcap+A/B+C/B*Acap)*Ri/Rcap-C/B*Ai
+      }
   } else if (BCM==8) {
-      if (verbose) message("You chose the BCM8 or AEBPH model.\n\n")
-      function(Lcap,Ri,Rcap,agei,agec,A,B,C) { (A+B*Ri+C*agei)/(A+B*Rcap+C*agec)*Lcap }
+      function(Lcap,Ri,Rcap,Ai,Acap,a,b,c,...,verbose=TRUE) {
+        if (verbose) DONE("Using the Age-Effects BPH model with a=",a," b=",b,
+                          " and c=",c,".")
+        (a+b*Ri+c*Ai)/(a+b*Rcap+c*Acap)*Lcap
+      }
   } else if (BCM==9) {
-      if (verbose) message("You chose the BCM9 or MONA model.\n\n")
-      function(Lcap,Ri,Rcap,c) { Lcap*((Ri/Rcap)^c) }
-  } else if (BCM==10) {
-      if (verbose) message("You chose the BCM10 or MONA-BPH model.\n\n")
-      # Same as BCM9 but uses nls results to estimate c
-      function(Lcap,Ri,Rcap,c) { Lcap*((Ri/Rcap)^c) }
+      function(Lcap,Ri,Rcap,c,...,verbose=TRUE) {
+        if (verbose) DONE("Using the Monastrysky model with c=",c,".")
+        Lcap*((Ri/Rcap)^c)
+      }
+  } else if (BCM==10) { # Same as BCM9 but uses nls results to estimate c
+      function(Lcap,Ri,Rcap,c,...,verbose=TRUE) {
+        if (verbose) DONE("Using the non-linear Monastrysky BPH model with c=",c,".")
+        Lcap*((Ri/Rcap)^c)
+      }
   } else if (BCM==11) {
-      if (verbose) message("You chose the BCM11 or MONA-SPH model.\n\n")
-      function(Lcap,Ri,Rcap,C) { Lcap*((Ri/Rcap)^(1/C)) }
+      function(Lcap,Ri,Rcap,C,...,verbose=TRUE) {
+        if (verbose) DONE("Using the non-linear Monastrysky SPH model with C=",C,".")
+        Lcap*((Ri/Rcap)^(1/C))
+      }
   } else if (BCM==12) {
-      if (verbose) message("You chose the BCM12 or WAKU model.\n\n")
-      function(Lcap,Ri,Rcap,L0p,R0) {
+      function(Lcap,Ri,Rcap,L0p,R0,...,verbose=TRUE) {
+        if (verbose) DONE("Using the Watanabe and Kuroki model with L0p=",L0p,
+                          " and R0=",R0,".")
         exp(log(L0p) + ((log(Lcap)-log(L0p))*(log(Ri)-log(R0)))/(log(Rcap)-log(R0)))
       }
   } else if (BCM==13) {
-      if (verbose) message("You chose the BCM13 or FRY model.\n\n")
-      function(Lcap,Ri,Rcap,L0,R0,a) {
+      function(Lcap,Ri,Rcap,L0,R0,a,...,verbose=TRUE) {
+        if (verbose) DONE("Using the Fry model with L0=",L0," R0=",R0,
+                          " and a=",a,".")
         a + exp(log(L0-a) + ((log(Lcap-a)-log(L0-a))*(log(Ri)-log(R0)))/(log(Rcap)-log(R0))) 
       }
   } else if (BCM==14) {
-      if (verbose) message("You chose the BCM14, MF, or ABI model.\n\n")
-      function(Lcap,Ri,Rcap,L0p,R0p,a) {
+      function(Lcap,Ri,Rcap,L0p,R0p,a,...,verbose=TRUE) {
+        if (verbose) DONE("Using the Modified Fry model with L0p=",L0p,
+                          " R0p=",R0p," and a=",a,".")
         a + exp(log(L0p-a) + ((log(Lcap-a)-log(L0p-a))*(log(Ri)-log(R0p)))/(log(Rcap)-log(R0p)))
       }
   } else if (BCM==15) {
-      if (verbose) message("You chose the BCM15, FRY-BPH, or ABPH model.\n\n")
-      function(Lcap,Ri,Rcap,a,b,c) { (a+b*Ri^c)/(a+b*Rcap^c)*Lcap }
+      function(Lcap,Ri,Rcap,a,b,c,...,verbose=TRUE) {
+        if (verbose) DONE("Using the Fry BPH model with a=",a," b=",b,
+                          " and c=",c,".")
+        (a+b*Ri^c)/(a+b*Rcap^c)*Lcap
+      }
   } else if (BCM==16) {
-      if (verbose) message("You chose the BCM16, FRY-SPH, or ASPH model.\n\n")
-      function(Lcap,Ri,Rcap,a,b,c) { a+(Lcap-a)*((Ri/Rcap)^c) }
+      function(Lcap,Ri,Rcap,A,C,...,verbose=TRUE) {
+        if (verbose) DONE("Using the Fry SPH model with A=",A," and C=",C,".")
+        A+(Lcap-A)*((Ri/Rcap)^C)
+      }
   } else if (BCM==17) {
-      if (verbose) message("You chose the BCM17 or QBPH model.\n\n")
-      function(Lcap,Ri,Rcap,a,b,c) { (a+b*Ri+c*(Ri^2))/(a+b*Rcap+c*(Rcap^2))*Lcap }
+      function(Lcap,Ri,Rcap,a,b,c,...,verbose=TRUE) {
+        if (verbose) DONE("Using the Quadratic BPH model with a=",a," b=",b,
+                          " and c=",c,".")
+        (a+b*Ri+c*(Ri^2))/(a+b*Rcap+c*(Rcap^2))*Lcap
+      }
   } else if (BCM==18) {
-      if (verbose) message("You chose the BCM18 or QSPH model.\n\n")
-      function(Lcap,Ri,Rcap,a,b,c) { 
-        cf1 <- b
-        cf2 <- c
+      function(Lcap,Ri,Rcap,A,B,C,...,verbose=TRUE) { 
+        if (verbose) DONE("Using the Quadratic BPH model with A=",A," B=",B,
+                          " and C=",C,".")
+        cf1 <- B
+        cf2 <- C
         Li <- numeric(length(Lcap))
         for (i in seq_along(Li)) {
-          cf0 <- a-((Ri[i]/Rcap[i])*(a+b*Lcap[i]+c*Lcap[i]^2))
+          cf0 <- A-((Ri[i]/Rcap[i])*(A+B*Lcap[i]+C*Lcap[i]^2))
           roots <- Re(polyroot(c(cf0,cf1,cf2)))
           Li[i] <- roots[which(sign(roots)==1)]
         }
         Li
       }
   } else if (BCM==19) {
-      if (verbose) message("You chose the BCM19 or PBPH model.\n\n")
-      function(Lcap,Ri,Rcap,a) {
+      function(Lcap,Ri,Rcap,a,...,verbose=TRUE) {
+        if (verbose) DONE("Using the Polynomial BPH model.")
         # a must be a vector of coefficients from polynomial regression
         exps <- 0:(length(a)-1)
         Li <- numeric(length(Lcap))
@@ -173,16 +181,16 @@ bcFuns <- function(BCM,verbose=FALSE) {
   } else if (BCM==20) { 
       # Note that this is a function that should be used when finding
       #   a root, not to actually back-calculate
-      if (verbose) message("You chose the BCM20 or PSPH model.\n\n")
-      function(Lcap,Ri,Rcap,a) {
+      function(Lcap,Ri,Rcap,A,...,verbose=TRUE) {
+        if (verbose) DONE("Using the Polynomial SPH model.")
         # a must be a vector of coefficients from polynomial regression
-        exps <- 0:(length(a)-1)
+        exps <- 0:(length(A)-1)
         Li <- numeric(length(Lcap))
         for (i in seq_along(Li)) {
           if (Ri[i]==Rcap[i]) { Li[i] <- Lcap[i] }
           else {
-            cf <- a
-            cf[1] <- cf[1] - Ri[i]/Rcap[i]*sum(a*Lcap[i]^exps)
+            cf <- A
+            cf[1] <- cf[1] - Ri[i]/Rcap[i]*sum(A*Lcap[i]^exps)
             roots <- Re(polyroot(cf))
             # find only positive roots
             roots <- roots[which(sign(roots)==1)]
@@ -194,121 +202,15 @@ bcFuns <- function(BCM,verbose=FALSE) {
         Li
       }      
   } else if (BCM==21) {
-      if (verbose) message("You chose the BCM21 or EBPH model.\n\n")
-      function(Lcap,Ri,Rcap,a,b) { exp(a+b*Ri)/exp(a+b*Rcap)*Lcap }
+      function(Lcap,Ri,Rcap,a,b,...,verbose=TRUE) {
+        if (verbose) DONE("Using the Exponential BPH model with a=",a,
+                          " and b=",b,".")
+        exp(a+b*Ri)/exp(a+b*Rcap)*Lcap
+      }
   } else if (BCM==22) {
-      if (verbose) message("You chose the BCM22 or ESPH model.\n\n")
-      function(Lcap,Ri,Rcap,a) { exp(a+(log(Lcap)-a)*Ri/Rcap) }
+      function(Lcap,Ri,Rcap,A,...,verbose=TRUE) {
+        if (verbose) DONE("Using the Exponential SPH model with A=",A,".")
+        exp(A+(log(Lcap)-A)*Ri/Rcap)
+      }
   } 
-}
-
-
-
-#' @name BCfunctions
-#' @rdname BCfunctions
-#' @title Specific back-calculation functions
-#' @description Provides a function to compute back-calculated lengths at previous ages for several of the most common back-calculation models: Dahl-Lea, Fraser-Lee, Body Proportional Hypothesis (BPH), Scale Proportional Hypothesis (SPH), Biological Intercept, and Modified Fry. See \code{\link{bcFuns}} for other back-calculation functions.
-#' @param Lcap A numeric vector of lengths-at-capture.
-#' @param Ri A numeric vector of radial measurements to the ith annulus.
-#' @param Rcap A numeric vector of total structure radii-at-capture.
-#' @param A The intercept of the radius- on length-at-capture regression.
-#' @param B The slope of the radius- on length-at-capture regression.
-#' @param a The length of the fish at the time of structure formation, the intercept of the length- on radius-at-capture regression, or, when using scales, from published “standards” for a species (Carlander 1982).
-#' @param b The slope of the length- on radius-at-capture regression.
-#' @param L0p Fish length at the \dQuote{Biological Intercept}.
-#' @param R0p Radius at the \dQuote{Biological Intercept}.
-#' @references See references in \code{\link{bcFuns}}.
-#' @seealso \code{\link{bcFuns}}.
-#' @return A back-calculated length-at-age.
-NULL
-
-#' @rdname BCfunctions
-#' @export
-DahlLea <- function(Lcap,Ri,Rcap) {
-  if (!is.numeric(Lcap)) STOP("'Lcap' must be numeric.")
-  if (any(Lcap<=0)) STOP("All 'Lcap' must be positive.")
-  if (!is.numeric(Ri)) STOP("'Ri' must be numeric.")
-  if (any(Ri<=0)) STOP("All 'Ri' must be positive.")
-  if (!is.numeric(Rcap)) STOP("'Rcap' must be numeric.")
-  if (any(Rcap<=0)) STOP("All 'Rcap' must be positive.")
-  (Ri/Rcap)*Lcap
-}
-
-#' @rdname BCfunctions
-#' @export
-FraserLee <- function(Lcap,Ri,Rcap,a) {
-  if (!is.numeric(Lcap)) STOP("'Lcap' must be numeric.")
-  if (any(Lcap<=0)) STOP("All 'Lcap' must be positive.")
-  if (!is.numeric(Ri)) STOP("'Ri' must be numeric.")
-  if (any(Ri<=0)) STOP("All 'Ri' must be positive.")
-  if (!is.numeric(Rcap)) STOP("'Rcap' must be numeric.")
-  if (any(Rcap<=0)) STOP("All 'Rcap' must be positive.")
-  if (!is.numeric(a)) STOP("'a' must be numeric.")
-  if (length(a)>1) STOP("'a' must be a single value.")
-  (Ri/Rcap)*(Lcap-a)+a
-}
-
-#' @rdname BCfunctions
-#' @export
-SPH <- function(Lcap,Ri,Rcap,A,B) {
-  if (!is.numeric(Lcap)) STOP("'Lcap' must be numeric.")
-  if (any(Lcap<=0)) STOP("All 'Lcap' must be positive.")
-  if (!is.numeric(Ri)) STOP("'Ri' must be numeric.")
-  if (any(Ri<=0)) STOP("All 'Ri' must be positive.")
-  if (!is.numeric(Rcap)) STOP("'Rcap' must be numeric.")
-  if (any(Rcap<=0)) STOP("All 'Rcap' must be positive.")
-  if (!is.numeric(A)) STOP("'A' must be numeric.")
-  if (length(A)>1) STOP("'A' must be a single value.")
-  if (!is.numeric(B)) STOP("'B' must be numeric.")
-  if (length(B)>1) STOP("'B' must be a single value.")
-  (Ri/Rcap)*(Lcap+A/B)-A/B
-}
-
-#' @rdname BCfunctions
-#' @export
-BPH <- function(Lcap,Ri,Rcap,a,b) {
-  if (!is.numeric(Lcap)) STOP("'Lcap' must be numeric.")
-  if (any(Lcap<=0)) STOP("All 'Lcap' must be positive.")
-  if (!is.numeric(Ri)) STOP("'Ri' must be numeric.")
-  if (any(Ri<=0)) STOP("All 'Ri' must be positive.")
-  if (!is.numeric(Rcap)) STOP("'Rcap' must be numeric.")
-  if (any(Rcap<=0)) STOP("All 'Rcap' must be positive.")
-  if (!is.numeric(a)) STOP("'a' must be numeric.")
-  if (length(a)>1) STOP("'a' must be a single value.")
-  if (!is.numeric(b)) STOP("'b' must be numeric.")
-  if (length(b)>1) STOP("'b' must be a single value.")
-  Lcap*((a+b*Ri)/(a+b*Rcap))
-}
-
-#' @rdname BCfunctions
-#' @export
-BiolInt <- function(Lcap,Ri,Rcap,L0p,R0p) {
-  if (!is.numeric(Lcap)) STOP("'Lcap' must be numeric.")
-  if (any(Lcap<=0)) STOP("All 'Lcap' must be positive.")
-  if (!is.numeric(Ri)) STOP("'Ri' must be numeric.")
-  if (any(Ri<=0)) STOP("All 'Ri' must be positive.")
-  if (!is.numeric(Rcap)) STOP("'Rcap' must be numeric.")
-  if (any(Rcap<=0)) STOP("All 'Rcap' must be positive.")
-  if (!is.numeric(L0p)) STOP("'L0p' must be numeric.")
-  if (length(L0p)>1) STOP("'L0p' must be a single value.")
-  if (!is.numeric(R0p)) STOP("'R0p' must be numeric.")
-  if (length(R0p)>1) STOP("'R0p' must be a single value.")
-  Lcap+(Ri-Rcap)*(Lcap-L0p)/(Rcap-R0p)
-}
-#' @rdname BCfunctions
-#' @export
-ModFry <- function(Lcap,Ri,Rcap,L0p,R0p,a) {
-  if (!is.numeric(Lcap)) STOP("'Lcap' must be numeric.")
-  if (any(Lcap<=0)) STOP("All 'Lcap' must be positive.")
-  if (!is.numeric(Ri)) STOP("'Ri' must be numeric.")
-  if (any(Ri<=0)) STOP("All 'Ri' must be positive.")
-  if (!is.numeric(Rcap)) STOP("'Rcap' must be numeric.")
-  if (any(Rcap<=0)) STOP("All 'Rcap' must be positive.")
-  if (!is.numeric(L0p)) STOP("'L0p' must be numeric.")
-  if (length(L0p)>1) STOP("'L0p' must be a single value.")
-  if (!is.numeric(R0p)) STOP("'R0p' must be numeric.")
-  if (length(R0p)>1) STOP("'R0p' must be a single value.")
-  if (!is.numeric(a)) STOP("'a' must be numeric.")
-  if (length(a)>1) STOP("'a' must be a single value.")
-  a + exp(log(L0p-a) + ((log(Lcap-a)-log(L0p-a))*(log(Ri)-log(R0p)))/(log(Rcap)-log(R0p)))
 }

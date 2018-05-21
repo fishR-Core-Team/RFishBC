@@ -4,12 +4,10 @@
 \alias{bcFuns}
 \title{Creates a function for a specific model.}
 \usage{
-bcFuns(BCM, verbose = FALSE)
+bcFuns(BCM)
 }
 \arguments{
 \item{BCM}{A single numeric between 1 and 22 or a string that indicates which model to use (based on numbers and names in Vigliola and Meekan (2009)).}
-
-\item{verbose}{A logical that indicates whether a message about the model and parameter definitions should be output.}
 }
 \value{
 A function that can be used to predict length at previous age (Li) given length-at-capture (Lcap), hard-part radius-at-age i (Ri), and hard-part radius-at-capture (Rcap). In addition, some functions/models may require the previous age (agei) and the age-at-capture (agec), certain parameters related to the biological intercept (R0p & L0p), or certain parameters estimated from various regression models (a,b,c,A,B,C). See source for more information.

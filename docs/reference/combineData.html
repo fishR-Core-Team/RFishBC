@@ -87,7 +87,7 @@
       <a href="../articles/MeasureRadii/seeRadiiData.html">Visualize Radii Data</a>
     </li>
     <li>
-      <a href="../articles/BCCalc/BCCalc.html">Compute Back-Calculated Lengths</a>
+      <a href="../articles/BCCalc/BCCalc.html">Back-Calculating Lengths</a>
     </li>
   </ul>
 </li>
@@ -129,7 +129,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>combineData</span>(<span class='no'>nms</span>)</pre>
+    <pre class="usage"><span class='fu'>combineData</span>(<span class='no'>nms</span>, <span class='kw'>outFormat</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"long"</span>, <span class='st'>"wide"</span>), <span class='kw'>deletePlusGrowth</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -137,6 +137,14 @@
     <tr>
       <th>nms</th>
       <td><p>A character vector of R data file names created with <code><a href='digitizeRadii.html'>digitizeRadii</a></code>. The files must be in the current working directory (see <code>getwd</code> result).</p></td>
+    </tr>
+    <tr>
+      <th>outFormat</th>
+      <td><p>A string that indicates the output format for the combined data. The <code>"wide"</code> (DEFAULT) format has one-radius-per-line (i.e., each radial measurement for a fish in on a separate row), whereas the <code>"long"</code> format has one-fish-per-line (i.e., each radial measurement for a fish is in a separate column).</p></td>
+    </tr>
+    <tr>
+      <th>deletePlusGrowth</th>
+      <td><p>A logical that indicates whether the radial measurement that corresponds to &#8220;plus-growth&#8221; should be deleted from the returned data.frame (<code>TRUE</code>; DEFAULT) or not (<code>FALSE</code>).</p></td>
     </tr>
     </table>
     
