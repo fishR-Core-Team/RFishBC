@@ -1,4 +1,4 @@
-# RFishBC 0.0.8.9000 ongoing
+# RFishBC 0.0.9 18-May-18
 * Added `rlang`, `stringr`, and `tidyr` to Imports.
 * Added tests.
 * Updated "Collect Data" vignette for changes to `combineData()`.
