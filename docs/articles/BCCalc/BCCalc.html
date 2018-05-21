@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">RFishBC</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.8.9000</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.9.9000</span>
       </span>
     </div>
 
@@ -233,6 +233,7 @@
 <p>The results of <code><a href="../../reference/backCalc.html">backCalc()</a></code> can be returned in either “long” or “wide” format as identified with <code>outFormat=</code> (which defaults to be the same as <code>inFormat=</code>). The number of digits for the back-calculated lengths may be controlled with <code>digits=</code>.</p>
 <p>For example, back-calculated lengths were constructed from the wide-format data in <code>SMBassWB</code>, which has length-at-capture data in the <code>lencap</code> variable, using the Fraser-Lee model (with the “a” parameter estimated from the data) with the code below. The lengths were rounded to whole numbers (i.e., <code>digits=0</code>) and the results were returned in wide-format (the same as the input format).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">SMBassWB_FL &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/backCalc.html">backCalc</a></span>(SMBassWB,lencap,<span class="dt">BCM=</span><span class="st">"FRALE"</span>,<span class="dt">inFormat=</span><span class="st">"wide"</span>,<span class="dt">digits=</span><span class="dv">0</span>)
+<span class="co">#&gt; &lt;U+2714&gt; Using the Fraser-Lee model with a=41.6516606795388.</span>
 <span class="kw">head</span>(SMBassWB_FL,<span class="dt">n=</span><span class="dv">3</span>)
 <span class="co">#&gt;    id species lake gear yearcap lencap reading agecap len1 len2 len3 len4</span>
 <span class="co">#&gt; 1 374     SMB   WB    E    1990    243     DHO      7   69  105  134  158</span>
@@ -254,6 +255,7 @@
 <p>The example below uses the same data and same back-calculation model, but with the results returned in long-format which is more conducive to statistical summarization and modeling.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">SMBassWB_FL2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/backCalc.html">backCalc</a></span>(SMBassWB,lencap,<span class="dt">BCM=</span><span class="st">"FRALE"</span>,
                          <span class="dt">inFormat=</span><span class="st">"wide"</span>,<span class="dt">outFormat=</span><span class="st">"long"</span>,<span class="dt">digits=</span><span class="dv">0</span>)
+<span class="co">#&gt; &lt;U+2714&gt; Using the Fraser-Lee model with a=41.6516606795388.</span>
 <span class="kw">head</span>(SMBassWB_FL2,<span class="dt">n=</span><span class="dv">6</span>)
 <span class="co">#&gt;      id species lake gear yearcap lencap reading agecap ann bclen</span>
 <span class="co">#&gt; 1   374     SMB   WB    E    1990    243     DHO      7   1    69</span>
