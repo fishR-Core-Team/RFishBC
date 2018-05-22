@@ -117,16 +117,58 @@ test_that("bcFuns() messages",{
 })
 
 
+test_that("backCalc() messages",{
+  ## Same messages as bcFuns()
+  expect_error(backCalc(),"must be chosen")
+  expect_error(backCalc(BCM=0),"BCM number must be")
+  expect_error(backCalc(BCM=23),"BCM number must be")
+  expect_error(backCalc(BCM="Derek"),"must be one of")
+  ## Some back-calculation models not yet implemented
+  expect_error(backCalc(BCM="TVG"),"not yet implemented")
+  expect_error(backCalc(BCM=5),"not yet implemented")
+  expect_error(backCalc(BCM="PBPH"),"not yet implemented")
+  expect_error(backCalc(BCM=19),"not yet implemented")
+  expect_error(backCalc(BCM="PSPH"),"not yet implemented")
+  expect_error(backCalc(BCM=20),"not yet implemented")
+  ## Missing parameters
+  expect_error(backCalc(SMBassWB,lencap,BCM=3,inFormat="wide"),
+               "value must be provided for 'L0p'")
+  expect_error(backCalc(SMBassWB,lencap,BCM=3,inFormat="wide",L0p=1),
+               "value must be provided for 'R0p'")
+  expect_error(backCalc(SMBassWB,lencap,BCM=12,inFormat="wide"),
+               "value must be provided for 'L0p'")
+  expect_error(backCalc(SMBassWB,lencap,BCM=12,inFormat="wide",L0p=1),
+               "value must be provided for 'R0'")
+  expect_error(backCalc(SMBassWB,lencap,BCM=13,inFormat="wide"),
+               "value must be provided for 'L0'")
+  expect_error(backCalc(SMBassWB,lencap,BCM=13,inFormat="wide",L0=1),
+               "value must be provided for 'R0'")
+  expect_error(backCalc(SMBassWB,lencap,BCM=13,inFormat="wide",L0=1,R0=1),
+               "value must be provided for 'a'")
+  expect_error(backCalc(SMBassWB,lencap,BCM=14,inFormat="wide"),
+               "value must be provided for 'L0p'")
+  expect_error(backCalc(SMBassWB,lencap,BCM=14,inFormat="wide",L0p=1),
+               "value must be provided for 'R0p'")
+  expect_error(backCalc(SMBassWB,lencap,BCM=14,inFormat="wide",L0p=1,R0p=1),
+               "value must be provided for 'a'")
+  ## Missing or bad inFormat or inFormat
+  expect_error(backCalc(SMBassWB,lencap,BCM=3),"'inFormat' must be")
+  expect_error(backCalc(SMBassWB,lencap,BCM=3,inFormat="derek"),"'inFormat' must be")
+  expect_error(backCalc(SMBassWB,lencap,BCM=3,inFormat="wide",outFormat="derek"),
+               "'outFormat' must be 'wide' or 'long'")
+})
+
+
 test_that("gConvert() messages",{
   ## Bad type
-  expect_error(gConvert(SMBassWB,in.pre="anu",out.type="anu"),
+  expect_error(gConvert(SMBassWB,in.pre="rad",out.type="anu"),
                "should be one of")
   ## Neither or both of in.var= or in.pre= 
   expect_error(gConvert(SMBassWB),"must use one of")
-  expect_warning(gConvert(SMBassWB,in.pre="anu",in.var=c("anu1","anu2")),
+  expect_warning(gConvert(SMBassWB,in.pre="rad",in.var=c("rad1","rad2")),
                  "Both 'in.var='")
   ## Variable does not exist
-  expect_error(gConvert(SMBassWB,in.var=c("anu1","derek")),
+  expect_error(gConvert(SMBassWB,in.var=c("rad1","derek")),
                "Not all 'in.var=' variables found")
   expect_error(gConvert(SMBassWB,in.pre="derek"),
                "No variables start with")
@@ -140,10 +182,10 @@ test_that("gConvert() messages",{
 test_that("addRadCap() messages",{
   ## Neither or both of in.var= or in.pre= 
   expect_error(addRadCap(SMBassWB),"must use one of")
-  expect_warning(addRadCap(SMBassWB,in.pre="anu",in.var=c("anu1","anu2")),
+  expect_warning(addRadCap(SMBassWB,in.pre="rad",in.var=c("rad1","rad2")),
                  "Both 'in.var='")
   ## Variable does not exist
-  expect_error(addRadCap(SMBassWB,in.var=c("anu1","derek")),
+  expect_error(addRadCap(SMBassWB,in.var=c("rad1","derek")),
                "Not all 'in.var='")
   expect_error(addRadCap(SMBassWB,in.pre="derek"),
                "No variables start with")

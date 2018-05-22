@@ -26,14 +26,17 @@ backCalc <- function(dat,lencap,BCM,inFormat,outFormat=inFormat,
                      deletePlusGrowth=TRUE,digits=getOption("digits")) {
   ## Some error checking
   BCM <- iGetBCMethod(BCM)
-  if (BCM %in% c(19,20)) STOP("The BCM",BCM," model is not yet implemented.")
+  if (BCM %in% c(5,19,20)) STOP("The BCM",BCM," model is not yet implemented.")
   if (missing(lencap))
     STOP("Variable with length-at-capture data must be given in 'lencap'.")
   if (missing(inFormat)) STOP("'inFormat' must be 'wide' or 'long'.")
-  if (!inFormat %in% c("long","wide")) STOP("'inFormat' must be 'wide' or 'long'.")
+  if (!inFormat %in% c("long","wide"))
+    STOP("'inFormat' must be 'wide' or 'long'.")
+  if (!outFormat %in% c("long","wide"))
+    STOP("'outFormat' must be 'wide' or 'long'.")
   msg <- "A value must be provided for "
-  if (BCM %in% c(3,14) & is.null(L0p)) STOP(msg,"'L0p' when 'BCM=",BCM,"'.")
-  if (BCM %in% c(3,12,14) & is.null(R0p)) STOP(msg,"'R0p' when 'BCM=",BCM,"'.")
+  if (BCM %in% c(3,12,14) & is.null(L0p)) STOP(msg,"'L0p' when 'BCM=",BCM,"'.")
+  if (BCM %in% c(3,14) & is.null(R0p)) STOP(msg,"'R0p' when 'BCM=",BCM,"'.")
   if (BCM %in% c(13) & is.null(L0)) STOP(msg,"'L0' when 'BCM=",BCM,"'.")
   if (BCM %in% c(12,13) & is.null(R0)) STOP(msg,"'R0' when 'BCM=",BCM,"'.")
   if (BCM %in% c(13,14) & is.null(a)) STOP(msg,"'a' when 'BCM=",BCM,"'.")
