@@ -1,0 +1,17 @@
+#' @title Standard intercepts for Fraser-Lee model by species.
+#'
+#' @description Standard intercepts (in mm) for Fraser-Lee model for all species for which the standard has been defined.
+#'
+#' @format A data frame with 1 rows and 3 variables:
+#' \describe{
+#'   \item{species}{Fish species.}
+#'   \item{a}{Standard intercept value (in mm).}
+#'   \item{source}{Source of the standard.}
+#' }
+#' 
+#' @references Beck, H.D., D.W. Willis, and J.M. Francis. 1997. A proposed standard intercept for the White Bass body length-scale relationship. North American Journal of Fisheries Management 32:239-248.
+#' 
+#' Carlander, K.D. 1982. Standard intercepts for calculating lengths from scale measurements for some centrarchid and percid fishes. Transactions of the American Fisheries Society 111:333-336.
+#' 
+#' @seealso \code{\link{aStandard}}
+"StdIntLit"

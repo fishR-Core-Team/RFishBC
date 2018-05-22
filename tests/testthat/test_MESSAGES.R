@@ -159,6 +159,13 @@ test_that("backCalc() messages",{
 })
 
 
+test_that("aStandard() messages",{
+  expect_error(aStandard(),"must be one of")
+  expect_error(aStandard("Derek"),"must be one of")
+  expect_error(aStandard(c("Walleye","Bluegill")),"have only one name in")
+})
+
+
 test_that("gConvert() messages",{
   ## Bad type
   expect_error(gConvert(SMBassWB,in.pre="rad",out.type="anu"),

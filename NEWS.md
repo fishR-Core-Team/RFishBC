@@ -5,6 +5,7 @@
 * Added tests.
 * Updated "Collect Data" vignette for changes to `combineData()`.
 * Changed "Back-calculating Lengths" vignette for new `backCalc()`.
+* `aStandard()`: Added. Addresses [#10](https://github.com/droglenc/RFishBC/issues/10).
 * `backCalc()`: Added.
 * `bcFuns()`: Modified. Changed to using `STOP()`. Changed all `Lc` to `Lcap`, `Rc` to `Rcap`, `agec` to `Acap`, and `agei` to `Ai`. Changed all BPH-related models to use `a`, `b`, and `c` and all SPH-related odels to use `A`, `B`, and `C`. Started using `iGetBCMethod()`. Removed `verbose=` (moved to within the returned function).
 * `bcUtilChecker()`: Modified. Changed to using `STOP()` and `WARN()`.
@@ -13,6 +14,7 @@
 * `iGetBCMethod()`: Added. Used in `backCalc()` and `bcFuns()`.
 * `SMBassWB1`: Added.
 * `SMBassWB2`: Added.
+* `StdIntLit`: Added.
 
 # RFishBC 0.0.8 13-May-18
 * Added tests.

@@ -1,5 +1,7 @@
 title: RFishBC
 
+url: http://derekogle.com/RFishBC
+
 authors:
   Derek H. Ogle:
     href: http://derekogle.com
@@ -25,6 +27,7 @@ reference:
     contents:
       - backCalc
       - bcFuns
+      - aStandard
   - title: Utilities
     desc: Functions to perform miscellaneous utilities.
     contents:
@@ -36,6 +39,7 @@ reference:
     contents:
       - SMBassWB1
       - SMBassWB2
+      - StdIntLit
 
 navbar:
   type: inverse
