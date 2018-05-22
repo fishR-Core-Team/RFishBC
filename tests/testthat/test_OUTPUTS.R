@@ -268,6 +268,33 @@ test_that("backCalc() output types",{
 })
 
 
+test_that("backCalc() output values",{
+  ## First fish, first increment
+  ### Dahl-Lea
+  tmp <- SMBassWB[1,]
+  capture.output(out <- backCalc(tmp,lencap,BCM="DALE",inFormat="wide",
+                                 outFormat="long",digits=1))
+  exp1 <- round(with(tmp,lencap*rad1/radcap),1)
+  expect_equal(out$bclen[1],exp1)
+  ### Fraser-Lea
+  tmp <- SMBassWB[1,]
+  capture.output(out <- backCalc(tmp,lencap,BCM="FRALE",a=15,inFormat="wide",
+                                 outFormat="long",digits=1))
+  exp1 <- round(with(tmp,(lencap-15)*rad1/radcap+15),1)
+  expect_equal(out$bclen[1],exp1)
+  
+  ## Last fish, first and ninth increment
+  ### Dahl-Lea
+  tmp <- SMBassWB[181,]
+  capture.output(out <- backCalc(tmp,lencap,BCM="FRALE",a=15,inFormat="wide",
+                                 outFormat="long",digits=1))
+  exp1 <- round(with(tmp,(lencap-15)*rad1/radcap+15),1)
+  expect_equal(out$bclen[1],exp1)
+  exp9 <- round(with(tmp,(lencap-15)*rad9/radcap+15),1)
+  expect_equal(out$bclen[9],exp9)
+})
+
+
 test_that("gConvert() output",{
   ## Actually constructs increments from radii ... no plus-growth
   tmp <- gConvert(bctmp,in.pre="anu")
