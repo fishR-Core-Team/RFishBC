@@ -30,7 +30,7 @@
 
 <meta property="og:title" content="Collect radial measurements from a calcified structure by interactively selecting annuli — digitizeRadii" />
 
-<meta property="og:description" content="The user interactively select points wit the first moust button on an image of a calcified structure. When finished, radial measurements (from the sturture focus to the selected points) are calculated (either with arbitrary units or actual units if a scale-bar is included on the image) and written to an external file for later use." />
+<meta property="og:description" content="The user interactively select points wit the first moust button on an image of a calcified structure. When finished, radial measurements (from the structure focus to the selected points) are calculated (either with arbitrary units or actual units if a scale-bar is included on the image) and written to an external file for later use." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -125,7 +125,7 @@
 
     <div class="ref-description">
     
-    <p>The user interactively select points wit the first moust button on an image of a calcified structure. When finished, radial measurements (from the sturture focus to the selected points) are calculated (either with arbitrary units or actual units if a scale-bar is included on the image) and written to an external file for later use.</p>
+    <p>The user interactively select points wit the first moust button on an image of a calcified structure. When finished, radial measurements (from the structure focus to the selected points) are calculated (either with arbitrary units or actual units if a scale-bar is included on the image) and written to an external file for later use.</p>
     
     </div>
 
@@ -266,7 +266,7 @@
 <li><p><code>windowSize</code>: A numeric of length two that contains the width and height of the window used to display the structure image. One of these units was set by the given <code>windowSize</code> value.</p></li>
 <li><p><code>pixW2H</code>: The ratio of pixel width to height. This is used to correct measurements for when an image is not square.</p></li>
 <li><p><code>pts</code>: A data.frame that contains the <code>x</code> and <code>y</code> coordinates on the image for the selected annuli. These points may be &#8220;snapped&#8221; to the transect if <code>snap2Transect==TRUE</code>.</p></li>
-<li><p><code>radii</code>: A data.frome that contains the unique <code>id</code>, the <code>reading</code> code, the age-at-capture in <code>agecap</code>, the annulus number in <code>ann</code>, the radial measurements in <code>rad</code>, and the radial measurement at capture in <code>radcap</code>.</p></li>
+<li><p><code>radii</code>: A data.frame that contains the unique <code>id</code>, the <code>reading</code> code, the age-at-capture in <code>agecap</code>, the annulus number in <code>ann</code>, the radial measurements in <code>rad</code>, and the radial measurement at capture in <code>radcap</code>.</p></li>
 </ul><p>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
