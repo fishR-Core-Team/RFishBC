@@ -194,6 +194,80 @@ test_that("bcFuns() output types",{
 })
 
 
+test_that("backCalc() output types",{
+  ## Test that a data.frame with proper variable names is returned for common BCMs
+  wide.nms <- c("id","species","lake","gear","yearcap","lencap","reading","agecap",
+                "len1","len2","len3","len4","len5","len6","len7","len8","len9")
+  #### ... wide format
+  expect_output(backCalc(SMBassWB,lencap,BCM="DALE",
+                          inFormat="wide",digits=0),"Dahl-Lea")
+  capture.output(SMBassWB_DLW <- backCalc(SMBassWB,lencap,BCM="DALE",
+                                          inFormat="wide",digits=0))
+  expect_s3_class(SMBassWB_DLW,"data.frame")
+  expect_equal(names(SMBassWB_DLW),wide.nms)
+  expect_equal(nrow(SMBassWB_DLW),181)
+  
+  expect_output(backCalc(SMBassWB,lencap,BCM="FRALE",
+                         inFormat="wide",digits=0),"Fraser-Lee")
+  capture.output(SMBassWB_FLW <- backCalc(SMBassWB,lencap,BCM="FRALE",
+                                          inFormat="wide",digits=0))
+  expect_s3_class(SMBassWB_FLW,"data.frame")
+  expect_equal(names(SMBassWB_FLW),wide.nms)
+  expect_equal(nrow(SMBassWB_FLW),181)
+  
+  expect_output(backCalc(SMBassWB,lencap,BCM="SPH",
+                         inFormat="wide",digits=0),"Linear SPH")
+  capture.output(SMBassWB_SPHW <- backCalc(SMBassWB,lencap,BCM="SPH",
+                                           inFormat="wide",digits=0))
+  expect_s3_class(SMBassWB_SPHW,"data.frame")
+  expect_equal(names(SMBassWB_SPHW),wide.nms)
+  expect_equal(nrow(SMBassWB_SPHW),181)
+  
+  expect_output(backCalc(SMBassWB,lencap,BCM="BPH",
+                         inFormat="wide",digits=0),"Linear BPH")
+  capture.output(SMBassWB_BPHW <- backCalc(SMBassWB,lencap,BCM="BPH",
+                                           inFormat="wide",digits=0))
+  expect_s3_class(SMBassWB_BPHW,"data.frame")
+  expect_equal(names(SMBassWB_BPHW),wide.nms)
+  expect_equal(nrow(SMBassWB_BPHW),181)
+
+  long.nms <- c("id","species","lake","gear","yearcap","lencap",
+                "reading","agecap","ann","bclen")
+  #### ... long format
+  expect_output(backCalc(SMBassWB,lencap,BCM="DALE",
+                         inFormat="wide",outFormat="long",digits=0),"Dahl-Lea")
+  capture.output(SMBassWB_DLL <- backCalc(SMBassWB,lencap,BCM="DALE",
+                                          inFormat="wide",outFormat="long",digits=0))
+  expect_s3_class(SMBassWB_DLL,"data.frame")
+  expect_equal(names(SMBassWB_DLL),long.nms)
+  expect_equal(nrow(SMBassWB_DLL),767)
+  
+  expect_output(backCalc(SMBassWB,lencap,BCM="FRALE",
+                         inFormat="wide",outFormat="long",digits=0),"Fraser-Lee")
+  capture.output(SMBassWB_FLL <- backCalc(SMBassWB,lencap,BCM="FRALE",
+                                          inFormat="wide",outFormat="long",digits=0))
+  expect_s3_class(SMBassWB_FLL,"data.frame")
+  expect_equal(names(SMBassWB_FLL),long.nms)
+  expect_equal(nrow(SMBassWB_FLL),767)
+  
+  expect_output(backCalc(SMBassWB,lencap,BCM="SPH",
+                         inFormat="wide",outFormat="long",digits=0),"Linear SPH")
+  capture.output(SMBassWB_SPHL <- backCalc(SMBassWB,lencap,BCM="SPH",
+                                           inFormat="wide",outFormat="long",digits=0))
+  expect_s3_class(SMBassWB_SPHL,"data.frame")
+  expect_equal(names(SMBassWB_SPHL),long.nms)
+  expect_equal(nrow(SMBassWB_SPHL),767)
+  
+  expect_output(backCalc(SMBassWB,lencap,BCM="BPH",
+                         inFormat="wide",outFormat="long",digits=0),"Linear BPH")
+  capture.output(SMBassWB_BPHL <- backCalc(SMBassWB,lencap,BCM="BPH",
+                                           inFormat="wide",outFormat="long",digits=0))
+  expect_s3_class(SMBassWB_BPHL,"data.frame")
+  expect_equal(names(SMBassWB_BPHL),long.nms)
+  expect_equal(nrow(SMBassWB_BPHL),767)
+})
+
+
 test_that("gConvert() output",{
   ## Actually constructs increments from radii ... no plus-growth
   tmp <- gConvert(bctmp,in.pre="anu")

@@ -2,7 +2,6 @@
 data(SMBassWB2,package="RFishBC")
 data(SMBassWB1,package="RFishBC")
 SMBassWB <- dplyr::inner_join(SMBassWB1,SMBassWB2,by="id")
-SMBassWB_FL <- backCalc(SMBassWB,lencap,BCM="FRALE",inFormat="wide",digits=0)
 
 ## Make some fake (but easy) data
 bctmp <- data.frame(id=1:3,agecap=1:3,lencap=c(11,12,13),radcap=1:3,
