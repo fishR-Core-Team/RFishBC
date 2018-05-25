@@ -44,8 +44,6 @@ reference:
 navbar:
   type: inverse
   left:
-    - icon: fa-home
-      href: index.html
     - text: Vignettes
       menu:
         - text: Short Introduction
@@ -60,3 +58,8 @@ navbar:
       href: reference/index.html
     - text: News
       href: news/index.html
+  right:
+    - icon: fa-home fa-2x
+      href: index.html
+    - icon: fa-github fa-2x
+      href: https://github.com/droglenc/RFishBC.html

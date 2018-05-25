@@ -1,4 +1,4 @@
-RFishBC <img src="logo.png" align="right" />
+RFishBC
 ===
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1218245.svg)](https://doi.org/10.5281/zenodo.1218245)
@@ -20,3 +20,6 @@ devtools::install_github('droglenc/RFishBC')
 ```
 
 You may need to have R Tools installed on your system to use the two lines above. See the instructions for ([R Tools for Windows](https://cran.r-project.org/bin/windows/Rtools/) or [R Tools for Mac OS X](https://cran.r-project.org/bin/macosx/tools/)).
+
+
+<img src="logo.png" align="center" height="300"/>
