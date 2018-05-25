@@ -10,3 +10,6 @@
 ^\.travis\.yml$
 ^appveyor\.yml$
 ^data-raw$
+
+logo.png
+inst/sticker/
