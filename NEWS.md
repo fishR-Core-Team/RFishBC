@@ -1,4 +1,5 @@
 # RFishBC 0.0.9.9000 ongoing
+* Added hex sticker.
 
 # RFishBC 0.0.9 18-May-18
 * Added `rlang`, `stringr`, and `tidyr` to Imports.

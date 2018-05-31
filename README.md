@@ -1,5 +1,3 @@
-RFishBC
-===
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1218245.svg)](https://doi.org/10.5281/zenodo.1218245)
 [![CRAN Status](http://www.r-pkg.org/badges/version/RFishBC)](http://www.r-pkg.org/pkg/RFishBC)
@@ -7,6 +5,9 @@ RFishBC
 [![Travis-CI Build Status](https://travis-ci.org/droglenc/RFishBC.svg?branch=master)](https://travis-ci.org/droglenc/RFishBC)
 [![Coverage Status](https://img.shields.io/coveralls/droglenc/RFishBC.svg)](https://coveralls.io/r/droglenc/RFishBC?branch=master)
 
+
+RFishBC <img src="logo.png" align="right" height="200" />
+===
 
 The **RFishBC** package helps fisheries scientists collect growth data from calcified structures and back-calculate estimated lengths at previous ages. The package is intended to replace much of the functionality provided by the now out-date fishBC software.
 
