@@ -21,6 +21,3 @@ devtools::install_github('droglenc/RFishBC')
 ```
 
 You may need to have R Tools installed on your system to use the two lines above. See the instructions for ([R Tools for Windows](https://cran.r-project.org/bin/windows/Rtools/) or [R Tools for Mac OS X](https://cran.r-project.org/bin/macosx/tools/)).
-
-
-<img src="logo.png" align="center" height="300"/>
