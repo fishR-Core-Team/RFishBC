@@ -55,6 +55,9 @@
     <li>
       <a href="../../articles/BCCalc/BCCalc.html">Back-Calculating Lengths</a>
     </li>
+    <li>
+      <a href="../../articles/Workflow/BCWorkflow.html">Suggested Workflow</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -92,7 +95,7 @@
       <h1>Compute Back-Calculated Lengths</h1>
                         <h4 class="author">Derek H. Ogle</h4>
             
-            <h4 class="date">2018-05-31</h4>
+            <h4 class="date">2018-06-07</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/droglenc/RFishBC/blob/master/vignettes/BCCalc/BCCalc.Rmd"><code>vignettes/BCCalc/BCCalc.Rmd</code></a></small>
       <div class="hidden name"><code>BCCalc.Rmd</code></div>
@@ -112,8 +115,7 @@
 <p>Packages used in this vignette are loaded below.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RFishBC)   <span class="co"># for bcFuns()</span>
 <span class="kw">library</span>(FSA)       <span class="co"># for validn(), sumTable()</span>
-<span class="kw">library</span>(magrittr)  <span class="co"># for %&lt;&gt;%</span>
-<span class="kw">library</span>(dplyr)     <span class="co"># for %&gt;%, arrange(), group_by, summarize()</span></code></pre></div>
+<span class="kw">library</span>(dplyr)     <span class="co"># for %&gt;%, inner_join(), arrange(), group_by, summarize()</span></code></pre></div>
 <p>Finally, some of the data manipulations used in this vignette, which may not be familiar to all readers, are described in detail in Ogle (2016).</p>
 <p> </p>
 <p> </p>

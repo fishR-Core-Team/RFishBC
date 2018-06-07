@@ -55,6 +55,9 @@
     <li>
       <a href="../../articles/BCCalc/BCCalc.html">Back-Calculating Lengths</a>
     </li>
+    <li>
+      <a href="../../articles/Workflow/BCWorkflow.html">Suggested Workflow</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -92,7 +95,7 @@
       <h1>Visualize Points Selected on a Calcified Structure</h1>
                         <h4 class="author">Derek H. Ogle</h4>
             
-            <h4 class="date">2018-05-31</h4>
+            <h4 class="date">2018-06-07</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/droglenc/RFishBC/blob/master/vignettes/MeasureRadii/seeRadiiData.Rmd"><code>vignettes/MeasureRadii/seeRadiiData.Rmd</code></a></small>
       <div class="hidden name"><code>seeRadiiData.Rmd</code></div>
@@ -124,7 +127,7 @@
 </div>
 <div id="visualize-one-set-of-annuli" class="section level1">
 <h1 class="hasAnchor">
-<a href="#visualize-one-set-of-annuli" class="anchor"></a>Visualize one Set of Annuli</h1>
+<a href="#visualize-one-set-of-annuli" class="anchor"></a>Visualize One Set of Annuli</h1>
 <p>You can review the selected annuli on a structure with <code><a href="../../reference/showDigitizedImage.html">showDigitizedImage()</a></code>, which requires only the name of an R data file creates from <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> The plotting character, color, and relative size of the selected points may be changed with <code>pch.show=</code>, <code>col.show=</code>, and <code>cex.show=</code>, respectively. The color and width of the “transect” may be changed with <code>col.transect=</code> and <code>lwd.transect=</code>, or excluded altogether with <code>showTransect=FALSE</code>. Annuli will be numbered if <code>showAnnuliLabels=TRUE</code> (the default) with label colors and relative size changed with <code>col.ann=</code> and <code>cex.ann=</code>, respectively. Annuli for which numbers are plotted may be controlled with <code>annuliLabels=</code> (e.g., only the first six are shown for the Kiyi otolith below). Defaults for these arguments can be set with <code><a href="../../reference/RFBCoptions.html">RFBCoptions()</a></code> as was demonstrated in the <a href="collectRadiiData.html#setoptions1">Setting Arguments section of this vignette</a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/showDigitizedImage.html">showDigitizedImage</a></span>(<span class="st">"Scale_1_DHO.rds"</span>)</code></pre></div>
 <p><img src="seeRadiiData_files/figure-html/unnamed-chunk-4-1.png" width="480"></p>
@@ -176,7 +179,7 @@
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#introduction">Introduction</a></li>
-      <li><a href="#visualize-one-set-of-annuli">Visualize one Set of Annuli</a></li>
+      <li><a href="#visualize-one-set-of-annuli">Visualize One Set of Annuli</a></li>
       <li><a href="#visualize-multiple-readings-of-same-structure">Visualize Multiple Readings of Same Structure</a></li>
       <li><a href="#footnotes">Footnotes</a></li>
       </ul>

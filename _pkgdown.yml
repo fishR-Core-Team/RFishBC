@@ -54,6 +54,8 @@ navbar:
           href: articles/MeasureRadii/seeRadiiData.html
         - text: Back-Calculating Lengths
           href: articles/BCCalc/BCCalc.html
+        - text: Suggested Workflow
+          href: articles/Workflow/BCWorkflow.html
     - text: Reference
       href: reference/index.html
     - text: News

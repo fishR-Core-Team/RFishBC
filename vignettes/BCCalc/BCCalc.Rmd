@@ -25,8 +25,7 @@ Packages used in this vignette are loaded below.
 ```{r message=FALSE, warning=FALSE}
 library(RFishBC)   # for bcFuns()
 library(FSA)       # for validn(), sumTable()
-library(magrittr)  # for %<>%
-library(dplyr)     # for %>%, arrange(), group_by, summarize()
+library(dplyr)     # for %>%, inner_join(), arrange(), group_by, summarize()
 ```
 
 Finally, some of the data manipulations used in this vignette, which may not be familiar to all readers, are described in detail in Ogle (2016).
