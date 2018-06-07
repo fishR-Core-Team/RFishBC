@@ -5,4 +5,4 @@ hexSticker::sticker(package="RFishBC",
                     h_color="#00579E",h_size=1,h_fill="white",
                     url="https://derekogle.com/RFishBC",
                     u_color="#00579E",u_size=5,
-                    filename="logo.png")
+                    filename="man/figures/logo.png")

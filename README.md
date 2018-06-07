@@ -6,7 +6,7 @@
 [![Coverage Status](https://img.shields.io/coveralls/droglenc/RFishBC.svg)](https://coveralls.io/r/droglenc/RFishBC?branch=master)
 
 
-RFishBC <img src="logo.png" align="right" height="200" />
+RFishBC <img src="man/figures/logo.png" align="right" height="200" />
 ===
 
 The **RFishBC** package helps fisheries scientists collect growth data from calcified structures and back-calculate estimated lengths at previous ages. The package is intended to replace much of the functionality provided by the now out-date fishBC software.
