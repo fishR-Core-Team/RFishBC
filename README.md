@@ -11,6 +11,10 @@ RFishBC <img src="man/figures/logo.png" align="right" height="200" />
 
 The **RFishBC** package helps fisheries scientists collect growth data from calcified structures and back-calculate estimated lengths at previous ages. The package is intended to replace much of the functionality provided by the now out-date fishBC software.
 
+## Use
+
+General desriptions for using **RFishBC** are under the *Vignettes* tab at the top of the page. I suggest at least quickly reading each vignette to get an overall feel for **RFishBC** and then following the workflow suggestions in the last vignette. Detailed descriptions for each function are under the *Reference* tab at the top of the page.
+
 ## Installation
 
 The most recent development version (on GitHub) of **RFishBC** may be installed by running the two lines below in your R console.
