@@ -11,5 +11,5 @@
 ^appveyor\.yml$
 ^data-raw$
 
-logo.png
+man/figures/logo.png
 inst/sticker/
