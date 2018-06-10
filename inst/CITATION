@@ -1,0 +1,13 @@
+citHeader("To cite package 'RFishBC' in publications use:")
+
+year <- sub("-.*", "", meta$Date)
+note <- sprintf("R package version %s", meta$Version)
+citEntry(entry="Manual",
+         title = "RFishBC",
+         author = personList(as.person("Derek H. Ogle")),
+         year = year,
+         note = note,
+         url = meta$URL,
+         textVersion = paste0("Ogle, D.H. ",year,
+         ". RFishBC. ",note,", ",meta$URL,".")
+)
