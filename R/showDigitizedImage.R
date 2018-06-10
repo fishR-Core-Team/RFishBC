@@ -120,6 +120,10 @@ iShowAnnuliLabels <- function(dat,annuliLabels,col.ann,cex.ann) {
   else if (deg>45 & deg<=90) pos <- 4   # right
   else if (deg>90 & deg<=135) pos <- 2  # left
   else if (deg>135 & deg<=180) pos <- 1 # below
+  else if (deg>180 & deg<=225) pos <- 1 # below
+  else if (deg>225 & deg<=270) pos <- 4 # right
+  else if (deg>270 & deg<=315) pos <- 2 # left
+  else if (deg>315 & deg<=360) pos <- 1 # below
   
   ## Put on text
   #### make labels from 1 to the number of points marked (-1 for the focus)
