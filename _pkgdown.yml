@@ -15,7 +15,7 @@ development:
   
 reference:
   - title: Collect Radii Data
-    desc: Functions to aid collecting, viewing, and outputting radial measurements from structure Images
+    desc: Collect, view, and output radial measurements from structure images
     contents:
       - RFBCoptions
       - digitizeRadii
@@ -23,13 +23,13 @@ reference:
       - combineData
       - findScalingFactor
   - title: Back-calculation
-    desc: Functions to aid back-calculation of lengths at previous ages
+    desc: Back-calculate lengths at previous ages
     contents:
       - backCalc
       - bcFuns
       - aStandard
   - title: Utilities
-    desc: Functions to perform miscellaneous utilities.
+    desc: Miscellaneous utilities.
     contents:
       - listFiles
       - addRadCap

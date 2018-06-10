@@ -7,7 +7,7 @@ Description: Helps fisheries scientists collect growth data from calcified
     structures and back-calculate estimated lengths at previous ages. The
     package is intended to replace much of the functionality provided by the
     now out-dated fishBC software.
-URL: https://github.com/droglenc/RFishBC, http://derekogle.com/RFishBC
+URL: http://derekogle.com/RFishBC
 BugReports: https://github.com/droglenc/RFishBC/issues
 Encoding: UTF-8
 License: GPL-3
