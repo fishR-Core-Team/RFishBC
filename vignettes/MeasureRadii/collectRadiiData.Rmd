@@ -79,7 +79,7 @@ The `digitizeRadii()` function is used to
 1. Interactively select annuli on the structure image.
 1. Create an R data file that contains the radial measurements to selected annuli and other information about the structure and the data extraction process.
 
-For example (*but described thoroughly further below*), the line below identifies "Scale_1.jpg" as the structure image, this fish has an identification number of "1", this reading of the image should be labelled as "DHO", and the structure margin or edge should not be considered as an annulus. When this line is run it will open the image[^inwd], allow the user to select points that represent a transect and annuli on that transect, and save radial measurements to "Scale_1_DHO.rds".[^saveex1]
+For example (*but described thoroughly further below*), the line below identifies "Scale_1.jpg" as the structure image, this fish has an identification number of "1", this reading of the image should be labelled as "DHO",[^readingex] and the structure margin or edge should not be considered as an annulus. When this line is run it will open the image[^inwd], allow the user to select points that represent a transect and annuli on that transect, and save radial measurements to "Scale_1_DHO.rds".[^saveex1]
 
 ```{r eval=FALSE}
 digitizeRadii("Scale_1.jpg",id="1",reading="DHO",edgeIsAnnulus=FALSE)
@@ -286,6 +286,8 @@ write.csv(fishdat,file="Kiyi2014_BCs.csv",quote=FALSE,row.names=FALSE)
 [^inwd]: This assumes that the `Scale_1.jpg` file is in the current working directory. Use `getwd()` to see the current working directory.
 
 [^deletekey]: The last selected point can be deleted by pressing the 'd' or 'r' keys. This can be done multiple times such that the last number of selections can be deleted. The deleted points will be marked with the plotting character and color in `pch.del=` and `col.del=` (defaults to a red circle with an 'x' in it).
+
+[^readingex]: I use my initials ("DHO") here for `reading=` simply as an example. You will likely want to use something else.
 
 [^saveex1]: Actually much more than the radial measurements are recorded in the R data file (see [here](http://derekogle.com/RFishBC/reference/digitizeRadii.html#value)). Also note that the radii are on an arbitrary scale in this case because no scale-bar was available on the image.
 

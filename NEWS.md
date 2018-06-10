@@ -1,6 +1,8 @@
 # RFishBC 0.0.9.9000 ongoing
+* Added CITATION file.
 * Added hex sticker.
 * Added workflow vignette.
+* `showDigitizedImage()`: Modified. Fixed bug in `iShowAnnuliLabels()` (addressed [#12](https://github.com/droglenc/RFishBC/issues/12); thanks to [Liuyong Ding](https://github.com/Otoliths)).
 
 # RFishBC 0.0.9 18-May-18
 * Added `rlang`, `stringr`, and `tidyr` to Imports.
