@@ -6,6 +6,7 @@
 #' @param knownLength See details in \code{\link{RFBCoptions}}.
 #' @param sepWindow See details in \code{\link{RFBCoptions}}.
 #' @param windowSize See details in \code{\link{RFBCoptions}}.
+#' @param closeWindow See details in \code{\link{RFBCoptions}}.
 #' @param col.scaleBar See details in \code{\link{RFBCoptions}}.
 #' @param lwd.scaleBar See details in \code{\link{RFBCoptions}}.
 #' @param pch.sel See details in \code{\link{RFBCoptions}}.
@@ -26,7 +27,7 @@
 #' ## None yet
 
 findScalingFactor <- function(img,knownLength,
-                              sepWindow,windowSize,
+                              sepWindow,windowSize,closeWindow,
                               col.scaleBar,lwd.scaleBar,
                               pch.sel,col.sel,cex.sel,
                               pch.del,col.del) {
@@ -35,6 +36,7 @@ findScalingFactor <- function(img,knownLength,
   if (knownLength<=0) STOP("'knownLength' must be positive.")
   if (missing(sepWindow)) sepWindow <- iGetopt("sepWindow")
   if (missing(windowSize)) windowSize <- iGetopt("windowSize")
+  if (missing(closeWindow)) closeWindow <- iGetopt("closeWindow")
   if (missing(col.scaleBar)) col.scaleBar <- iGetopt("col.scaleBar")
   if (missing(lwd.scaleBar)) lwd.scaleBar <- iGetopt("lwd.scaleBar")
   if (missing(pch.sel)) pch.sel <- iGetopt("pch.sel")
@@ -57,6 +59,7 @@ findScalingFactor <- function(img,knownLength,
                                    lwd.scaleBar=lwd.scaleBar,
                                    pch.sel,col.sel,cex.sel,
                                    pch.del,col.del)
+  if (sepWindow & closeWindow) grDevices::dev.off()
   SF$scalingFactor
 }
 
