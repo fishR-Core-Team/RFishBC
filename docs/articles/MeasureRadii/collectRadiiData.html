@@ -95,7 +95,7 @@
       <h1>Collect radial measurements from a calcified structure by interactively selecting annuli</h1>
                         <h4 class="author">Derek H. Ogle</h4>
             
-            <h4 class="date">2018-06-10</h4>
+            <h4 class="date">2018-06-12</h4>
       
       
       <div class="hidden name"><code>collectRadiiData.Rmd</code></div>
@@ -182,8 +182,6 @@
 <li>
 <code>description=</code>: Detailed description about the structure. This will be saved in the R data file and could be extracted in the future. For example, one may use <code>description="Kiyi scale read once by Ogle on 22-Apr-18"</code> to provide more information about the structure reading.</li>
 <li>
-<code>sepWindow=</code>: A logical that indicates whether the image should be opened in a separate window (<code>sepWindow=TRUE</code>) or not (<code>sepWindow=FALSE</code>). The default is <code>sepWindow=TRUE</code>, as opening the image in a separate window allows it to conform to its native aspect ratio, which is important when meausuring distances on the image.</li>
-<li>
 <code>windowSize=</code>: A value that sets the size of the separate window (only used if <code>sepWindow=TRUE</code>). This value will become the larger of the two dimensions, with the other value proportionate so that the original aspect ratio is maintained. Use <code>windowSize=</code> to “zoom in” on an image. Note that the default is <code>windowSize=7</code>; so values larger than 7 represent a “zooming in.”</li>
 </ul>
 <p>Finally, note that the R data file that will be created after the annuli have been selected will have the same name as the image file<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a> but including the suffix optionally provided in <code>suffix=</code>. If nothing is given in <code>suffix=</code>, then a suffix will be created from <code>reading=</code> (if it exists). For example, if the structure image file was named “Scale_1.jpg”, then the resultant R data file will be named “Scale_1_DHO.rds” if <code>reading="DHO"</code> or “Scale_1_TESTING.rds” if <code>reading="DHO"</code> and <code>suffix="TESTING"</code>.</p>
@@ -229,7 +227,7 @@
 <img src="figures/oto140306_D.jpg">
 </div>
 <p> </p>
-<p>When you have finished selecting points, information about your selections, including the calculated radial measurements, are saved to the R data file. The contents of this file are described further <a href="http://derekogle.com/RFishBC/reference/digitizeRadii.html#value">here</a>.</p>
+<p>When you have finished selecting points, the image window is closed<a href="#fn12" class="footnoteRef" id="fnref12"><sup>12</sup></a> and information about your selections, including the calculated radial measurements, are saved to the R data file. The contents of this file are described further <a href="http://derekogle.com/RFishBC/reference/digitizeRadii.html#value">here</a>.</p>
 <p> </p>
 <p> </p>
 <hr>
@@ -257,20 +255,20 @@
 <div id="data-from-one-structure" class="section level1">
 <h1 class="hasAnchor">
 <a href="#data-from-one-structure" class="anchor"></a>Data from One Structure</h1>
-<p>The radial measurements from one structure may be seen by submitting the R data file name to <code><a href="../../reference/combineData.html">combineData()</a></code>.<a href="#fn12" class="footnoteRef" id="fnref12"><sup>12</sup></a> Note that by default the radial measurement that includes the “plus-growth” will be omitted (as this radial measurement is equal to the total radial measurement and is thus redundant). To include the radial measurement with “plus-growth” then use <code>deletePlusGrowth=FALSE</code>.</p>
+<p>The radial measurements from one structure may be seen by submitting the R data file name to <code><a href="../../reference/combineData.html">combineData()</a></code>.<a href="#fn13" class="footnoteRef" id="fnref13"><sup>13</sup></a> Note that by default the radial measurement that includes the “plus-growth” will be omitted (as this radial measurement is equal to the total radial measurement and is thus redundant). To include the radial measurement with “plus-growth” then use <code>deletePlusGrowth=FALSE</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/combineData.html">combineData</a></span>(<span class="st">"Scale_1_DHO.rds"</span>)
 <span class="co">#&gt;   id reading agecap ann       rad    radcap</span>
-<span class="co">#&gt; 1  1     DHO      5   1 0.2111413 0.5146925</span>
-<span class="co">#&gt; 2  1     DHO      5   2 0.2773676 0.5146925</span>
-<span class="co">#&gt; 3  1     DHO      5   3 0.3402496 0.5146925</span>
-<span class="co">#&gt; 4  1     DHO      5   4 0.4571022 0.5146925</span>
-<span class="co">#&gt; 5  1     DHO      5   5 0.4989547 0.5146925</span></code></pre></div>
+<span class="co">#&gt; 1  1     DHO      5   1 0.2162106 0.5196574</span>
+<span class="co">#&gt; 2  1     DHO      5   2 0.2859774 0.5196574</span>
+<span class="co">#&gt; 3  1     DHO      5   3 0.3418130 0.5196574</span>
+<span class="co">#&gt; 4  1     DHO      5   4 0.4620804 0.5196574</span>
+<span class="co">#&gt; 5  1     DHO      5   5 0.5056708 0.5196574</span></code></pre></div>
 <p>By default the data are shown in “long” format where each row consists of one radial measurement and all radial measurements for an individual fish are distributed across several rows. The radial data can be shown in “wide” format where each rows consists of all the radial measurements (in separate columns) for an individual fish by including <code>outFormat="wide"</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/combineData.html">combineData</a></span>(<span class="st">"Scale_1_DHO.rds"</span>,<span class="dt">outFormat=</span><span class="st">"wide"</span>)
-<span class="co">#&gt;   id reading agecap    radcap      rad1      rad2      rad3      rad4</span>
-<span class="co">#&gt; 1  1     DHO      5 0.5146925 0.2111413 0.2773676 0.3402496 0.4571022</span>
+<span class="co">#&gt;   id reading agecap    radcap      rad1      rad2     rad3      rad4</span>
+<span class="co">#&gt; 1  1     DHO      5 0.5196574 0.2162106 0.2859774 0.341813 0.4620804</span>
 <span class="co">#&gt;        rad5</span>
-<span class="co">#&gt; 1 0.4989547</span></code></pre></div>
+<span class="co">#&gt; 1 0.5056708</span></code></pre></div>
 <p> </p>
 <p> </p>
 <hr>
@@ -289,14 +287,14 @@
 <p>This list of names can be further filtered by including other key words for the filenames in <code>other=</code>. In this case, the list should be limited to those files with “Scale” in the name and those files with just “DHO” (i.e., exclude “DHO2”). Limiting to “DHO” required limiting to “DHO.”, but because the “.” is a special character it had to be preceded by “\”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">( fns &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/listFiles.html">listFiles</a></span>(<span class="st">"rds"</span>,<span class="dt">other=</span><span class="kw">c</span>(<span class="st">"Scale"</span>,<span class="st">"DHO</span><span class="ch">\\</span><span class="st">."</span>)) )
 <span class="co">#&gt; [1] "Scale_1_DHO.rds" "Scale_2_DHO.rds"</span></code></pre></div>
-<p>The result of <code><a href="../../reference/listFiles.html">listFiles()</a></code> should be saved to an object so that the names can be given to <code><a href="../../reference/combineData.html">combineData()</a></code> as shown below.<a href="#fn13" class="footnoteRef" id="fnref13"><sup>13</sup></a></p>
+<p>The result of <code><a href="../../reference/listFiles.html">listFiles()</a></code> should be saved to an object so that the names can be given to <code><a href="../../reference/combineData.html">combineData()</a></code> as shown below.<a href="#fn14" class="footnoteRef" id="fnref14"><sup>14</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">( dfrad &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/combineData.html">combineData</a></span>(fns) )
 <span class="co">#&gt;    id reading agecap ann       rad    radcap</span>
-<span class="co">#&gt; 1   1     DHO      5   1 0.2111413 0.5146925</span>
-<span class="co">#&gt; 2   1     DHO      5   2 0.2773676 0.5146925</span>
-<span class="co">#&gt; 3   1     DHO      5   3 0.3402496 0.5146925</span>
-<span class="co">#&gt; 4   1     DHO      5   4 0.4571022 0.5146925</span>
-<span class="co">#&gt; 5   1     DHO      5   5 0.4989547 0.5146925</span>
+<span class="co">#&gt; 1   1     DHO      5   1 0.2162106 0.5196574</span>
+<span class="co">#&gt; 2   1     DHO      5   2 0.2859774 0.5196574</span>
+<span class="co">#&gt; 3   1     DHO      5   3 0.3418130 0.5196574</span>
+<span class="co">#&gt; 4   1     DHO      5   4 0.4620804 0.5196574</span>
+<span class="co">#&gt; 5   1     DHO      5   5 0.5056708 0.5196574</span>
 <span class="co">#&gt; 7   2     DHO      4   1 0.1369752 0.3948274</span>
 <span class="co">#&gt; 8   2     DHO      4   2 0.2083183 0.3948274</span>
 <span class="co">#&gt; 9   2     DHO      4   3 0.2958363 0.3948274</span>
@@ -304,10 +302,10 @@
 <p>Again, the data can be shown in “wide” format by including <code>outFormat="wide"</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">( dfrad2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/combineData.html">combineData</a></span>(fns,<span class="dt">outFormat=</span><span class="st">"wide"</span>) )
 <span class="co">#&gt;   id reading agecap    radcap      rad1      rad2      rad3      rad4</span>
-<span class="co">#&gt; 1  1     DHO      5 0.5146925 0.2111413 0.2773676 0.3402496 0.4571022</span>
+<span class="co">#&gt; 1  1     DHO      5 0.5196574 0.2162106 0.2859774 0.3418130 0.4620804</span>
 <span class="co">#&gt; 2  2     DHO      4 0.3948274 0.1369752 0.2083183 0.2958363 0.3533809</span>
 <span class="co">#&gt;        rad5</span>
-<span class="co">#&gt; 1 0.4989547</span>
+<span class="co">#&gt; 1 0.5056708</span>
 <span class="co">#&gt; 2        NA</span></code></pre></div>
 <p> </p>
 <p> </p>
@@ -316,7 +314,7 @@
 <div id="outputdata" class="section level1">
 <h1 class="hasAnchor">
 <a href="#outputdata" class="anchor"></a>Output Data File</h1>
-<p>Other information about the fish (e.g., location of capture, length, sex) is likely held in a separate file. Below, example “other” data are loaded into the <code>dffish</code> data.frame. Note that the <code>id</code> variable created from processing the structure images above are characters. In this case, <code>read.csv()</code> reads the <code>id</code> variable from the external data file as numeric because the unique IDs were simple numbers. The second line of code below converts these numeric IDs to characters so that this data.frame can be joined with the radial measurements data.frame from above.<a href="#fn14" class="footnoteRef" id="fnref14"><sup>14</sup></a></p>
+<p>Other information about the fish (e.g., location of capture, length, sex) is likely held in a separate file. Below, example “other” data are loaded into the <code>dffish</code> data.frame. Note that the <code>id</code> variable created from processing the structure images above are characters. In this case, <code>read.csv()</code> reads the <code>id</code> variable from the external data file as numeric because the unique IDs were simple numbers. The second line of code below converts these numeric IDs to characters so that this data.frame can be joined with the radial measurements data.frame from above.<a href="#fn15" class="footnoteRef" id="fnref15"><sup>15</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dffish &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">"FishData.csv"</span>,<span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id=</span><span class="kw">as.character</span>(id))</code></pre></div>
 <p>The data in the <code>dffish</code> and <code>dfrad</code> data.frames are then joined by the common <code>id</code> variable using <code>inner_join()</code>.</p>
@@ -324,11 +322,11 @@
 <span class="st">  </span><span class="kw">inner_join</span>(dfrad,<span class="dt">by=</span><span class="st">"id"</span>)
 fishdat
 <span class="co">#&gt;   id  loc sex len reading agecap ann       rad    radcap</span>
-<span class="co">#&gt; 1  1 MI-5   M 189     DHO      5   1 0.2111413 0.5146925</span>
-<span class="co">#&gt; 2  1 MI-5   M 189     DHO      5   2 0.2773676 0.5146925</span>
-<span class="co">#&gt; 3  1 MI-5   M 189     DHO      5   3 0.3402496 0.5146925</span>
-<span class="co">#&gt; 4  1 MI-5   M 189     DHO      5   4 0.4571022 0.5146925</span>
-<span class="co">#&gt; 5  1 MI-5   M 189     DHO      5   5 0.4989547 0.5146925</span>
+<span class="co">#&gt; 1  1 MI-5   M 189     DHO      5   1 0.2162106 0.5196574</span>
+<span class="co">#&gt; 2  1 MI-5   M 189     DHO      5   2 0.2859774 0.5196574</span>
+<span class="co">#&gt; 3  1 MI-5   M 189     DHO      5   3 0.3418130 0.5196574</span>
+<span class="co">#&gt; 4  1 MI-5   M 189     DHO      5   4 0.4620804 0.5196574</span>
+<span class="co">#&gt; 5  1 MI-5   M 189     DHO      5   5 0.5056708 0.5196574</span>
 <span class="co">#&gt; 6  2 MI-6   F 210     DHO      4   1 0.1369752 0.3948274</span>
 <span class="co">#&gt; 7  2 MI-6   F 210     DHO      4   2 0.2083183 0.3948274</span>
 <span class="co">#&gt; 8  2 MI-6   F 210     DHO      4   3 0.2958363 0.3948274</span>
@@ -338,12 +336,12 @@ fishdat
 <span class="st">  </span><span class="kw">inner_join</span>(dfrad2,<span class="dt">by=</span><span class="st">"id"</span>)
 fishdat2
 <span class="co">#&gt;   id  loc sex len reading agecap    radcap      rad1      rad2      rad3</span>
-<span class="co">#&gt; 1  1 MI-5   M 189     DHO      5 0.5146925 0.2111413 0.2773676 0.3402496</span>
+<span class="co">#&gt; 1  1 MI-5   M 189     DHO      5 0.5196574 0.2162106 0.2859774 0.3418130</span>
 <span class="co">#&gt; 2  2 MI-6   F 210     DHO      4 0.3948274 0.1369752 0.2083183 0.2958363</span>
 <span class="co">#&gt;        rad4      rad5</span>
-<span class="co">#&gt; 1 0.4571022 0.4989547</span>
+<span class="co">#&gt; 1 0.4620804 0.5056708</span>
 <span class="co">#&gt; 2 0.3533809        NA</span></code></pre></div>
-<p>Either file can be written to a “comma-separated values” (CSV) file<a href="#fn15" class="footnoteRef" id="fnref15"><sup>15</sup></a> with <code>write.csv()</code> using the R object name (e.g., <code>fishdat</code> or <code>fishdat2</code>) as the first argument and a name for the file in <code>file=</code>. Additionally, I prefer to have non-quoted values by using <code>quote=FALSE</code> and no row names by using <code>row.names=FALSE</code>. For example, the “one-measurement-per-line” data can be output to “Kiyi2014_BCs.csv” as follows.</p>
+<p>Either file can be written to a “comma-separated values” (CSV) file<a href="#fn16" class="footnoteRef" id="fnref16"><sup>16</sup></a> with <code>write.csv()</code> using the R object name (e.g., <code>fishdat</code> or <code>fishdat2</code>) as the first argument and a name for the file in <code>file=</code>. Additionally, I prefer to have non-quoted values by using <code>quote=FALSE</code> and no row names by using <code>row.names=FALSE</code>. For example, the “one-measurement-per-line” data can be output to “Kiyi2014_BCs.csv” as follows.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write.csv</span>(fishdat,<span class="dt">file=</span><span class="st">"Kiyi2014_BCs.csv"</span>,<span class="dt">quote=</span><span class="ot">FALSE</span>,<span class="dt">row.names=</span><span class="ot">FALSE</span>)</code></pre></div>
 <p> </p>
 <p> </p>
@@ -366,10 +364,11 @@ fishdat2
 <li id="fn9"><p>The last selected point can be deleted by pressing the ‘d’ or ‘r’ keys. This can be done multiple times such that the last number of selections can be deleted. The deleted points will be marked with the plotting character and color in <code>pch.del=</code> and <code>col.del=</code> (defaults to a red circle with an ‘x’ in it).<a href="#fnref9">↩</a></p></li>
 <li id="fn10"><p>Thus, <code><a href="../../reference/findScalingFactor.html">findScalingFactor()</a></code> would be run prior to <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>.<a href="#fnref10">↩</a></p></li>
 <li id="fn11"><p>The last selected point can be deleted by pressing the ‘d’ or ‘r’ keys. This can be done multiple times such that the last number of selections can be deleted. The deleted points will be marked with the plotting character and color in <code>pch.del=</code> and <code>col.del=</code> (defaults to a red circle with an ‘x’ in it).<a href="#fnref11">↩</a></p></li>
-<li id="fn12"><p>If no file name is given, then a dialog box will appear from which the data file can be selected. It is also assumed that the file is in the current working directory.<a href="#fnref12">↩</a></p></li>
-<li id="fn13"><p>If no file names are given, then a dialog box will appear from which multiple data files can be selected.<a href="#fnref13">↩</a></p></li>
-<li id="fn14"><p>The two files cannot be joined by the “id” variable if the “id” variables are of different types (e.g., character and numeric) in the two files. Thus, as shown here, they must be coerced to be the same type. This line of code would no be needed if the “id” variables were of the same type in the two files as would likely occur if the “id” variable was not simply numbers.<a href="#fnref14">↩</a></p></li>
-<li id="fn15"><p>CSV files are small, portable, and can be opened directly in most spreadsheet softwares.<a href="#fnref15">↩</a></p></li>
+<li id="fn12"><p>The image window is closed by default when “f” is pushed after the last annulus is selected. The window may be kept open by using <code>closeWindow=FALSE</code> in the call to <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code>.<a href="#fnref12">↩</a></p></li>
+<li id="fn13"><p>If no file name is given, then a dialog box will appear from which the data file can be selected. It is also assumed that the file is in the current working directory.<a href="#fnref13">↩</a></p></li>
+<li id="fn14"><p>If no file names are given, then a dialog box will appear from which multiple data files can be selected.<a href="#fnref14">↩</a></p></li>
+<li id="fn15"><p>The two files cannot be joined by the “id” variable if the “id” variables are of different types (e.g., character and numeric) in the two files. Thus, as shown here, they must be coerced to be the same type. This line of code would no be needed if the “id” variables were of the same type in the two files as would likely occur if the “id” variable was not simply numbers.<a href="#fnref15">↩</a></p></li>
+<li id="fn16"><p>CSV files are small, portable, and can be opened directly in most spreadsheet softwares.<a href="#fnref16">↩</a></p></li>
 </ol>
 </div>
   </div>
