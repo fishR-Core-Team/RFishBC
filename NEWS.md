@@ -2,6 +2,9 @@
 * Added CITATION file.
 * Added hex sticker.
 * Added workflow vignette.
+* `digitizeRadii()`: Modified. Added `closeWindow=` (addresses  [#14](https://github.com/droglenc/RFishBC/issues/14)). Changed so that the rownames of the `pts` data.frame in the returned object includes "center" and "edge."
+* `findScalingFactor()`: Modified. Added `closeWindow=` (addresses  [#14](https://github.com/droglenc/RFishBC/issues/14)).
+* `RFBCoptions()`: Modified. Added `closeWindow=` (addresses  [#14](https://github.com/droglenc/RFishBC/issues/14)).
 * `showDigitizedImage()`: Modified. Fixed bug in `iShowAnnuliLabels()` (addressed [#12](https://github.com/droglenc/RFishBC/issues/12); thanks to [Liuyong Ding](https://github.com/Otoliths)).
 
 # RFishBC 0.0.9 18-May-18

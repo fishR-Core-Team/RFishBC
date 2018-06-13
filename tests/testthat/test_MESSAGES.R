@@ -7,6 +7,7 @@ test_that("RFBCoptions() error messages",{
   expect_error(RFBCoptions(sepWindow="Derek"),"TRUE,FALSE")
   expect_error(RFBCoptions(windowSize=0),"value out of range")
   expect_error(RFBCoptions(windowSize=31),"value out of range")
+  expect_error(RFBCoptions(closeWindow="Derek"),"TRUE,FALSE")
   expect_error(RFBCoptions(popID="Derek"),"TRUE,FALSE")
   expect_error(RFBCoptions(scalingFactor=0),"value out of range")
   expect_error(RFBCoptions(scaleBar="Derek"),"TRUE,FALSE")
@@ -153,7 +154,8 @@ test_that("backCalc() messages",{
                "value must be provided for 'a'")
   ## Missing or bad inFormat or inFormat
   expect_error(backCalc(SMBassWB,lencap,BCM=3),"'inFormat' must be")
-  expect_error(backCalc(SMBassWB,lencap,BCM=3,inFormat="derek"),"'inFormat' must be")
+  expect_error(backCalc(SMBassWB,lencap,BCM=3,inFormat="derek"),
+               "'inFormat' must be")
   expect_error(backCalc(SMBassWB,lencap,BCM=3,inFormat="wide",outFormat="derek"),
                "'outFormat' must be 'wide' or 'long'")
 })

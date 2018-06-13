@@ -28,7 +28,7 @@ showDigitizedImage("Oto140306_DHO.rds",annuliLabels=c(2,5))
 
 ## Open the otolith and just get the scaling factor from the scale-bar
 ## then use this to supply the scaling factor rather than use the scale-bar
-## siee if the results are basically the same as above
+## see if the results are basically the same as above
 (SF <- findScalingFactor("Oto140306.jpg",knownLength=1,windowSize=12) )
 
 digitizeRadii("Oto140306.jpg",id="140306",reading="DHO2",

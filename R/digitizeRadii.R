@@ -10,6 +10,7 @@
 #' @param edgeIsAnnulus See details in \code{\link{RFBCoptions}}.
 #' @param sepWindow See details in \code{\link{RFBCoptions}}.
 #' @param windowSize See details in \code{\link{RFBCoptions}}.
+#' @param closeWindow See details in \code{\link{RFBCoptions}}.
 #' @param popID See details in \code{\link{RFBCoptions}}.
 #' @param scaleBar See details in \code{\link{RFBCoptions}}.
 #' @param scaleBarLength See details in \code{\link{RFBCoptions}}.
@@ -66,7 +67,7 @@
 #' 
 digitizeRadii <- function(img,id,reading,suffix,
                           description,edgeIsAnnulus,popID,
-                          sepWindow,windowSize,
+                          sepWindow,windowSize,closeWindow,
                           scaleBar,scaleBarLength,col.scaleBar,lwd.scaleBar,
                           scalingFactor,showTransect,snap2Transect,
                           col.transect,lwd.transect,
@@ -112,6 +113,7 @@ digitizeRadii <- function(img,id,reading,suffix,
   if (missing(col.del)) col.del <- iGetopt("col.del")
   if (missing(sepWindow)) sepWindow <- iGetopt("sepWindow")
   if (missing(windowSize)) windowSize <- iGetopt("windowSize")
+  if (missing(closeWindow)) closeWindow <- iGetopt("closeWindow")
   if (!is.numeric(windowSize)) STOP("'windowSize' must be numeric.")
   if (windowSize<=0) STOP("'windowSize' must be positive.")
   if (missing(showInfo)) showInfo <- iGetopt("showInfo")
@@ -190,14 +192,15 @@ digitizeRadii <- function(img,id,reading,suffix,
                    pch.del=pch.del,col.del=col.del,
                    snap2Transect=snap2Transect,slpTransect=slpTransect,
                    intTransect=intTransect,slpPerpTransect=slpPerpTransect)
+  if (sepWindow & closeWindow) grDevices::dev.off()
   #### Make sure some points were selected
   if (!nrow(pts)>0) STOP("No points were selected as annuli.")
-  #### Add transection (focus and margin) to the points
+  #### Add transect (focus and margin) to the points
   pts <- rbind(trans.pts,pts)
   #### Re-order points by distance from the first point (the focus)
   pts <- iOrderPts(pts)
   #### Tell the user how many points were selected
-  DONE(nrow(pts)," points were selected.\n")
+  DONE(nrow(pts)-2," points were selected as annuli.\n")
   
   ## Converts selected points to radial measurements ===========================
   radii <- iPts2Rad(pts,edgeIsAnnulus=edgeIsAnnulus,scalingFactor=scalingFactor,
@@ -325,6 +328,9 @@ iOrderPts <- function(pts) {
   ## find a matrix of distances from the first point (in the first column
   ## returned by dist()), finds the order of those distances, and re-orders
   ## the original points by that order and returns the result
-  pts[order(as.matrix(stats::dist(pts))[,1]),]
+  pts <- pts[order(as.matrix(stats::dist(pts))[,1]),]
+  ## change rownames
+  rownames(pts) <- c("center",1:(nrow(pts)-2),"edge")
+  ## Return data.frame
+  pts
 }
-
