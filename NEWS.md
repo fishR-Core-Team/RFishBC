@@ -2,8 +2,9 @@
 * Added CITATION file.
 * Added hex sticker.
 * Added workflow vignette.
-* `digitizeRadii()`: Modified. Added `closeWindow=` (addresses  [#14](https://github.com/droglenc/RFishBC/issues/14)). Changed so that the rownames of the `pts` data.frame in the returned object includes "center" and "edge."
-* `findScalingFactor()`: Modified. Added `closeWindow=` (addresses  [#14](https://github.com/droglenc/RFishBC/issues/14)).
+* `digitizeRadii()`: Modified. Added `closeWindow=` (addresses  [#14](https://github.com/droglenc/RFishBC/issues/14)). Changed so that the rownames of the `pts` data.frame in the returned object includes "center" and "edge." See changes to `iSelectPt()`.
+* `findScalingFactor()`: Modified. Added `closeWindow=` (addresses  [#14](https://github.com/droglenc/RFishBC/issues/14)). See changes to `iSelectPt()`.
+* `iSelectPt()`: Modified. Added `numPts=` with several "catches" for whether this target number of points is met when the "f" key (for "finished") was pressed. Alters behavior in `digitizeRadii()` and `findScalingFactor()` (addresses [#17](https://github.com/droglenc/RFishBC/issues/17); thanks to [Jason Doll](https://github.com/jcdoll79)).
 * `RFBCoptions()`: Modified. Added `closeWindow=` (addresses  [#14](https://github.com/droglenc/RFishBC/issues/14)).
 * `showDigitizedImage()`: Modified. Fixed bug in `iShowAnnuliLabels()` (addressed [#12](https://github.com/droglenc/RFishBC/issues/12); thanks to [Liuyong Ding](https://github.com/Otoliths)).
 
