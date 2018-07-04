@@ -10,6 +10,7 @@
 \alias{NOTE}
 \alias{iHndlFilenames}
 \alias{iGetImage}
+\alias{iSelectPt}
 \alias{iScalingFactorFromScaleBar}
 \alias{iPlaceText}
 \alias{isRData}

@@ -7,7 +7,7 @@
 combineData(nms, outFormat = c("long", "wide"), deletePlusGrowth = TRUE)
 }
 \arguments{
-\item{nms}{A character vector of R data file names created with \code{\link{digitizeRadii}}. The files must be in the current working directory (see \code{\link{getwd}} result).}
+\item{nms}{A string (or vector of strings) that indicates the R data file(s) created with \code{\link{digitizeRadii}}. If missing the user will be provided a dialog box from which to choose the file(s). The file(s) must be in the current working directory (see \code{\link{getwd}} result). May also be a single \code{RFishBC} object created with \code{\link{digitizeRadii}}.}
 
 \item{outFormat}{A string that indicates the output format for the combined data. The \code{"wide"} (DEFAULT) format has one-radius-per-line (i.e., each radial measurement for a fish in on a separate row), whereas the \code{"long"} format has one-fish-per-line (i.e., each radial measurement for a fish is in a separate column).}
 

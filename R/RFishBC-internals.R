@@ -4,7 +4,7 @@
 #'
 #' @rdname FSA-internals
 #' @keywords internal
-#' @aliases .onAttach STOP WARN CATLINE BULLET DONE NOTE iHndlFilenames iGetImage iScalingFactorFromScaleBar iPlaceText isRData
+#' @aliases .onAttach STOP WARN CATLINE BULLET DONE NOTE iHndlFilenames iGetImage iSelectPt iScalingFactorFromScaleBar iPlaceText isRData
 
 
 ########################################################################
@@ -117,13 +117,61 @@ iGetImage <- function(fname,id,sepWindow,windowSize,
 
 
 ########################################################################
+## Allows the user to interactively select a point on the image. User
+## can de-select a point with a key press and must select a key to
+## identify that they are done selecting points.
+########################################################################
+iSelectPt <- function(numPts,msg1,msg2,
+                      pch.sel,col.sel,cex.sel,
+                      pch.del,col.del,
+                      snap2Transect,slpTransect,intTransect,slpPerpTransect) {
+  ## Internal function for handling mouse down event
+  mouseDown <- function(buttons,x,y) {
+    tmp <- data.frame(x=graphics::grconvertX(x,"ndc","user"),
+                      y=graphics::grconvertY(y,"ndc","user"))
+    if (snap2Transect) 
+      tmp <- iSnap2Transect(tmp,slpTransect,intTransect,slpPerpTransect)
+    graphics::points(y~x,data=tmp,pch=pch.sel,col=col.sel,cex=cex.sel)
+    dat <<- rbind(dat,tmp)
+    NULL
+  }
+  ## Internal function for handling key press event
+  keyPress <- function(key) {
+    n <- nrow(dat)
+    if (key %in% c("f","q")) {
+      if (!is.null(numPts)) {
+        if (n!=numPts) {
+          tmpmsg <- paste("Must select exactly",numPts,"points. ")
+          if (n<numPts) message(tmpmsg,"Please select ",numPts-n," more point(s).")
+          if (n>numPts) message(tmpmsg,"Please de-select (press 'd' key) ",
+                                n-numPts," point(s).")
+        } else return(invisible(1))
+      } else return(invisible(1))
+    }
+    if (key %in% c("d","r")) {
+      if (n>=1) {
+        graphics::points(y~x,data=dat[n,],pch=pch.del,col=col.del,cex=cex.sel)
+        dat <<- dat[-n,]
+      }
+      NULL
+    }
+  }
+  ## Main function
+  dat <- data.frame(x=NULL,y=NULL)
+  grDevices::getGraphicsEvent(paste0(msg1,msg2),consolePrompt=msg2,
+                              onMouseDown=mouseDown,onKeybd=keyPress)
+  dat
+}
+
+
+########################################################################
 ## Finds the scaling factor from two points selected by the user.
 ########################################################################
 iScalingFactorFromScaleBar <- function(msg2,knownLength,pixW2H,
                                        col.scaleBar,lwd.scaleBar,
                                        pch.sel,col.sel,cex.sel,
                                        pch.del,col.del) {
-  sbPts <- iSelectPt("Select ends of scale-bar:",msg2,
+  sbPts <- iSelectPt(2,"Select ends of scale-bar:",msg2,
                      pch.sel=pch.sel,col.sel=col.sel,cex.sel=cex.sel,
                      pch.del=pch.del,col.del=col.del,
                      snap2Transect=FALSE,slpTransect=NULL,

@@ -4,12 +4,12 @@
 \alias{showDigitizedImage}
 \title{Show points selected on a structure image and saved in an R data file}
 \usage{
-showDigitizedImage(nm, sepWindow, pch.show, col.show, cex.show, showTransect,
+showDigitizedImage(nms, sepWindow, pch.show, col.show, cex.show, showTransect,
   col.transect, lwd.transect, col.scaleBar, lwd.scaleBar, showAnnuliLabels,
   annuliLabels, col.ann, cex.ann)
 }
 \arguments{
-\item{nm}{A string that indicates the R data file created with \code{\link{digitizeRadii}}. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file. Either way the file must be in the current working directory.}
+\item{nms}{A string (or vector of strings) that indicates the R data file(s) created with \code{\link{digitizeRadii}}. If missing the user will be provided a dialog box from which to choose the file(s). The file(s) must be in the current working directory (see \code{\link{getwd}} result). May also be a single \code{RFishBC} object created with \code{\link{digitizeRadii}}.}
 
 \item{sepWindow}{See details in \code{\link{RFBCoptions}}.}
 

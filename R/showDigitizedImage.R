@@ -2,7 +2,7 @@
 #' 
 #' @description Show points selected on a structure image to represent annuli that were saved to an R data file using \code{\link{digitizeRadii}}. This allows the user to reexaminine the selected points or overlay selected points from multiple readings of the structure.
 #' 
-#' @param nm A string that indicates the R data file created with \code{\link{digitizeRadii}}. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file. Either way the file must be in the current working directory.
+#' @param nms A string (or vector of strings) that indicates the R data file(s) created with \code{\link{digitizeRadii}}. If missing the user will be provided a dialog box from which to choose the file(s). The file(s) must be in the current working directory (see \code{\link{getwd}} result). May also be a single \code{RFishBC} object created with \code{\link{digitizeRadii}}.
 #' @param sepWindow See details in \code{\link{RFBCoptions}}.
 #' @param pch.show See details in \code{\link{RFBCoptions}}.
 #' @param col.show See details in \code{\link{RFBCoptions}}.
@@ -31,7 +31,7 @@
 #' ## None because this requires interaction from the user.
 #' ## See the link to the extensive documentation in the Details.
 #' 
-showDigitizedImage <- function(nm,sepWindow,
+showDigitizedImage <- function(nms,sepWindow,
                                pch.show,col.show,cex.show,
                                showTransect,col.transect,lwd.transect,
                                col.scaleBar,lwd.scaleBar,
@@ -55,9 +55,14 @@ showDigitizedImage <- function(nm,sepWindow,
   dat <- NULL # try to avoid "no visible binding" note
   
   ## Get image file names ######################################################
-  nm <- iHndlFilenames(nm,filter="RData",multi=TRUE)
+  ## If nms is missing then allow the user to choose a file or files
+  if (missing(nms)) nms <- iHndlFilenames(nms,filter="RData",multi=TRUE)
+  ## If nms is an RFishBC object (and not a filename) then extract the 
+  ##   filename otherwise process the filename(s)
+  if (inherits(nms,"RFishBC")) nms <- nms$datanm
+    else nms <- iHndlFilenames(nms,filter="RData",multi=TRUE)
   ## Prepare for multiple readings #############################################
-  num2do <- length(nm)
+  num2do <- length(nms)
   # expand pchs, colors, cexs, lwds to number of transects
   pch.show <- rep(pch.show,ceiling(num2do/length(pch.show)))
   col.show <- rep(col.show,ceiling(num2do/length(col.show)))
@@ -66,10 +71,10 @@ showDigitizedImage <- function(nm,sepWindow,
   lwd.transect <- rep(lwd.transect,ceiling(num2do/length(lwd.transect)))
 
   ## Display results ###########################################################
-  for (i in seq_along(nm)) {
-    if (!isRData(nm[i]))
+  for (i in seq_along(nms)) {
+    if (!isRData(nms[i]))
       STOP("File is not an RData file saved from 'digitizeRadii().")
-    dat <- readRDS(nm[i])
+    dat <- readRDS(nms[i])
     if (!inherits(dat,"RFishBC"))
       STOP("File does not appear to be from 'digitizeRadii().")
     #### If first then show the image
