@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -32,6 +34,7 @@
 
 <meta property="og:image" content="http://derekogle.com/RFishBC/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -58,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.9.9000</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.10</span>
       </span>
     </div>
 
@@ -125,21 +128,29 @@
       
     </div>
 
-    <div id="rfishbc-0-0-9-9000-ongoing" class="section level1">
+    <div id="rfishbc-0-0-10-9000-ongoing" class="section level1">
 <h1 class="page-header">
-<a href="#rfishbc-0-0-9-9000-ongoing" class="anchor"></a>RFishBC 0.0.9.9000 ongoing</h1>
+<a href="#rfishbc-0-0-10-9000-ongoing" class="anchor"></a>RFishBC 0.0.10.9000 ongoing</h1>
+</div>
+    <div id="rfishbc-0-0-10-ongoing" class="section level1">
+<h1 class="page-header">
+<a href="#rfishbc-0-0-10-ongoing" class="anchor"></a>RFishBC 0.0.10 ongoing</h1>
 <ul>
 <li>Added CITATION file.</li>
 <li>Added hex sticker.</li>
 <li>Added workflow vignette.</li>
 <li>
-<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Added <code>closeWindow=</code> (addresses <a href="https://github.com/droglenc/RFishBC/issues/14">#14</a>). Changed so that the rownames of the <code>pts</code> data.frame in the returned object includes “center” and “edge.”</li>
+<code><a href="../reference/combineData.html">combineData()</a></code>: Modified. Allowed first argument to be an <code>RFishBC</code> object saved from <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> (partially addresses <a href="https://github.com/droglenc/RFishBC/issues/16">#16</a>; thanks to <a href="https://github.com/jcdoll79">Jason Doll</a>).</li>
 <li>
-<code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>: Modified. Added <code>closeWindow=</code> (addresses <a href="https://github.com/droglenc/RFishBC/issues/14">#14</a>).</li>
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Added <code>closeWindow=</code> (addresses <a href="https://github.com/droglenc/RFishBC/issues/14">#14</a>). Changed so that the rownames of the <code>pts</code> data.frame in the returned object includes “center” and “edge.” See changes to <code><a href="../reference/FSA-internals.html">iSelectPt()</a></code>.</li>
+<li>
+<code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>: Modified. Added <code>closeWindow=</code> (addresses <a href="https://github.com/droglenc/RFishBC/issues/14">#14</a>). See changes to <code><a href="../reference/FSA-internals.html">iSelectPt()</a></code>.</li>
+<li>
+<code><a href="../reference/FSA-internals.html">iSelectPt()</a></code>: Modified. Added <code>numPts=</code> with several “catches” for whether this target number of points is met when the “f” key (for “finished”) was pressed. Alters behavior in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> and <code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code> (addresses <a href="https://github.com/droglenc/RFishBC/issues/17">#17</a>; thanks to <a href="https://github.com/jcdoll79">Jason Doll</a>).</li>
 <li>
 <code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code>: Modified. Added <code>closeWindow=</code> (addresses <a href="https://github.com/droglenc/RFishBC/issues/14">#14</a>).</li>
 <li>
-<code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>: Modified. Fixed bug in <code>iShowAnnuliLabels()</code> (addressed <a href="https://github.com/droglenc/RFishBC/issues/12">#12</a>; thanks to <a href="https://github.com/Otoliths">Liuyong Ding</a>).</li>
+<code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>: Modified. Fixed bug in <code>iShowAnnuliLabels()</code> (addressed <a href="https://github.com/droglenc/RFishBC/issues/12">#12</a>; thanks to <a href="https://github.com/Otoliths">Liuyong Ding</a>). Allowed first argument to be an <code>RFishBC</code> object saved from <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> (partially addresses <a href="https://github.com/droglenc/RFishBC/issues/16">#16</a>; thanks to <a href="https://github.com/jcdoll79">Jason Doll</a>). Changed <code>nm=</code> to <code>nms=</code> to be consistent with <code><a href="../reference/combineData.html">combineData()</a></code>.</li>
 </ul>
 </div>
     <div id="rfishbc-0-0-9-18-may-18" class="section level1">
@@ -194,16 +205,16 @@
 <ul>
 <li>Updated tests.</li>
 <li>
-<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Added ability (using <code>iSelectPt()</code>) to delete points after selection for scale-bar, transect, and annuli selection. This removed the use of <code>locator()</code> and thus key-presses are used to terminate the selection of points. Added the <code>pch.del=</code> and <code>col.del=</code> arguments. Removed the <code>orig.pts</code> data.frame from the returned object.</li>
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Added ability (using <code><a href="../reference/FSA-internals.html">iSelectPt()</a></code>) to delete points after selection for scale-bar, transect, and annuli selection. This removed the use of <code>locator()</code> and thus key-presses are used to terminate the selection of points. Added the <code>pch.del=</code> and <code>col.del=</code> arguments. Removed the <code>orig.pts</code> data.frame from the returned object.</li>
 <li>
-<code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>: Modified. Added ability (using <code>iSelectPt()</code>) to delete points after selection for scale-bar. Added <code>pch.sel=</code>, <code>col.sel=</code>, <code>cex.sel=</code>, <code>pch.del=</code>, and <code>col.del=</code> arguments.</li>
+<code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>: Modified. Added ability (using <code><a href="../reference/FSA-internals.html">iSelectPt()</a></code>) to delete points after selection for scale-bar. Added <code>pch.sel=</code>, <code>col.sel=</code>, <code>cex.sel=</code>, <code>pch.del=</code>, and <code>col.del=</code> arguments.</li>
 <li>
 <code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code>: Modified. Added the <code>pch.del=</code> and <code>col.del=</code> arguments. Removed <code>pch.show2=</code>, <code>col.show2=</code>, and <code>cex.show2=</code>
 </li>
 <li>
 <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>: Modified. Removed the ability to show the original (before snapping to the transect) points. Thus, removed <code>showOrigPts=</code>, <code>pch.show2=</code>, <code>col.show2=</code>, and <code>cex.show2=</code>.</li>
 <li>
-<code>iSelectPt()</code>: Added.</li>
+<code><a href="../reference/FSA-internals.html">iSelectPt()</a></code>: Added.</li>
 </ul>
 </div>
     <div id="rfishbc-0-0-6-9-may-18" class="section level1">
@@ -331,7 +342,8 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#rfishbc-0-0-9-9000-ongoing">0.0.9.9000</a></li>
+        <li><a href="#rfishbc-0-0-10-9000-ongoing">0.0.10.9000</a></li>
+        <li><a href="#rfishbc-0-0-10-ongoing">0.0.10</a></li>
         <li><a href="#rfishbc-0-0-9-18-may-18">0.0.9</a></li>
         <li><a href="#rfishbc-0-0-8-13-may-18">0.0.8</a></li>
         <li><a href="#rfishbc-0-0-7-10-may-18">0.0.7</a></li>

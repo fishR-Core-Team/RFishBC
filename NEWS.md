@@ -1,4 +1,6 @@
-# RFishBC 0.0.9.9000 ongoing
+# RFishBC 0.0.10.9000 ongoing
+
+# RFishBC 0.0.10 ongoing
 * Added CITATION file.
 * Added hex sticker.
 * Added workflow vignette.
