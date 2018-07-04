@@ -12,10 +12,12 @@ digitizeRadii("Scale_2.jpg",id="2",reading="DHO",edgeIsAnnulus=FALSE)
 #### Some tests of these functions
 showDigitizedImage("Scale_1_DHO.rds")
 showDigitizedImage(c("Scale_1_DHO.rds","Scale_1_DHO2.rds","Scale_1_DHO3.rds"))
-showDigitizedImage()  # choose one file and then choose the three
+showDigitizedImage()      # choose one file and then choose the three
+showDigitizedImage(junk)  # uses the object created above
 combineData("Scale_1_DHO.rds")
 combineData(c("Scale_1_DHO.rds","Scale_1_DHO2.rds","Scale_1_DHO3.rds"))
-combineData()  # choose one file and then choose the two
+combineData()             # choose one file and then choose the three
+combineData(junk)         # uses the object created above
 
 ## Process the otolith
 digitizeRadii("Oto140306.jpg",id="140306",reading="DHO",

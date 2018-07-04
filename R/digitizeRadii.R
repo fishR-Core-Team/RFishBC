@@ -166,7 +166,7 @@ digitizeRadii <- function(img,id,reading,suffix,
 
   ## User selects a transect on the image ======================================
   NOTE("Select the FOCUS (center) and MARGIN (edge) of the structure.")
-  trans.pts <- iSelectPt("Select FOCUS and MARGIN:",msg2,
+  trans.pts <- iSelectPt(2,"Select FOCUS and MARGIN:",msg2,
                          pch.sel=pch.sel,col.sel=col.sel,cex.sel=cex.sel,
                          pch.del=pch.del,col.del=col.del,
                          snap2Transect=FALSE,slpTransect=NULL,
@@ -187,7 +187,7 @@ digitizeRadii <- function(img,id,reading,suffix,
   
   ## User selects annuli on the image ==========================================
   NOTE("Select points that are annuli.")
-  pts <- iSelectPt("Select ANNULI:",msg2,
+  pts <- iSelectPt(NULL,"Select ANNULI:",msg2,
                    pch.sel=pch.sel,col.sel=col.sel,cex.sel=cex.sel,
                    pch.del=pch.del,col.del=col.del,
                    snap2Transect=snap2Transect,slpTransect=slpTransect,
@@ -237,46 +237,6 @@ digitizeRadii <- function(img,id,reading,suffix,
 ##   others shared with other functions in RFishBC-internals
 ## =====================================================================
 ########################################################################
-
-########################################################################
-## Allows the user to interactively select a point on the image. User
-## can de-select a point with a key press and must select a key to
-## identify that they are done selecting points.
-########################################################################
-iSelectPt <- function(msg1,msg2,
-                      pch.sel,col.sel,cex.sel,
-                      pch.del,col.del,
-                      snap2Transect,slpTransect,intTransect,slpPerpTransect) {
-  ## Internal function for handling mouse down event
-  mouseDown <- function(buttons,x,y) {
-    tmp <- data.frame(x=graphics::grconvertX(x,"ndc","user"),
-                      y=graphics::grconvertY(y,"ndc","user"))
-    if (snap2Transect) 
-      tmp <- iSnap2Transect(tmp,slpTransect,intTransect,slpPerpTransect)
-    graphics::points(y~x,data=tmp,pch=pch.sel,col=col.sel,cex=cex.sel)
-    dat <<- rbind(dat,tmp)
-    NULL
-  }
-  ## Internal function for handling key press event
-  keyPress <- function(key) {
-    if (key %in% c("f","q")) return(invisible(1))
-    if (key %in% c("d","r")) {
-      n <- nrow(dat)
-      if (n>=1) {
-        graphics::points(y~x,data=dat[n,],pch=pch.del,col=col.del,cex=cex.sel)
-        dat <<- dat[-n,]
-      }
-      NULL
-    }
-  }
-  ## Main function
-  dat <- data.frame(x=NULL,y=NULL)
-  grDevices::getGraphicsEvent(paste0(msg1,msg2),consolePrompt=msg2,
-                              onMouseDown=mouseDown,onKeybd=keyPress)
-  dat
-}
-
-
 
 ########################################################################
 ## Convert selected x-y points to radial measurements
