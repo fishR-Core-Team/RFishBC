@@ -4,3 +4,5 @@
 
 # Temporary plots from running tests
 tests/testthat/Rplots*.*
+# Documentation folder (because using Travis-CI autodocumentation for webpage)
+dogs/*

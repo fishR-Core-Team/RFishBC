@@ -1,4 +1,5 @@
 # RFishBC 0.0.10.9000 ongoing
+* Set TravisCI to auto-update the webpage documentation ([See this](https://www.datacamp.com/community/tutorials/cd-package-docs-pkgdown-travis))
 
 # RFishBC 0.0.10 3-July-18
 * Added CITATION file.
