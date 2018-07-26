@@ -5,4 +5,6 @@
 # Temporary plots from running tests
 tests/testthat/Rplots*.*
 # Documentation folder (because using Travis-CI autodocumentation for webpage)
-dogs/*
+docs/*
+# RDS files for vignettes (can be re-made from code)
+vignettes/MeasureRadii/*.rds
