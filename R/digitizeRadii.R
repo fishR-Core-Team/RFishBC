@@ -12,6 +12,7 @@
 #' @param windowSize See details in \code{\link{RFBCoptions}}.
 #' @param closeWindow See details in \code{\link{RFBCoptions}}.
 #' @param popID See details in \code{\link{RFBCoptions}}.
+#' @param IDpattern See details in \code{\link{RFBCoptions}}.
 #' @param scaleBar See details in \code{\link{RFBCoptions}}.
 #' @param scaleBarLength See details in \code{\link{RFBCoptions}}.
 #' @param col.scaleBar See details in \code{\link{RFBCoptions}}.
@@ -66,7 +67,7 @@
 #' ## See the link to the extensive documentation in the Details.
 #' 
 digitizeRadii <- function(img,id,reading,suffix,
-                          description,edgeIsAnnulus,popID,
+                          description,edgeIsAnnulus,popID,IDpattern,
                           sepWindow,windowSize,closeWindow,
                           scaleBar,scaleBarLength,col.scaleBar,lwd.scaleBar,
                           scalingFactor,showTransect,snap2Transect,
@@ -83,6 +84,7 @@ digitizeRadii <- function(img,id,reading,suffix,
   if (!is.logical(edgeIsAnnulus))
     STOP("'edgeIsAnnulus' must be TRUE or FALSE.")
   if (missing(popID)) popID <- iGetopt("popID")
+  if (missing(IDpattern)) IDpattern <- iGetopt("IDpattern")
   if (missing(scaleBar)) scaleBar <- iGetopt("scaleBar")
   if (missing(scaleBarLength)) scaleBarLength <- iGetopt("scaleBarLength")
   if (missing(scalingFactor)) scalingFactor <- iGetopt("scalingFactor")
@@ -130,8 +132,10 @@ digitizeRadii <- function(img,id,reading,suffix,
     if (grepl('w|W', .Platform$OS.type)) {
       ## we are on Windows ... use a windows dialog box
       ## use img name as the default if popID=TRUE
+      initID <- tryCatch(getID(img,IDpattern),
+                         error=function(e) tools::file_path_sans_ext(img))
       id <- utils::winDialogString("Enter a unique ID: ",
-                                   ifelse(popID,tools::file_path_sans_ext(img),""))
+                                   ifelse(popID,initID,""))
     } else {
       ## Not on Windows ... use prompt in console if in interactive session
       if (interactive()) id <- readline(prompt="Enter a unique ID: ")

@@ -17,6 +17,7 @@
 #' \item{\code{windowSize}: }{A single numeric used to set the size of the largest dimension for the window in which the structure image is opened if \code{sepWindow=TRUE}. This size will be the width for wider images and the height for taller images. The other dimension will be set relative to this so that the image is displayed in its native aspect ratio. Defaults to 7 inches. Used in \code{\link{digitizeRadii}} and \code{\link{findScalingFactor}}.}
 #' \item{\code{closeWindow}: }{A single logical that indicates whether the structure image should be closed (if it was in a separate window) (\code{=TRUE}) or not (\code{=FALSE}). Defaults to \code{TRUE}. Used in \code{\link{digitizeRadii}} and \code{\link{findScalingFactor}}.}
 #' \item{\code{popID}: }{A single logical that indicates if the fish ID dialog box (only on Windows if no \code{ID} is given in \code{\link{digitizeRadii}}) is populated with the image file name sans the extension. This is useful for when the image name is the fish ID. Defaults to \code{TRUE}. Used in \code{\link{digitizeRadii}}.}
+#' \item{\code{IDpattern}: }{A single regular expression that indicates how to extract a possible fish ID from an image file name. Defaults to selecting all characters after the last underscore in the image file name (sans extension). Used in \code{\link{digitizeRadii}}.}
 #' \item{\code{scalingFactor}: }{A single numeric used to convert measurements on the structure image to actual measurements on the structure. Measurements on the structure image will be multiplied by this value. Ignored if \code{scaleBar=TRUE}. Defaults to \code{1}. Used in \code{\link{digitizeRadii}}.}
 #' \item{\code{scaleBar}: }{A single logical that indicates whether the user will be prompted to select the endpoints of a scale-bar on the structure image. If \code{TRUE}, then must also use \code{scaleBarLength}. If \code{FALSE}, then consider using \code{scalingFactor}. Defaults to \code{FALSE}. Used in \code{\link{digitizeRadii}}.}
 #' \item{\code{scaleBarLength}: }{A single numeric that represents the actual length of the scale-bar. Ignored if \code{scaleBar=FALSE}. Defaults to \code{NULL}; thus, the user must enter a value if \code{scaleBar=TRUE}. Used in \code{\link{digitizeRadii}}.}
@@ -81,7 +82,8 @@ RFBCoptions <- function(reset=FALSE,...) {
 ########################################################################
 iRFBCopts <- settings::options_manager(reading=NULL,description=NULL,
                 suffix=NULL,edgeIsAnnulus=NULL,
-                sepWindow=TRUE,windowSize=7,closeWindow=TRUE,popID=TRUE,
+                sepWindow=TRUE,windowSize=7,closeWindow=TRUE,
+                popID=TRUE,IDpattern='.*\\_',
                 scalingFactor=1,scaleBar=FALSE,scaleBarLength=NULL,
                 col.scaleBar="yellow",lwd.scaleBar=2,
                 showTransect=TRUE,snap2Transect=TRUE,

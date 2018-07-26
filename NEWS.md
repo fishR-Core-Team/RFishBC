@@ -1,5 +1,8 @@
 # RFishBC 0.0.10.9000 ongoing
-* Set TravisCI to auto-update the webpage documentation ([See this](https://www.datacamp.com/community/tutorials/cd-package-docs-pkgdown-travis))
+* Set TravisCI to auto-update the webpage documentation ([See this](https://www.datacamp.com/community/tutorials/cd-package-docs-pkgdown-travis)).
+* `digitizeRadii()`: Modified. Changed so that the dialog box is populated with a better guess at the fish's ID by using `getID()` with the new `IDpattern=`.
+* `getID()`: Added. Part of addressing [#20](https://github.com/droglenc/RFishBC/issues/20).
+* `RFBCOptions()`: Modified. Added `IDpattern=` (Part of addressing [#20](https://github.com/droglenc/RFishBC/issues/20)).
 
 # RFishBC 0.0.10 3-July-18
 * Added CITATION file.

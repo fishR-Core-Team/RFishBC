@@ -1,0 +1,52 @@
+#' @title Extracts a fish identification from a vector of image file names
+#' 
+#' @description This returns a vector of fish identification values from a vector of image file names.
+#' 
+#' @param x A charachter vector of image file names.
+#' @param IDpattern A regular expression used to extract the fish identification value from the image file names in \code{x}. Defaults to extracting all values after the last underscore in the image file name (sans extension).
+#' @param \dots Parameters to be given to \code{\link{sub}}.
+#' 
+#' @seealso \code{\link{listFiles}} and \code{\link{digitizeRadii}}.
+#'
+#' @details By default it assumes that the ID value follows an underscore at the end/tail of image file name (sans extension). Other patterns can be used by giving a suitable regular expression to \code{IDpattern=}. 
+#' 
+#' If the pattern in \code{IDpattern} does not exist in each element of \code{x} then the function will return an error. In other words, the fish identification value must be in the same \dQuote{place} (based on \code{IDpattern}) in EVERY image filename.
+#' 
+#' The list of image file names in a given folder/directory may be obtained with \code{\link{listFiles}}. 
+#'
+#' @return Character vector.
+#' 
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' 
+#' @export
+#'
+#' @examples
+#' ## These are possible vectors of image file names with the fish ID after
+#' ##   the last underscore ... which is the default behavior
+#' ex1 <- c("Scale_1.jpg","Scale_2.jpg")
+#' ex2 <- c("Kiyi_472.bmp","Kiy_567.jpg")
+#' ex3 <- c("PWF_MI345.tiff","PWF_WI567.tiff")
+#' ex4 <- c("LKT_oto_23.jpg","LKT_finray_34.jpg")
+#' 
+#' ## These are extracted fish IDs
+#' getID(ex1)
+#' getID(ex2)
+#' getID(ex3)
+#' getID(ex4)
+#' 
+#' ## These are possible vectors of image file names with the fish ID NOT after
+#' ##   the last underscore. This requires judicious use of the pattern=
+#' ##   argument as used in the sub() function.
+#' 
+#' ### fish ID at the beginning of the name
+#' ex5 <- c("1_Scale.jpg","2_Scale.jpg")
+#' getID(ex5,IDpattern="\\_.*")
+#' ### fish ID between two underscores
+#' 
+getID <- function(x,IDpattern,...) {
+  if (missing(IDpattern)) IDpattern <- iGetopt("IDpattern")
+  patternExists <- all(grepl(IDpattern,x))
+  if (!patternExists) STOP("'IDpattern' not found in all items of 'x'")
+  else res <- sub(pattern=IDpattern,replacement='',x=tools::file_path_sans_ext(x),...)
+  res
+}
