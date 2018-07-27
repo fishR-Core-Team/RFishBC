@@ -5,15 +5,15 @@
 \title{Collect radial measurements from a calcified structure by interactively selecting annuli}
 \usage{
 digitizeRadii(img, id, reading, suffix, description, edgeIsAnnulus, popID,
-  sepWindow, windowSize, closeWindow, scaleBar, scaleBarLength, col.scaleBar,
-  lwd.scaleBar, scalingFactor, showTransect, snap2Transect, col.transect,
-  lwd.transect, pch.sel, col.sel, cex.sel, pch.del, col.del, showInfo, pos.info,
-  cex.info, col.info)
+  IDpattern, sepWindow, windowSize, closeWindow, scaleBar, scaleBarLength,
+  col.scaleBar, lwd.scaleBar, scalingFactor, showTransect, snap2Transect,
+  col.transect, lwd.transect, pch.sel, col.sel, cex.sel, pch.del, col.del,
+  showInfo, pos.info, cex.info, col.info)
 }
 \arguments{
-\item{img}{A string that indicates the image (must be PNG, JPG, BMP, or TIFF) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file. Either way the file must be in the current working directory.}
+\item{img}{A vector of strings that indicates the image (must be PNG, JPG, BMP, or TIFF) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file(s). Alternatively the user can supply the name of the file(s). Either way the file(s) must be in the current working directory.}
 
-\item{id}{A unique identifier for the fish or structure being examined. Will be coerced to a character. If missing you will be prompted to enter a value.}
+\item{id}{A vector of unique identifiers for the fish or structure being examined. Will be coerced to a character. If length of \code{img} is greater than 1, then the length of \code{id} must be the same. If missing then you will be prompted to enter a value.}
 
 \item{reading}{See details in \code{\link{RFBCoptions}}.}
 
@@ -24,6 +24,8 @@ digitizeRadii(img, id, reading, suffix, description, edgeIsAnnulus, popID,
 \item{edgeIsAnnulus}{See details in \code{\link{RFBCoptions}}.}
 
 \item{popID}{See details in \code{\link{RFBCoptions}}.}
+
+\item{IDpattern}{See details in \code{\link{RFBCoptions}}.}
 
 \item{sepWindow}{See details in \code{\link{RFBCoptions}}.}
 
@@ -68,7 +70,7 @@ digitizeRadii(img, id, reading, suffix, description, edgeIsAnnulus, popID,
 \item{col.info}{See details in \code{\link{RFBCoptions}}.}
 }
 \value{
-A list that contains the following:
+Null if more than one file was given in \code{img} or, if only one file was given, a list that contains the following:
 \itemize{
   \item{\code{image}: }{The full filename given in \code{img}.}
   \item{\code{datanm}: }{The R data filename.}

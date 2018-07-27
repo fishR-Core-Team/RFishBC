@@ -2,8 +2,8 @@
 #' 
 #' @description The user interactively select points wit the first moust button on an image of a calcified structure. When finished, radial measurements (from the structure focus to the selected points) are calculated (either with arbitrary units or actual units if a scale-bar is included on the image) and written to an external file for later use.
 #' 
-#' @param img A string that indicates the image (must be PNG, JPG, BMP, or TIFF) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file. Either way the file must be in the current working directory.
-#' @param id A unique identifier for the fish or structure being examined. Will be coerced to a character. If missing you will be prompted to enter a value.
+#' @param img A vector of strings that indicates the image (must be PNG, JPG, BMP, or TIFF) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file(s). Alternatively the user can supply the name of the file(s). Either way the file(s) must be in the current working directory.
+#' @param id A vector of unique identifiers for the fish or structure being examined. Will be coerced to a character. If length of \code{img} is greater than 1, then the length of \code{id} must be the same. If missing then you will be prompted to enter a value.
 #' @param reading See details in \code{\link{RFBCoptions}}.
 #' @param description See details in \code{\link{RFBCoptions}}.
 #' @param suffix See details in \code{\link{RFBCoptions}}.
@@ -12,6 +12,7 @@
 #' @param windowSize See details in \code{\link{RFBCoptions}}.
 #' @param closeWindow See details in \code{\link{RFBCoptions}}.
 #' @param popID See details in \code{\link{RFBCoptions}}.
+#' @param IDpattern See details in \code{\link{RFBCoptions}}.
 #' @param scaleBar See details in \code{\link{RFBCoptions}}.
 #' @param scaleBarLength See details in \code{\link{RFBCoptions}}.
 #' @param col.scaleBar See details in \code{\link{RFBCoptions}}.
@@ -37,7 +38,7 @@
 #'
 #' @seealso \code{\link{showDigitizedImage}} and \code{\link{RFBCoptions}}.
 #'
-#' @return A list that contains the following:
+#' @return Null if more than one file was given in \code{img} or, if only one file was given, a list that contains the following:
 #' \itemize{
 #'   \item{\code{image}: }{The full filename given in \code{img}.}
 #'   \item{\code{datanm}: }{The R data filename.}
@@ -66,7 +67,7 @@
 #' ## See the link to the extensive documentation in the Details.
 #' 
 digitizeRadii <- function(img,id,reading,suffix,
-                          description,edgeIsAnnulus,popID,
+                          description,edgeIsAnnulus,popID,IDpattern,
                           sepWindow,windowSize,closeWindow,
                           scaleBar,scaleBarLength,col.scaleBar,lwd.scaleBar,
                           scalingFactor,showTransect,snap2Transect,
@@ -74,7 +75,7 @@ digitizeRadii <- function(img,id,reading,suffix,
                           pch.sel,col.sel,cex.sel,
                           pch.del,col.del,
                           showInfo,pos.info,cex.info,col.info) {
-  ## Process argument defaults
+  ## Process argument defaults =================================================
   if (missing(reading)) reading <- iGetopt("reading")
   if (missing(description)) description <- iGetopt("description")
   if (missing(suffix)) suffix <- iGetopt("suffix")
@@ -83,6 +84,7 @@ digitizeRadii <- function(img,id,reading,suffix,
   if (!is.logical(edgeIsAnnulus))
     STOP("'edgeIsAnnulus' must be TRUE or FALSE.")
   if (missing(popID)) popID <- iGetopt("popID")
+  if (missing(IDpattern)) IDpattern <- iGetopt("IDpattern")
   if (missing(scaleBar)) scaleBar <- iGetopt("scaleBar")
   if (missing(scaleBarLength)) scaleBarLength <- iGetopt("scaleBarLength")
   if (missing(scalingFactor)) scalingFactor <- iGetopt("scalingFactor")
@@ -120,25 +122,92 @@ digitizeRadii <- function(img,id,reading,suffix,
   if (missing(pos.info)) pos.info <- iGetopt("pos.info")
   if (missing(cex.info)) cex.info <- iGetopt("cex.info")
   if (missing(col.info)) col.info <- iGetopt("col.info")
-  msg2 <- "     Press 'f' when finished, 'd' to delete selection."
-  
+
   ## Handle getting the image filename =========================================
-  img <- iHndlFilenames(img,filter="images",multi=FALSE)
+  img <- iHndlFilenames(img,filter="images",multi=TRUE)
 
   ## Handle the ID =============================================================
   if (missing(id)) {
-    if (grepl('w|W', .Platform$OS.type)) {
-      ## we are on Windows ... use a windows dialog box
-      ## use img name as the default if popID=TRUE
-      id <- utils::winDialogString("Enter a unique ID: ",
-                                   ifelse(popID,tools::file_path_sans_ext(img),""))
+    ## Guess IDs from image file names
+    initID <- tryCatch(getID(img,IDpattern),
+                       error=function(e) tools::file_path_sans_ext(img))
+    ## If only one image then ask user to enter ID,
+    if (length(img)==1) {
+      if (grepl('w|W', .Platform$OS.type)) {
+        ## we are on Windows ... use a windows dialog box
+        ## use img name as the default if popID=TRUE
+        id <- utils::winDialogString("Enter a unique ID: ",
+                                     ifelse(popID,initID,""))
+      } else {
+        ## Not on Windows ... use prompt in console if in interactive session
+        if (interactive()) id <- readline(prompt="Enter a unique ID: ")
+      }
     } else {
-      ## Not on Windows ... use prompt in console if in interactive session
-      if (interactive()) id <- readline(prompt="Enter a unique ID: ")
+      ## Set ID to the initial guesses at IDs when multiple images given
+      id <- initID
     }
-    if (missing(id) | is.null(id)) STOP("You must provide a unique ID in 'id'.")
-  }
+  } else {
+    ## Make sure that img and id have the same length
+    if (length(img)!=length(id))
+      STOP("Lengths of image file names and IDs must be equal.")
+  }  
+  if (missing(id) | is.null(id)) STOP("You must provide a unique ID in 'id'.")
   
+  ## ===========================================================================
+  if (length(img)>1) {
+    ## More than one image to process
+    for (i in seq_along(img)) {
+      digitizeRadii(img[i],id=id[i],reading,suffix,
+                    description,edgeIsAnnulus,popID,IDpattern,
+                    sepWindow,windowSize,closeWindow,
+                    scaleBar,scaleBarLength,col.scaleBar,lwd.scaleBar,
+                    scalingFactor,showTransect,snap2Transect,
+                    col.transect,lwd.transect,
+                    pch.sel,col.sel,cex.sel,
+                    pch.del,col.del,
+                    showInfo,pos.info,cex.info,col.info)
+    }
+    dat <- NULL
+  } else {
+    ## Only one image to process
+    dat <- iDigitizeRadii1(img,id,reading,suffix,
+                           description,edgeIsAnnulus,popID,IDpattern,
+                           sepWindow,windowSize,closeWindow,
+                           scaleBar,scaleBarLength,col.scaleBar,lwd.scaleBar,
+                           scalingFactor,showTransect,snap2Transect,
+                           col.transect,lwd.transect,
+                           pch.sel,col.sel,cex.sel,
+                           pch.del,col.del,
+                           showInfo,pos.info,cex.info,col.info)
+  }
+  invisible(dat)
+}
+
+
+
+########################################################################
+## =====================================================================
+## INTERNAL FUNCTIONS specific to digitizeRadii()
+##   others shared with other functions in RFishBC-internals
+## =====================================================================
+########################################################################
+
+########################################################################
+## Digitize one image
+########################################################################
+iDigitizeRadii1 <- function(img,id,reading,suffix,
+                            description,edgeIsAnnulus,popID,IDpattern,
+                            sepWindow,windowSize,closeWindow,
+                            scaleBar,scaleBarLength,col.scaleBar,lwd.scaleBar,
+                            scalingFactor,showTransect,snap2Transect,
+                            col.transect,lwd.transect,
+                            pch.sel,col.sel,cex.sel,
+                            pch.del,col.del,
+                            showInfo,pos.info,cex.info,col.info) {
+
+  ## Setup a message ===========================================================
+  msg2 <- "     Press 'f' when finished, 'd' to delete selection."
+
   ## Loads image given in img ==================================================
   windowInfo <- iGetImage(img,id,sepWindow,windowSize,
                           showInfo,pos.info,cex.info,col.info)
@@ -163,7 +232,7 @@ digitizeRadii <- function(img,id,reading,suffix,
     scaleBarLength <- NULL
     sfSource <- "Provided"
   }
-
+  
   ## User selects a transect on the image ======================================
   NOTE("Select the FOCUS (center) and MARGIN (edge) of the structure.")
   trans.pts <- iSelectPt(2,"Select FOCUS and MARGIN:",msg2,
@@ -205,7 +274,7 @@ digitizeRadii <- function(img,id,reading,suffix,
   ## Converts selected points to radial measurements ===========================
   radii <- iPts2Rad(pts,edgeIsAnnulus=edgeIsAnnulus,scalingFactor=scalingFactor,
                     pixW2H=windowInfo$pixW2H,id=id,reading=reading)
-
+  
   ## Create a master data object and write to RData file in working directory ==
   #### Name of RData file
   datanm <- paste0(tools::file_path_sans_ext(img),
@@ -229,14 +298,6 @@ digitizeRadii <- function(img,id,reading,suffix,
   invisible(dat)
 }
 
-
-
-########################################################################
-## =====================================================================
-## INTERNAL FUNCTIONS specific to digitizeRadii()
-##   others shared with other functions in RFishBC-internals
-## =====================================================================
-########################################################################
 
 ########################################################################
 ## Convert selected x-y points to radial measurements
