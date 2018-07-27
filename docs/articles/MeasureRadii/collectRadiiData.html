@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">RFishBC</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.10.9000</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.11.9000</span>
       </span>
     </div>
 
@@ -130,7 +130,7 @@
 </div>
 <p> </p>
 <p>Ideally, but not necessarily, the image will also contain an object (e.g., a “scale-bar”) of known length so that actual lengths on the structure can be found. If a scale-bar is absent, then the measured lengths will be on an arbitrary scale (i.e., the actual values will be meaningless but the proportion of the total structure radius to each annulus will be meaningful). An image of a Kiyi otolith with a 1-mm scale-bar is shown in later sections of this vignette.</p>
-<p>The process described herein requires that all images to be processed be in the same directory or folder. To be most efficient (and simple), this directory should contain ONLY image files related to a particular project (e.g., one species for one water body for one year) and all image files should be of the same type (e.g., png or jpg). Additionally, as shown in the <a href="">Processing Multiple Images</a> section below, it may be more efficient if the image file names end with an underscore (i.e., a “_“) followed by the fish’s unique identification number (and then, of course, the file extension).</p>
+<p>The process described herein requires that all images to be processed be in the same directory or folder. To be most efficient (and simple), this directory should contain ONLY image files related to a particular project (e.g., one species for one water body for one year) and all image files should be of the same type (e.g., png or jpg). Additionally, as shown in the <a href="#multipleimages">Processing Multiple Images</a> section below, it may be more efficient if the image file names end with an underscore (i.e., a “_“) followed by the fish’s unique identification number (and then, of course, the file extension).</p>
 <p>The working directory of R should be set to the directory that contains the images with <code>setwd()</code>. The following is an example of setting a working directory in R.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">"c:/work/aging/Kiyi2014"</span>)</code></pre></div>
 <p>The working directory may also be set by interactively selecting the directory through a dialog box using the following code.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
@@ -168,7 +168,7 @@
 <p>The <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> function <strong>requires</strong> only three arguments.</p>
 <ul>
 <li>
-<code>img</code>: File name (or names; see the <a href="">Processing Multiple Images</a> section) for the structure image (or images), which must be in the current working directory. A dialog box will be provided from which the image file (or files) can be selected if this argument is not given and you are on a Windows machine.</li>
+<code>img</code>: File name (or names; see the <a href="#multipleimages">Processing Multiple Images</a> section) for the structure image (or images), which must be in the current working directory. A dialog box will be provided from which the image file (or files) can be selected if this argument is not given and you are on a Windows machine.</li>
 <li>
 <code>id=</code>: The unique identifier (or identifiers if more than one image is provided in <code>img</code>) for the fish/structure(s). If this argument is missing, then the ID can be entered in a dialog box (if using Windows) or in the console. By default, the Windows dialog will be populated with the fish ID if that ID follows an underscore at the end of the filename (sans the extension).</li>
 <li>
