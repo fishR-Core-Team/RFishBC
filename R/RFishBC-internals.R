@@ -47,7 +47,7 @@ NOTE <- function(...,sep="")
 ########################################################################
 iHndlFilenames <- function(nm,filter,multi=TRUE) {
   #### Allow user to select the image from a dialog box.
-  if (missing(nm)) {
+  if (missing(nm)) {                                               # nocov start
     if (grepl('w|W', .Platform$OS.type)) {
       RFBCFilters <- rbind(images=c("Bitmapped image files",
                                     "*.jpg;*.jpeg;*.png;*.tiff;*.tif;*.bmp"),
@@ -60,7 +60,7 @@ iHndlFilenames <- function(nm,filter,multi=TRUE) {
     }
     if (missing(nm) | length(nm)==0)
       STOP("A filename must be provided in the first argument.")
-  }
+  }                                                                  # nocov end
   #### Make sure that the file is in the current working directory
   dn <- dirname(nm[1])
   wd <- getwd()
@@ -93,10 +93,10 @@ iGetImage <- function(fname,id,sepWindow,windowSize,
   if (sepWindow) {
     ## Get window size so image displayed in its native aspect ratio.
     ## Only needed if windowSize contains one value.
-    if (length(windowSize)==1) {
+    if (length(windowSize)==1) {                                   # nocov start
       cf <- dim(img)[2:1]
       windowSize <- windowSize*cf/max(cf) 
-    }
+    }                                                              # nocov end
     tmp <- grDevices::dev.cur()
     ## If a window is already open, close it as its aspect ratio may be wrong 
     if (tmp!=1 & names(tmp)!="RStudioGD") grDevices::dev.off()
@@ -124,7 +124,7 @@ iGetImage <- function(fname,id,sepWindow,windowSize,
 iSelectPt <- function(numPts,msg1,msg2,
                       pch.sel,col.sel,cex.sel,
                       pch.del,col.del,
-                      snap2Transect,slpTransect,intTransect,slpPerpTransect) {
+                      snap2Transect,slpTransect,intTransect,slpPerpTransect) {# nocov start
   ## Internal function for handling mouse down event
   mouseDown <- function(buttons,x,y) {
     tmp <- data.frame(x=graphics::grconvertX(x,"ndc","user"),
@@ -161,7 +161,7 @@ iSelectPt <- function(numPts,msg1,msg2,
   grDevices::getGraphicsEvent(paste0(msg1,msg2),consolePrompt=msg2,
                               onMouseDown=mouseDown,onKeybd=keyPress)
   dat
-}
+}   # nocov end
 
 
 ########################################################################
@@ -170,7 +170,7 @@ iSelectPt <- function(numPts,msg1,msg2,
 iScalingFactorFromScaleBar <- function(msg2,knownLength,pixW2H,
                                        col.scaleBar,lwd.scaleBar,
                                        pch.sel,col.sel,cex.sel,
-                                       pch.del,col.del) {
+                                       pch.del,col.del) {          # nocov start
   sbPts <- iSelectPt(2,"Select ends of scale-bar:",msg2,
                      pch.sel=pch.sel,col.sel=col.sel,cex.sel=cex.sel,
                      pch.del=pch.del,col.del=col.del,
@@ -190,13 +190,13 @@ iScalingFactorFromScaleBar <- function(msg2,knownLength,pixW2H,
     ## Return a list (scaling factor is known / distance between points)
     list(sbPts=sbPts,scalingFactor=knownLength/sqrt(distx^2+disty^2))
   }
-}
+} # nocov end
 
 
 ########################################################################
 ## Places text in txt= on an active plot at a position given in pos=
 ########################################################################
-iPlaceText <- function(txt,pos,cex,col) {
+iPlaceText <- function(txt,pos,cex,col) {   # nocov start
   usr <- graphics::par("usr")
   if (pos=="topleft") {
     graphics::text(usr[1],usr[4],txt,adj=c(0,1),col=col,cex=cex)
@@ -215,7 +215,7 @@ iPlaceText <- function(txt,pos,cex,col) {
   } else if (pos=="left") {
     graphics::text(usr[1],mean(usr[3:4]),txt,adj=c(0,0.5),col=col,cex=cex)
   }
-}
+} # nocov end
 
 
 ########################################################################

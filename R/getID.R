@@ -44,8 +44,7 @@
 #' 
 getID <- function(x,IDpattern,...) {
   if (missing(IDpattern)) IDpattern <- iGetopt("IDpattern")
-  patternExists <- all(grepl(IDpattern,x))
-  if (!patternExists) STOP("'IDpattern' not found in all items of 'x'")
+  if (!all(grepl(IDpattern,x))) STOP("'IDpattern' not found in all items of 'x'")
   else res <- sub(pattern=IDpattern,replacement='',x=tools::file_path_sans_ext(x),...)
   res
 }

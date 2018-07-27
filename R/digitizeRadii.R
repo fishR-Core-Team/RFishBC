@@ -127,7 +127,7 @@ digitizeRadii <- function(img,id,reading,suffix,
   img <- iHndlFilenames(img,filter="images",multi=TRUE)
 
   ## Handle the ID =============================================================
-  if (missing(id)) {
+  if (missing(id)) {                                               # nocov start
     ## Guess IDs from image file names
     initID <- tryCatch(getID(img,IDpattern),
                        error=function(e) tools::file_path_sans_ext(img))
@@ -145,7 +145,7 @@ digitizeRadii <- function(img,id,reading,suffix,
     } else {
       ## Set ID to the initial guesses at IDs when multiple images given
       id <- initID
-    }
+    }                                                             # nocov end
   } else {
     ## Make sure that img and id have the same length
     if (length(img)!=length(id))

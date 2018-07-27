@@ -6,6 +6,8 @@ source("EXS_collectRadii.R")
 test_that("RFBCoptions() error messages",{
   expect_error(RFBCoptions(sepWindow="Derek"),
                "TRUE,FALSE")
+  expect_warning(RFBCoptions(Derek=TRUE),
+                 "Ignoring options not defined in manager")
   expect_error(RFBCoptions(windowSize=0),
                "value out of range")
   expect_error(RFBCoptions(windowSize=31),
@@ -54,10 +56,20 @@ test_that("RFBCoptions() error messages",{
                "value out of range")
 })
 
+test_that("iGetopt() error messages",{
+  expect_error(RFishBC:::iGetopt("Derek"),
+               "is not the name of an option")
+})
 
 test_that("digitizeRadii() error messages",{
   expect_error(digitizeRadii("notRFishBC.rds",edgeIsAnnulus=TRUE,id="1"),
                "does not appear to be a")
+  expect_error(digitizeRadii(c("Scale_1_DHO.rds","Scale_1_DHO2.rds"),id=1,
+               edgeIsAnnulus=TRUE),
+               "Lengths of image file names and IDs must be equal")
+  expect_error(digitizeRadii("testdata/small_ex.jpg",id=1,edgeIsAnnulus=TRUE),
+               "The file MUST be in the current working directory")
+  ## Errors in options arguments  
   expect_error(digitizeRadii(edgeIsAnnulus="derek"),
                "must be TRUE or FALSE")
   expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE),
@@ -86,8 +98,6 @@ test_that("digitizeRadii() error messages",{
                "must be positive")
   expect_error(digitizeRadii(edgeIsAnnulus=TRUE,windowSize=-1),
                "must be positive")
-  expect_error(digitizeRadii("testdata/small_ex.jpg",id=1,edgeIsAnnulus=TRUE),
-               "The file MUST be in the current working directory")
 })
 
 
@@ -147,6 +157,15 @@ test_that("listFiles() messages",{
 
 
 
+test_that("getID() messages",{
+  expect_error(getID(listFiles("jpg",other="Oto")),
+               "not found in all items of")
+  tmp <- c(listFiles("jpg",other="Oto"),listFiles("jpg",other="Scale"))
+  expect_error(getID(tmp),
+               "not found in all items of")
+})
+
+
 
 test_that("bcFuns() messages",{
   expect_error(bcFuns(),
@@ -161,6 +180,10 @@ test_that("bcFuns() messages",{
                "not yet implemented")
   expect_error(bcFuns(5),
                "not yet implemented")
+  expect_error(bcFuns(1:3),
+               "Only one value may be given to")
+  expect_error(bcFuns(c("DALE","FRALE")),
+               "Only one value may be given to")
 })
 
 
@@ -187,7 +210,14 @@ test_that("backCalc() messages",{
                "not yet implemented")
   expect_error(backCalc(BCM=20),
                "not yet implemented")
+  ## Too many selections
+  expect_error(backCalc(SMBassWB,BCM=1:3,inFormat="wide"),
+               "Only one value may be given to")
+  expect_error(backCalc(SMBassWB,BCM=c("DALE","FRALE"),inFormat="wide"),
+               "Only one value may be given to")
   ## Missing parameters
+  expect_error(backCalc(SMBassWB,BCM=3,inFormat="wide"),
+               "Variable with length-at-capture data must be given in 'lencap'")
   expect_error(backCalc(SMBassWB,lencap,BCM=3,inFormat="wide"),
                "value must be provided for 'L0p'")
   expect_error(backCalc(SMBassWB,lencap,BCM=3,inFormat="wide",L0p=1),

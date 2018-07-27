@@ -51,7 +51,7 @@ findScalingFactor <- function(img,knownLength,
   ## Read the image
   windowInfo <- iGetImage(img,id=NULL,sepWindow=sepWindow,
                           windowSize=windowSize,showInfo=FALSE,
-                          pos.info=NULL,cex.info=NULL,col.info=NULL)
+                          pos.info=NULL,cex.info=NULL,col.info=NULL) # nocov start
   NOTE("Select the endpoints of the scale-bar.")
   msg2 <- "     Press 'f' when finished, 'd' to delete selection."
   SF <- iScalingFactorFromScaleBar(msg2,knownLength,windowInfo$pixW2H,
@@ -61,5 +61,5 @@ findScalingFactor <- function(img,knownLength,
                                    pch.del,col.del)
   if (sepWindow & closeWindow) grDevices::dev.off()
   SF$scalingFactor
-}
+} # nocov end
 

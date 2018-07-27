@@ -3,6 +3,13 @@ context("RFishBC OUTPUTS")
 source("EXS_collectRadii.R")
 source("EXS_growthUtils.R")
 
+test_that("RFBCoptions() reset works",{
+  tmp <- RFBCoptions()
+  RFBCoptions(sepWindow=FALSE)
+  expect_false(RFBCoptions()$sepWindow)
+  expect_equal(tmp,RFBCoptions(reset=TRUE))
+})
+
 test_that("RFBCoptions() important defaults",{
   expect_true(is.null(RFBCoptions()$reading))
   expect_true(is.null(RFBCoptions()$description))
@@ -180,6 +187,21 @@ test_that("listFiles() output",{
 
 
 
+test_that("getID() output",{
+  tmp <- listFiles("jpg",other="Scale")
+  expect_equal(getID(tmp),c("1","2"))
+  expect_type(getID(tmp),"character")
+  tmp <- c("PWF_MI345.tiff","PWF_WI567.tiff")
+  expect_equal(getID(tmp),c("MI345","WI567"))
+  expect_type(getID(tmp),"character")
+  tmp <- c("LKT_oto_23.jpg","LKT_finray_34.jpg")
+  expect_equal(getID(tmp),c("23","34"))
+  tmp <- c("1_Scale.jpg","2_Scale.jpg")
+  expect_equal(getID(tmp,IDpattern="\\_.*"),c("1","2"))
+})
+
+
+
 test_that("bcFuns() output types",{
   ## List all choices for bcFuns() (TVG is not included because it
   ## is not yet implemented)
@@ -191,6 +213,52 @@ test_that("bcFuns() output types",{
   ## Do all choices (by number and name) return a function
   for (i in c(1:4,6:22)) expect_is(bcFuns(i),"function")
   for (i in tmp) expect_is(bcFuns(i),"function")
+})
+
+
+test_that("bcFuns() function results messages",{
+  tmp <- bcFuns(1)
+  expect_true(any(grepl("Dahl-Lea",capture.output(tmp(1,2,3,verbose=TRUE)))))
+  tmp <- bcFuns(2)
+  expect_true(any(grepl("Fraser-Lee",capture.output(tmp(1,2,3,4,verbose=TRUE)))))
+  tmp <- bcFuns(3)
+  expect_true(any(grepl("Biological Intercept",capture.output(tmp(1,2,3,4,5,verbose=TRUE)))))
+  tmp <- bcFuns(4)
+  expect_true(any(grepl("Linear BPH",capture.output(tmp(1,2,3,4,5,verbose=TRUE)))))
+  tmp <- bcFuns(6)
+  expect_true(any(grepl("Linear SPH",capture.output(tmp(1,2,3,4,5,verbose=TRUE)))))
+  tmp <- bcFuns(7)
+  expect_true(any(grepl("Age-Effects SPH",capture.output(tmp(1,2,3,4,5,6,7,8,verbose=TRUE)))))
+  tmp <- bcFuns(8)
+  expect_true(any(grepl("Age-Effects BPH",capture.output(tmp(1,2,3,4,5,6,7,8,verbose=TRUE)))))
+  tmp <- bcFuns(9)
+  expect_true(any(grepl("Monastrysky",capture.output(tmp(1,2,3,4,verbose=TRUE)))))
+  tmp <- bcFuns(10)
+  expect_true(any(grepl("non-linear Monastrysky BPH",capture.output(tmp(1,2,3,4,verbose=TRUE)))))
+  tmp <- bcFuns(11)
+  expect_true(any(grepl("non-linear Monastrysky SPH",capture.output(tmp(1,2,3,4,5,verbose=TRUE)))))
+  tmp <- bcFuns(12)
+  expect_true(any(grepl("Watanabe and Kuroki",capture.output(tmp(1,2,3,4,5,verbose=TRUE)))))
+  tmp <- bcFuns(13)
+  expect_true(any(grepl("Fry",capture.output(tmp(5,4,3,2,1,1,verbose=TRUE)))))
+  tmp <- bcFuns(14)
+  expect_true(any(grepl("Modified Fry",capture.output(tmp(5,4,3,2,1,1,verbose=TRUE)))))
+  tmp <- bcFuns(15)
+  expect_true(any(grepl("Fry BPH",capture.output(tmp(5,4,3,2,1,1,verbose=TRUE)))))
+  tmp <- bcFuns(16)
+  expect_true(any(grepl("Fry SPH",capture.output(tmp(5,4,3,2,1,1,verbose=TRUE)))))
+  tmp <- bcFuns(17)
+  expect_true(any(grepl("Quadratic BPH",capture.output(tmp(5,4,3,2,1,1,verbose=TRUE)))))
+  tmp <- bcFuns(18)
+  expect_true(any(grepl("Quadratic SPH",capture.output(tmp(5,4,3,2,1,1,verbose=TRUE)))))
+  tmp <- bcFuns(19)
+  expect_true(any(grepl("Polynomial BPH",capture.output(tmp(5,4,3,2,1,1,verbose=TRUE)))))
+  tmp <- bcFuns(20)
+  expect_true(any(grepl("Polynomial SPH",capture.output(tmp(5,4,3,2,1,1,verbose=TRUE)))))
+  tmp <- bcFuns(21)
+  expect_true(any(grepl("Exponential BPH",capture.output(tmp(5,4,3,2,1,1,verbose=TRUE)))))
+  tmp <- bcFuns(22)
+  expect_true(any(grepl("Exponential SPH",capture.output(tmp(5,4,3,2,1,1,verbose=TRUE)))))
 })
 
 
@@ -346,3 +414,15 @@ test_that("addRadCap() output",{
   tmp <- addRadCap(tmp,in.pre="inc",var.name="newRadCap")
   expect_equal(tmp$radcap,tmp$newRadCap)
 })
+
+test_that("Miscellaneous internals output",{
+  msg <- "Hello Derek"
+  tmp <- capture.output(RFishBC:::DONE(msg))
+  expect_true(grepl(msg,tmp))
+  expect_true(grepl("2714",tmp))  ## check for tick symbol
+  tmp <- capture.output(RFishBC:::NOTE(msg))
+  expect_true(grepl(msg,tmp))
+  expect_true(grepl("2630",tmp))  ## check for menu symbol
+  
+  
+})  

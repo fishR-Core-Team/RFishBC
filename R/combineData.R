@@ -22,11 +22,11 @@ combineData <- function(nms,outFormat=c("long","wide"),deletePlusGrowth=TRUE) {
   outFormat <- match.arg(outFormat)
   d <- ann <- rad <- NULL  ## Trying to avoid no visible binding note
   ## If nms is missing then allow the user to choose a file
-  if (missing(nms)) nms <- iHndlFilenames(nms,filter="RData",multi=TRUE)
+  if (missing(nms)) nms <- iHndlFilenames(nms,filter="RData",multi=TRUE) # nocov
   ## If nms is an RFishBC object (and not a filename) then extract the radii
   ##   otherwise extract the radii from the file(s)
   if (inherits(nms,"RFishBC")) {
-    d <- nms$radii
+    d <- nms$radii                                                       # nocov
   } else {
     ## Row-bind radii data.frames from dat object loaded from the RData files
     for (i in seq_along(nms)) {

@@ -153,7 +153,7 @@ bcFuns <- function(BCM) {
       }
   } else if (BCM==18) {
       function(Lcap,Ri,Rcap,A,B,C,...,verbose=TRUE) { 
-        if (verbose) DONE("Using the Quadratic BPH model with A=",A," B=",B,
+        if (verbose) DONE("Using the Quadratic SPH model with A=",A," B=",B,
                           " and C=",C,".")
         cf1 <- B
         cf2 <- C

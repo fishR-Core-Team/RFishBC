@@ -56,10 +56,10 @@ showDigitizedImage <- function(nms,sepWindow,
   
   ## Get image file names ######################################################
   ## If nms is missing then allow the user to choose a file or files
-  if (missing(nms)) nms <- iHndlFilenames(nms,filter="RData",multi=TRUE)
+  if (missing(nms)) nms <- iHndlFilenames(nms,filter="RData",multi=TRUE) # nocov
   ## If nms is an RFishBC object (and not a filename) then extract the 
   ##   filename otherwise process the filename(s)
-  if (inherits(nms,"RFishBC")) nms <- nms$datanm
+  if (inherits(nms,"RFishBC")) nms <- nms$datanm                         # nocov
     else nms <- iHndlFilenames(nms,filter="RData",multi=TRUE)
   ## Prepare for multiple readings #############################################
   num2do <- length(nms)
@@ -111,7 +111,7 @@ showDigitizedImage <- function(nms,sepWindow,
 ## Show annuli numbers on the showDigitizedImage() image
 ##
 ########################################################################
-iShowAnnuliLabels <- function(dat,annuliLabels,col.ann,cex.ann) {
+iShowAnnuliLabels <- function(dat,annuliLabels,col.ann,cex.ann) { # nocov start
   ## Get points to plot
   pts <- dat$pts
   
@@ -142,5 +142,5 @@ iShowAnnuliLabels <- function(dat,annuliLabels,col.ann,cex.ann) {
   #### put the labels on the plot
   graphics::text(y~x,data=dat$pts,labels=lbls,font=2,
                  col=col.ann,cex=cex.ann,pos=pos)
-}
+} # nocov end
 

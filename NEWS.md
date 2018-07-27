@@ -1,5 +1,8 @@
 # RFishBC 0.0.11.9000 ongoing
+* Excluded many of the interactive lines from the coverage statistics. Updated other tests (aiming for comprehensiveness).
+* `bcFuns()`: Modified. Fixed bug in `verbose=` result when `BCM=18`.
 * `listFiles()`: Modified. Fixed bug related to `ignore.case=`.
+* `getID()`: Modified. Slightly simplified code. Added tests.
 
 # RFishBC 0.0.11 26-Jul-18
 * Set TravisCI to auto-update the webpage documentation ([See this](https://www.datacamp.com/community/tutorials/cd-package-docs-pkgdown-travis)).
