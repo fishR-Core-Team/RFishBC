@@ -1,4 +1,5 @@
 # RFishBC 0.0.11.9000 ongoing
+* `listFiles()`: Modified. Fixed bug related to `ignore.case=`.
 
 # RFishBC 0.0.11 26-Jul-18
 * Set TravisCI to auto-update the webpage documentation ([See this](https://www.datacamp.com/community/tutorials/cd-package-docs-pkgdown-travis)).

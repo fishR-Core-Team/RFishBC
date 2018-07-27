@@ -4,37 +4,62 @@ source("EXS_growthUtils.R")
 source("EXS_collectRadii.R")
 
 test_that("RFBCoptions() error messages",{
-  expect_error(RFBCoptions(sepWindow="Derek"),"TRUE,FALSE")
-  expect_error(RFBCoptions(windowSize=0),"value out of range")
-  expect_error(RFBCoptions(windowSize=31),"value out of range")
-  expect_error(RFBCoptions(closeWindow="Derek"),"TRUE,FALSE")
-  expect_error(RFBCoptions(popID="Derek"),"TRUE,FALSE")
-  expect_error(RFBCoptions(scalingFactor=0),"value out of range")
-  expect_error(RFBCoptions(scaleBar="Derek"),"TRUE,FALSE")
-  expect_error(RFBCoptions(lwd.scaleBar=0),"value out of range")
-  expect_error(RFBCoptions(lwd.scaleBar=11),"value out of range")
-  expect_error(RFBCoptions(showTransect="Derek"),"TRUE,FALSE")
-  expect_error(RFBCoptions(snap2Transect="Derek"),"TRUE,FALSE")
-  expect_error(RFBCoptions(lwd.transect=0),"value out of range")
-  expect_error(RFBCoptions(lwd.transect=11),"value out of range")
-  expect_error(RFBCoptions(cex.sel=0),"value out of range")
-  expect_error(RFBCoptions(cex.sel=11),"value out of range")
-  expect_error(RFBCoptions(cex.show=0),"value out of range")
-  expect_error(RFBCoptions(cex.show=11),"value out of range")
-  expect_error(RFBCoptions(showInfo="Derek"),"TRUE,FALSE")
-  expect_error(RFBCoptions(pos.info="Derek"),"value out of range")
-  expect_error(RFBCoptions(cex.info=0),"value out of range")
-  expect_error(RFBCoptions(cex.info=11),"value out of range")
-  expect_error(RFBCoptions(showAnnuliLabels="Derek"),"TRUE,FALSE")
-  expect_error(RFBCoptions(cex.ann=0),"value out of range")
-  expect_error(RFBCoptions(cex.ann=11),"value out of range")
+  expect_error(RFBCoptions(sepWindow="Derek"),
+               "TRUE,FALSE")
+  expect_error(RFBCoptions(windowSize=0),
+               "value out of range")
+  expect_error(RFBCoptions(windowSize=31),
+               "value out of range")
+  expect_error(RFBCoptions(closeWindow="Derek"),
+               "TRUE,FALSE")
+  expect_error(RFBCoptions(popID="Derek"),
+               "TRUE,FALSE")
+  expect_error(RFBCoptions(scalingFactor=0),
+               "value out of range")
+  expect_error(RFBCoptions(scaleBar="Derek"),
+               "TRUE,FALSE")
+  expect_error(RFBCoptions(lwd.scaleBar=0),
+               "value out of range")
+  expect_error(RFBCoptions(lwd.scaleBar=11),
+               "value out of range")
+  expect_error(RFBCoptions(showTransect="Derek"),
+               "TRUE,FALSE")
+  expect_error(RFBCoptions(snap2Transect="Derek"),
+               "TRUE,FALSE")
+  expect_error(RFBCoptions(lwd.transect=0),
+               "value out of range")
+  expect_error(RFBCoptions(lwd.transect=11),
+               "value out of range")
+  expect_error(RFBCoptions(cex.sel=0),
+               "value out of range")
+  expect_error(RFBCoptions(cex.sel=11),
+               "value out of range")
+  expect_error(RFBCoptions(cex.show=0),
+               "value out of range")
+  expect_error(RFBCoptions(cex.show=11),
+               "value out of range")
+  expect_error(RFBCoptions(showInfo="Derek"),
+               "TRUE,FALSE")
+  expect_error(RFBCoptions(pos.info="Derek"),
+               "value out of range")
+  expect_error(RFBCoptions(cex.info=0),
+               "value out of range")
+  expect_error(RFBCoptions(cex.info=11),
+               "value out of range")
+  expect_error(RFBCoptions(showAnnuliLabels="Derek"),
+               "TRUE,FALSE")
+  expect_error(RFBCoptions(cex.ann=0),
+               "value out of range")
+  expect_error(RFBCoptions(cex.ann=11),
+               "value out of range")
 })
 
 
 test_that("digitizeRadii() error messages",{
   expect_error(digitizeRadii("notRFishBC.rds",edgeIsAnnulus=TRUE,id="1"),
                "does not appear to be a")
-  expect_error(digitizeRadii(edgeIsAnnulus="derek"),"must be TRUE or FALSE")
+  expect_error(digitizeRadii(edgeIsAnnulus="derek"),
+               "must be TRUE or FALSE")
   expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE),
                "Must provide a")
   expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE,scaleBarLength=0),
@@ -68,8 +93,10 @@ test_that("digitizeRadii() error messages",{
 
 
 test_that("combineData() messages",{
-  expect_error(combineData("small_ex.jpg"),"not an RData file")
-  expect_error(combineData("notRFishBC.rds"),"does not appear to be from")
+  expect_error(combineData("small_ex.jpg"),
+               "not an RData file")
+  expect_error(combineData("notRFishBC.rds"),
+               "does not appear to be from")
   expect_error(combineData("Scale_1_DHO.rds",outFormat="Derek"),
                "should be one of")
 })
@@ -77,14 +104,17 @@ test_that("combineData() messages",{
 
 
 test_that("showDigitizedImage() messages",{
-  expect_error(showDigitizedImage("small_ex.jpg"),"not an RData file")
-  expect_error(showDigitizedImage("notRFishBC.rds"),"does not appear to be from")
+  expect_error(showDigitizedImage("small_ex.jpg"),
+               "not an RData file")
+  expect_error(showDigitizedImage("notRFishBC.rds"),
+               "does not appear to be from")
   expect_error(showDigitizedImage(c("Scale_1_DHO.rds","Scale_2_DHO.rds")),
                "from different structure images")
   expect_error(showDigitizedImage(c("Scale_1_DHO.rds","Oto140306_DHO.rds")),
                "from different structure images")
   expect_error(showDigitizedImage("Oto140306_DHO.rds",showAnnuliLabels=FALSE,
-                                  annuliLabels=1:3),"not needed when")
+                                  annuliLabels=1:3),
+               "not needed when")
 })
 
 
@@ -92,45 +122,71 @@ test_that("showDigitizedImage() messages",{
 test_that("findScalingFactor() error messages",{
   expect_error(findScalingFactor("Scale_1_DHO.rds",knownLength=1),
                "does not appear to be a")
-  expect_error(findScalingFactor("Scale_1.jpg"),"Must provide a 'knownLength'")
-  expect_error(findScalingFactor("Scale_1.jpg",knownLength=-1),"must be positive")
-  expect_error(findScalingFactor("Scale_1.jpg",knownLength=0),"must be positive")
+  expect_error(findScalingFactor("Scale_1.jpg"),
+               "Must provide a 'knownLength'")
+  expect_error(findScalingFactor("Scale_1.jpg",knownLength=-1),
+               "must be positive")
+  expect_error(findScalingFactor("Scale_1.jpg",knownLength=0),
+               "must be positive")
 })
 
 
 
 test_that("listFiles() messages",{
-  expect_error(listFiles("bmp"),"No files have a")
-  expect_error(listFiles(c("rds","jpg")),"can take only one string")
-  expect_error(listFiles("rds",path=c("c:","c:\\temp")),"can take only one string")
-  expect_error(listFiles("rds",other="Derek"),"contain the patterns given in")
+  expect_error(listFiles("bmp"),
+               "No files have a")
+  expect_error(listFiles(c("rds","jpg")),
+               "can take only one string")
+  expect_error(listFiles("rds",path=c("c:","c:\\temp")),
+               "can take only one string")
+  expect_error(listFiles("rds",other="Derek"),
+               "contain the patterns given in")
+  expect_error(listFiles("rds",other="scale",ignore.case=FALSE),
+               "contain the patterns given in")
 })
 
 
 
+
 test_that("bcFuns() messages",{
-  expect_error(bcFuns(),"must be chosen")
-  expect_error(bcFuns(0),"BCM number must be")
-  expect_error(bcFuns(23),"BCM number must be")
-  expect_error(bcFuns("Derek"),"must be one of")
-  expect_error(bcFuns("TVG"),"not yet implemented")
-  expect_error(bcFuns(5),"not yet implemented")
+  expect_error(bcFuns(),
+               "must be chosen")
+  expect_error(bcFuns(0),
+               "BCM number must be")
+  expect_error(bcFuns(23),
+               "BCM number must be")
+  expect_error(bcFuns("Derek"),
+               "must be one of")
+  expect_error(bcFuns("TVG"),
+               "not yet implemented")
+  expect_error(bcFuns(5),
+               "not yet implemented")
 })
 
 
 test_that("backCalc() messages",{
   ## Same messages as bcFuns()
-  expect_error(backCalc(),"must be chosen")
-  expect_error(backCalc(BCM=0),"BCM number must be")
-  expect_error(backCalc(BCM=23),"BCM number must be")
-  expect_error(backCalc(BCM="Derek"),"must be one of")
+  expect_error(backCalc(),
+               "must be chosen")
+  expect_error(backCalc(BCM=0),
+               "BCM number must be")
+  expect_error(backCalc(BCM=23),
+               "BCM number must be")
+  expect_error(backCalc(BCM="Derek"),
+               "must be one of")
   ## Some back-calculation models not yet implemented
-  expect_error(backCalc(BCM="TVG"),"not yet implemented")
-  expect_error(backCalc(BCM=5),"not yet implemented")
-  expect_error(backCalc(BCM="PBPH"),"not yet implemented")
-  expect_error(backCalc(BCM=19),"not yet implemented")
-  expect_error(backCalc(BCM="PSPH"),"not yet implemented")
-  expect_error(backCalc(BCM=20),"not yet implemented")
+  expect_error(backCalc(BCM="TVG"),
+               "not yet implemented")
+  expect_error(backCalc(BCM=5),
+               "not yet implemented")
+  expect_error(backCalc(BCM="PBPH"),
+               "not yet implemented")
+  expect_error(backCalc(BCM=19),
+               "not yet implemented")
+  expect_error(backCalc(BCM="PSPH"),
+               "not yet implemented")
+  expect_error(backCalc(BCM=20),
+               "not yet implemented")
   ## Missing parameters
   expect_error(backCalc(SMBassWB,lencap,BCM=3,inFormat="wide"),
                "value must be provided for 'L0p'")
@@ -153,7 +209,8 @@ test_that("backCalc() messages",{
   expect_error(backCalc(SMBassWB,lencap,BCM=14,inFormat="wide",L0p=1,R0p=1),
                "value must be provided for 'a'")
   ## Missing or bad inFormat or inFormat
-  expect_error(backCalc(SMBassWB,lencap,BCM=3),"'inFormat' must be")
+  expect_error(backCalc(SMBassWB,lencap,BCM=3),
+               "'inFormat' must be")
   expect_error(backCalc(SMBassWB,lencap,BCM=3,inFormat="derek"),
                "'inFormat' must be")
   expect_error(backCalc(SMBassWB,lencap,BCM=3,inFormat="wide",outFormat="derek"),
@@ -162,9 +219,12 @@ test_that("backCalc() messages",{
 
 
 test_that("aStandard() messages",{
-  expect_error(aStandard(),"must be one of")
-  expect_error(aStandard("Derek"),"must be one of")
-  expect_error(aStandard(c("Walleye","Bluegill")),"have only one name in")
+  expect_error(aStandard(),
+               "must be one of")
+  expect_error(aStandard("Derek"),
+               "must be one of")
+  expect_error(aStandard(c("Walleye","Bluegill")),
+               "have only one name in")
 })
 
 
@@ -173,7 +233,8 @@ test_that("gConvert() messages",{
   expect_error(gConvert(SMBassWB,in.pre="rad",out.type="anu"),
                "should be one of")
   ## Neither or both of in.var= or in.pre= 
-  expect_error(gConvert(SMBassWB),"must use one of")
+  expect_error(gConvert(SMBassWB),
+               "must use one of")
   expect_warning(gConvert(SMBassWB,in.pre="rad",in.var=c("rad1","rad2")),
                  "Both 'in.var='")
   ## Variable does not exist
@@ -190,7 +251,8 @@ test_that("gConvert() messages",{
 
 test_that("addRadCap() messages",{
   ## Neither or both of in.var= or in.pre= 
-  expect_error(addRadCap(SMBassWB),"must use one of")
+  expect_error(addRadCap(SMBassWB),
+               "must use one of")
   expect_warning(addRadCap(SMBassWB,in.pre="rad",in.var=c("rad1","rad2")),
                  "Both 'in.var='")
   ## Variable does not exist

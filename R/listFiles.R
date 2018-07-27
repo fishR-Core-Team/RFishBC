@@ -33,10 +33,7 @@ listFiles <- function(ext,other=NULL,path=".",ignore.case=TRUE,...) {
   if (length(tmp)<1) STOP("No files have a ",ext," extension.")
   ## Potentially reduce that list to those that match strings in other
   if (!is.null(other)) {
-    for (i in seq_along(other)) {
-      if (ignore.case) tmp <- tmp[grepl(tolower(other[i]),tolower(tmp))]
-      else tmp <- tmp[grepl(tolower(other[i]),tolower(tmp))]
-    }
+    for (i in seq_along(other)) tmp <- tmp[grepl(other[i],tmp,ignore.case=ignore.case)]
     if (length(tmp)<1) STOP("No files with ",ext," extension contain the patterns given in 'other'.")
     tmp <- unique(tmp)
   }
