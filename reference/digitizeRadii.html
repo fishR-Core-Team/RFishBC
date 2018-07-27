@@ -138,21 +138,21 @@
     </div>
 
     <pre class="usage"><span class='fu'>digitizeRadii</span>(<span class='no'>img</span>, <span class='no'>id</span>, <span class='no'>reading</span>, <span class='no'>suffix</span>, <span class='no'>description</span>, <span class='no'>edgeIsAnnulus</span>, <span class='no'>popID</span>,
-  <span class='no'>sepWindow</span>, <span class='no'>windowSize</span>, <span class='no'>closeWindow</span>, <span class='no'>scaleBar</span>, <span class='no'>scaleBarLength</span>, <span class='no'>col.scaleBar</span>,
-  <span class='no'>lwd.scaleBar</span>, <span class='no'>scalingFactor</span>, <span class='no'>showTransect</span>, <span class='no'>snap2Transect</span>, <span class='no'>col.transect</span>,
-  <span class='no'>lwd.transect</span>, <span class='no'>pch.sel</span>, <span class='no'>col.sel</span>, <span class='no'>cex.sel</span>, <span class='no'>pch.del</span>, <span class='no'>col.del</span>, <span class='no'>showInfo</span>, <span class='no'>pos.info</span>,
-  <span class='no'>cex.info</span>, <span class='no'>col.info</span>)</pre>
+  <span class='no'>IDpattern</span>, <span class='no'>sepWindow</span>, <span class='no'>windowSize</span>, <span class='no'>closeWindow</span>, <span class='no'>scaleBar</span>, <span class='no'>scaleBarLength</span>,
+  <span class='no'>col.scaleBar</span>, <span class='no'>lwd.scaleBar</span>, <span class='no'>scalingFactor</span>, <span class='no'>showTransect</span>, <span class='no'>snap2Transect</span>,
+  <span class='no'>col.transect</span>, <span class='no'>lwd.transect</span>, <span class='no'>pch.sel</span>, <span class='no'>col.sel</span>, <span class='no'>cex.sel</span>, <span class='no'>pch.del</span>, <span class='no'>col.del</span>,
+  <span class='no'>showInfo</span>, <span class='no'>pos.info</span>, <span class='no'>cex.info</span>, <span class='no'>col.info</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>img</th>
-      <td><p>A string that indicates the image (must be PNG, JPG, BMP, or TIFF) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file. Either way the file must be in the current working directory.</p></td>
+      <td><p>A vector of strings that indicates the image (must be PNG, JPG, BMP, or TIFF) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file(s). Alternatively the user can supply the name of the file(s). Either way the file(s) must be in the current working directory.</p></td>
     </tr>
     <tr>
       <th>id</th>
-      <td><p>A unique identifier for the fish or structure being examined. Will be coerced to a character. If missing you will be prompted to enter a value.</p></td>
+      <td><p>A vector of unique identifiers for the fish or structure being examined. Will be coerced to a character. If length of <code>img</code> is greater than 1, then the length of <code>id</code> must be the same. If missing then you will be prompted to enter a value.</p></td>
     </tr>
     <tr>
       <th>reading</th>
@@ -172,6 +172,10 @@
     </tr>
     <tr>
       <th>popID</th>
+      <td><p>See details in <code>RFBCoptions</code>.</p></td>
+    </tr>
+    <tr>
+      <th>IDpattern</th>
       <td><p>See details in <code>RFBCoptions</code>.</p></td>
     </tr>
     <tr>
@@ -262,7 +266,7 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list that contains the following:</p><ul>
+    <p>Null if more than one file was given in <code>img</code> or, if only one file was given, a list that contains the following:</p><ul>
 <li><p><code>image</code>: The full filename given in <code>img</code>.</p></li>
 <li><p><code>datanm</code>: The R data filename.</p></li>
 <li><p><code>description</code>: The description given in <code>description</code>.</p></li>
