@@ -132,19 +132,19 @@
 <h1 class="page-header">
 <a href="#rfishbc-0-0-11-9000-ongoing" class="anchor"></a>RFishBC 0.0.11.9000 ongoing</h1>
 </div>
-    <div id="rfishbc-0-0-11-ongoing" class="section level1">
+    <div id="rfishbc-0-0-11-26-jul-18" class="section level1">
 <h1 class="page-header">
-<a href="#rfishbc-0-0-11-ongoing" class="anchor"></a>RFishBC 0.0.11 ongoing</h1>
+<a href="#rfishbc-0-0-11-26-jul-18" class="anchor"></a>RFishBC 0.0.11 26-Jul-18</h1>
 <ul>
 <li>Set TravisCI to auto-update the webpage documentation (<a href="https://www.datacamp.com/community/tutorials/cd-package-docs-pkgdown-travis">See this</a>).</li>
 <li>Updated “Collect Radii Data” and the “Workflow” vignettes for changes below.</li>
 <li>Updated the webpage for changes below.</li>
 <li>
-<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Moved the main code to <code>iDigitizeRadii1()</code>, which is basically the olde <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> for working with only one image. The new <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> allows <code>nm=</code> and <code>id=</code> to be vectors with length greater than 1 so that multiple images (and corresponding IDs) can be given to the function at once (or selected via a dialog box). Thus, this function now handles single or multiple images. This addresses <a href="https://github.com/droglenc/RFishBC/issues/20">#20</a>. Also changed so that the dialog box for entering fish IDs is populated with a better guess at the fish’s ID by using <code><a href="../reference/getID.html">getID()</a></code> with the new <code>IDpattern=</code>.</li>
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Moved the main code to <code>iDigitizeRadii1()</code>, which is basically the olde <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> for working with only one image. The new <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> allows <code>nm=</code> and <code>id=</code> to be vectors with length greater than 1 so that multiple images (and corresponding IDs) can be given to the function at once (or selected via a dialog box). Thus, this function now handles single or multiple images. This addresses <a href="https://github.com/droglenc/RFishBC/issues/20">#20</a> (thanks to B. Utrup and J-M. Hessenauer). Also changed so that the dialog box for entering fish IDs is populated with a better guess at the fish’s ID by using <code><a href="../reference/getID.html">getID()</a></code> with the new <code>IDpattern=</code>.</li>
 <li>
 <code><a href="../reference/getID.html">getID()</a></code>: Added. Part of addressing <a href="https://github.com/droglenc/RFishBC/issues/20">#20</a>.</li>
 <li>
-<code>RFBCOptions()</code>: Modified. Added <code>IDpattern=</code> (Part of addressing <a href="https://github.com/droglenc/RFishBC/issues/20">#20</a>).</li>
+<code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code>: Modified. Added <code>IDpattern=</code> (Part of addressing <a href="https://github.com/droglenc/RFishBC/issues/20">#20</a>).</li>
 </ul>
 </div>
     <div id="rfishbc-0-0-10-3-july-18" class="section level1">
@@ -358,7 +358,7 @@
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
         <li><a href="#rfishbc-0-0-11-9000-ongoing">0.0.11.9000</a></li>
-        <li><a href="#rfishbc-0-0-11-ongoing">0.0.11</a></li>
+        <li><a href="#rfishbc-0-0-11-26-jul-18">0.0.11</a></li>
         <li><a href="#rfishbc-0-0-10-3-july-18">0.0.10</a></li>
         <li><a href="#rfishbc-0-0-9-18-may-18">0.0.9</a></li>
         <li><a href="#rfishbc-0-0-8-13-may-18">0.0.8</a></li>
