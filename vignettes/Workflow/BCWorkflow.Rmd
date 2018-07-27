@@ -49,7 +49,7 @@ This vignette suggests a workflow for back-calculating fish length at a previous
 
 1. (*OPTIONAL, AS NEEDED*) Examine the selected annuli with `showDigitizedImage()` as described in the ["Visualize One Set of Annuli" section of the Visualize Radii Data](../seeRadiiData.html#visualize-one-set-of-annuli) vignette.
 
-1. Repeat the previous two steps for each structure in the working directory.
+1. Repeat the previous two steps for each structure in the working directory. Note that `digitizeRadii()` can accept more than one image name to streamline the processing of many images. The use of multiple image names is described in  ["Processing Multiple Images" section of the Collecting Radii Data](../MeasureRadii/collectRadiiData.html#multipleimages) vignette.
 
 1. Use `combineData()` to combine the radial measurements from all analyzed images into a data.frame as described in the ["Combine Data from Multiple Structures" section of the Collecting Radii Data](../MeasureRadii/collectRadiiData.html#multiplestructures) vignette.
 

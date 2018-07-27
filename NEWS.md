@@ -1,6 +1,8 @@
 # RFishBC 0.0.10.9000 ongoing
 * Set TravisCI to auto-update the webpage documentation ([See this](https://www.datacamp.com/community/tutorials/cd-package-docs-pkgdown-travis)).
-* `digitizeRadii()`: Modified. Changed so that the dialog box is populated with a better guess at the fish's ID by using `getID()` with the new `IDpattern=`.
+* Updated "Collect Radii Data" and the "Workflow" vignettes for changes below.
+* Updated the webpage for changes below.
+* `digitizeRadii()`: Modified. Moved the main code to `iDigitizeRadii1()`, which is basically the olde `digitizeRadii()` for working with only one image. The new `digitizeRadii()` allows `nm=` and `id=` to be vectors with length greater than 1 so that multiple images (and corresponding IDs) can be given to the function at once (or selected via a dialog box). Thus, this function now handles single or multiple images. This addresses [#20](https://github.com/droglenc/RFishBC/issues/20). Also changed so that the dialog box for entering fish IDs is populated with a better guess at the fish's ID by using `getID()` with the new `IDpattern=`.
 * `getID()`: Added. Part of addressing [#20](https://github.com/droglenc/RFishBC/issues/20).
 * `RFBCOptions()`: Modified. Added `IDpattern=` (Part of addressing [#20](https://github.com/droglenc/RFishBC/issues/20)).
 

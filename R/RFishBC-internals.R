@@ -58,7 +58,7 @@ iHndlFilenames <- function(nm,filter,multi=TRUE) {
                                 caption=ifelse(multi,"Select files",
                                                "Select a file"))
     }
-    if (missing(nm)| length(nm)==0)
+    if (missing(nm) | length(nm)==0)
       STOP("A filename must be provided in the first argument.")
   }
   #### Make sure that the file is in the current working directory

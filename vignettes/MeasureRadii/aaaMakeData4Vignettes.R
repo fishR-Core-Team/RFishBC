@@ -8,6 +8,14 @@ junk <- digitizeRadii("Scale_1.jpg",id="1",reading="DHO",edgeIsAnnulus=FALSE)
 digitizeRadii(reading="DHO2",edgeIsAnnulus=FALSE,popID=TRUE)
 digitizeRadii("Scale_1.jpg",id="1",reading="DHO3",edgeIsAnnulus=FALSE)
 digitizeRadii("Scale_2.jpg",id="2",reading="DHO",edgeIsAnnulus=FALSE)
+## choosing muliple files at once
+### by selecting files initially
+( imgs <- listFiles(ext=".jpg",other="Scale") )
+( ids <- getID(imgs) )
+digitizeRadii(imgs,id=ids,reading="DHO4",edgeIsAnnulus=FALSE)
+### by selecting files in a dialog box (select scale_1 and scale_2)
+digitizeRadii(reading="DHO5",edgeIsAnnulus=FALSE)
+
 
 #### Some tests of these functions
 showDigitizedImage("Scale_1_DHO.rds")

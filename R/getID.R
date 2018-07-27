@@ -41,7 +41,6 @@
 #' ### fish ID at the beginning of the name
 #' ex5 <- c("1_Scale.jpg","2_Scale.jpg")
 #' getID(ex5,IDpattern="\\_.*")
-#' ### fish ID between two underscores
 #' 
 getID <- function(x,IDpattern,...) {
   if (missing(IDpattern)) IDpattern <- iGetopt("IDpattern")
