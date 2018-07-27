@@ -419,10 +419,6 @@ test_that("Miscellaneous internals output",{
   msg <- "Hello Derek"
   tmp <- capture.output(RFishBC:::DONE(msg))
   expect_true(grepl(msg,tmp))
-  expect_true(grepl("2714",tmp))  ## check for tick symbol
   tmp <- capture.output(RFishBC:::NOTE(msg))
   expect_true(grepl(msg,tmp))
-  expect_true(grepl("2630",tmp))  ## check for menu symbol
-  
-  
 })  
