@@ -10,6 +10,8 @@
 ^\.travis\.yml$
 ^appveyor\.yml$
 ^data-raw$
+cran-comments.md
+^cran-comments
 
 man/figures/logo.png
 inst/sticker/

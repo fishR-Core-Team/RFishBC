@@ -26,7 +26,7 @@ Imports:
     withr
 Suggests:
     FSA,
+    covr,
     pkgdown,
-    testthat,
-    covr
+    testthat
 RoxygenNote: 6.0.1
