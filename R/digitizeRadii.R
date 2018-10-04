@@ -209,7 +209,7 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
   abort <- restart <- FALSE
   
   ## Setup a message ===========================================================
-  msg2 <- "   'f'=finished, 'd'=delete, 'q'=abort, 'p'=restart"
+  msg2 <- "   'f'=finished, 'd'=delete, 'q'=abort, 'z'=restart"
 
   ## Loads image given in img ==================================================
   windowInfo <- iGetImage(img,id,sepWindow,windowSize,
