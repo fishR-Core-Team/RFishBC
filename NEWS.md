@@ -1,6 +1,8 @@
-# RFishBC 0.0.11.9000 ongoing
+# RFishBC 0.0.12.9000 ongoing
+
+# RFishBC 0.0.12 ongoing
 * Excluded many of the interactive lines from the coverage statistics. Updated other tests (aiming for comprehensiveness).
-* Started a cran-comments document to being preparations for a CRAN release.
+* Started a cran-comments document to begin preparations for a CRAN release.
 * Added `Encoding: UTF-8` to DESCRIPTION.
 * `bcFuns()`: Modified. Fixed bug in `verbose=` result when `BCM=18`.
 * `listFiles()`: Modified. Fixed bug related to `ignore.case=`.
