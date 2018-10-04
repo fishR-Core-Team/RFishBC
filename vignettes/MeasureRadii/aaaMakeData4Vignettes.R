@@ -1,12 +1,14 @@
 ## Use this to create the RData files for the vignettes.
-
+devtools::load_all(".")
 setwd("C:/aaaWork/Programs/GitHub/RFishBC/vignettes/MeasureRadii")
 
 ## Process Scales
 junk <- digitizeRadii("Scale_1.jpg",id="1",reading="DHO",edgeIsAnnulus=FALSE)
-## choose Scale_1.jpg and set id to 1
+## choose Scale_1.jpg and set id to 1 ... use a different transect
 digitizeRadii(reading="DHO2",edgeIsAnnulus=FALSE,popID=TRUE)
+## use yet another different transect
 digitizeRadii("Scale_1.jpg",id="1",reading="DHO3",edgeIsAnnulus=FALSE)
+## a different fish
 digitizeRadii("Scale_2.jpg",id="2",reading="DHO",edgeIsAnnulus=FALSE)
 ## choosing muliple files at once
 ### by selecting files initially
@@ -19,7 +21,7 @@ digitizeRadii(reading="DHO5",edgeIsAnnulus=FALSE)
 digitizeRadii(imgs,id=ids,reading="DHO6",edgeIsAnnulus=FALSE)
 
 ### Treat this as if it is a spring-caught age-1 fish (only annulus is the edge)
-junk2 <- digitizeRadii("Scale_3.jpg",id="3",reading="DHO",edgeIsAnnulus=TRUE)
+junk2 <- digitizeRadii("Scale_3.jpg",id="3",reading="DHO7",edgeIsAnnulus=TRUE)
 
 
 #### Some tests of these functions
@@ -31,6 +33,7 @@ combineData("Scale_1_DHO.rds")
 combineData(c("Scale_1_DHO.rds","Scale_1_DHO2.rds","Scale_1_DHO3.rds"))
 combineData()             # choose one file and then choose the three
 combineData(junk)         # uses the object created above
+combineData(junk2)
 
 ## Process the otolith
 digitizeRadii("Oto140306.jpg",id="140306",reading="DHO",
@@ -44,7 +47,7 @@ showDigitizedImage("Oto140306_DHO.rds",annuliLabels=c(2,5))
 ## Open the otolith and just get the scaling factor from the scale-bar
 ## then use this to supply the scaling factor rather than use the scale-bar
 ## see if the results are basically the same as above
-(SF <- findScalingFactor("Oto140306.jpg",knownLength=1,windowSize=12) )
+( SF <- findScalingFactor("Oto140306.jpg",knownLength=1,windowSize=12) )
 
 digitizeRadii("Oto140306.jpg",id="140306",reading="DHO2",
               description="Testing provided scaling factor.",
