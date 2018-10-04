@@ -164,7 +164,7 @@ iSelectPt <- function(numPts,msg1,msg2,
       return(invisible(1))
     }
     ### User requesting to start over with a clean slate
-    if (key=="p") {
+    if (key=="z") {
       dat <<- "RESTART"
       return(invisible(1))
     }
@@ -189,11 +189,7 @@ iScalingFactorFromScaleBar <- function(msg2,knownLength,pixW2H,
                      pch.del=pch.del,col.del=col.del,
                      snap2Transect=FALSE,slpTransect=NULL,
                      intTransect=NULL,slpPerpTransect=NULL)
-  if (nrow(sbPts)<2) {
-    STOP("Two endpoints were not selected for the scale-bar.")
-  } else if (nrow(sbPts)>2) {
-    STOP("Only two endpoints may be selected for the scale-bar.")
-  } else {
+  if (is.data.frame(sbPts)) { # data.frame returned b/c not abort/restarted
     ## Show the user-selected marking on the image
     graphics::lines(y~x,data=sbPts,col=col.scaleBar,lwd=lwd.scaleBar)
     ## Find distances in x- and y- directions,
@@ -202,6 +198,8 @@ iScalingFactorFromScaleBar <- function(msg2,knownLength,pixW2H,
     disty <- sbPts$y[2]-sbPts$y[1]
     ## Return a list (scaling factor is known / distance between points)
     list(sbPts=sbPts,scalingFactor=knownLength/sqrt(distx^2+disty^2))
+  } else { # data.frame not returned b/c abort/restarted
+    sbPts  # just return the sbPts object
   }
 } # nocov end
 

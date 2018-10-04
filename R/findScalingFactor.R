@@ -53,13 +53,28 @@ findScalingFactor <- function(img,knownLength,
                           windowSize=windowSize,showInfo=FALSE,
                           pos.info=NULL,cex.info=NULL,col.info=NULL) # nocov start
   NOTE("Select the endpoints of the scale-bar.")
-  msg2 <- "     Press 'f' when finished, 'd' to delete selection."
+  msg2 <- "   'f'=finished, 'd'=delete, 'q'=abort, 'z'=restart"
   SF <- iScalingFactorFromScaleBar(msg2,knownLength,windowInfo$pixW2H,
                                    col.scaleBar=col.scaleBar,
                                    lwd.scaleBar=lwd.scaleBar,
                                    pch.sel,col.sel,cex.sel,
                                    pch.del,col.del)
-  if (sepWindow & closeWindow) grDevices::dev.off()
-  SF$scalingFactor
+  if (is.list(SF)) { # data.frame returned b/c not abort/restarted
+    if (sepWindow & closeWindow) grDevices::dev.off()
+    return(invisible(SF$scalingFactor))
+  } else {
+    if (SF=="ABORT") {
+      if (sepWindow & closeWindow) grDevices::dev.off()
+      cat("\n\n")
+      DONE("Processing was ABORTED by the user!",
+           " No scaling factor returned for ",img,".\n")
+    } else if (SF=="RESTART") {
+      cat("\n\n")
+      DONE("Scaling factor processing is being RESTARTED as requested by the user.\n")
+      findScalingFactor(img,knownLength,sepWindow,windowSize,closeWindow,
+                        col.scaleBar,lwd.scaleBar,pch.sel,col.sel,cex.sel,
+                        pch.del,col.del)
+    }
+  }
 } # nocov end
 
