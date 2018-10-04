@@ -15,6 +15,11 @@ digitizeRadii("Scale_2.jpg",id="2",reading="DHO",edgeIsAnnulus=FALSE)
 digitizeRadii(imgs,id=ids,reading="DHO4",edgeIsAnnulus=FALSE)
 ### by selecting files in a dialog box (select scale_1 and scale_2)
 digitizeRadii(reading="DHO5",edgeIsAnnulus=FALSE)
+### using selected files, but aborting the first one (to make sure it goes to the second)
+digitizeRadii(imgs,id=ids,reading="DHO6",edgeIsAnnulus=FALSE)
+
+### Treat this as if it is a spring-caught age-1 fish (only annulus is the edge)
+junk2 <- digitizeRadii("Scale_3.jpg",id="3",reading="DHO",edgeIsAnnulus=TRUE)
 
 
 #### Some tests of these functions

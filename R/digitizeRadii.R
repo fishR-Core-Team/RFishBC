@@ -205,8 +205,11 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
                             pch.del,col.del,
                             showInfo,pos.info,cex.info,col.info) {
 
+  ## Setup logicals that allow an abort or a restart ===========================
+  abort <- restart <- FALSE
+  
   ## Setup a message ===========================================================
-  msg2 <- "     Press 'f' when finished, 'd' to delete selection."
+  msg2 <- "   'f'=finished, 'd'=delete, 'q'=abort, 'p'=restart"
 
   ## Loads image given in img ==================================================
   windowInfo <- iGetImage(img,id,sepWindow,windowSize,
@@ -223,9 +226,15 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
                                          pch.sel=pch.sel,col.sel=col.sel,
                                          cex.sel=cex.sel,
                                          pch.del=pch.del,col.del=col.del)
-    sbPts <- sbInfo$sbPts
-    scalingFactor <- sbInfo$scalingFactor
-    DONE("Found scaling factor from the selected scale-bar.\n")
+    if (is.list(sbInfo)) { # returned a list b/c not abort/restarted
+      sbPts <- sbInfo$sbPts
+      scalingFactor <- sbInfo$scalingFactor
+      DONE("Found scaling factor from the selected scale-bar.\n")
+    } else { # no list returned b/c abort/restarted
+      if (sbInfo=="ABORT") abort <- TRUE
+      else if (sbInfo=="RESTART") restart <- TRUE
+      if (sepWindow & closeWindow) grDevices::dev.off()
+    }
   } else { ## No scale bar on the plot ... using the scaling factor
     DONE("Using the scaling factor provided in 'scalingFactor'.\n")
     sbPts <- NULL
@@ -234,68 +243,101 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
   }
   
   ## User selects a transect on the image ======================================
-  NOTE("Select the FOCUS (center) and MARGIN (edge) of the structure.")
-  trans.pts <- iSelectPt(2,"Select FOCUS and MARGIN:",msg2,
-                         pch.sel=pch.sel,col.sel=col.sel,cex.sel=cex.sel,
-                         pch.del=pch.del,col.del=col.del,
-                         snap2Transect=FALSE,slpTransect=NULL,
-                         intTransect=NULL,slpPerpTransect=NULL)
-  if (nrow(trans.pts)<2) STOP("Either the FOCUS or MARGIN was not selected.")
-  if (nrow(trans.pts)>2) STOP("Only the FOCUS and MARGIN should be selected.")
-  #### Calculate slope, intercept, and perpendicular slope to transect
-  slpTransect <- diff(trans.pts$y)/diff(trans.pts$x)
-  intTransect <- trans.pts$y[1]-slpTransect*trans.pts$x[1]
-  slpPerpTransect <- -1/slpTransect
-  #### Show the transect if asked to
-  if (showTransect) {
-    graphics::lines(y~x,data=trans.pts,lwd=lwd.transect,col=col.transect)
-    DONE("Transect selected and shown on image.\n")
-  } else {
-    DONE("Transect selected.\n")
+  if (!abort & !restart) {
+    NOTE("Select the FOCUS (center) and MARGIN (edge) of the structure.")
+    trans.pts <- iSelectPt(2,"Select FOCUS and MARGIN:",msg2,
+                           pch.sel=pch.sel,col.sel=col.sel,cex.sel=cex.sel,
+                           pch.del=pch.del,col.del=col.del,
+                           snap2Transect=FALSE,slpTransect=NULL,
+                           intTransect=NULL,slpPerpTransect=NULL)
+    if (is.data.frame(trans.pts)) { # returned data.frame b/c not abort/restarted
+      #### Calculate slope, intercept, and perpendicular slope to transect
+      slpTransect <- diff(trans.pts$y)/diff(trans.pts$x)
+      intTransect <- trans.pts$y[1]-slpTransect*trans.pts$x[1]
+      slpPerpTransect <- -1/slpTransect
+      #### Show the transect if asked to
+      if (showTransect) {
+        graphics::lines(y~x,data=trans.pts,lwd=lwd.transect,col=col.transect)
+        DONE("Transect selected and shown on image.\n")
+      } else {
+        DONE("Transect selected.\n")
+      }
+    } else { # no data.frame returned b/c abort/restarted
+      if (trans.pts=="ABORT") abort <- TRUE
+      else if (trans.pts=="RESTART") restart <- TRUE
+      if (sepWindow & closeWindow) grDevices::dev.off()
+    }
   }
   
   ## User selects annuli on the image ==========================================
-  NOTE("Select points that are annuli.")
-  pts <- iSelectPt(NULL,"Select ANNULI:",msg2,
-                   pch.sel=pch.sel,col.sel=col.sel,cex.sel=cex.sel,
-                   pch.del=pch.del,col.del=col.del,
-                   snap2Transect=snap2Transect,slpTransect=slpTransect,
-                   intTransect=intTransect,slpPerpTransect=slpPerpTransect)
-  if (sepWindow & closeWindow) grDevices::dev.off()
-  #### Make sure some points were selected
-  if (!nrow(pts)>0) STOP("No points were selected as annuli.")
-  #### Add transect (focus and margin) to the points
-  pts <- rbind(trans.pts,pts)
-  #### Re-order points by distance from the first point (the focus)
-  pts <- iOrderPts(pts)
-  #### Tell the user how many points were selected
-  DONE(nrow(pts)-2," points were selected as annuli.\n")
+  if (!abort & !restart) {
+    NOTE("Select points that are annuli.")
+    pts <- iSelectPt(NULL,"Select ANNULI:",msg2,
+                     pch.sel=pch.sel,col.sel=col.sel,cex.sel=cex.sel,
+                     pch.del=pch.del,col.del=col.del,
+                     snap2Transect=snap2Transect,slpTransect=slpTransect,
+                     intTransect=intTransect,slpPerpTransect=slpPerpTransect)
+    if (sepWindow & closeWindow) grDevices::dev.off()
+    if (is.data.frame(pts)) { # data.frame returned b/c not abort/restarted
+      #### Add transect (focus and margin) to the points
+      pts <- rbind(trans.pts,pts)
+      #### Re-order points by distance from the first point (the focus)
+      pts <- iOrderPts(pts)
+      numAnn <- nrow(pts)-2
+      if (edgeIsAnnulus) numAnn <- numAnn+1
+      #### Tell the user how many points were selected
+      if (numAnn==1) DONE("1 point was selected as an annulus.\n")
+      else DONE(numAnn," points were selected as annuli.\n")
+    } else { # data.frame not returned because abort/restarted
+      if (pts=="ABORT") abort <- TRUE
+      else if (pts=="RESTART") restart <- TRUE
+    }
+  }
   
   ## Converts selected points to radial measurements ===========================
-  radii <- iPts2Rad(pts,edgeIsAnnulus=edgeIsAnnulus,scalingFactor=scalingFactor,
-                    pixW2H=windowInfo$pixW2H,id=id,reading=reading)
-  
-  ## Create a master data object and write to RData file in working directory ==
-  #### Name of RData file
-  datanm <- paste0(tools::file_path_sans_ext(img),
-                   ifelse(!is.null(suffix),"_",""),
-                   suffix,".rds")
-  #### Master data object
-  dat <- list(image=img,datanm=datanm,description=description,
-              edgeIsAnnulus=edgeIsAnnulus,snap2Transect=snap2Transect,
-              scalingFactor=scalingFactor,sfSource=sfSource,
-              sbPts=sbPts,sbLength=scaleBarLength,
-              slpTransect=slpTransect,intTransect=intTransect,
-              slpPerpTransect=slpPerpTransect,
-              windowSize=windowInfo$windowSize,
-              pixW2H=windowInfo$pixW2H,
-              pts=pts,radii=radii)
-  class(dat) <- "RFishBC"
-  #### Write the RData file
-  saveRDS(dat,file=datanm)
-  #### Tell user what happend and invisibly return the R object
-  DONE("Results written to ",datanm,"\n")
-  invisible(dat)
+  ##    as long as not aborted or asked to restart =============================
+  if (!abort & !restart) {
+    radii <- iPts2Rad(pts,edgeIsAnnulus=edgeIsAnnulus,scalingFactor=scalingFactor,
+                      pixW2H=windowInfo$pixW2H,id=id,reading=reading)
+  }
+
+  ## Finish up =================================================================
+  if (abort) {
+    cat("\n\n")
+    DONE("Processing was ABORTED by the user! No file was written for ",img,".\n")
+  } else if (restart) {
+    cat("\n\n")
+    DONE("Processing is being RESTARTED as requested by the user.",
+         " No file was written ",img,".\n")
+    iDigitizeRadii1(img,id,reading,suffix,description,edgeIsAnnulus,popID,
+                    IDpattern,sepWindow,windowSize,closeWindow,scaleBar,
+                    scaleBarLength,col.scaleBar,lwd.scaleBar,scalingFactor,
+                    showTransect,snap2Transect,col.transect,lwd.transect,
+                    pch.sel,col.sel,cex.sel,pch.del,col.del,showInfo,pos.info,
+                    cex.info,col.info)
+  } else { ### process results because not abort/restarted
+    ### Create a master data object and write to RData file in working directory
+    #### Name of RData file
+    datanm <- paste0(tools::file_path_sans_ext(img),
+                     ifelse(!is.null(suffix),"_",""),
+                     suffix,".rds")
+    #### Master data object
+    dat <- list(image=img,datanm=datanm,description=description,
+                edgeIsAnnulus=edgeIsAnnulus,snap2Transect=snap2Transect,
+                scalingFactor=scalingFactor,sfSource=sfSource,
+                sbPts=sbPts,sbLength=scaleBarLength,
+                slpTransect=slpTransect,intTransect=intTransect,
+                slpPerpTransect=slpPerpTransect,
+                windowSize=windowInfo$windowSize,
+                pixW2H=windowInfo$pixW2H,
+                pts=pts,radii=radii)
+    class(dat) <- "RFishBC"
+    #### Write the RData file
+    saveRDS(dat,file=datanm)
+    #### Tell user what happend and invisibly return the R object
+    DONE("Results written to ",datanm,"\n")
+    invisible(dat)    
+  }
 }
 
 
@@ -351,7 +393,8 @@ iOrderPts <- function(pts) {
   ## the original points by that order and returns the result
   pts <- pts[order(as.matrix(stats::dist(pts))[,1]),]
   ## change rownames
-  rownames(pts) <- c("center",1:(nrow(pts)-2),"edge")
+  if (nrow(pts)==2) rownames(pts) <- c("center","edge")
+  else rownames(pts) <- c("center",1:(nrow(pts)-2),"edge")
   ## Return data.frame
   pts
 }

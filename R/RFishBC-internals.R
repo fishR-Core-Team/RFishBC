@@ -138,8 +138,10 @@ iSelectPt <- function(numPts,msg1,msg2,
   ## Internal function for handling key press event
   keyPress <- function(key) {
     n <- nrow(dat)
-    if (key %in% c("f","q")) {
+    ### User requesting to be done with the process
+    if (key=="f") {
       if (!is.null(numPts)) {
+        ### Check to see if number of points is correct (if numPts given)
         if (n!=numPts) {
           tmpmsg <- paste("Must select exactly",numPts,"points. ")
           if (n<numPts) message(tmpmsg,"Please select ",numPts-n," more point(s).")
@@ -148,12 +150,23 @@ iSelectPt <- function(numPts,msg1,msg2,
         } else return(invisible(1))
       } else return(invisible(1))
     }
-    if (key %in% c("d","r")) {
+    ### User requesting to delete or remove a point
+    if (key=="d") {
       if (n>=1) {
         graphics::points(y~x,data=dat[n,],pch=pch.del,col=col.del,cex=cex.sel)
         dat <<- dat[-n,]
       }
       NULL
+    }
+    ### User requesting to abort
+    if (key=="q") {
+      dat <<- "ABORT"
+      return(invisible(1))
+    }
+    ### User requesting to start over with a clean slate
+    if (key=="p") {
+      dat <<- "RESTART"
+      return(invisible(1))
     }
   }
   ## Main function
