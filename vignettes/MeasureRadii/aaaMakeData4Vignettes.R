@@ -22,6 +22,8 @@ digitizeRadii(imgs,id=ids,reading="DHO6",edgeIsAnnulus=FALSE)
 
 ### Treat this as if it is a spring-caught age-1 fish (only annulus is the edge)
 junk2 <- digitizeRadii("Scale_3.jpg",id="3",reading="DHO7",edgeIsAnnulus=TRUE)
+### Treat this as if it is a fall-caught age-0 fish (no annulus to measure)
+junk3 <- digitizeRadii("Scale_3.jpg",id="3",reading="DHO8",edgeIsAnnulus=FALSE)
 
 
 #### Some tests of these functions
@@ -34,6 +36,7 @@ combineData(c("Scale_1_DHO.rds","Scale_1_DHO2.rds","Scale_1_DHO3.rds"))
 combineData()             # choose one file and then choose the three
 combineData(junk)         # uses the object created above
 combineData(junk2)
+
 
 ## Process the otolith
 digitizeRadii("Oto140306.jpg",id="140306",reading="DHO",

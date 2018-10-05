@@ -39,7 +39,17 @@ combineData <- function(nms,outFormat=c("long","wide"),deletePlusGrowth=TRUE) {
     }
   }
   ## Remove radial measurement related to plus-growth (same as radcap anyways)
-  if (deletePlusGrowth) d <- d[d$ann<=d$agecap,]
+  if (deletePlusGrowth) {
+    ## Get all age-0 fish and include no annulus or radius, but the radcap
+    d1 <- d[d$agecap==0,]
+    d1$ann <- d1$rad <- NA
+    ## Get all >age-0 fish and then remove the plus-growth
+    d2 <- d[d$agecap>0,]
+    d2 <- d2[d2$ann<=d2$agecap,]
+    ## Put the age-0 and >age-0 fish back together, sort by ID and ann
+    d <- rbind(d1,d2)
+    d <- d[order(d$id,d$ann),]
+  }
   ## Convert to wide (one-fish-per-line) format
   if (outFormat=="wide") {
     d <- tidyr::spread(d,key=ann,value=rad,sep="rad")
