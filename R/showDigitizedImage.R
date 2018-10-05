@@ -17,11 +17,11 @@
 #' @param col.ann See details in \code{\link{RFBCoptions}}.
 #' @param cex.ann See details in \code{\link{RFBCoptions}}.
 #'
+#' @return None, but an image is plotted with, at least, the selected points.
+#' 
 #' @details This function requires interaction from the user. A detailed description of its use is in \href{http://derekogle.com/RFishBC/articles/MeasureRadii/seeRadiiData.html}{this vignette} on the \href{http://derekogle.com/RFishBC/index.html}{RFishBC website}.
 #'
 #' @seealso \code{\link{digitizeRadii}} and \code{\link{RFBCoptions}}.
-#' 
-#' @return None, but an image is plotted with, at least, the selected points.
 #' 
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #' 
