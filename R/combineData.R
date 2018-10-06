@@ -6,9 +6,9 @@
 #' @param outFormat A string that indicates the output format for the combined data. The \code{"wide"} (DEFAULT) format has one-radius-per-line (i.e., each radial measurement for a fish in on a separate row), whereas the \code{"long"} format has one-fish-per-line (i.e., each radial measurement for a fish is in a separate column).
 #' @param deletePlusGrowth A logical that indicates whether the radial measurement that corresponds to \dQuote{plus-growth} should be deleted from the returned data.frame (\code{TRUE}; DEFAULT) or not (\code{FALSE}).
 #'
-#' @details A detailed description of its use is in \href{http://derekogle.com/RFishBC/articles/MeasureRadii/collectRadiiData.html}{this vignette} on the \href{http://derekogle.com/RFishBC/index.html}{RFishBC website}. The list of R data file names may be efficiently created with \code{\link{listFiles}} as described in that vignette. The R data file names may also be selected from a dialog box if using Windows.
-#' 
 #' @return A data.frame that contains the radii data created with \code{\link{digitizeRadii}} for all files given in \code{nms}.
+#' 
+#' @details A detailed description of its use is in \href{http://derekogle.com/RFishBC/articles/MeasureRadii/collectRadiiData.html}{this vignette} on the \href{http://derekogle.com/RFishBC/index.html}{RFishBC website}. The list of R data file names may be efficiently created with \code{\link{listFiles}} as described in that vignette. The R data file names may also be selected from a dialog box if using Windows.
 #' 
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #' 
@@ -39,7 +39,17 @@ combineData <- function(nms,outFormat=c("long","wide"),deletePlusGrowth=TRUE) {
     }
   }
   ## Remove radial measurement related to plus-growth (same as radcap anyways)
-  if (deletePlusGrowth) d <- d[d$ann<=d$agecap,]
+  if (deletePlusGrowth) {
+    ## Get all age-0 fish and include no annulus or radius, but the radcap
+    d1 <- d[d$agecap==0,]
+    if (nrow(d1)>0) d1$ann <- d1$rad <- NA
+    ## Get all >age-0 fish and then remove the plus-growth
+    d2 <- d[d$agecap>0,]
+    d2 <- d2[d2$ann<=d2$agecap,]
+    ## Put the age-0 and >age-0 fish back together, sort by ID and ann
+    d <- rbind(d1,d2)
+    d <- d[order(d$id,d$ann),]
+  }
   ## Convert to wide (one-fish-per-line) format
   if (outFormat=="wide") {
     d <- tidyr::spread(d,key=ann,value=rad,sep="rad")

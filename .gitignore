@@ -8,3 +8,4 @@ tests/testthat/Rplots*.*
 docs/*
 # RDS files for vignettes (can be re-made from code)
 vignettes/MeasureRadii/*.rds
+vignettes/MeasureRadii/zzzTempRdsFiles/

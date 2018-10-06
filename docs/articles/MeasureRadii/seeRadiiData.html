@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">RFishBC</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.11.9000</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.12.9000</span>
       </span>
     </div>
 
@@ -95,7 +95,7 @@
       <h1>Visualize Points Selected on a Calcified Structure</h1>
                         <h4 class="author">Derek H. Ogle</h4>
             
-            <h4 class="date">2018-07-26</h4>
+            <h4 class="date">2018-10-05</h4>
       
       
       <div class="hidden name"><code>seeRadiiData.Rmd</code></div>
@@ -145,11 +145,12 @@
 <p>In some instances, you may be interested in visually comparing the selected points from multiple readings of the same structure. The <code><a href="../../reference/showDigitizedImage.html">showDigitizedImage()</a></code> function can accomplish this if it is given a vector of R data file names created from the same structure.</p>
 <p>The <code><a href="../../reference/listFiles.html">listFiles()</a></code> function (described in the <a href="collectRadiiData.html">Collecting Radial Measurements</a> vignette) may be used to identify all filenames in the current working directory that have the file extension given in the first argument. For example, all files with the “rds” extension are found below.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/listFiles.html">listFiles</a></span>(<span class="st">"rds"</span>)
-<span class="co">#&gt; [1] "Oto140306_DHO.rds"  "Oto140306_DHO2.rds" "Scale_1_DHO.rds"   </span>
-<span class="co">#&gt; [4] "Scale_1_DHO2.rds"   "Scale_1_DHO3.rds"   "Scale_2_DHO.rds"</span></code></pre></div>
+<span class="co">#&gt; [1] "Oto140306_DHO.rds" "Oto140306_OHD.rds" "Scale_1_DHO.rds"  </span>
+<span class="co">#&gt; [4] "Scale_1_ODH.rds"   "Scale_1_OHD.rds"   "Scale_2_DHO.rds"  </span>
+<span class="co">#&gt; [7] "Scale_3_DHO.rds"</span></code></pre></div>
 <p>This list of names can be further filtered by including other key words for the filenames in <code>other=</code>. For example, all files with the “rds” extension that contain the keyword “Scale_1” are returned below. For our purposes here, these filenames are saved into an object (e.g., <code>fns</code>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">( fns &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/listFiles.html">listFiles</a></span>(<span class="st">"rds"</span>,<span class="dt">other=</span><span class="st">"Scale_1"</span>) )
-<span class="co">#&gt; [1] "Scale_1_DHO.rds"  "Scale_1_DHO2.rds" "Scale_1_DHO3.rds"</span></code></pre></div>
+<span class="co">#&gt; [1] "Scale_1_DHO.rds" "Scale_1_ODH.rds" "Scale_1_OHD.rds"</span></code></pre></div>
 <p>The multiple readings of “Scale_1” can be seen by giving this set of filenames to <code><a href="../../reference/showDigitizedImage.html">showDigitizedImage()</a></code>.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/showDigitizedImage.html">showDigitizedImage</a></span>(fns)</code></pre></div>
 <p><img src="seeRadiiData_files/figure-html/unnamed-chunk-10-1.png" width="480"></p>

@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 
 # Introduction
-The size of fish at a previous time in their life is often estimated through "back-calculation." Back-calculation of previous lengths requires accurate measurements of annual growth on calcified structures from individual fish and a suitable model that relates growth on the structure to growth of the fish.
+The size of fish at a previous time in their life is often estimated through "back-calculation." [Back-calculation](../BCIntro/BCIntro.html) of previous lengths requires accurate measurements of annual growth on calcified structures from individual fish and a suitable model that relates growth on the structure to growth of the fish.
 
 The [FishBC software](https://fisheries.org/bookstore/all-titles/software/70317/) is commonly used to measure lengths on a calcified structure and apply a back-calculation model to estimate length at previous ages. However, FishBC only works on out-dated computers, there are no plans to update it, and it is not open source. The functionality in the `RFishBC` package is meant to replace FishBC. Methods for making measurements on images of calcified structures is demonstrated in this vignette. Using those measurements to back-calculate fish length at a previous age is demonstrated in the [Compute Back-Calculated Lengths](../BCCalc/BCCalc.html) vignette.
 
@@ -90,7 +90,7 @@ Further specifics of `digitizeRadii()` and many of its arguments[^DRargs] are de
 ### Basics
 The `digitizeRadii()` function **requires** only three arguments.
 
-* `img`: File name (or names; see the [Processing Multiple Images](#multipleimages) section) for the structure image (or images), which must be in the current working directory. A dialog box will be provided from which the image file (or files) can be selected if this argument is not given and you are on a Windows machine.
+* `img`: File name (or names; see the [Processing Multiple Images](#multipleimages) section) for the structure image (or images), which must be in the current working directory. A dialog box will be provided from which the image file (or files) can be selected if this argument is not given and you are using a Windows machine.
 * `id=`: The unique identifier (or identifiers if more than one image is provided in `img`) for the fish/structure(s). If this argument is missing, then the ID can be entered in a dialog box (if using Windows) or in the console. By default, the Windows dialog will be populated with the fish ID if that ID follows an underscore at the end of the filename (sans the extension).
 * `edgeIsAnnulus=`: A logical that indicates whether the point selected at the structure margin should be considered an annulus or not. If the fish was captured at a time when the margin shows growth, but not a complete year's worth of growth, then use `edgeIsAnnulus=FALSE`. However, if the fish was captured before the current year's growth has commenced or after it has completed then use `edgeIsAnnulus=TRUE`. Identifying whether the structure margin is an annulus or not is critical to properly recording radial measurements. As such, there is no default for this argument (i.e., it **MUST** be set by the user).
 
@@ -101,7 +101,7 @@ Other **optional** arguments that are likely to be commonly used are:
 
 Finally, note that the R data file that will be created after the annuli have been selected will have the same name as the image file[^excludeextension] but including the suffix optionally provided in `suffix=`. If nothing is given in `suffix=`, then a suffix will be created from `reading=` (if it exists). For example, if the structure image file was named "Scale_1.jpg", then the resultant R data file will be named "Scale_1_DHO.rds" if `reading="DHO"` or "Scale_1_TESTING.rds" if `reading="DHO"` and `suffix="TESTING"`.
 
-By default, the fish ID will be shown in the top-left corner of the image. This may be moved by giving a different location to `pos.info=`. For example, `pos.info="bottomright"` would move this information to the bottom-right corner of the image. The color of this info may be changed with `col.info=` and the relative size may be changed with `cex.info=`.
+By default, the fish ID will be shown in the top-left corner of the image. This may be moved by giving a different location to `pos.info=`. For example, `pos.info="bottomright"` would move this information to the bottom-right corner of the image. The color of this information may be changed with `col.info=` and the relative size may be changed with `cex.info=`.
 
 At this point, the image may look something like that below.
 
@@ -136,7 +136,7 @@ At this point, the image may look something like that below.
 \  
 
 ### Selecting Annuli
-Once a transect has been identified on the structure, then you will be asked to select points on the structure that represent annuli. Points are selected by clicking on the image at the point with the first (left) mouse button. The most recently selected point can be removed by pressing the 'd' or 'r' keys (for "delete" or "remove"). When the last point has been selected, press the 'f' or 'q' (for "finished" or "quit") keys.
+Once a transect has been identified on the structure, then you will be asked to select points on the structure that represent annuli. Points are selected by clicking on the image at the point with the first (left) mouse button. The most recently selected point can be removed by pressing the 'd' key (for "delete"). When the last point has been selected, press the 'f' (for "finished") key.
 
 Selected points will be marked with the plotting character given in `pch.sel=` (defaults to a filled circle) with a color given in `col.sel=` (defaults to yellow). Any deleted points will be marked with the color and character in `col.del=` and `pch.del=` (defaults to a red circle with an "x" in it).
 
@@ -155,8 +155,8 @@ When you have finished selecting points, the image window is closed[^closewindow
 ### Processing Multiple Images {#multipleimages}
 It will be common to process a number of image files, one after another. The selection of the images can be made more efficient by supplying `digitizeRadii()` a vector of image file names and corresponding fish IDs. These vectors can be constructued in a variety of ways before calling `digitizeRadii()`. First, the user can simply type all of the image names and fish IDs into vectors; e.g.,
 ```{r eval=FALSE}
-imgs <- c("Scale_1.jpg","Scale_2.jpg")
-ids <- c("1","2")
+imgs <- c("Scale_1.jpg","Scale_2.jpg","Scale_3.jpg")
+ids <- c("1","2","3")
 ```
 
 However, if the image file names follow a general pattern, for example always being JPG files and always containing the word "Scale" or "Bass" or something similar, then a list of all image file names in the current working directory can be obtained with `listFiles()`. This function takes the common extension as its first argument and the common "other" words in `other=`. For example, the following code finds all JPG files that also contain the word "Scale" in the current working directory.
@@ -169,7 +169,7 @@ The user would still need to manually create a vector of corresponding fish IDs.
 ( ids <- getID(imgs) )
 ```
 
-With these vectors, the following call to `digitizeRadii()` will bring up the first image on which you can mark annuli as described above. When you have finished with the first image then the second image will automatically appear on which you can then mark the annuli. This process will be repeated until the last image in the vector of images has been completed.
+With these vectors, the following call to `digitizeRadii()` will bring up the first image on which you can mark annuli as described above. When you have finished with the first image then the second image will automatically appear on which you can then mark annuli. This process will be repeated until the last image in the vector of images has been completed.
 ```{r eval=FALSE}
 digitizeRadii(imgs,id=ids,reading="DHO",edgeIsAnnulus=FALSE)
 ```
@@ -193,6 +193,14 @@ Note that when processing multiple image files as described in this section, **a
 
 \  
 
+### Starting Over or Skipping an Image {#restartabort}
+
+The user can "start over" the processing of any image by pressing the "z" key at any time during the processing. Note however that this is a "hard reset" in the sense that all points select prior to pressing the "z" key will be lost, the original unmarked image will be reloaded, and you will need to start over processing the image (i.e., marking the scale-bar, transect, and annuli again).
+
+The user may also abort or skip processing an image that has been loaded by pressing the "q" key at any time during the processing. This will most likely be useful when processing multiple images at one time as described previously. For example, an image may appear that is unreadable such that annuli cannot be reliably marked on the image. Note that aborting processing an image will result in no R data file being created for that image.
+
+\  
+
 \  
 
 ----
@@ -204,7 +212,7 @@ As described above, the `digitizeRadii()` function has several arguments that pr
 RFBCoptions()$showTransect
 ```
 
-Default values for these arguments may be changed within `digitizeRadii()`. For example, the code below sets the "reading" label to "DHO", the edge to not be considered an annulus, the width of the transect line to be thicker, and a scale-bar is present with a known length of 0.6 mm.
+Default values for these arguments may be changed within `digitizeRadii()`. For example, the code below sets the "reading" label to "DHO", the edge to not be considered an annulus, the width of the transect line to be thicker, and identifying that a scale-bar with a known length of 0.6 mm is present.
 ```{r eval=FALSE}
 digitizeRadii("Scale_1.jpg",id="1",reading="DHO",edgeIsAnnulus=FALSE,
               lwd.transect=3,scaleBar=TRUE,scaleBarLength=0.6)
@@ -221,7 +229,7 @@ With these changes to the default settings, the last call to `digitizeRadii()` a
 digitizeRadii("Scale_1.jpg",id="1")
 ```
 
-Argument values can still be changed from the defaults for a particular call to `digitizeRadii()` by including that argument in the specific call. For example if the edge was an annulus for only one of the structures, then include `edgeIsAnnulus=TRUE` in `digitizeRadii()`.
+Argument values can still be changed from the defaults for a particular call to `digitizeRadii()` by including that argument in the specific call. For example if the edge was an annulus for the structure on only one of the images, then include `edgeIsAnnulus=TRUE` in `digitizeRadii()`.
 
 \  
 
@@ -231,7 +239,7 @@ Argument values can still be changed from the defaults for a particular call to 
 
 # Data from One Structure
 
-The radial measurements from one structure may be seen by submitting the R data file name to `combineData()`.[^combinedatawd] Note that by default the radial measurement that includes the "plus-growth" will be omitted (as this radial measurement is equal to the total radial measurement and is thus redundant). To include the radial measurement with "plus-growth" then use `deletePlusGrowth=FALSE`.
+The radial measurements from one structure may be seen by submitting the R data file name to `combineData()`.[^combinedatawd] By default the radial measurement that includes the "plus-growth" will be omitted (as this radial measurement is equal to the total radial measurement and is thus redundant). To include the radial measurement with "plus-growth" then use `deletePlusGrowth=FALSE`.
 
 ```{r}
 combineData("Scale_1_DHO.rds")
@@ -250,9 +258,7 @@ combineData("Scale_1_DHO.rds",outFormat="wide")
 ----
 
 # Combine Data from Multiple Structures {#multiplestructures}
-Of course, most analyses will consist of collecting radial measurements from structures from many fish. In this section, I demonstrate how to combine measurements from multiple structures.
-
-This demonstration assumes that many structure images in the current working directory were processed with `digitizeRadii()` as described above. For the purposes of this demonstration assume that "Scale_1.jpg" and "Scale_2.jpg" were both read by "DHO". For example, these images could have been processed with the following code, such that "Scale_1_DHO.rds" and "Scale_2_DHO.rds" would both exist in the current working directory.
+Of course, most analyses will consist of collecting radial measurements from structures from many fish. For example, supposed that "Scale_1.jpg" and "Scale_2.jpg" were both read by "DHO" using the following code. Following this, "Scale_1_DHO.rds" and "Scale_2_DHO.rds" would both exist in the current working directory.
 
 ```{r eval=FALSE}
 RFBCoptions(reading="DHO",edgeIsAnnulus=FALSE)
@@ -264,9 +270,9 @@ Radial measurements from multiple structures can be combined into one data.frame
 listFiles("rds")
 ```
 
-This list of names can be further filtered by including other key words for the filenames in `other=`. In this case, the list should be limited to those files with "Scale" in the name and those files with just "DHO" (i.e., exclude "DHO2"). Limiting to "DHO" required limiting to "DHO.", but because the "." is a special character it had to be preceded by two back slashes.
+This list of names can be further filtered by including other key words for the filenames in `other=`. In this case, the list should be limited to those files with "Scale" in the name and those files with just "DHO". Limiting to "DHO" required limiting to "DHO.", but because the "." is a special character it had to be preceded by two back slashes.
 ```{r}
-( fns <- listFiles("rds",other=c("Scale","DHO\\.")) )
+( fns <- listFiles("rds",other=c("Scale","DHO")) )
 ```
 
 The result of `listFiles()` should be saved to an object so that the names can be given to `combineData()` as shown below.[^combinedatawd2]
@@ -324,7 +330,7 @@ write.csv(fishdat,file="Kiyi2014_BCs.csv",quote=FALSE,row.names=FALSE)
 
 [^inwd]: This assumes that the `Scale_1.jpg` file is in the current working directory. Use `getwd()` to see the current working directory.
 
-[^deletekey]: The last selected point can be deleted by pressing the 'd' or 'r' keys. This can be done multiple times such that the last number of selections can be deleted. The deleted points will be marked with the plotting character and color in `pch.del=` and `col.del=` (defaults to a red circle with an 'x' in it).
+[^deletekey]: The last selected point can be deleted by pressing the 'd' key. This can be done multiple times such that the last number of selections can be deleted. The deleted points will be marked with the plotting character and color in `pch.del=` and `col.del=` (defaults to a red circle with an 'x' in it).
 
 [^readingex]: I use my initials ("DHO") here for `reading=` simply as an example. You will likely want to use something else.
 

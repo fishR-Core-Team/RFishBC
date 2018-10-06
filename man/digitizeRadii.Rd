@@ -11,9 +11,9 @@ digitizeRadii(img, id, reading, suffix, description, edgeIsAnnulus, popID,
   showInfo, pos.info, cex.info, col.info)
 }
 \arguments{
-\item{img}{A vector of strings that indicates the image (must be PNG, JPG, BMP, or TIFF) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file(s). Alternatively the user can supply the name of the file(s). Either way the file(s) must be in the current working directory.}
+\item{img}{A vector of strings that indicates the image (must be PNG, JPG, BMP, or TIFF) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file(s). Alternatively the user can supply the name(s) of the file(s). Either way the file(s) must be in the current working directory.}
 
-\item{id}{A vector of unique identifiers for the fish or structure being examined. Will be coerced to a character. If length of \code{img} is greater than 1, then the length of \code{id} must be the same. If missing then you will be prompted to enter a value.}
+\item{id}{A vector of unique identifiers for the fish or structure(s) being examined. Will be coerced to a character. If length of \code{img} is greater than 1, then the length of \code{id} must be the same. If missing then you will be prompted to enter a value.}
 
 \item{reading}{See details in \code{\link{RFBCoptions}}.}
 
@@ -70,12 +70,12 @@ digitizeRadii(img, id, reading, suffix, description, edgeIsAnnulus, popID,
 \item{col.info}{See details in \code{\link{RFBCoptions}}.}
 }
 \value{
-Null if more than one file was given in \code{img} or, if only one file was given, a list that contains the following:
+\code{NULL} if more than one file was given in \code{img} or, if only one file was given, a list that contains the following:
 \itemize{
   \item{\code{image}: }{The full filename given in \code{img}.}
   \item{\code{datanm}: }{The R data filename.}
   \item{\code{description}: }{The description given in \code{description}.}
-  \item{\code{edgeIsAnnulus}: }{The logical given in \code{edgeIsAnnulus}.}
+  \item{\code{edgeIsAnnulus}: }{The logical given in \code{edgeIsAnnulus} that identified whether the structure edge/margin should be considered as an annulus.}
   \item{\code{snap2Transect}: }{The logical from \code{snap2Transect} that identified whether the selected points were \dQuote{snapped} to the transect or not.}
   \item{\code{scalingFactor}: }{A single numeric used to convert measurements on the structure image to actual measurements on the structure. Measurements on the structure image were multiplied by this value.}
   \item{\code{sfSource}: }{A character string that identifies whether the scaling factor was \code{"Provided"} through the \code{scalingFactor} argument or derived from a \code{"scaleBar"}.}
@@ -86,18 +86,15 @@ Null if more than one file was given in \code{img} or, if only one file was give
   \item{\code{slpPerpTransect}: }{The slope of the line perpendicular to the transect.}
   \item{\code{windowSize}: }{A numeric of length two that contains the width and height of the window used to display the structure image. One of these units was set by the given \code{windowSize} value.}
   \item{\code{pixW2H}: }{The ratio of pixel width to height. This is used to correct measurements for when an image is not square.}
-  \item{\code{pts}: }{A data.frame that contains the \code{x} and \code{y} coordinates on the image for the selected annuli. These points may be \dQuote{snapped} to the transect if \code{snap2Transect==TRUE}.}
+  \item{\code{pts}: }{A data.frame that contains the \code{x} and \code{y} coordinates on the image for the selected annuli. These points may have been \dQuote{snapped} to the transect if \code{snap2Transect==TRUE}.}
   \item{\code{radii}: }{A data.frame that contains the unique \code{id}, the \code{reading} code, the age-at-capture in \code{agecap}, the annulus number in \code{ann}, the radial measurements in \code{rad}, and the radial measurement at capture in \code{radcap}.}
 }.
 }
 \description{
-The user interactively select points wit the first moust button on an image of a calcified structure. When finished, radial measurements (from the structure focus to the selected points) are calculated (either with arbitrary units or actual units if a scale-bar is included on the image) and written to an external file for later use.
+The user interactively select points on an image of a calcified structure. When finished, radial measurements (from the structure focus to the selected points) are calculated (either with arbitrary units or actual units if a scale-bar is included on the image) and written to an external file for later use.
 }
 \details{
 This function requires interaction from the user. A detailed description of its use is in the vignettes on the \href{http://derekogle.com/RFishBC/index.html}{RFishBC website}.
-}
-\note{
-This uses \code{\link[graphics]{locator}} which will suspend activity in the console until the user indicates that they are done selecting points by right-clicking on the image and selecting Stop or selecting Stop in the window's menu.
 }
 \examples{
 ## None because this requires interaction from the user.

@@ -148,24 +148,24 @@ test_that("combineData() results",{
   ## Multiple files
   ### Long Format
   #### Deleting plus growth
-  tmp <- combineData(c("Scale_1_DHO.rds","Scale_1_DHO2.rds"))
+  tmp <- combineData(c("Scale_1_DHO.rds","Scale_1_OHD.rds"))
   expect_s3_class(tmp,"data.frame")
   expect_equal(names(tmp),c("id","reading","agecap","ann","rad","radcap"))
   expect_equal(nrow(tmp),10)
   #### Not deleting plus growth
-  tmp <- combineData(c("Scale_1_DHO.rds","Scale_1_DHO2.rds"),deletePlusGrowth=FALSE)
+  tmp <- combineData(c("Scale_1_DHO.rds","Scale_1_OHD.rds"),deletePlusGrowth=FALSE)
   expect_s3_class(tmp,"data.frame")
   expect_equal(names(tmp),c("id","reading","agecap","ann","rad","radcap"))
   expect_equal(nrow(tmp),12)
   ### Wide Format
   #### Deleting plus growth
-  tmp <- combineData(c("Scale_1_DHO.rds","Scale_1_DHO2.rds"),outFormat="wide")
+  tmp <- combineData(c("Scale_1_DHO.rds","Scale_1_OHD.rds"),outFormat="wide")
   expect_s3_class(tmp,"data.frame")
   expect_equal(names(tmp),c("id","reading","agecap","radcap",
                             "rad1","rad2","rad3","rad4","rad5"))
   expect_equal(nrow(tmp),2)
   #### Not deleting plus growth
-  tmp <- combineData(c("Scale_1_DHO.rds","Scale_1_DHO2.rds"),
+  tmp <- combineData(c("Scale_1_DHO.rds","Scale_1_OHD.rds"),
                      outFormat="wide",deletePlusGrowth=FALSE)
   expect_s3_class(tmp,"data.frame")
   expect_equal(names(tmp),c("id","reading","agecap","radcap",
@@ -181,8 +181,8 @@ test_that("listFiles() output",{
   expect_equal(listFiles("jpg"),c("Oto140306.jpg","Scale_1.jpg",
                                   "Scale_2.jpg","small_ex.jpg"))
   expect_equal(listFiles("jpg",other="Scale"),c("Scale_1.jpg","Scale_2.jpg"))
-  expect_equal(listFiles("rds",other="DHO2"),
-               c("Oto140306_DHO2.rds","Scale_1_DHO2.rds"))
+  expect_equal(listFiles("rds",other="OHD"),
+               c("Oto140306_OHD.rds","Scale_1_OHD.rds"))
 })
 
 
