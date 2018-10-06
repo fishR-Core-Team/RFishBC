@@ -5,37 +5,37 @@ setwd("C:/aaaWork/Programs/GitHub/RFishBC/vignettes/MeasureRadii")
 ## Process Scales
 junk <- digitizeRadii("Scale_1.jpg",id="1",reading="DHO",edgeIsAnnulus=FALSE)
 ## choose Scale_1.jpg and set id to 1 ... use a different transect
-digitizeRadii(reading="DHO2",edgeIsAnnulus=FALSE,popID=TRUE)
+digitizeRadii(reading="OHD",edgeIsAnnulus=FALSE,popID=TRUE)
 ## use yet another different transect
-digitizeRadii("Scale_1.jpg",id="1",reading="DHO3",edgeIsAnnulus=FALSE)
+digitizeRadii("Scale_1.jpg",id="1",reading="ODH",edgeIsAnnulus=FALSE)
 ## a different fish
 digitizeRadii("Scale_2.jpg",id="2",reading="DHO",edgeIsAnnulus=FALSE)
 ## choosing muliple files at once
 ### by selecting files initially
 ( imgs <- listFiles(ext=".jpg",other="Scale") )
 ( ids <- getID(imgs) )
-digitizeRadii(imgs,id=ids,reading="DHO4",edgeIsAnnulus=FALSE)
+digitizeRadii(imgs,id=ids,reading="MULT",edgeIsAnnulus=FALSE)
 ### by selecting files in a dialog box (select scale_1 and scale_2)
-digitizeRadii(reading="DHO5",edgeIsAnnulus=FALSE)
+digitizeRadii(reading="MULT2",edgeIsAnnulus=FALSE)
 ### using selected files, but aborting the first one (to make sure it goes to the second)
-digitizeRadii(imgs,id=ids,reading="DHO6",edgeIsAnnulus=FALSE)
+digitizeRadii(imgs,id=ids,reading="ABORT",edgeIsAnnulus=FALSE)
 
 ### Treat this as if it is a spring-caught age-1 fish (only annulus is the edge)
-junk2 <- digitizeRadii("Scale_3.jpg",id="3",reading="DHO7",edgeIsAnnulus=TRUE)
+junk2 <- digitizeRadii("Scale_3.jpg",id="3",reading="DHO",edgeIsAnnulus=TRUE)
 ### Treat this as if it is a fall-caught age-0 fish (no annulus to measure)
-junk3 <- digitizeRadii("Scale_3.jpg",id="3",reading="DHO8",edgeIsAnnulus=FALSE)
+junk3 <- digitizeRadii("Scale_3.jpg",id="3",reading="TEMP",edgeIsAnnulus=FALSE)
 
 
 #### Some tests of these functions
 showDigitizedImage("Scale_1_DHO.rds")
-showDigitizedImage(c("Scale_1_DHO.rds","Scale_1_DHO2.rds","Scale_1_DHO3.rds"))
+showDigitizedImage(c("Scale_1_DHO.rds","Scale_1_OHD.rds","Scale_1_ODH.rds"))
 showDigitizedImage()      # choose one file and then choose the three
 showDigitizedImage(junk)  # uses the object created above
 combineData("Scale_1_DHO.rds")
-combineData(c("Scale_1_DHO.rds","Scale_1_DHO2.rds","Scale_1_DHO3.rds"))
+combineData(c("Scale_1_DHO.rds","Scale_1_OHD.rds","Scale_1_ODH.rds"))
 combineData()             # choose one file and then choose the three
 combineData(junk)         # uses the object created above
-combineData(junk2)
+combineData(junk2)        # should show agecap=1 and 1 annulus
 
 
 ## Process the otolith
@@ -52,11 +52,18 @@ showDigitizedImage("Oto140306_DHO.rds",annuliLabels=c(2,5))
 ## see if the results are basically the same as above
 ( SF <- findScalingFactor("Oto140306.jpg",knownLength=1,windowSize=12) )
 
-digitizeRadii("Oto140306.jpg",id="140306",reading="DHO2",
+digitizeRadii("Oto140306.jpg",id="140306",reading="OHD",
               description="Testing provided scaling factor.",
               scaleBar=FALSE,scalingFactor=SF,edgeIsAnnulus=TRUE,
               windowSize=12)
 
+
+#### move these to a dead directory so that they don't appear in the vignettes
+fns <- c(listFiles(".rds",other="MULT"),
+         listFiles(".rds",other="TEMP"),
+         listFiles(".rds",other="ABORT"))
+file.copy(fns,"zzzTempRdsFiles/",overwrite=TRUE)
+file.remove(fns)
 
 #### Copy this to test suite so that an error is thrown if something changed
 ####    Need to do this because everything is interactive
