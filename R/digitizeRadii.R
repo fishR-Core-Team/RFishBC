@@ -379,7 +379,7 @@ iSnap2Transect <- function(pts,trans.pts,
     intersectsX <- trans.pts$x
     ### y-value of point of intercept with transect is same as y of point
     intersectsY <- pts$y
-  } else if (all.equal(slpTransect,0)) {
+  } else if (isTRUE(all.equal(slpTransect,0))) {
     ## Transect is perfectly horizontal
     ### x-value of point of intercept with transect is same as x of point
     intersectsX <- pts$x
