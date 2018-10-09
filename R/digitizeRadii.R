@@ -246,7 +246,7 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
     trans.pts <- iSelectPt(2,"Select FOCUS and MARGIN:",msg2,
                            pch.sel=pch.sel,col.sel=col.sel,cex.sel=cex.sel,
                            pch.del=pch.del,col.del=col.del,
-                           snap2Transect=FALSE,slpTransect=NULL,
+                           snap2Transect=FALSE,trans.pts=NULL,slpTransect=NULL,
                            intTransect=NULL,slpPerpTransect=NULL)
     if (is.data.frame(trans.pts)) { # returned data.frame b/c not abort/restarted
       #### Calculate slope, intercept, and perpendicular slope to transect
@@ -273,8 +273,9 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
     pts <- iSelectPt(NULL,"Select ANNULI:",msg2,
                      pch.sel=pch.sel,col.sel=col.sel,cex.sel=cex.sel,
                      pch.del=pch.del,col.del=col.del,
-                     snap2Transect=snap2Transect,slpTransect=slpTransect,
-                     intTransect=intTransect,slpPerpTransect=slpPerpTransect)
+                     snap2Transect=snap2Transect,trans.pts=trans.pts,
+                     slpTransect=slpTransect,intTransect=intTransect,
+                     slpPerpTransect=slpPerpTransect)
     if (sepWindow & closeWindow) grDevices::dev.off()
     if (is.data.frame(pts)) { # data.frame returned b/c not abort/restarted
       #### Add transect (focus and margin) to the points
@@ -370,13 +371,29 @@ iPts2Rad <- function(pts,edgeIsAnnulus,scalingFactor,pixW2H,id,reading) {
 ##
 ## Perpendicularly "slides" a point to fall on the transect.
 ########################################################################
-iSnap2Transect <- function(pts,slpTransect,intTransect,slpPerpTransect) {
-  ## Intercept of line perpendicular to transect through the point.
-  intPerp <- pts$y-slpPerpTransect*pts$x
-  ## Intersection between transect and perpendicular line through the point
-  intersectsX <- (intPerp-intTransect)/(slpTransect-slpPerpTransect)
-  intersectsY <- intTransect+slpTransect*intersectsX
-  ## Return snapped coordinates
+iSnap2Transect <- function(pts,trans.pts,
+                           slpTransect,intTransect,slpPerpTransect) {
+  if (is.infinite(slpTransect)) {
+    ## Transect is perfectly vertical
+    ### x-value of point of intercept with transect is same as x on transect
+    intersectsX <- trans.pts$x
+    ### y-value of point of intercept with transect is same as y of point
+    intersectsY <- pts$y
+  } else if (all.equal(slpTransect,0)) {
+    ## Transect is perfectly horizontal
+    ### x-value of point of intercept with transect is same as x of point
+    intersectsX <- pts$x
+    ### y-value of point of intercept with transect is same as y on transect
+    intersectsY <- trans.pts$y
+  } else {
+    ## Transect is not perfectly vertical, so must be careful with geometry
+    ### Intercept of line perpendicular to transect through the point.
+    intPerp <- pts$y-slpPerpTransect*pts$x
+    ### Intersection between transect and perpendicular line through the point
+    intersectsX <- (intPerp-intTransect)/(slpTransect-slpPerpTransect)
+    intersectsY <- intTransect+slpTransect*intersectsX
+  }
+  ### Return snapped coordinates
   data.frame(x=intersectsX,y=intersectsY)
 }
 

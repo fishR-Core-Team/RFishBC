@@ -124,13 +124,14 @@ iGetImage <- function(fname,id,sepWindow,windowSize,
 iSelectPt <- function(numPts,msg1,msg2,
                       pch.sel,col.sel,cex.sel,
                       pch.del,col.del,
-                      snap2Transect,slpTransect,intTransect,slpPerpTransect) {# nocov start
+                      snap2Transect,trans.pts,
+                      slpTransect,intTransect,slpPerpTransect) {# nocov start
   ## Internal function for handling mouse down event
   mouseDown <- function(buttons,x,y) {
     tmp <- data.frame(x=graphics::grconvertX(x,"ndc","user"),
                       y=graphics::grconvertY(y,"ndc","user"))
     if (snap2Transect) 
-      tmp <- iSnap2Transect(tmp,slpTransect,intTransect,slpPerpTransect)
+      tmp <- iSnap2Transect(tmp,trans.pts,slpTransect,intTransect,slpPerpTransect)
     graphics::points(y~x,data=tmp,pch=pch.sel,col=col.sel,cex=cex.sel)
     dat <<- rbind(dat,tmp)
     NULL
