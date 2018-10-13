@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.13</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.13.9000</span>
       </span>
     </div>
 
@@ -128,16 +128,19 @@
       
     </div>
 
-    <div id="rfishbc-0-0-13-6-oct-18" class="section level1">
+    <div id="rfishbc-0-0-13-9000-ongoing" class="section level1">
 <h1 class="page-header">
-<a href="#rfishbc-0-0-13-6-oct-18" class="anchor"></a>RFishBC 0.0.13 6-Oct-18</h1>
+<a href="#rfishbc-0-0-13-9000-ongoing" class="anchor"></a>RFishBC 0.0.13.9000 ongoing</h1>
 <ul>
+<li>
+<p><code>iSnap2Transect()</code>: Modified. Changed to handle bugs related to perfectly vertical or perfectly horizontal transects. Addresses <a href="https://github.com/droglenc/RFishBC/issues/27">#27</a> (Thanks to Ben Neely).</p>
+<h1 id="rfishbc-0.0.13-6-oct-18" class="page-header">RFishBC 0.0.13 6-Oct-18</h1>
+</li>
 <li>
 <code><a href="../reference/combineData.html">combineData()</a></code>: Modified. Changed so that an age-0 fish with all plus-growth is still included in the returned data.frame when <code>deletePlusGrowth=TRUE</code> (the <code>ann</code> and <code>rad</code> variables will both be <code>NA</code>). Thanks to Ben Neely.</li>
 <li>
 <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Removed restriction that one point be selected as an annulus, which allows for handling age-0 fish (addresses <a href="https://github.com/droglenc/RFishBC/issues/25">#25</a>; thanks to Ben Neely for the suggestion). Removed the <code>q</code> and <code>r</code> button equivalencies for <code>f</code> and <code>d</code>. Added the ability for the user to start over (resulting in no file to be written, but the current image stays live; uses the <code>z</code> key) (addresses <a href="https://github.com/droglenc/RFishBC/issues/22">#22</a>; thanks to Ben Neely for the suggestion). Added the ability for the user to abort a processing (resulting in no file to be written and moving to the next image if using multiple images; uses the <code>q</code> key) (addresses <a href="https://github.com/droglenc/RFishBC/issues/24">#24</a>; thanks to Ben Neely for the suggestion).</li>
-<li>
-<code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>: Modified. Changed to allow the user to abort or restart the process, similar to for <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.</li>
+<li><p><code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>: Modified. Changed to allow the user to abort or restart the process, similar to for <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.</p></li>
 </ul>
 </div>
     <div id="rfishbc-0-0-12-3-oct-18" class="section level1">
@@ -380,7 +383,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#rfishbc-0-0-13-6-oct-18">0.0.13</a></li>
+        <li><a href="#rfishbc-0-0-13-9000-ongoing">0.0.13.9000</a></li>
         <li><a href="#rfishbc-0-0-12-3-oct-18">0.0.12</a></li>
         <li><a href="#rfishbc-0-0-11-26-jul-18">0.0.11</a></li>
         <li><a href="#rfishbc-0-0-10-3-july-18">0.0.10</a></li>
