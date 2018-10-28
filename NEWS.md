@@ -1,5 +1,6 @@
 # RFishBC 0.0.13.9000 ongoing
 * `iSnap2Transect()`: Modified. Changed to handle bugs related to perfectly vertical or perfectly horizontal transects. Addresses [#27](https://github.com/droglenc/RFishBC/issues/27) (Thanks to Ben Neely).
+
 # RFishBC 0.0.13 6-Oct-18
 * `combineData()`: Modified. Changed so that an age-0 fish with all plus-growth is still included in the returned data.frame when `deletePlusGrowth=TRUE` (the `ann` and `rad` variables will both be `NA`). Thanks to Ben Neely.
 * `digitizeRadii()`: Modified. Removed restriction that one point be selected as an annulus, which allows for handling age-0 fish (addresses [#25](https://github.com/droglenc/RFishBC/issues/25); thanks to Ben Neely for the suggestion). Removed the `q` and `r` button equivalencies for `f` and `d`. Added the ability for the user to start over (resulting in no file to be written, but the current image stays live; uses the `z` key) (addresses [#22](https://github.com/droglenc/RFishBC/issues/22); thanks to Ben Neely for the suggestion). Added the ability for the user to abort a processing (resulting in no file to be written and moving to the next image if using multiple images; uses the `q` key) (addresses [#24](https://github.com/droglenc/RFishBC/issues/24); thanks to Ben Neely for the suggestion).
