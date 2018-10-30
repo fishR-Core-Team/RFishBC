@@ -97,7 +97,7 @@ The `digitizeRadii()` function **requires** only three arguments.
 Other **optional** arguments that are likely to be commonly used are:
 
 * `reading=`: Label for the reading. The `reading=` argument is primarily used when the structure is read more than once. However, I suggest giving a descriptive label to `reading=` even if there are no plans to read the structure again.[^description]
-* `windowSize=`: A value that sets the size of the separate window.[^windowsize] This value will become the larger of the two dimensions, with the other value proportionate so that the original aspect ratio of the image is maintained. Use `windowSize=` to "zoom in" on an image. Note that the default is `windowSize=7`; so values larger than 7 represent a "zooming in."
+* `windowSize=`: A value that sets the size of the separate window. This value will become the larger of the two dimensions, with the other value proportionate so that the original aspect ratio of the image is maintained. Use `windowSize=` to "zoom in" on an image. Note that the default is `windowSize=7`; so values larger than 7 represent a "zooming in."
 
 Finally, note that the R data file that will be created after the annuli have been selected will have the same name as the image file[^excludeextension] but including the suffix optionally provided in `suffix=`. If nothing is given in `suffix=`, then a suffix will be created from `reading=` (if it exists). For example, if the structure image file was named "Scale_1.jpg", then the resultant R data file will be named "Scale_1_DHO.rds" if `reading="DHO"` or "Scale_1_TESTING.rds" if `reading="DHO"` and `suffix="TESTING"`.
 
@@ -148,7 +148,7 @@ At this point, the image may look something like that below (*note that two poin
 
 \  
 
-When you have finished selecting points, the image window is closed[^closewindow] and information about your selections, including the calculated radial measurements, are saved to the R data file. The contents of this file are described further [here](http://derekogle.com/RFishBC/reference/digitizeRadii.html#value).
+When you have finished selecting points, information about your selections, including the calculated radial measurements, are saved to the R data file. The contents of this file are described further [here](http://derekogle.com/RFishBC/reference/digitizeRadii.html#value).
 
 \  
 
@@ -336,8 +336,6 @@ write.csv(fishdat,file="Kiyi2014_BCs.csv",quote=FALSE,row.names=FALSE)
 
 [^description]: A more detailed description about the structure can be given to `description` for saving in the R data file for future use. For example, one may use `description="Kiyi scale read once by Ogle on 22-Apr-18"` to provide more information about the structure reading.
 
-[^windowsize]: Strictly, `windowSize=` only works if `sepWindow=TRUE`, which is the default as I have found it "safer" to open images in their own window (and separate from the RStudio plot pane).
-
 [^saveex1]: Actually much more than the radial measurements are recorded in the R data file (see [here](http://derekogle.com/RFishBC/reference/digitizeRadii.html#value)). Also note that the radii are on an arbitrary scale in this case because no scale-bar was available on the image.
 
 [^DRargs]: The many specific arguments to `digitizeRadii()` are controlled with `RFBCoptions()` (described later) and described in detail [here](http://derekogle.com/RFishBC/reference/RFBCoptions.html#details).
@@ -348,15 +346,11 @@ write.csv(fishdat,file="Kiyi2014_BCs.csv",quote=FALSE,row.names=FALSE)
 
 [^sforder]: Thus, `findScalingFactor()` would be run prior to `digitizeRadii()`.
 
-[^invisiblepoints]: When the structure image is in the "Plots" pane of RStudio, the points will not be visible until after you have finished selecting all points. This is one of the reasons why I prefer to use `sepWindow=TRUE`.
-
 [^twomonitors]: For example, you could have R/RStudio on one monitor and the window with the structure image on the other.
 
 [^sdifilename]: If no file name is given, then a dialog box will appear from which the data file can be selected.
 
 [^noteabove]: The first set of readings were made in the first section above.
-
-[^closewindow]: The image window is closed by default when "f" is pushed after the last annulus is selected. The window may be kept open by using `closeWindow=FALSE` in the call to `digitizeRadii()`.
 
 [^combinedatawd]: If no file name is given, then a dialog box will appear from which the data file can be selected. It is also assumed that the file is in the current working directory.
 

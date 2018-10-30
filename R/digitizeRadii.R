@@ -8,9 +8,7 @@
 #' @param description See details in \code{\link{RFBCoptions}}.
 #' @param suffix See details in \code{\link{RFBCoptions}}.
 #' @param edgeIsAnnulus See details in \code{\link{RFBCoptions}}.
-#' @param sepWindow See details in \code{\link{RFBCoptions}}.
 #' @param windowSize See details in \code{\link{RFBCoptions}}.
-#' @param closeWindow See details in \code{\link{RFBCoptions}}.
 #' @param popID See details in \code{\link{RFBCoptions}}.
 #' @param IDpattern See details in \code{\link{RFBCoptions}}.
 #' @param scaleBar See details in \code{\link{RFBCoptions}}.
@@ -66,7 +64,7 @@
 #' 
 digitizeRadii <- function(img,id,reading,suffix,
                           description,edgeIsAnnulus,popID,IDpattern,
-                          sepWindow,windowSize,closeWindow,
+                          windowSize,
                           scaleBar,scaleBarLength,col.scaleBar,lwd.scaleBar,
                           scalingFactor,showTransect,snap2Transect,
                           col.transect,lwd.transect,
@@ -111,9 +109,7 @@ digitizeRadii <- function(img,id,reading,suffix,
   if (missing(cex.sel)) cex.sel <- iGetopt("cex.sel")
   if (missing(pch.del)) pch.del <- iGetopt("pch.del")
   if (missing(col.del)) col.del <- iGetopt("col.del")
-  if (missing(sepWindow)) sepWindow <- iGetopt("sepWindow")
   if (missing(windowSize)) windowSize <- iGetopt("windowSize")
-  if (missing(closeWindow)) closeWindow <- iGetopt("closeWindow")
   if (!is.numeric(windowSize)) STOP("'windowSize' must be numeric.")
   if (windowSize<=0) STOP("'windowSize' must be positive.")
   if (missing(showInfo)) showInfo <- iGetopt("showInfo")
@@ -157,7 +153,7 @@ digitizeRadii <- function(img,id,reading,suffix,
     for (i in seq_along(img)) {
       digitizeRadii(img[i],id=id[i],reading,suffix,
                     description,edgeIsAnnulus,popID,IDpattern,
-                    sepWindow,windowSize,closeWindow,
+                    windowSize,
                     scaleBar,scaleBarLength,col.scaleBar,lwd.scaleBar,
                     scalingFactor,showTransect,snap2Transect,
                     col.transect,lwd.transect,
@@ -170,7 +166,7 @@ digitizeRadii <- function(img,id,reading,suffix,
     ## Only one image to process
     dat <- iDigitizeRadii1(img,id,reading,suffix,
                            description,edgeIsAnnulus,popID,IDpattern,
-                           sepWindow,windowSize,closeWindow,
+                           windowSize,
                            scaleBar,scaleBarLength,col.scaleBar,lwd.scaleBar,
                            scalingFactor,showTransect,snap2Transect,
                            col.transect,lwd.transect,
@@ -195,7 +191,7 @@ digitizeRadii <- function(img,id,reading,suffix,
 ########################################################################
 iDigitizeRadii1 <- function(img,id,reading,suffix,
                             description,edgeIsAnnulus,popID,IDpattern,
-                            sepWindow,windowSize,closeWindow,
+                            windowSize,
                             scaleBar,scaleBarLength,col.scaleBar,lwd.scaleBar,
                             scalingFactor,showTransect,snap2Transect,
                             col.transect,lwd.transect,
@@ -210,7 +206,7 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
   msg2 <- "   'f'=finished, 'd'=delete, 'q'=abort, 'z'=restart"
 
   ## Loads image given in img ==================================================
-  windowInfo <- iGetImage(img,id,sepWindow,windowSize,
+  windowInfo <- iGetImage(img,id,windowSize,
                           showInfo,pos.info,cex.info,col.info)
   DONE("Loaded the ",img," image.\n")
   
@@ -231,7 +227,7 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
     } else { # no list returned b/c abort/restarted
       if (sbInfo=="ABORT") abort <- TRUE
       else if (sbInfo=="RESTART") restart <- TRUE
-      if (sepWindow & closeWindow) grDevices::dev.off()
+      grDevices::dev.off()
     }
   } else { ## No scale bar on the plot ... using the scaling factor
     DONE("Using the scaling factor provided in 'scalingFactor'.\n")
@@ -263,7 +259,7 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
     } else { # no data.frame returned b/c abort/restarted
       if (trans.pts=="ABORT") abort <- TRUE
       else if (trans.pts=="RESTART") restart <- TRUE
-      if (sepWindow & closeWindow) grDevices::dev.off()
+      grDevices::dev.off()
     }
   }
   
@@ -276,7 +272,6 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
                      snap2Transect=snap2Transect,trans.pts=trans.pts,
                      slpTransect=slpTransect,intTransect=intTransect,
                      slpPerpTransect=slpPerpTransect)
-    if (sepWindow & closeWindow) grDevices::dev.off()
     if (is.data.frame(pts)) { # data.frame returned b/c not abort/restarted
       #### Add transect (focus and margin) to the points
       pts <- rbind(trans.pts,pts)
@@ -309,7 +304,7 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
     DONE("Processing is being RESTARTED as requested by the user.",
          " No file was written ",img,".\n")
     iDigitizeRadii1(img,id,reading,suffix,description,edgeIsAnnulus,popID,
-                    IDpattern,sepWindow,windowSize,closeWindow,scaleBar,
+                    IDpattern,windowSize,scaleBar,
                     scaleBarLength,col.scaleBar,lwd.scaleBar,scalingFactor,
                     showTransect,snap2Transect,col.transect,lwd.transect,
                     pch.sel,col.sel,cex.sel,pch.del,col.del,showInfo,pos.info,

@@ -3,7 +3,6 @@
 #' @description Show points selected on a structure image to represent annuli that were saved to an R data file using \code{\link{digitizeRadii}}. This allows the user to reexaminine the selected points or overlay selected points from multiple readings of the structure.
 #' 
 #' @param nms A string (or vector of strings) that indicates the R data file(s) created with \code{\link{digitizeRadii}}. If missing the user will be provided a dialog box from which to choose the file(s). The file(s) must be in the current working directory (see \code{\link{getwd}} result). May also be a single \code{RFishBC} object created with \code{\link{digitizeRadii}}.
-#' @param sepWindow See details in \code{\link{RFBCoptions}}.
 #' @param pch.show See details in \code{\link{RFBCoptions}}.
 #' @param col.show See details in \code{\link{RFBCoptions}}.
 #' @param cex.show See details in \code{\link{RFBCoptions}}.
@@ -31,13 +30,12 @@
 #' ## None because this requires interaction from the user.
 #' ## See the link to the extensive documentation in the Details.
 #' 
-showDigitizedImage <- function(nms,sepWindow,
+showDigitizedImage <- function(nms,
                                pch.show,col.show,cex.show,
                                showTransect,col.transect,lwd.transect,
                                col.scaleBar,lwd.scaleBar,
                                showAnnuliLabels,annuliLabels,col.ann,cex.ann) {
   ## handle options
-  if (missing(sepWindow)) sepWindow <- iGetopt("sepWindow")
   if (missing(pch.show)) pch.show <- iGetopt("pch.show")
   if (missing(col.show)) col.show <- iGetopt("col.show")
   if (missing(cex.show)) cex.show <- iGetopt("cex.show")
@@ -79,7 +77,7 @@ showDigitizedImage <- function(nms,sepWindow,
       STOP("File does not appear to be from 'digitizeRadii().")
     #### If first then show the image
     if (i==1) {
-      iGetImage(dat$image,id=NULL,sepWindow=sepWindow,
+      iGetImage(dat$image,id=NULL,
                 windowSize=dat$windowSize,showInfo=FALSE,
                 pos.info=NULL,cex.info=NULL,col.info=NULL)
       origImage <- dat$image

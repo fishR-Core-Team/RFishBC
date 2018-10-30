@@ -1,5 +1,9 @@
 # RFishBC 0.0.13.9000 ongoing
 * `iSnap2Transect()`: Modified. Changed to handle bugs related to perfectly vertical or perfectly horizontal transects. Addresses [#27](https://github.com/droglenc/RFishBC/issues/27) (Thanks to Ben Neely).
+* `digitizeRadii()`: Modified. Removed `closeWindow=` and `sepWindow()`.
+* `findScalingFactor()`: Modified. Removed `closeWindow=` and `sepWindow()`.
+* `RFBCoptions()`: Modified. Removed `closeWindow=` and `sepWindow()`.
+* `showDigitizedImage()`: Modified. Removed `closeWindow=` and `sepWindow()`.
 
 # RFishBC 0.0.13 6-Oct-18
 * `combineData()`: Modified. Changed so that an age-0 fish with all plus-growth is still included in the returned data.frame when `deletePlusGrowth=TRUE` (the `ann` and `rad` variables will both be `NA`). Thanks to Ben Neely.

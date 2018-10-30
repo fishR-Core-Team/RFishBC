@@ -5,8 +5,8 @@ source("EXS_growthUtils.R")
 
 test_that("RFBCoptions() reset works",{
   tmp <- RFBCoptions()
-  RFBCoptions(sepWindow=FALSE)
-  expect_false(RFBCoptions()$sepWindow)
+  RFBCoptions(popID=FALSE)
+  expect_false(RFBCoptions()$popID)
   expect_equal(tmp,RFBCoptions(reset=TRUE))
 })
 

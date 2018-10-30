@@ -4,16 +4,12 @@ source("EXS_growthUtils.R")
 source("EXS_collectRadii.R")
 
 test_that("RFBCoptions() error messages",{
-  expect_error(RFBCoptions(sepWindow="Derek"),
-               "TRUE,FALSE")
   expect_warning(RFBCoptions(Derek=TRUE),
                  "Ignoring options not defined in manager")
   expect_error(RFBCoptions(windowSize=0),
                "value out of range")
   expect_error(RFBCoptions(windowSize=31),
                "value out of range")
-  expect_error(RFBCoptions(closeWindow="Derek"),
-               "TRUE,FALSE")
   expect_error(RFBCoptions(popID="Derek"),
                "TRUE,FALSE")
   expect_error(RFBCoptions(scalingFactor=0),
