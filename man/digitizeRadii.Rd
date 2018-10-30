@@ -5,7 +5,7 @@
 \title{Collect radial measurements from a calcified structure by interactively selecting annuli}
 \usage{
 digitizeRadii(img, id, reading, suffix, description, edgeIsAnnulus, popID,
-  IDpattern, sepWindow, windowSize, closeWindow, scaleBar, scaleBarLength,
+  IDpattern, windowSize, deviceType, scaleBar, scaleBarLength,
   col.scaleBar, lwd.scaleBar, scalingFactor, showTransect, snap2Transect,
   col.transect, lwd.transect, pch.sel, col.sel, cex.sel, pch.del, col.del,
   showInfo, pos.info, cex.info, col.info)
@@ -27,11 +27,9 @@ digitizeRadii(img, id, reading, suffix, description, edgeIsAnnulus, popID,
 
 \item{IDpattern}{See details in \code{\link{RFBCoptions}}.}
 
-\item{sepWindow}{See details in \code{\link{RFBCoptions}}.}
-
 \item{windowSize}{See details in \code{\link{RFBCoptions}}.}
 
-\item{closeWindow}{See details in \code{\link{RFBCoptions}}.}
+\item{deviceType}{See details in \code{\link{RFBCoptions}}.}
 
 \item{scaleBar}{See details in \code{\link{RFBCoptions}}.}
 

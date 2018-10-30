@@ -15,7 +15,7 @@ test_that("RFBCoptions() important defaults",{
   expect_true(is.null(RFBCoptions()$description))
   expect_true(is.null(RFBCoptions()$suffix))
   expect_true(is.null(RFBCoptions()$edgeIsAnnulus))
-  expect_true(RFBCoptions()$sepWindow)
+  expect_equal(RFBCoptions()$deviceType,"default")
   expect_true(RFBCoptions()$popID)
   expect_true(RFBCoptions()$snap2Transect)
   expect_equal(RFBCoptions()$pch.sel,20)

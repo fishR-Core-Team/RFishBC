@@ -10,6 +10,8 @@ test_that("RFBCoptions() error messages",{
                "value out of range")
   expect_error(RFBCoptions(windowSize=31),
                "value out of range")
+  expect_error(RFBCoptions(deviceType="quartz"),
+               "default,X11")
   expect_error(RFBCoptions(popID="Derek"),
                "TRUE,FALSE")
   expect_error(RFBCoptions(scalingFactor=0),

@@ -5,6 +5,7 @@
 #' @param img A string that indicates the image (must be PNG, JPG, BMP, or TIFF) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (will look for this file in the current working directory).
 #' @param knownLength See details in \code{\link{RFBCoptions}}.
 #' @param windowSize See details in \code{\link{RFBCoptions}}.
+#' @param deviceType See details in \code{\link{RFBCoptions}}.
 #' @param col.scaleBar See details in \code{\link{RFBCoptions}}.
 #' @param lwd.scaleBar See details in \code{\link{RFBCoptions}}.
 #' @param pch.sel See details in \code{\link{RFBCoptions}}.
@@ -25,7 +26,7 @@
 #' ## None yet
 
 findScalingFactor <- function(img,knownLength,
-                              windowSize,
+                              windowSize,deviceType,
                               col.scaleBar,lwd.scaleBar,
                               pch.sel,col.sel,cex.sel,
                               pch.del,col.del) {
@@ -33,6 +34,7 @@ findScalingFactor <- function(img,knownLength,
   if (missing(knownLength)) STOP("Must provide a 'knownLength'.")
   if (knownLength<=0) STOP("'knownLength' must be positive.")
   if (missing(windowSize)) windowSize <- iGetopt("windowSize")
+  if (missing(deviceType)) deviceType <- iGetopt("deviceType")
   if (missing(col.scaleBar)) col.scaleBar <- iGetopt("col.scaleBar")
   if (missing(lwd.scaleBar)) lwd.scaleBar <- iGetopt("lwd.scaleBar")
   if (missing(pch.sel)) pch.sel <- iGetopt("pch.sel")
@@ -46,8 +48,9 @@ findScalingFactor <- function(img,knownLength,
   
   ## Read the image
   windowInfo <- iGetImage(img,id=NULL,
-                          windowSize=windowSize,showInfo=FALSE,
-                          pos.info=NULL,cex.info=NULL,col.info=NULL) # nocov start
+                          windowSize=windowSize,deviceType=deviceType,
+                          showInfo=FALSE,pos.info=NULL,
+                          cex.info=NULL,col.info=NULL) # nocov start
   NOTE("Select the endpoints of the scale-bar.")
   msg2 <- "   'f'=finished, 'd'=delete, 'q'=abort, 'z'=restart"
   SF <- iScalingFactorFromScaleBar(msg2,knownLength,windowInfo$pixW2H,
@@ -73,4 +76,3 @@ findScalingFactor <- function(img,knownLength,
     }
   }
 } # nocov end
-

@@ -85,7 +85,7 @@ iHndlFilenames <- function(nm,filter,multi=TRUE) {
 ##   PNG, JPG, BMP, or TIFF files will be automatically detected. This
 ##   function is styled off the unexported digitize::ReadImg().
 ########################################################################
-iGetImage <- function(fname,id,windowSize,
+iGetImage <- function(fname,id,windowSize,deviceType,
                       showInfo,pos.info,cex.info,col.info) {
   ## Read the file
   img <- readbitmap::read.bitmap(fname,native=TRUE)
@@ -98,10 +98,14 @@ iGetImage <- function(fname,id,windowSize,
   tmp <- grDevices::dev.cur()
   ## If a window is already open, close it as its aspect ratio may be wrong 
   if (tmp!=1 & names(tmp)!="RStudioGD") grDevices::dev.off()
-  ## Open the new window
-  grDevices::dev.new(rescale="fixed",noRStudioGD=TRUE,
-                     width=windowSize[1],height=windowSize[2],
-                     title=paste0("Image: ",basename(fname)))
+  ## Open the new window (in the user's selected device)
+  if (deviceType=="default")
+    grDevices::dev.new(rescale="fixed",noRStudioGD=TRUE,
+                       width=windowSize[1],height=windowSize[2],
+                       title=paste0("Image: ",basename(fname)))
+  if (deviceType=="X11")
+    grDevices::X11(width=windowSize[1],height=windowSize[2],
+                       title=paste0("Image: ",basename(fname)))
   ## Plot the image
   withr::local_par(list(mar=c(0,0,0,0),xaxs="i",yaxs="i"))
   graphics::plot.new()
