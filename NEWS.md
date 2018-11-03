@@ -4,7 +4,7 @@
 * `findScalingFactor()`: Modified. Removed `sepWindow()`. Added `deviceType=`.
 * `getID()`: Modified. Added `IDreplace=`. Added more examples of use of `IDpattern=` and `IDreplace=` and more tests.
 * `iGetimage()`: Modified. Removed `sepWindow=`. Added `deviceType=`.
-* `RFBCoptions()`: Modified. Removed `sepWindow()`. Added `IDreplace=`.
+* `RFBCoptions()`: Modified. Removed `sepWindow()`. Added `deviceType=` and `IDreplace=`.
 * `showDigitizedImage()`: Modified. Removed `closeWindow=` and `sepWindow()`.
 
 # RFishBC 0.0.13 6-Oct-18
