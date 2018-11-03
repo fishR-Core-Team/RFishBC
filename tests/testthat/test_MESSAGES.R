@@ -156,11 +156,11 @@ test_that("listFiles() messages",{
 
 
 test_that("getID() messages",{
-  expect_error(getID(listFiles("jpg",other="Oto")),
-               "not found in all items of")
+  expect_error(getID(listFiles("jpg",other="Oto")),"not found in all items of")
   tmp <- c(listFiles("jpg",other="Oto"),listFiles("jpg",other="Scale"))
-  expect_error(getID(tmp),
-               "not found in all items of")
+  expect_error(getID(tmp),"not found in all items of")
+  tmp <- c("Ruffe_456.jpg","Ruffe_456.jpg","Ruffe_567.jpg")
+  expect_warning(getID(tmp),"All returned IDs are not unique")
 })
 
 

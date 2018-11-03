@@ -198,6 +198,8 @@ test_that("getID() output",{
   expect_equal(getID(tmp),c("23","34"))
   tmp <- c("1_Scale.jpg","2_Scale.jpg")
   expect_equal(getID(tmp,IDpattern="\\_.*"),c("1","2"))
+  tmp <- c("Junk_1_Scale.jpg","Junk_2_Scale.jpg")
+  expect_equal(getID(tmp,IDpattern=".*\\_(.+?)\\_.*",IDreplace="\\1"),c("1","2"))
 })
 
 

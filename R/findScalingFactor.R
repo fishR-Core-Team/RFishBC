@@ -6,6 +6,7 @@
 #' @param knownLength See details in \code{\link{RFBCoptions}}.
 #' @param windowSize See details in \code{\link{RFBCoptions}}.
 #' @param deviceType See details in \code{\link{RFBCoptions}}.
+#' @param closeWindow See details in \code{\link{RFBCoptions}}.
 #' @param col.scaleBar See details in \code{\link{RFBCoptions}}.
 #' @param lwd.scaleBar See details in \code{\link{RFBCoptions}}.
 #' @param pch.sel See details in \code{\link{RFBCoptions}}.
@@ -26,7 +27,7 @@
 #' ## None yet
 
 findScalingFactor <- function(img,knownLength,
-                              windowSize,deviceType,
+                              windowSize,deviceType,closeWindow,
                               col.scaleBar,lwd.scaleBar,
                               pch.sel,col.sel,cex.sel,
                               pch.del,col.del) {
@@ -35,6 +36,7 @@ findScalingFactor <- function(img,knownLength,
   if (knownLength<=0) STOP("'knownLength' must be positive.")
   if (missing(windowSize)) windowSize <- iGetopt("windowSize")
   if (missing(deviceType)) deviceType <- iGetopt("deviceType")
+  if (missing(closeWindow)) closeWindow <- iGetopt("closeWindow")
   if (missing(col.scaleBar)) col.scaleBar <- iGetopt("col.scaleBar")
   if (missing(lwd.scaleBar)) lwd.scaleBar <- iGetopt("lwd.scaleBar")
   if (missing(pch.sel)) pch.sel <- iGetopt("pch.sel")
@@ -59,7 +61,7 @@ findScalingFactor <- function(img,knownLength,
                                    pch.sel,col.sel,cex.sel,
                                    pch.del,col.del)
   if (is.list(SF)) { # data.frame returned b/c not abort/restarted
-    grDevices::dev.off()
+    if (closeWindow) grDevices::dev.off()
     return(invisible(SF$scalingFactor))
   } else {
     if (SF=="ABORT") {

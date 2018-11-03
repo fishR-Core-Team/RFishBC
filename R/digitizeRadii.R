@@ -10,8 +10,10 @@
 #' @param edgeIsAnnulus See details in \code{\link{RFBCoptions}}.
 #' @param windowSize See details in \code{\link{RFBCoptions}}.
 #' @param deviceType See details in \code{\link{RFBCoptions}}.
+#' @param closeWindow See details in \code{\link{RFBCoptions}}.
 #' @param popID See details in \code{\link{RFBCoptions}}.
 #' @param IDpattern See details in \code{\link{RFBCoptions}}.
+#' @param IDreplace See details in \code{\link{RFBCoptions}}.
 #' @param scaleBar See details in \code{\link{RFBCoptions}}.
 #' @param scaleBarLength See details in \code{\link{RFBCoptions}}.
 #' @param col.scaleBar See details in \code{\link{RFBCoptions}}.
@@ -64,8 +66,8 @@
 #' ## See the link to the extensive documentation in the Details.
 #' 
 digitizeRadii <- function(img,id,reading,suffix,
-                          description,edgeIsAnnulus,popID,IDpattern,
-                          windowSize,deviceType,
+                          description,edgeIsAnnulus,popID,IDpattern,IDreplace,
+                          windowSize,deviceType,closeWindow,
                           scaleBar,scaleBarLength,col.scaleBar,lwd.scaleBar,
                           scalingFactor,showTransect,snap2Transect,
                           col.transect,lwd.transect,
@@ -82,6 +84,7 @@ digitizeRadii <- function(img,id,reading,suffix,
     STOP("'edgeIsAnnulus' must be TRUE or FALSE.")
   if (missing(popID)) popID <- iGetopt("popID")
   if (missing(IDpattern)) IDpattern <- iGetopt("IDpattern")
+  if (missing(IDreplace)) IDreplace <- iGetopt("IDreplace")
   if (missing(scaleBar)) scaleBar <- iGetopt("scaleBar")
   if (missing(scaleBarLength)) scaleBarLength <- iGetopt("scaleBarLength")
   if (missing(scalingFactor)) scalingFactor <- iGetopt("scalingFactor")
@@ -114,6 +117,7 @@ digitizeRadii <- function(img,id,reading,suffix,
   if (!is.numeric(windowSize)) STOP("'windowSize' must be numeric.")
   if (windowSize<=0) STOP("'windowSize' must be positive.")
   if (missing(deviceType)) deviceType <- iGetopt("deviceType")
+  if (missing(closeWindow)) closeWindow <- iGetopt("closeWindow")
   if (missing(showInfo)) showInfo <- iGetopt("showInfo")
   if (missing(pos.info)) pos.info <- iGetopt("pos.info")
   if (missing(cex.info)) cex.info <- iGetopt("cex.info")
@@ -125,7 +129,7 @@ digitizeRadii <- function(img,id,reading,suffix,
   ## Handle the ID =============================================================
   if (missing(id)) {                                               # nocov start
     ## Guess IDs from image file names
-    initID <- tryCatch(getID(img,IDpattern),
+    initID <- tryCatch(getID(img,IDpattern,IDreplace),
                        error=function(e) tools::file_path_sans_ext(img))
     ## If only one image then ask user to enter ID,
     if (length(img)==1) {
@@ -154,8 +158,8 @@ digitizeRadii <- function(img,id,reading,suffix,
     ## More than one image to process
     for (i in seq_along(img)) {
       digitizeRadii(img[i],id=id[i],reading,suffix,
-                    description,edgeIsAnnulus,popID,IDpattern,
-                    windowSize,deviceType,
+                    description,edgeIsAnnulus,popID,IDpattern,IDreplace,
+                    windowSize,deviceType,closeWindow,
                     scaleBar,scaleBarLength,col.scaleBar,lwd.scaleBar,
                     scalingFactor,showTransect,snap2Transect,
                     col.transect,lwd.transect,
@@ -167,7 +171,7 @@ digitizeRadii <- function(img,id,reading,suffix,
   } else {
     ## Only one image to process
     dat <- iDigitizeRadii1(img,id,reading,suffix,
-                           description,edgeIsAnnulus,popID,IDpattern,
+                           description,edgeIsAnnulus,popID,IDpattern,IDreplace,
                            windowSize,deviceType,
                            scaleBar,scaleBarLength,col.scaleBar,lwd.scaleBar,
                            scalingFactor,showTransect,snap2Transect,
@@ -176,6 +180,7 @@ digitizeRadii <- function(img,id,reading,suffix,
                            pch.del,col.del,
                            showInfo,pos.info,cex.info,col.info)
   }
+  if (closeWindow) grDevices::dev.off()
   invisible(dat)
 }
 
@@ -192,7 +197,7 @@ digitizeRadii <- function(img,id,reading,suffix,
 ## Digitize one image
 ########################################################################
 iDigitizeRadii1 <- function(img,id,reading,suffix,
-                            description,edgeIsAnnulus,popID,IDpattern,
+                            description,edgeIsAnnulus,popID,IDpattern,IDreplace,
                             windowSize,deviceType,
                             scaleBar,scaleBarLength,col.scaleBar,lwd.scaleBar,
                             scalingFactor,showTransect,snap2Transect,
@@ -229,7 +234,6 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
     } else { # no list returned b/c abort/restarted
       if (sbInfo=="ABORT") abort <- TRUE
       else if (sbInfo=="RESTART") restart <- TRUE
-      grDevices::dev.off()
     }
   } else { ## No scale bar on the plot ... using the scaling factor
     DONE("Using the scaling factor provided in 'scalingFactor'.\n")
@@ -261,7 +265,6 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
     } else { # no data.frame returned b/c abort/restarted
       if (trans.pts=="ABORT") abort <- TRUE
       else if (trans.pts=="RESTART") restart <- TRUE
-      grDevices::dev.off()
     }
   }
   
@@ -306,7 +309,7 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
     DONE("Processing is being RESTARTED as requested by the user.",
          " No file was written ",img,".\n")
     iDigitizeRadii1(img,id,reading,suffix,description,edgeIsAnnulus,popID,
-                    IDpattern,windowSize,deviceType,scaleBar,
+                    IDpattern,IDreplace,windowSize,deviceType,scaleBar,
                     scaleBarLength,col.scaleBar,lwd.scaleBar,scalingFactor,
                     showTransect,snap2Transect,col.transect,lwd.transect,
                     pch.sel,col.sel,cex.sel,pch.del,col.del,showInfo,pos.info,

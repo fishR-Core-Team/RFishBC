@@ -1,9 +1,10 @@
 # RFishBC 0.0.13.9000 ongoing
 * `iSnap2Transect()`: Modified. Changed to handle bugs related to perfectly vertical or perfectly horizontal transects. Addresses [#27](https://github.com/droglenc/RFishBC/issues/27) (Thanks to Ben Neely).
-* `digitizeRadii()`: Modified. Removed `closeWindow=` and `sepWindow()`. Added `deviceType=`.
-* `findScalingFactor()`: Modified. Removed `closeWindow=` and `sepWindow()`. Added `deviceType=`.
+* `digitizeRadii()`: Modified. Removed `sepWindow()`. Added `deviceType=`.
+* `findScalingFactor()`: Modified. Removed `sepWindow()`. Added `deviceType=`.
+* `getID()`: Modified. Added `IDreplace=`. Added more examples of use of `IDpattern=` and `IDreplace=` and more tests.
 * `iGetimage()`: Modified. Removed `sepWindow=`. Added `deviceType=`.
-* `RFBCoptions()`: Modified. Removed `closeWindow=` and `sepWindow()`.
+* `RFBCoptions()`: Modified. Removed `sepWindow()`. Added `IDreplace=`.
 * `showDigitizedImage()`: Modified. Removed `closeWindow=` and `sepWindow()`.
 
 # RFishBC 0.0.13 6-Oct-18

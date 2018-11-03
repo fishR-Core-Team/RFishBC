@@ -18,7 +18,8 @@
 #' \item{\code{windowSize}: }{A single numeric used to set the size of the largest dimension for the window in which the structure image is opened. This size will be the width for wider images and the height for taller images. The other dimension will be set relative to this so that the image is displayed in its native aspect ratio. Defaults to 7 inches. Used in \code{\link{digitizeRadii}} and \code{\link{findScalingFactor}}.}
 #' \item{\code{deviceType}: }{A single character that identifies the type of graphic device in which the image will be shown. Defaults to \code{deviceType="windows} which should be used with a Windows OS, but can be set to \code{deviceType="X11} which should be used with a Mac OS.}
 #' \item{\code{popID}: }{A single logical that indicates if the fish ID dialog box (only on Windows if no \code{ID} is given in \code{\link{digitizeRadii}}) is populated with a guess at the fish ID. The guess is from using the pattern in \code{IDpattern} (see below) on the image file name sans the extension. This may be useful for when the image name contains the fish ID (and no other numbers). Defaults to \code{TRUE}. Used in \code{\link{digitizeRadii}}.}
-#' \item{\code{IDpattern}: }{A single regular expression that indicates how to extract a possible fish ID from an image file name. Defaults to selecting all characters after the last underscore in the image file name (sans extension). Used in \code{\link{digitizeRadii}}.}
+#' \item{\code{IDpattern}: }{A single regular expression that indicates how to extract a possible fish ID from an image file name. Defaults to selecting all characters after the last underscore in the image file name (sans extension). Used in \code{\link{digitizeRadii}} and \code{\link{getID}}.}
+#' \item{\code{IDreplace}: }{A string to replace the expression matched in \code{IDpattern}. Used in \code{\link{digitizeRadii}} and \code{\link{getID}}.}
 #' \item{\code{scalingFactor}: }{A single numeric used to convert measurements on the structure image to actual measurements on the structure. Measurements on the structure image will be multiplied by this value. Ignored if \code{scaleBar=TRUE}. Defaults to \code{1}. Used in \code{\link{digitizeRadii}}.}
 #' \item{\code{scaleBar}: }{A single logical that indicates whether the user will be prompted to select the endpoints of a scale-bar on the structure image. If \code{TRUE}, then must also use \code{scaleBarLength}. If \code{FALSE}, then consider using \code{scalingFactor}. Defaults to \code{FALSE}. Used in \code{\link{digitizeRadii}}.}
 #' \item{\code{scaleBarLength}: }{A single numeric that represents the actual length of the scale-bar. Ignored if \code{scaleBar=FALSE}. Defaults to \code{NULL}; thus, the user must enter a value if \code{scaleBar=TRUE}. Used in \code{\link{digitizeRadii}}.}
@@ -81,8 +82,8 @@ RFBCoptions <- function(reset=FALSE,...) {
 ########################################################################
 iRFBCopts <- settings::options_manager(reading=NULL,description=NULL,
                 suffix=NULL,edgeIsAnnulus=NULL,
-                windowSize=7,deviceType="default",
-                popID=TRUE,IDpattern='.*\\_',
+                windowSize=7,deviceType="default",closeWindow=TRUE,
+                popID=TRUE,IDpattern='.*\\_',IDreplace='',
                 scalingFactor=1,scaleBar=FALSE,scaleBarLength=NULL,
                 col.scaleBar="yellow",lwd.scaleBar=2,
                 showTransect=TRUE,snap2Transect=TRUE,
@@ -96,6 +97,7 @@ iRFBCopts <- settings::options_manager(reading=NULL,description=NULL,
               .allowed=list(
                 windowSize=settings::inrange(min=1,max=30),
                 deviceType=settings::inlist("default","X11"),
+                closeWindow=settings::inlist(TRUE,FALSE),
                 popID=settings::inlist(TRUE,FALSE),
                 scalingFactor=settings::inrange(min=1e-10,max=Inf),
                 scaleBar=settings::inlist(TRUE,FALSE),
