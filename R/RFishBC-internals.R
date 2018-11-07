@@ -85,26 +85,27 @@ iHndlFilenames <- function(nm,filter,multi=TRUE) {
 ##   PNG, JPG, BMP, or TIFF files will be automatically detected. This
 ##   function is styled off the unexported digitize::ReadImg().
 ########################################################################
-iGetImage <- function(fname,id,sepWindow,windowSize,
+iGetImage <- function(fname,id,windowSize,deviceType,
                       showInfo,pos.info,cex.info,col.info) {
   ## Read the file
   img <- readbitmap::read.bitmap(fname,native=TRUE)
-  ## Open separate window if asked to do so (avoids putting in RStudio pane)
-  if (sepWindow) {
-    ## Get window size so image displayed in its native aspect ratio.
-    ## Only needed if windowSize contains one value.
-    if (length(windowSize)==1) {                                   # nocov start
-      cf <- dim(img)[2:1]
-      windowSize <- windowSize*cf/max(cf) 
-    }                                                              # nocov end
-    tmp <- grDevices::dev.cur()
-    ## If a window is already open, close it as its aspect ratio may be wrong 
-    if (tmp!=1 & names(tmp)!="RStudioGD") grDevices::dev.off()
-    ## Open the new window
+  ## Get window size so image displayed in its native aspect ratio.
+  ## Only needed if windowSize contains one value.
+  if (length(windowSize)==1) {                                   # nocov start
+    cf <- dim(img)[2:1]
+    windowSize <- windowSize*cf/max(cf) 
+  }                                                              # nocov end
+  tmp <- grDevices::dev.cur()
+  ## If a window is already open, close it as its aspect ratio may be wrong 
+  if (tmp!=1 & names(tmp)!="RStudioGD") grDevices::dev.off()
+  ## Open the new window (in the user's selected device)
+  if (deviceType=="default")
     grDevices::dev.new(rescale="fixed",noRStudioGD=TRUE,
                        width=windowSize[1],height=windowSize[2],
                        title=paste0("Image: ",basename(fname)))
-  }
+  if (deviceType=="X11")
+    grDevices::X11(width=windowSize[1],height=windowSize[2],
+                       title=paste0("Image: ",basename(fname)))
   ## Plot the image
   withr::local_par(list(mar=c(0,0,0,0),xaxs="i",yaxs="i"))
   graphics::plot.new()

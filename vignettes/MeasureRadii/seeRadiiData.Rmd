@@ -51,7 +51,7 @@ You can review the selected annuli on a structure with `showDigitizedImage()`, w
 showDigitizedImage("Scale_1_DHO.rds")
 ```
 ```{r echo=FALSE,fig.height=5*381/446,fig.width=5}
-showDigitizedImage("Scale_1_DHO.rds",sepWindow=FALSE)
+showDigitizedImage("Scale_1_DHO.rds")
 ```
 
 
@@ -63,7 +63,7 @@ showDigitizedImage("Oto140306_DHO.rds",pch.show="+",col.show="blue",
 ```{r echo=FALSE,fig.height=5*228/548,fig.width=5}
 showDigitizedImage("Oto140306_DHO.rds",pch.show="+",col.show="blue",
                    col.transect="white",col.ann="black",cex.ann=1,
-                   annuliLabels=1:6,sepWindow=FALSE)
+                   annuliLabels=1:6)
 ```
 
 \  
@@ -90,7 +90,7 @@ The multiple readings of "Scale_1" can be seen by giving this set of filenames t
 showDigitizedImage(fns)
 ```
 ```{r echo=FALSE,fig.height=5*381/446,fig.width=5}
-showDigitizedImage(fns,sepWindow=FALSE)
+showDigitizedImage(fns)
 ```
 
 Aspects of the transects and points may be controlled with arguments to `showDigitezedData()`. For example, the code below uses different colors for each transect and points.
@@ -100,8 +100,7 @@ showDigitizedImage(fns,col.transect=c("red","yellow","green"),
 ```
 ```{r echo=FALSE, fig.height=5*381/446,fig.width=5}
 showDigitizedImage(fns,col.transect=c("red","yellow","green"),
-                   col.show=c("yellow","red","blue"),lwd.transect=2,
-                   sepWindow=FALSE)
+                   col.show=c("yellow","red","blue"),lwd.transect=2)
 ```
 
 \  

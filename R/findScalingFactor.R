@@ -4,8 +4,8 @@
 #' 
 #' @param img A string that indicates the image (must be PNG, JPG, BMP, or TIFF) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (will look for this file in the current working directory).
 #' @param knownLength See details in \code{\link{RFBCoptions}}.
-#' @param sepWindow See details in \code{\link{RFBCoptions}}.
 #' @param windowSize See details in \code{\link{RFBCoptions}}.
+#' @param deviceType See details in \code{\link{RFBCoptions}}.
 #' @param closeWindow See details in \code{\link{RFBCoptions}}.
 #' @param col.scaleBar See details in \code{\link{RFBCoptions}}.
 #' @param lwd.scaleBar See details in \code{\link{RFBCoptions}}.
@@ -27,15 +27,15 @@
 #' ## None yet
 
 findScalingFactor <- function(img,knownLength,
-                              sepWindow,windowSize,closeWindow,
+                              windowSize,deviceType,closeWindow,
                               col.scaleBar,lwd.scaleBar,
                               pch.sel,col.sel,cex.sel,
                               pch.del,col.del) {
   ## Handle options
   if (missing(knownLength)) STOP("Must provide a 'knownLength'.")
   if (knownLength<=0) STOP("'knownLength' must be positive.")
-  if (missing(sepWindow)) sepWindow <- iGetopt("sepWindow")
   if (missing(windowSize)) windowSize <- iGetopt("windowSize")
+  if (missing(deviceType)) deviceType <- iGetopt("deviceType")
   if (missing(closeWindow)) closeWindow <- iGetopt("closeWindow")
   if (missing(col.scaleBar)) col.scaleBar <- iGetopt("col.scaleBar")
   if (missing(lwd.scaleBar)) lwd.scaleBar <- iGetopt("lwd.scaleBar")
@@ -49,9 +49,10 @@ findScalingFactor <- function(img,knownLength,
   img <- iHndlFilenames(img,filter="images",multi=FALSE)
   
   ## Read the image
-  windowInfo <- iGetImage(img,id=NULL,sepWindow=sepWindow,
-                          windowSize=windowSize,showInfo=FALSE,
-                          pos.info=NULL,cex.info=NULL,col.info=NULL) # nocov start
+  windowInfo <- iGetImage(img,id=NULL,
+                          windowSize=windowSize,deviceType=deviceType,
+                          showInfo=FALSE,pos.info=NULL,
+                          cex.info=NULL,col.info=NULL) # nocov start
   NOTE("Select the endpoints of the scale-bar.")
   msg2 <- "   'f'=finished, 'd'=delete, 'q'=abort, 'z'=restart"
   SF <- iScalingFactorFromScaleBar(msg2,knownLength,windowInfo$pixW2H,
@@ -60,21 +61,20 @@ findScalingFactor <- function(img,knownLength,
                                    pch.sel,col.sel,cex.sel,
                                    pch.del,col.del)
   if (is.list(SF)) { # data.frame returned b/c not abort/restarted
-    if (sepWindow & closeWindow) grDevices::dev.off()
+    if (closeWindow) grDevices::dev.off()
     return(invisible(SF$scalingFactor))
   } else {
     if (SF=="ABORT") {
-      if (sepWindow & closeWindow) grDevices::dev.off()
+      grDevices::dev.off()
       cat("\n\n")
       DONE("Processing was ABORTED by the user!",
            " No scaling factor returned for ",img,".\n")
     } else if (SF=="RESTART") {
       cat("\n\n")
       DONE("Scaling factor processing is being RESTARTED as requested by the user.\n")
-      findScalingFactor(img,knownLength,sepWindow,windowSize,closeWindow,
+      findScalingFactor(img,knownLength,windowSize,
                         col.scaleBar,lwd.scaleBar,pch.sel,col.sel,cex.sel,
                         pch.del,col.del)
     }
   }
 } # nocov end
-

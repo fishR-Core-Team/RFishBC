@@ -4,16 +4,14 @@ source("EXS_growthUtils.R")
 source("EXS_collectRadii.R")
 
 test_that("RFBCoptions() error messages",{
-  expect_error(RFBCoptions(sepWindow="Derek"),
-               "TRUE,FALSE")
   expect_warning(RFBCoptions(Derek=TRUE),
                  "Ignoring options not defined in manager")
   expect_error(RFBCoptions(windowSize=0),
                "value out of range")
   expect_error(RFBCoptions(windowSize=31),
                "value out of range")
-  expect_error(RFBCoptions(closeWindow="Derek"),
-               "TRUE,FALSE")
+  expect_error(RFBCoptions(deviceType="quartz"),
+               "default,X11")
   expect_error(RFBCoptions(popID="Derek"),
                "TRUE,FALSE")
   expect_error(RFBCoptions(scalingFactor=0),
@@ -158,11 +156,11 @@ test_that("listFiles() messages",{
 
 
 test_that("getID() messages",{
-  expect_error(getID(listFiles("jpg",other="Oto")),
-               "not found in all items of")
+  expect_error(getID(listFiles("jpg",other="Oto")),"not found in all items of")
   tmp <- c(listFiles("jpg",other="Oto"),listFiles("jpg",other="Scale"))
-  expect_error(getID(tmp),
-               "not found in all items of")
+  expect_error(getID(tmp),"not found in all items of")
+  tmp <- c("Ruffe_456.jpg","Ruffe_456.jpg","Ruffe_567.jpg")
+  expect_warning(getID(tmp),"All returned IDs are not unique")
 })
 
 

@@ -5,8 +5,8 @@ source("EXS_growthUtils.R")
 
 test_that("RFBCoptions() reset works",{
   tmp <- RFBCoptions()
-  RFBCoptions(sepWindow=FALSE)
-  expect_false(RFBCoptions()$sepWindow)
+  RFBCoptions(popID=FALSE)
+  expect_false(RFBCoptions()$popID)
   expect_equal(tmp,RFBCoptions(reset=TRUE))
 })
 
@@ -15,7 +15,7 @@ test_that("RFBCoptions() important defaults",{
   expect_true(is.null(RFBCoptions()$description))
   expect_true(is.null(RFBCoptions()$suffix))
   expect_true(is.null(RFBCoptions()$edgeIsAnnulus))
-  expect_true(RFBCoptions()$sepWindow)
+  expect_equal(RFBCoptions()$deviceType,"default")
   expect_true(RFBCoptions()$popID)
   expect_true(RFBCoptions()$snap2Transect)
   expect_equal(RFBCoptions()$pch.sel,20)
@@ -198,6 +198,8 @@ test_that("getID() output",{
   expect_equal(getID(tmp),c("23","34"))
   tmp <- c("1_Scale.jpg","2_Scale.jpg")
   expect_equal(getID(tmp,IDpattern="\\_.*"),c("1","2"))
+  tmp <- c("Junk_1_Scale.jpg","Junk_2_Scale.jpg")
+  expect_equal(getID(tmp,IDpattern=".*\\_(.+?)\\_.*",IDreplace="\\1"),c("1","2"))
 })
 
 

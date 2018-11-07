@@ -5,10 +5,10 @@
 \title{Collect radial measurements from a calcified structure by interactively selecting annuli}
 \usage{
 digitizeRadii(img, id, reading, suffix, description, edgeIsAnnulus, popID,
-  IDpattern, sepWindow, windowSize, closeWindow, scaleBar, scaleBarLength,
-  col.scaleBar, lwd.scaleBar, scalingFactor, showTransect, snap2Transect,
-  col.transect, lwd.transect, pch.sel, col.sel, cex.sel, pch.del, col.del,
-  showInfo, pos.info, cex.info, col.info)
+  IDpattern, IDreplace, windowSize, deviceType, closeWindow, scaleBar,
+  scaleBarLength, col.scaleBar, lwd.scaleBar, scalingFactor, showTransect,
+  snap2Transect, col.transect, lwd.transect, pch.sel, col.sel, cex.sel,
+  pch.del, col.del, showInfo, pos.info, cex.info, col.info)
 }
 \arguments{
 \item{img}{A vector of strings that indicates the image (must be PNG, JPG, BMP, or TIFF) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file(s). Alternatively the user can supply the name(s) of the file(s). Either way the file(s) must be in the current working directory.}
@@ -27,9 +27,11 @@ digitizeRadii(img, id, reading, suffix, description, edgeIsAnnulus, popID,
 
 \item{IDpattern}{See details in \code{\link{RFBCoptions}}.}
 
-\item{sepWindow}{See details in \code{\link{RFBCoptions}}.}
+\item{IDreplace}{See details in \code{\link{RFBCoptions}}.}
 
 \item{windowSize}{See details in \code{\link{RFBCoptions}}.}
+
+\item{deviceType}{See details in \code{\link{RFBCoptions}}.}
 
 \item{closeWindow}{See details in \code{\link{RFBCoptions}}.}
 

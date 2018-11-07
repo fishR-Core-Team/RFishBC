@@ -4,7 +4,7 @@
 \alias{findScalingFactor}
 \title{Find scaling factor from object of known length}
 \usage{
-findScalingFactor(img, knownLength, sepWindow, windowSize, closeWindow,
+findScalingFactor(img, knownLength, windowSize, deviceType, closeWindow,
   col.scaleBar, lwd.scaleBar, pch.sel, col.sel, cex.sel, pch.del, col.del)
 }
 \arguments{
@@ -12,9 +12,9 @@ findScalingFactor(img, knownLength, sepWindow, windowSize, closeWindow,
 
 \item{knownLength}{See details in \code{\link{RFBCoptions}}.}
 
-\item{sepWindow}{See details in \code{\link{RFBCoptions}}.}
-
 \item{windowSize}{See details in \code{\link{RFBCoptions}}.}
+
+\item{deviceType}{See details in \code{\link{RFBCoptions}}.}
 
 \item{closeWindow}{See details in \code{\link{RFBCoptions}}.}
 
