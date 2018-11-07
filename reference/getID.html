@@ -137,7 +137,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>getID</span>(<span class='no'>x</span>, <span class='no'>IDpattern</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>getID</span>(<span class='no'>x</span>, <span class='no'>IDpattern</span>, <span class='no'>IDreplace</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,7 +148,11 @@
     </tr>
     <tr>
       <th>IDpattern</th>
-      <td><p>A regular expression used to extract the fish identification value from the image file names in <code>x</code>. Defaults to extracting all values after the last underscore in the image file name (sans extension).</p></td>
+      <td><p>A regular expression used to extract the fish identification value from the image file names in <code>x</code>. Defaults to extracting all values after the last underscore in the image file name (sans extension). Can be set with <code>RFBCoptions</code>.</p></td>
+    </tr>
+    <tr>
+      <th>IDreplace</th>
+      <td><p>A string to replace the expression matched in <code>IDpattern</code>. Can be set with <code>RFBCoptions</code>.</p></td>
     </tr>
     <tr>
       <th>&#8230;</th>
@@ -162,8 +166,9 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>By default it assumes that the ID value follows an underscore at the end/tail of image file name (sans extension). Other patterns can be used by giving a suitable regular expression to <code>IDpattern=</code>.</p>
-<p>If the pattern in <code>IDpattern</code> does not exist in each element of <code>x</code> then the function will return an error. In other words, the fish identification value must be in the same &#8220;place&#8221; (based on <code>IDpattern</code>) in EVERY image filename.</p>
+    <p>By default it is assumed that the ID value follows an underscore at the end/tail of image file name (sans extension). Other patterns can be used by giving a suitable regular expression to <code>IDpattern</code> and possibly a replacement (usually a group identifier such as &#8220;\1&#8221;) in <code>IDreplace</code>. You may find this <a href='https://spannbaueradam.shinyapps.io/r_regex_tester/'>R Regex Tester App</a> useful for identifying the necessary regular expression pattern for your situation.</p>
+<p>If the pattern in <code>IDpattern</code> does not exist in each element of <code>x</code> then an error will be returned. In other words, the fish identification value must be in the same &#8220;place&#8221; (based on <code>IDpattern</code>) in EVERY image filename.</p>
+<p>If the vector of returned IDs contains any duplicated values then a warning will be issued.</p>
 <p>The list of image file names in a given folder/directory may be obtained with <code>listFiles</code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -182,12 +187,21 @@
 <span class='co'>## These are extracted fish IDs</span>
 <span class='fu'>getID</span>(<span class='no'>ex1</span>)</div><div class='output co'>#&gt; [1] "1" "2"</div><div class='input'><span class='fu'>getID</span>(<span class='no'>ex2</span>)</div><div class='output co'>#&gt; [1] "472" "567"</div><div class='input'><span class='fu'>getID</span>(<span class='no'>ex3</span>)</div><div class='output co'>#&gt; [1] "MI345" "WI567"</div><div class='input'><span class='fu'>getID</span>(<span class='no'>ex4</span>)</div><div class='output co'>#&gt; [1] "23" "34"</div><div class='input'>
 <span class='co'>## These are possible vectors of image file names with the fish ID NOT after</span>
-<span class='co'>##   the last underscore. This requires judicious use of the pattern=</span>
-<span class='co'>##   argument as used in the sub() function.</span>
+<span class='co'>##   the last underscore. This requires judicious use of IDpattern= and</span>
+<span class='co'>##   IDreplace= (similar to pattern= and replacement- as used in sub()).</span>
 
 <span class='co'>### fish ID at the beginning of the name</span>
 <span class='no'>ex5</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"1_Scale.jpg"</span>,<span class='st'>"2_Scale.jpg"</span>)
 <span class='fu'>getID</span>(<span class='no'>ex5</span>,<span class='kw'>IDpattern</span><span class='kw'>=</span><span class='st'>"\\_.*"</span>)</div><div class='output co'>#&gt; [1] "1" "2"</div><div class='input'>
+<span class='co'>### fish ID between two underscores (might be used if multiple images for one ID)</span>
+<span class='no'>ex6</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"DWS_100_1.jpg"</span>,<span class='st'>"DWS_101_2,jpg"</span>)
+<span class='fu'>getID</span>(<span class='no'>ex6</span>,<span class='kw'>IDpattern</span><span class='kw'>=</span><span class='st'>".*\\_(.+?)\\_.*"</span>,<span class='kw'>IDreplace</span><span class='kw'>=</span><span class='st'>"\\1"</span>)</div><div class='output co'>#&gt; [1] "100" "101"</div><div class='input'><span class='no'>ex7</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"DWS_MI100_1.jpg"</span>,<span class='st'>"DWS_MI100_2,jpg"</span>)
+<span class='fu'>getID</span>(<span class='no'>ex7</span>,<span class='kw'>IDpattern</span><span class='kw'>=</span><span class='st'>".*\\_(.+?)\\_.*"</span>,<span class='kw'>IDreplace</span><span class='kw'>=</span><span class='st'>"\\1"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: All returned IDs are not unique.</span></div><div class='output co'>#&gt; [1] "MI100" "MI100"</div><div class='input'>
+### Will be warned if the returned IDs are not unique
+</div><span class='co'># NOT RUN {</span>
+<span class='no'>ex8</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"Ruffe_456.jpg"</span>,<span class='st'>"Ruffe_456.jpg"</span>,<span class='st'>"Ruffe_567.jpg"</span>)
+<span class='fu'>getID</span>(<span class='no'>ex8</span>)
+<span class='co'># }</span><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
