@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">RFishBC</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.13.9000</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.1.0</span>
       </span>
     </div>
 
@@ -100,7 +100,7 @@
 <h2 class="hasAnchor">
 <a href="#rfishbc" class="anchor"></a>RFishBC <img src="reference/figures/logo.png" align="right" height="200" hspace="15">
 </h2>
-<p>The <strong>RFishBC</strong> package helps fisheries scientists collect measurements from calcified structures and back-calculate estimated lengths at previous ages. The package is intended to replace much of the functionality provided by the now out-date fishBC software.</p>
+<p>The <strong>RFishBC</strong> package helps fisheries scientists collect measurements from calcified structures and back-calculate estimated lengths at previous ages. <strong>RFishBC</strong> is intended to replace much of the functionality provided by the now out-date fishBC software.</p>
 <div id="use" class="section level3">
 <h3 class="hasAnchor">
 <a href="#use" class="anchor"></a>Use</h3>
@@ -109,10 +109,10 @@
 <div id="installation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h3>
-<p>The most recent development version (on GitHub) of <strong>RFishBC</strong> may be installed by running the two lines below in your R console.</p>
+<p><strong>RFishBC</strong> is now available on CRAN and can be installed as usual from there. The most recent development version (on GitHub) of <strong>RFishBC</strong> may be installed by running the two lines below in your R console.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">'devtools'</span>)) <span class="kw">install.packages</span>(<span class="st">'devtools'</span>); <span class="kw">require</span>(<span class="st">'devtools'</span>)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">'droglenc/RFishBC'</span>)</a></code></pre></div>
-<p>You may need to have R Tools installed on your system to use the two lines above. See the instructions for (<a href="https://cran.r-project.org/bin/windows/Rtools/">R Tools for Windows</a> or <a href="https://cran.r-project.org/bin/macosx/tools/">R Tools for Mac OS X</a>).</p>
+<p>You may need to have R Tools installed on your system to use the two lines above. See the instructions for (<a href="https://cran.r-project.org/bin/windows/Rtools/">R Tools for Windows</a> or <a href="https://cran.r-project.org/bin/macosx/tools/">R Tools for Mac OS X</a>). Additionally, you may need the X11 graphics functionality if using Mac OS.</p>
 </div>
 </div>
 
@@ -148,12 +148,16 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="http://www.repostatus.org/#wip"><img src="http://www.repostatus.org/badges/latest/wip.svg" alt="Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public."></a></li>
+<li><a href="https://www.repostatus.org/#active"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed."></a></li>
 <li><a href="https://doi.org/10.5281/zenodo.1218245"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.1218245.svg" alt="DOI"></a></li>
 <li><a href="http://www.r-pkg.org/pkg/RFishBC"><img src="http://www.r-pkg.org/badges/version/RFishBC" alt="CRAN Status"></a></li>
+<li><a href="http://www.gnu.org/licenses/gpl-2.0.html"><img src="http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat" alt="License"></a></li>
 <li><a href="https://ci.appveyor.com/project/droglenc/RFishBC"><img src="https://ci.appveyor.com/api/projects/status/github/droglenc/RFishBC?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
 <li><a href="https://travis-ci.org/droglenc/RFishBC"><img src="https://travis-ci.org/droglenc/RFishBC.svg?branch=master" alt="Travis-CI Build Status"></a></li>
 <li><a href="https://coveralls.io/r/droglenc/RFishBC?branch=master"><img src="https://img.shields.io/coveralls/droglenc/RFishBC.svg" alt="Coverage Status"></a></li>
+<li><a href="http://www.r-pkg.org/pkg/RFishBC"><img src="http://cranlogs.r-pkg.org/badges/RFishBC" alt="CRAN RStudio mirror downloads rate"><img src="http://cranlogs.r-pkg.org/badges/grand-total/RFishBC" alt="CRAN RSTudio mirror downloads total"></a></li>
+<li><a href="http://depsy.org/package/r/RFishBC"><img src="http://depsy.org/api/package/cran/RFishBC/badge.svg" alt="Research software impact"></a></li>
+<li><a href="http://www.rdocumentation.org/packages/RFishBC"><img src="http://www.rdocumentation.org/badges/version/RFishBC" alt="Rdoc"></a></li>
 </ul>
 </div>
 </div>

@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">RFishBC</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.13.9000</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.1.0</span>
       </span>
     </div>
 
@@ -95,7 +95,7 @@
       <h1>Compute Back-Calculated Lengths</h1>
                         <h4 class="author">Derek H. Ogle</h4>
             
-            <h4 class="date">2018-10-12</h4>
+            <h4 class="date">2018-11-07</h4>
       
       
       <div class="hidden name"><code>BCCalc.Rmd</code></div>
@@ -107,7 +107,7 @@
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>This vignette demonstrates how to back-calculate lengths at previous ages from radial measurements made on calcified structures of fish. This vignette assumes that you have and understanding of</p>
+<p>This vignette demonstrates how to back-calculate lengths at previous ages from radial measurements made on calcified structures of fish. This vignette assumes that you have an understanding of</p>
 <ul>
 <li>back-calculation (as described in the <a href="../BCIntro/BCIntro.html">Short Introduction to Back-calculation</a> vignette),</li>
 <li>how to use <code><a href="../../reference/combineData.html">combineData()</a></code> to combine R data files created from <code><a href="../../reference/digitizeRadii.html">digitizeRadii()</a></code> and join fish-specific information as described in the <a href="../MeasureRadii/collectRadiiData.html">Collecting Radii Data</a> vignette.</li>
@@ -154,7 +154,8 @@
 <span class="co">#&gt; 5  6     SMB   WB    E    1988     72</span>
 <span class="co">#&gt; 6  7     SMB   WB    E    1988     80</span></code></pre></div>
 <p>These data can be joined by the common <code>id</code> variable as shown in the <a href="../MeasureRadii/collectRadiiData.html#outputdata">Output Data File section of the Collecting Radii Data</a> vignette. The data were also arranged by <code>id</code> to facilitate comparisons throughout this vignette.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">SMBassWB &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/join.html">inner_join</a></span>(SMBassWB1,SMBassWB2,<span class="dt">by=</span><span class="st">"id"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(id)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">SMBassWB &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/join.html">inner_join</a></span>(SMBassWB1,SMBassWB2,<span class="dt">by=</span><span class="st">"id"</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(id)
 <span class="kw">head</span>(SMBassWB,<span class="dt">n=</span><span class="dv">3</span>)
 <span class="co">#&gt;    id species lake gear yearcap lencap reading agecap  radcap    rad1</span>
 <span class="co">#&gt; 1 374     SMB   WB    E    1990    243     DHO      7 7.57375 1.01672</span>
