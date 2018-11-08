@@ -64,7 +64,7 @@ showDigitizedImage("Oto140306_DHO.rds",pch.show="+",col.show="blue",
                    annuliLabels=1:6)
 ```
 
-![](figures/oto140306_E.jpg)
+![](figures/Oto140306_E.jpg)
 
 \  
 
