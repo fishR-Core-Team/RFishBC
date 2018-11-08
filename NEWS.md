@@ -1,3 +1,5 @@
+# RFishBC 0.1.0.9000 ongoing
+
 # RFishBC 0.1.0 7-Nov-18
 * `iSnap2Transect()`: Modified. Changed to handle bugs related to perfectly vertical or perfectly horizontal transects. Addresses [#27](https://github.com/droglenc/RFishBC/issues/27) (Thanks to Ben Neely).
 * `digitizeRadii()`: Modified. Removed `sepWindow()`. Added `deviceType=`.
