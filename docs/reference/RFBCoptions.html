@@ -64,7 +64,7 @@ Additionally, a user may want to change a number of these arguments from their d
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.13.9000</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.1.0</span>
       </span>
     </div>
 
@@ -165,11 +165,11 @@ Additionally, a user may want to change a number of these arguments from their d
 <li><p><code>description</code>: A single character string that contains a short (but more detailed than in <code>reading</code>) description for a reading of a structure. Defaults to <code>NULL</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
 <li><p><code>suffix</code>: A single character string that will be added to the RData file name. If <code>NULL</code> and <code>reading</code> is not <code>NULL</code>, then this will be replaced with the value in <code>reading</code>. Defaults to <code>NULL</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
 <li><p><code>edgeIsAnnulus</code>: A single logical that indicates whether the structure margin should be considered an annulus (<code>TRUE</code>) or not (<code>FALSE</code>). Use <code>FALSE</code> if growth between the last annulus and the structure margin is not a complete year's worth of growth (i.e., &#8220;plus-growth&#8221;). Defaults to <code>NULL</code> which means that the user must set this value. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
-<li><p><code>sepWindow</code>: A single logical that indicates whether the structure image should be opened in a separate window (<code>=TRUE</code>) or not (<code>=FALSE</code>). Defaults to <code>TRUE</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>, <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>, and <code><a href='findScalingFactor.html'>findScalingFactor</a></code>.</p></li>
-<li><p><code>windowSize</code>: A single numeric used to set the size of the largest dimension for the window in which the structure image is opened if <code>sepWindow=TRUE</code>. This size will be the width for wider images and the height for taller images. The other dimension will be set relative to this so that the image is displayed in its native aspect ratio. Defaults to 7 inches. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code> and <code><a href='findScalingFactor.html'>findScalingFactor</a></code>.</p></li>
-<li><p><code>closeWindow</code>: A single logical that indicates whether the structure image should be closed (if it was in a separate window) (<code>=TRUE</code>) or not (<code>=FALSE</code>). Defaults to <code>TRUE</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code> and <code><a href='findScalingFactor.html'>findScalingFactor</a></code>.</p></li>
+<li><p><code>windowSize</code>: A single numeric used to set the size of the largest dimension for the window in which the structure image is opened. This size will be the width for wider images and the height for taller images. The other dimension will be set relative to this so that the image is displayed in its native aspect ratio. Defaults to 7 inches. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code> and <code><a href='findScalingFactor.html'>findScalingFactor</a></code>.</p></li>
+<li><p><code>deviceType</code>: A single character that identifies the type of graphic device in which the image will be shown. Defaults to <code>deviceType="windows} which should be used with a Windows OS, but can be set to \code{deviceType="X11</code> which should be used with a Mac OS.</p></li>
 <li><p><code>popID</code>: A single logical that indicates if the fish ID dialog box (only on Windows if no <code>ID</code> is given in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>) is populated with a guess at the fish ID. The guess is from using the pattern in <code>IDpattern</code> (see below) on the image file name sans the extension. This may be useful for when the image name contains the fish ID (and no other numbers). Defaults to <code>TRUE</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
-<li><p><code>IDpattern</code>: A single regular expression that indicates how to extract a possible fish ID from an image file name. Defaults to selecting all characters after the last underscore in the image file name (sans extension). Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
+<li><p><code>IDpattern</code>: A single regular expression that indicates how to extract a possible fish ID from an image file name. Defaults to selecting all characters after the last underscore in the image file name (sans extension). Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code> and <code><a href='getID.html'>getID</a></code>.</p></li>
+<li><p><code>IDreplace</code>: A string to replace the expression matched in <code>IDpattern</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code> and <code><a href='getID.html'>getID</a></code>.</p></li>
 <li><p><code>scalingFactor</code>: A single numeric used to convert measurements on the structure image to actual measurements on the structure. Measurements on the structure image will be multiplied by this value. Ignored if <code>scaleBar=TRUE</code>. Defaults to <code>1</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
 <li><p><code>scaleBar</code>: A single logical that indicates whether the user will be prompted to select the endpoints of a scale-bar on the structure image. If <code>TRUE</code>, then must also use <code>scaleBarLength</code>. If <code>FALSE</code>, then consider using <code>scalingFactor</code>. Defaults to <code>FALSE</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
 <li><p><code>scaleBarLength</code>: A single numeric that represents the actual length of the scale-bar. Ignored if <code>scaleBar=FALSE</code>. Defaults to <code>NULL</code>; thus, the user must enter a value if <code>scaleBar=TRUE</code>. Used in <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></li>
@@ -218,11 +218,11 @@ Additionally, a user may want to change a number of these arguments from their d
 #&gt; $edgeIsAnnulus
 #&gt; NULL
 #&gt; 
-#&gt; $sepWindow
-#&gt; [1] TRUE
-#&gt; 
 #&gt; $windowSize
 #&gt; [1] 7
+#&gt; 
+#&gt; $deviceType
+#&gt; [1] "default"
 #&gt; 
 #&gt; $closeWindow
 #&gt; [1] TRUE
@@ -232,6 +232,9 @@ Additionally, a user may want to change a number of these arguments from their d
 #&gt; 
 #&gt; $IDpattern
 #&gt; [1] ".*\\_"
+#&gt; 
+#&gt; $IDreplace
+#&gt; [1] ""
 #&gt; 
 #&gt; $scalingFactor
 #&gt; [1] 1

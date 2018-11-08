@@ -21,7 +21,7 @@ This vignette suggests a workflow for back-calculating fish length at a previous
     * Generally, all files in this folder/directory should pertain to one "set" of fish (perhaps a species for a particular year at a particular location).
 
 1. Create a data file that contains all pertinent information about each individual fish to be examined.
-    * This file should contain *at least* the fish's unique identification number and length at the time of capture. Other information may include the data of capture, capture gear, location of capture, and sex of the fish, for example.
+    * This file should contain *at least* the fish's unique identification number and length at the time of capture. Other information may include the date of capture, capture gear, location of capture, and sex of the fish, for example.
 
 1. Obtain quality digital images of calcified structures on which annuli can be identified.
     * Images should be saved in one of the following "bitmapped" formats -- JPG/JPEG, PNG, BMP, TIFF/TIF.

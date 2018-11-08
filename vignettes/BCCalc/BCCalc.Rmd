@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 ```
 
 # Introduction
-This vignette demonstrates how to back-calculate lengths at previous ages from radial measurements made on calcified structures of fish. This vignette assumes that you have and understanding of
+This vignette demonstrates how to back-calculate lengths at previous ages from radial measurements made on calcified structures of fish. This vignette assumes that you have an understanding of
 
 * back-calculation (as described in the [Short Introduction to Back-calculation](../BCIntro/BCIntro.html) vignette),
 * how to use `combineData()` to combine R data files created from `digitizeRadii()` and join fish-specific information as described in the [Collecting Radii Data](../MeasureRadii/collectRadiiData.html) vignette.
@@ -56,7 +56,8 @@ head(SMBassWB1)
 
 These data can be joined by the common `id` variable as shown in the [Output Data File section of the Collecting Radii Data](../MeasureRadii/collectRadiiData.html#outputdata) vignette. The data were also arranged by `id` to facilitate comparisons throughout this vignette.[^arrangenotrequired]
 ```{r}
-SMBassWB <- inner_join(SMBassWB1,SMBassWB2,by="id") %>% arrange(id)
+SMBassWB <- inner_join(SMBassWB1,SMBassWB2,by="id") %>%
+  arrange(id)
 head(SMBassWB,n=3)
 tail(SMBassWB,n=3)
 ```

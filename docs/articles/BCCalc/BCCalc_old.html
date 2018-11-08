@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">RFishBC</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.13.9000</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.1.0</span>
       </span>
     </div>
 
@@ -95,7 +95,7 @@
       <h1>Compute Back-Calculated Lengths</h1>
                         <h4 class="author">Derek H. Ogle</h4>
             
-            <h4 class="date">2018-10-12</h4>
+            <h4 class="date">2018-11-07</h4>
       
       
       <div class="hidden name"><code>BCCalc_old.Rmd</code></div>
@@ -164,7 +164,7 @@ wb90 &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyve
 <div id="converting-from-wide-to-long-format" class="section level3">
 <h3 class="hasAnchor">
 <a href="#converting-from-wide-to-long-format" class="anchor"></a>Converting from Wide to Long Format</h3>
-<p>Wide-format data can be converted to long-format data with <code><a href="http://www.rdocumentation.org/packages/tidyr/topics/gather">gather()</a></code>, which uses the following arguments:</p>
+<p>Wide-format data can be converted to long-format data with <code><a href="https://tidyr.tidyverse.org/reference/gather.html">gather()</a></code>, which uses the following arguments:</p>
 <ul>
 <li>the <em>wide-format data.frame</em> [as the first argument],</li>
 <li>the variables in the <em>wide-format data.frame</em> that contain the values (i.e., the radial measurements) [as the second argument].</li>
@@ -174,7 +174,7 @@ wb90 &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyve
 <code>value=</code>: a name for the new variable <em>in the long format</em> that will contain the value for the individual (i.e., the radial measurement), and</li>
 </ul>
 <p>The data are sorted by fish identification number and annulus number below to better see what was accomplished.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wb90r &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tidyr/topics/gather">gather</a></span>(wb90,anu1<span class="op">:</span>anu9,<span class="dt">key=</span>agei,<span class="dt">value=</span>radi) <span class="op">%&gt;%</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wb90r &lt;-<span class="st"> </span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/gather.html">gather</a></span>(wb90,anu1<span class="op">:</span>anu9,<span class="dt">key=</span>agei,<span class="dt">value=</span>radi) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(fish,agei)
 <span class="kw">head</span>(wb90r)
 <span class="co">#&gt;   fish agecap lencap  radcap agei    radi</span>
