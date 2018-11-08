@@ -1,7 +1,7 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1218245.svg)](https://doi.org/10.5281/zenodo.1218245)
 [![CRAN Status](http://www.r-pkg.org/badges/version/RFishBC)](http://www.r-pkg.org/pkg/RFishBC)
-[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
+[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%203%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-3.0.html)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/droglenc/RFishBC?branch=master&svg=true)](https://ci.appveyor.com/project/droglenc/RFishBC)
 [![Travis-CI Build Status](https://travis-ci.org/droglenc/RFishBC.svg?branch=master)](https://travis-ci.org/droglenc/RFishBC)
 [![Coverage Status](https://img.shields.io/coveralls/droglenc/RFishBC.svg)](https://coveralls.io/r/droglenc/RFishBC?branch=master)
