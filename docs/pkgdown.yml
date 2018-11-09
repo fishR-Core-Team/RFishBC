@@ -3,7 +3,6 @@ pkgdown: 1.1.0
 pkgdown_sha: ~
 articles:
   BCCalc: BCCalc/BCCalc.html
-  BCCalc_old: BCCalc/BCCalc_old.html
   BCIntro: BCIntro/BCIntro.html
   collectRadiiData: MeasureRadii/collectRadiiData.html
   seeRadiiData: MeasureRadii/seeRadiiData.html
