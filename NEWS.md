@@ -1,4 +1,5 @@
 # RFishBC 0.1.0.9000 ongoing
+* Removed automatic webpage construction from Travis-CI. Did not work with some of the update vignettes.
 
 # RFishBC 0.1.0 7-Nov-18
 * `iSnap2Transect()`: Modified. Changed to handle bugs related to perfectly vertical or perfectly horizontal transects. Addresses [#27](https://github.com/droglenc/RFishBC/issues/27) (Thanks to Ben Neely).
