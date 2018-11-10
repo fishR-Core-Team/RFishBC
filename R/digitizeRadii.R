@@ -106,6 +106,11 @@ digitizeRadii <- function(img,id,reading,suffix,
   if (missing(lwd.scaleBar)) lwd.scaleBar <- iGetopt("lwd.scaleBar")
   if (missing(showTransect)) showTransect<- iGetopt("showTransect")
   if (missing(snap2Transect)) snap2Transect<- iGetopt("snap2Transect")
+  if (snap2Transect & !showTransect) {
+    cat("\n!! NOTE that points will be 'snapped' to a transect that is not shown\n",
+         "!!      because 'showTtransect=FALSE' and 'snap2Transect=TRUE'.\n\n",
+        sep="")
+  }
   if (missing(col.transect)) col.transect <- iGetopt("col.transect")
   if (missing(lwd.transect)) lwd.transect <- iGetopt("lwd.transect")
   if (missing(pch.sel)) pch.sel <- iGetopt("pch.sel")

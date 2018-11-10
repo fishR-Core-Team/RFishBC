@@ -1,6 +1,6 @@
 Package: RFishBC
 Version: 0.1.0.9000
-Date: 2018-11-7
+Date: 2018-11-10
 Title: Back-Calculation of Fish Length
 Authors@R: person("Derek","Ogle",
     email="derek@derekogle.com",
@@ -9,7 +9,7 @@ Authors@R: person("Derek","Ogle",
 Description: Helps fisheries scientists collect measurements from calcified
     structures and back-calculate estimated lengths at previous ages. This
     is intended to replace much of the functionality provided by the
-    now out-dated fishBC software.
+    now out-dated 'fishBC' software.
 URL: http://derekogle.com/RFishBC
 BugReports: https://github.com/droglenc/RFishBC/issues
 License: GPL-3
