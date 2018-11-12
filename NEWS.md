@@ -1,4 +1,7 @@
 # RFishBC 0.1.0.9000 ongoing
+
+# RFishBC 0.1.1 12-Nov-18
+* Released to CRAN.
 * Removed automatic webpage construction from Travis-CI. Did not work with some of the update vignettes.
 * Put fishBC in the Description field into single quotes as directed by CRAN.
 * `digitizeRadii()`. Modified. Added a note that draws attention when `snap2Transect=TRUE` and `showTransect=FALSE` (i.e., "snapping" to a transect that is not shown). At least partially addresses [#30](https://github.com/droglenc/RFishBC/issues/30).
