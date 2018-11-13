@@ -423,4 +423,6 @@ test_that("Miscellaneous internals output",{
   expect_true(grepl(msg,tmp))
   tmp <- capture.output(RFishBC:::NOTE(msg))
   expect_true(grepl(msg,tmp))
+  tmp <- capture.output(RFishBC:::RULE(msg))
+  expect_true(grepl(msg,tmp))
 })  

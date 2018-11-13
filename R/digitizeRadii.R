@@ -215,16 +215,17 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
   abort <- restart <- FALSE
   
   ## Setup a message ===========================================================
-  msg2 <- "   'f'=finished, 'd'=delete, 'q'=abort, 'z'=restart"
+  msg2 <- "  'f'=finished, 'd'=delete, 'q'=abort, 'z'=restart"
 
   ## Loads image given in img ==================================================
   windowInfo <- iGetImage(img,id,windowSize,deviceType,
                           showInfo,pos.info,cex.info,col.info)
-  DONE("Loaded the ",img," image.\n")
+  DONE("Loaded ",img,".\n")
   
   ## Allows user to select a scaling bar to get a scaling factor ===============
   if (scaleBar) { ## scaleBar is on the plot
-    NOTE("Select the endpoints of the scale-bar.")
+    RULE("Select endpoints of scale-bar.")
+    RULE(msg2,line="-")
     sfSource <- "scaleBar"
     sbInfo <- iScalingFactorFromScaleBar(msg2,scaleBarLength,windowInfo$pixW2H,
                                          col.scaleBar=col.scaleBar,
@@ -235,13 +236,13 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
     if (is.list(sbInfo)) { # returned a list b/c not abort/restarted
       sbPts <- sbInfo$sbPts
       scalingFactor <- sbInfo$scalingFactor
-      DONE("Found scaling factor from the selected scale-bar.\n")
+      DONE("Found scaling factor from selected scale-bar.\n")
     } else { # no list returned b/c abort/restarted
       if (sbInfo=="ABORT") abort <- TRUE
       else if (sbInfo=="RESTART") restart <- TRUE
     }
   } else { ## No scale bar on the plot ... using the scaling factor
-    DONE("Using the scaling factor provided in 'scalingFactor'.\n")
+    DONE("Using scaling factor provided in 'scalingFactor'.\n")
     sbPts <- NULL
     scaleBarLength <- NULL
     sfSource <- "Provided"
@@ -249,7 +250,8 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
   
   ## User selects a transect on the image ======================================
   if (!abort & !restart) {
-    NOTE("Select the FOCUS (center) and MARGIN (edge) of the structure.")
+    RULE("Select FOCUS (center) and MARGIN (edge) of the structure.")
+    RULE(msg2,line="-")
     trans.pts <- iSelectPt(2,"Select FOCUS and MARGIN:",msg2,
                            pch.sel=pch.sel,col.sel=col.sel,cex.sel=cex.sel,
                            pch.del=pch.del,col.del=col.del,
@@ -275,7 +277,8 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
   
   ## User selects annuli on the image ==========================================
   if (!abort & !restart) {
-    NOTE("Select points that are annuli.")
+    RULE("Select points that are annuli.")
+    RULE(msg2,line="-")
     pts <- iSelectPt(NULL,"Select ANNULI:",msg2,
                      pch.sel=pch.sel,col.sel=col.sel,cex.sel=cex.sel,
                      pch.del=pch.del,col.del=col.del,
@@ -308,11 +311,11 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
   ## Finish up =================================================================
   if (abort) {
     cat("\n\n")
-    DONE("Processing was ABORTED by the user! No file was written for ",img,".\n")
+    DONE("Processing was ABORTED by user! No file written for ",img,".\n")
   } else if (restart) {
     cat("\n\n")
-    DONE("Processing is being RESTARTED as requested by the user.",
-         " No file was written ",img,".\n")
+    DONE("Processing is being RESTARTED as requested by user.",
+         " No file written for ",img,".\n\n")
     iDigitizeRadii1(img,id,reading,suffix,description,edgeIsAnnulus,popID,
                     IDpattern,IDreplace,windowSize,deviceType,scaleBar,
                     scaleBarLength,col.scaleBar,lwd.scaleBar,scalingFactor,
@@ -339,7 +342,7 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
     #### Write the RData file
     saveRDS(dat,file=datanm)
     #### Tell user what happend and invisibly return the R object
-    DONE("Results written to ",datanm,"\n")
+    DONE("Results written to ",datanm,".\n\n")
     invisible(dat)    
   }
 }

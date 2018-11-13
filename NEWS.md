@@ -1,4 +1,9 @@
 # RFishBC 0.1.0.9000 ongoing
+* Added dependency to `cli` package for `DONE()`, `NOTE()`, and `RULE()` (see below).
+* `digitizeRadii()`: Modified. Change console output directions to use `RULE()` instead of `NOTE()`.
+* `DONE()`: Modified. Changed to use `cat_line()` from `cli` package (removed my hack).
+* `NOTE()`: Modified. Changed to use `cat_line()` from `cli` package (removed my hack).
+* `RULE()`: Added.
 
 # RFishBC 0.1.1 12-Nov-18
 * Released to CRAN.

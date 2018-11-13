@@ -53,8 +53,9 @@ findScalingFactor <- function(img,knownLength,
                           windowSize=windowSize,deviceType=deviceType,
                           showInfo=FALSE,pos.info=NULL,
                           cex.info=NULL,col.info=NULL) # nocov start
-  NOTE("Select the endpoints of the scale-bar.")
   msg2 <- "   'f'=finished, 'd'=delete, 'q'=abort, 'z'=restart"
+  RULE("Select the endpoints of the scale-bar.")
+  RULE(msg2,line="-")
   SF <- iScalingFactorFromScaleBar(msg2,knownLength,windowInfo$pixW2H,
                                    col.scaleBar=col.scaleBar,
                                    lwd.scaleBar=lwd.scaleBar,

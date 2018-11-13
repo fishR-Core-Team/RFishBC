@@ -30,15 +30,14 @@ WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
 
 
 ################################################################################
-## Functions to allow symbols in the messages. Basically taken from fcuk package.
+## Functions to allow symbols in the messages.
 ################################################################################
-CATLINE <- function(...) cat(..., "\n", sep = "")
-BULLET <- function(lines,bullet) CATLINE(paste0(bullet," ",lines))
-DONE <- function(...,sep="") 
-  BULLET(paste0(...,sep=sep),bullet=crayon::green(clisymbols::symbol$tick))
-NOTE <- function(...,sep="") 
-  BULLET(paste0(...,sep=sep),bullet=crayon::blue(clisymbols::symbol$menu))
-
+DONE <- function(...) 
+  cli::cat_line(crayon::green(clisymbols::symbol$tick)," ",...)
+NOTE <- function(...) 
+  cli::cat_line(crayon::blue(clisymbols::symbol$menu)," ",...)
+RULE <- function(msg,line="=",line_col="green")
+  cli::cat_rule(msg,line=line,line_col=line_col)
 
 
 
@@ -173,7 +172,7 @@ iSelectPt <- function(numPts,msg1,msg2,
   }
   ## Main function
   dat <- data.frame(x=NULL,y=NULL)
-  grDevices::getGraphicsEvent(paste0(msg1,msg2),consolePrompt=msg2,
+  grDevices::getGraphicsEvent(paste0(msg1,msg2),consolePrompt="",
                               onMouseDown=mouseDown,onKeybd=keyPress)
   dat
 }   # nocov end
