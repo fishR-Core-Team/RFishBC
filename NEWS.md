@@ -2,6 +2,7 @@
 * Added dependency to `cli` package for `DONE()`, `NOTE()`, and `RULE()` (see below).
 * `digitizeRadii()`: Modified. Change console output directions to use `RULE()` instead of `NOTE()`.
 * `DONE()`: Modified. Changed to use `cat_line()` from `cli` package (removed my hack).
+* `findScalingFactor()`: Modified. Change console output directions to use `RULE()` instead of `NOTE()`.
 * `NOTE()`: Modified. Changed to use `cat_line()` from `cli` package (removed my hack).
 * `RULE()`: Added.
 
