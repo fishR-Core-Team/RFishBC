@@ -184,8 +184,8 @@ digitizeRadii <- function(img,id,reading,suffix,
                            pch.sel,col.sel,cex.sel,
                            pch.del,col.del,
                            showInfo,pos.info,cex.info,col.info)
+    if (closeWindow) grDevices::dev.off()
   }
-  if (closeWindow) grDevices::dev.off()
   invisible(dat)
 }
 
