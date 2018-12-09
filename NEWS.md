@@ -1,14 +1,16 @@
-# RFishBC 0.1.1.9000 ongoing
+# RFishBC 0.1.9000 ongoing
+
+# RFishBC 0.1.2 9-Dec-18
 * Added dependency to `cli` package for `DONE()`, `NOTE()`, and `RULE()` (see below).
-* `digitizeRadii()`: Modified. Change console output directions to use `RULE()` instead of `NOTE()`. Fixed bug that produced error related to closing the last window when working with multiple images.
+* `digitizeRadii()`: Modified. Changed console output directions to use `RULE()` instead of `NOTE()`. Fixed bug that produced error related to closing the last window when working with multiple images.
 * `DONE()`: Modified. Changed to use `cat_line()` from `cli` package (removed my hack).
-* `findScalingFactor()`: Modified. Change console output directions to use `RULE()` instead of `NOTE()`.
+* `findScalingFactor()`: Modified. Changed console output directions to use `RULE()` instead of `NOTE()`.
 * `NOTE()`: Modified. Changed to use `cat_line()` from `cli` package (removed my hack).
 * `RULE()`: Added.
 
 # RFishBC 0.1.1 12-Nov-18
 * Released to CRAN.
-* Removed automatic webpage construction from Travis-CI. Did not work with some of the update vignettes.
+* Removed automatic webpage construction from Travis-CI. Did not work with some of the updated vignettes.
 * Put fishBC in the Description field into single quotes as directed by CRAN.
 * `digitizeRadii()`. Modified. Added a note that draws attention when `snap2Transect=TRUE` and `showTransect=FALSE` (i.e., "snapping" to a transect that is not shown). At least partially addresses [#30](https://github.com/droglenc/RFishBC/issues/30).
 
