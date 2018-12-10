@@ -133,13 +133,13 @@ test_that("combineData() results",{
   expect_equal(names(tmp),c("id","reading","agecap","ann","rad","radcap"))
   ### Wide Format
   #### Deleting plus growth
-  tmp <- combineData("Scale_1_DHO.rds",outFormat="wide")
+  tmp <- combineData("Scale_1_DHO.rds",formatOut="wide")
   expect_s3_class(tmp,"data.frame")
   expect_equal(names(tmp),c("id","reading","agecap","radcap",
                             "rad1","rad2","rad3","rad4","rad5"))
   expect_equal(nrow(tmp),1)
   #### Not deleting plus growth
-  tmp <- combineData("Scale_1_DHO.rds",outFormat="wide",deletePlusGrowth=FALSE)
+  tmp <- combineData("Scale_1_DHO.rds",formatOut="wide",deletePlusGrowth=FALSE)
   expect_s3_class(tmp,"data.frame")
   expect_equal(names(tmp),c("id","reading","agecap","radcap",
                             "rad1","rad2","rad3","rad4","rad5","rad6"))
@@ -159,14 +159,14 @@ test_that("combineData() results",{
   expect_equal(nrow(tmp),12)
   ### Wide Format
   #### Deleting plus growth
-  tmp <- combineData(c("Scale_1_DHO.rds","Scale_1_OHD.rds"),outFormat="wide")
+  tmp <- combineData(c("Scale_1_DHO.rds","Scale_1_OHD.rds"),formatOut="wide")
   expect_s3_class(tmp,"data.frame")
   expect_equal(names(tmp),c("id","reading","agecap","radcap",
                             "rad1","rad2","rad3","rad4","rad5"))
   expect_equal(nrow(tmp),2)
   #### Not deleting plus growth
   tmp <- combineData(c("Scale_1_DHO.rds","Scale_1_OHD.rds"),
-                     outFormat="wide",deletePlusGrowth=FALSE)
+                     formatOut="wide",deletePlusGrowth=FALSE)
   expect_s3_class(tmp,"data.frame")
   expect_equal(names(tmp),c("id","reading","agecap","radcap",
                             "rad1","rad2","rad3","rad4","rad5","rad6"))

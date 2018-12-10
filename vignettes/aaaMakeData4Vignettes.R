@@ -1,6 +1,6 @@
 ## Use this to create the RData files for the vignettes.
 devtools::load_all(".")
-setwd("C:/aaaWork/Programs/GitHub/RFishBC/vignettes/MeasureRadii")
+setwd("C:/aaaWork/Programs/GitHub/RFishBC/vignettes")
 
 ## Process Scales
 junk <- digitizeRadii("Scale_1.jpg",id="1",reading="DHO",edgeIsAnnulus=FALSE)
@@ -57,6 +57,8 @@ digitizeRadii("Oto140306.jpg",id="140306",reading="OHD",
               scaleBar=FALSE,scalingFactor=SF,edgeIsAnnulus=TRUE,
               windowSize=12)
 
+## Show one with a curved growth trajectory
+
 
 #### move these to a dead directory so that they don't appear in the vignettes
 fns <- c(listFiles(".rds",other="MULT"),
@@ -67,4 +69,4 @@ file.remove(fns)
 
 #### Copy this to test suite so that an error is thrown if something changed
 ####    Need to do this because everything is interactive
-file.copy(listFiles(".rds"),"../../tests/testthat/",overwrite=TRUE)
+file.copy(listFiles(".rds"),"../tests/testthat/",overwrite=TRUE)

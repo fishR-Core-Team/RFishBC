@@ -7,9 +7,9 @@
 #' @param pch.show See details in \code{\link{RFBCoptions}}.
 #' @param col.show See details in \code{\link{RFBCoptions}}.
 #' @param cex.show See details in \code{\link{RFBCoptions}}.
-#' @param showTransect See details in \code{\link{RFBCoptions}}.
-#' @param col.transect See details in \code{\link{RFBCoptions}}.
-#' @param lwd.transect See details in \code{\link{RFBCoptions}}.
+#' @param connect See details in \code{\link{RFBCoptions}}.
+#' @param col.connect See details in \code{\link{RFBCoptions}}.
+#' @param lwd.connect See details in \code{\link{RFBCoptions}}.
 #' @param col.scaleBar See details in \code{\link{RFBCoptions}}.
 #' @param lwd.scaleBar See details in \code{\link{RFBCoptions}}.
 #' @param showAnnuliLabels See details in \code{\link{RFBCoptions}}.
@@ -33,7 +33,7 @@
 #' 
 showDigitizedImage <- function(nms,deviceType,
                                pch.show,col.show,cex.show,
-                               showTransect,col.transect,lwd.transect,
+                               connect,col.connect,lwd.connect,
                                col.scaleBar,lwd.scaleBar,
                                showAnnuliLabels,annuliLabels,col.ann,cex.ann) {
   ## handle options
@@ -41,9 +41,9 @@ showDigitizedImage <- function(nms,deviceType,
   if (missing(pch.show)) pch.show <- iGetopt("pch.show")
   if (missing(col.show)) col.show <- iGetopt("col.show")
   if (missing(cex.show)) cex.show <- iGetopt("cex.show")
-  if (missing(showTransect)) showTransect <- iGetopt("showTransect")
-  if (missing(col.transect)) col.transect <- iGetopt("col.transect")
-  if (missing(lwd.transect)) lwd.transect <- iGetopt("lwd.transect")
+  if (missing(connect)) connect <- iGetopt("connect")
+  if (missing(col.connect)) col.connect <- iGetopt("col.connect")
+  if (missing(lwd.connect)) lwd.connect <- iGetopt("lwd.connect")
   if (missing(col.scaleBar)) col.scaleBar <- iGetopt("col.scaleBar")
   if (missing(lwd.scaleBar)) lwd.scaleBar <- iGetopt("lwd.scaleBar")
   if (missing(showAnnuliLabels)) showAnnuliLabels <- iGetopt("showAnnuliLabels")
@@ -67,8 +67,8 @@ showDigitizedImage <- function(nms,deviceType,
   pch.show <- rep(pch.show,ceiling(num2do/length(pch.show)))
   col.show <- rep(col.show,ceiling(num2do/length(col.show)))
   cex.show <- rep(cex.show,ceiling(num2do/length(cex.show)))
-  col.transect <- rep(col.transect,ceiling(num2do/length(col.transect)))
-  lwd.transect <- rep(lwd.transect,ceiling(num2do/length(lwd.transect)))
+  col.connect <- rep(col.connect,ceiling(num2do/length(col.connect)))
+  lwd.connect <- rep(lwd.connect,ceiling(num2do/length(lwd.connect)))
 
   ## Display results ###########################################################
   for (i in seq_along(nms)) {
@@ -86,15 +86,18 @@ showDigitizedImage <- function(nms,deviceType,
     }
     if (origImage!=dat$image)
       STOP("Files appear to derive from different structure images.")
-    #### Show transect if asked ... assumes that the focus is in the first row
-    #### and the margin is in the last row (should be from digitizeRadii)
-    if (showTransect) graphics::lines(y~x,data=dat$pts[c(1,nrow(dat$pts)),],
-                                      lwd=lwd.transect[i],col=col.transect[i])
     #### Show scale-bar, if it was digitized
     if (!is.null(dat$sbPts)) graphics::lines(y~x,data=dat$sbPts,
                                              col=col.scaleBar,lwd=lwd.scaleBar)
-    #### Show points
-    graphics::points(dat$pts,pch=pch.show[i],col=col.show[i],cex=cex.show[i])
+    #### Show connected points if asked to do so
+    if (connect) graphics::lines(y~x,data=dat$pts,
+                                 lwd=lwd.connect[i],col=col.connect[i])
+    #### Show points (only show points that were considered annuli)
+    graphics::points(dat$pts[2:(nrow(dat$pts)-1),],
+                     pch=pch.show[i],col=col.show[i],cex=cex.show[i])
+    if (dat$edgeIsAnnulus) ## add on edge if considered an annulus
+      graphics::points(dat$pts[nrow(dat$pts),],
+                       pch=pch.show[i],col=col.show[i],cex=cex.show[i])
     #### Show annuli labels if asked to do so AND only if one set of readings
     if (num2do==1) {
       #### Show annuli labels if asked to do so
@@ -109,17 +112,21 @@ showDigitizedImage <- function(nms,deviceType,
 
 ########################################################################
 ## Show annuli numbers on the showDigitizedImage() image
-##
 ########################################################################
 iShowAnnuliLabels <- function(dat,annuliLabels,col.ann,cex.ann) { # nocov start
   ## Get points to plot
   pts <- dat$pts
   
   ## Find the degree of angle for the transect slope
-  deg <- atan(dat$slpTransect)*180/pi
+  ### If given the use it, otherwise find rough value from first and last points
+  if (!is.null(dat$slpTransect)) deg <- atan(dat$slpTransect)*180/pi
+  else {
+    tmp <- dat$pts[c(1,nrow(dat$pts)),]
+    deg <- atan(diff(tmp$y)/diff(tmp$x))*180/pi
+  }
   #### Adjust for the quadrant in which the transect is in
   if (pts$x[nrow(pts)]<pts$x[1]) deg <- deg+180
-  ## Convert absolute transect degress into a position for the text
+  ## Convert absolute transect degrees into a position for the text
   deg <- abs(deg)
   if (deg>=0 & deg<=45) pos <- 1        # below
   else if (deg>45 & deg<=90) pos <- 4   # right

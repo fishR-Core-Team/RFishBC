@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-This vignette suggests a workflow for back-calculating fish length at a previous age from measurements made to annuli on a calcified structure. This vignette assumes that you have a general understanding of the purpose and methods of back-calculation as described in the [Short Introduction to Back-Calculation](../BCIntro/BCIntro.html) vignette.
+This vignette suggests a workflow for back-calculating fish length at a previous age from measurements made to annuli on a calcified structure. This vignette assumes that you have a general understanding of the purpose and methods of back-calculation as described in the [Short Introduction to Back-Calculation](BCIntro.html) vignette.
 
 1. Create a folder/directory for all files created below.
     * Generally, all files in this folder/directory should pertain to one "set" of fish (perhaps a species for a particular year at a particular location).
@@ -30,10 +30,10 @@ This vignette suggests a workflow for back-calculating fish length at a previous
 
 1. Start (and save) an R script.
     * Include `library(RFishBC)`.
-        * See the[RFishBC webpage](../../index.html#installation) for instructions to install the `RFishBC` package.
+        * See the[RFishBC webpage](../index.html#installation) for instructions to install the `RFishBC` package.
     * Include `library(dplyr)`.
         * May need to install from CRAN.
-    * Use `setwd()` to set the working directory to where the script and structure images are saved as described in the ["Static Structure Images" section of the Collecting Radii Data](../MeasureRadii/collectRadiiData.html#static-structure-images) vignette.
+    * Use `setwd()` to set the working directory to where the script and structure images are saved as described in the ["Static Structure Images" section of the Collecting Radii Data](collectRadiiData.html#static-structure-images) vignette.
 
 1. (*OPTIONAL*) Use `findScalingFactor()` with the image of an object of known length at a specific magnification to derive an appropriate scaling factor for converting image pixels to actual lengths on the structure.
     * This is **NOT** required if
@@ -42,17 +42,17 @@ This vignette suggests a workflow for back-calculating fish length at a previous
         * you don't plan to back-calculate lengths at previous ages (i.e., you will simply record annuli).
     * This may need to be repeated if your structure images were captured at more than one magnification. In that case, you will need to keep track of the correction factor for each magnification.
     
-1. (*OPTIONAL, BUT SUGGESTED*) Use `RFBCoptions()` as described in the ["Setting Argument Defaults for a Session" section of the Collecting Radii Data](../MeasureRadii/collectRadiiData.html#setoptions1) vignette to set options used by `digitizeRadii()` for all images to be digitized during the session.
+1. (*OPTIONAL, BUT SUGGESTED*) Use `RFBCoptions()` as described in the ["Setting Argument Defaults for a Session" section of the Collecting Radii Data](collectRadiiData.html#setoptions1) vignette to set options used by `digitizeRadii()` for all images to be digitized during the session.
     * Options commonly set at this time are `reading`; `description`; `suffix`; `edgeIsAnnulus`; and `scalingFactor` or `scaleBar` and `scaleBarLength`. Descriptions for each option are in the documentation for `RFishBC()`.
     
-1. Use `digitizeRadii()` to mark annuli on a structure image as described in the ["Measure Radii" section of the Collecting Radii Data](../MeasureRadii/collectRadiiData.html#measurereadii) vignette.
+1. Use `digitizeRadii()` to mark annuli on a structure image as described in the ["Measure Radii" section of the Collecting Radii Data](collectRadiiData.html#measurereadii) vignette.
 
-1. (*OPTIONAL, AS NEEDED*) Examine the selected annuli with `showDigitizedImage()` as described in the ["Visualize One Set of Annuli" section of the Visualize Radii Data](../seeRadiiData.html#visualize-one-set-of-annuli) vignette.
+1. (*OPTIONAL, AS NEEDED*) Examine the selected annuli with `showDigitizedImage()` as described in the ["Visualize One Set of Annuli" section of the Visualize Radii Data](seeRadiiData.html#visualize-one-set-of-annuli) vignette.
 
-1. Repeat the previous two steps for each structure in the working directory. Note that `digitizeRadii()` can accept more than one image name to streamline the processing of many images. The use of multiple image names is described in  ["Processing Multiple Images" section of the Collecting Radii Data](../MeasureRadii/collectRadiiData.html#multipleimages) vignette.
+1. Repeat the previous two steps for each structure in the working directory. Note that `digitizeRadii()` can accept more than one image name to streamline the processing of many images. The use of multiple image names is described in  ["Processing Multiple Images" section of the Collecting Radii Data](collectRadiiData.html#multipleimages) vignette.
 
-1. Use `combineData()` to combine the radial measurements from all analyzed images into a data.frame as described in the ["Combine Data from Multiple Structures" section of the Collecting Radii Data](../MeasureRadii/collectRadiiData.html#multiplestructures) vignette.
+1. Use `combineData()` to combine the radial measurements from all analyzed images into a data.frame as described in the ["Combine Data from Multiple Structures" section of the Collecting Radii Data](collectRadiiData.html#multiplestructures) vignette.
 
-1. Use `write.csv()` to write the data.frame from the previous step to an external CSV file as described in the ["Output Data File" sections of the Collecting Radii Data](../MeasureRadii/collectRadiiData.html#outputdata) vignette.
+1. Use `write.csv()` to write the data.frame from the previous step to an external CSV file as described in the ["Output Data File" sections of the Collecting Radii Data](collectRadiiData.html#outputdata) vignette.
 
-1. Back-calculate lengths at previous ages as described in the [Compute Back-Calculated Lengths](../BCCalc/BCCalc.html) vignette.
+1. Back-calculate lengths at previous ages as described in the [Compute Back-Calculated Lengths](BCCalc.html) vignette.

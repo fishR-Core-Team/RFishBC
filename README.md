@@ -7,7 +7,6 @@
 [![Coverage Status](https://img.shields.io/coveralls/droglenc/RFishBC.svg)](https://coveralls.io/r/droglenc/RFishBC?branch=master)
 [![CRAN RStudio mirror downloads rate](http://cranlogs.r-pkg.org/badges/RFishBC)
 ![CRAN RSTudio mirror downloads total](http://cranlogs.r-pkg.org/badges/grand-total/RFishBC)](http://www.r-pkg.org/pkg/RFishBC)
-[![Research software impact](http://depsy.org/api/package/cran/RFishBC/badge.svg)](http://depsy.org/package/r/RFishBC)
 [![Rdoc](http://www.rdocumentation.org/badges/version/RFishBC)](http://www.rdocumentation.org/packages/RFishBC)
 
 

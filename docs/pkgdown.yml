@@ -1,12 +1,13 @@
 pandoc: 1.19.2.1
-pkgdown: 1.1.0
+pkgdown: 1.3.0
 pkgdown_sha: ~
 articles:
-  BCCalc: BCCalc/BCCalc.html
-  BCIntro: BCIntro/BCIntro.html
-  collectRadiiData: MeasureRadii/collectRadiiData.html
-  seeRadiiData: MeasureRadii/seeRadiiData.html
-  BCWorkflow: Workflow/BCWorkflow.html
+  BCCalc: BCCalc.html
+  BCIntro: BCIntro.html
+  BCWorkflow: BCWorkflow.html
+  collectRadiiData: collectRadiiData.html
+  Other: Other.html
+  seeRadiiData: seeRadiiData.html
 urls:
   reference: http://derekogle.com/RFishBC/reference
   article: http://derekogle.com/RFishBC/articles

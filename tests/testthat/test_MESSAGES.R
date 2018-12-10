@@ -22,13 +22,19 @@ test_that("RFBCoptions() error messages",{
                "value out of range")
   expect_error(RFBCoptions(lwd.scaleBar=11),
                "value out of range")
-  expect_error(RFBCoptions(showTransect="Derek"),
+  expect_error(RFBCoptions(makeTransect="Derek"),
                "TRUE,FALSE")
   expect_error(RFBCoptions(snap2Transect="Derek"),
                "TRUE,FALSE")
   expect_error(RFBCoptions(lwd.transect=0),
                "value out of range")
   expect_error(RFBCoptions(lwd.transect=11),
+               "value out of range")
+  expect_error(RFBCoptions(connect="Derek"),
+               "TRUE,FALSE")
+  expect_error(RFBCoptions(lwd.connect=0),
+               "value out of range")
+  expect_error(RFBCoptions(lwd.connect=11),
                "value out of range")
   expect_error(RFBCoptions(cex.sel=0),
                "value out of range")
@@ -105,7 +111,9 @@ test_that("combineData() messages",{
                "not an RData file")
   expect_error(combineData("notRFishBC.rds"),
                "does not appear to be from")
-  expect_error(combineData("Scale_1_DHO.rds",outFormat="Derek"),
+  expect_error(combineData("Scale_1_DHO.rds",formatOut="Derek"),
+               "should be one of")
+  expect_error(combineData("Scale_1_DHO.rds",typeOut="Derek"),
                "should be one of")
 })
 
