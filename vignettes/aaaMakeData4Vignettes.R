@@ -21,15 +21,17 @@ digitizeRadii(reading="MULT2",edgeIsAnnulus=FALSE)
 digitizeRadii(imgs,id=ids,reading="ABORT",edgeIsAnnulus=FALSE)
 
 ### Treat this as if it is a spring-caught age-1 fish (only annulus is the edge)
+###   Mark the transect and then no annuli
 junk2 <- digitizeRadii("Scale_3.jpg",id="3",reading="DHO",edgeIsAnnulus=TRUE)
 ### Treat this as if it is a fall-caught age-0 fish (no annulus to measure)
+###   Mark the transect and then no annuli
 junk3 <- digitizeRadii("Scale_3.jpg",id="3",reading="TEMP",edgeIsAnnulus=FALSE)
 
 
 #### Some tests of these functions
 showDigitizedImage("Scale_1_DHO.rds")
 showDigitizedImage(c("Scale_1_DHO.rds","Scale_1_OHD.rds","Scale_1_ODH.rds"))
-showDigitizedImage()      # choose one file and then choose the three
+showDigitizedImage()      # choose one file and then choose the three (of same fish)
 showDigitizedImage(junk)  # uses the object created above
 combineData("Scale_1_DHO.rds")
 combineData(c("Scale_1_DHO.rds","Scale_1_OHD.rds","Scale_1_ODH.rds"))
@@ -58,7 +60,10 @@ digitizeRadii("Oto140306.jpg",id="140306",reading="OHD",
               windowSize=12)
 
 ## Show one with a curved growth trajectory
-
+digitizeRadii("DWS_Oto_89765.jpg",id="89765",reading="DHO",
+              description="Curved growth trajectory",edgeIsAnnulus=TRUE,
+              windowSize=12,makeTransect=FALSE)
+showDigitizedImage("DWS_Oto_89765_DHO.rds",cex.ann=0.7)
 
 #### move these to a dead directory so that they don't appear in the vignettes
 fns <- c(listFiles(".rds",other="MULT"),

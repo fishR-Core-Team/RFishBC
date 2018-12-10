@@ -116,6 +116,7 @@ test_that("combineData() results",{
   ## Individual files
   ### Long Format
   #### Deleting plus growth
+  ##### Radii
   tmp <- combineData("Scale_1_DHO.rds")
   expect_s3_class(tmp,"data.frame")
   expect_equal(names(tmp),c("id","reading","agecap","ann","rad","radcap"))
@@ -123,7 +124,16 @@ test_that("combineData() results",{
   tmp <- combineData("Oto140306_DHO.rds")
   expect_s3_class(tmp,"data.frame")
   expect_equal(names(tmp),c("id","reading","agecap","ann","rad","radcap"))
+  ##### Increments
+  tmp <- combineData("Scale_1_DHO.rds",typeOut="inc")
+  expect_s3_class(tmp,"data.frame")
+  expect_equal(names(tmp),c("id","reading","agecap","ann","radcap","inc"))
+  expect_equal(nrow(tmp),5)
+  tmp <- combineData("Oto140306_DHO.rds",typeOut="inc")
+  expect_s3_class(tmp,"data.frame")
+  expect_equal(names(tmp),c("id","reading","agecap","ann","radcap","inc"))
   #### Not deleting plus growth
+  ##### Radii
   tmp <- combineData("Scale_1_DHO.rds",deletePlusGrowth=FALSE)
   expect_s3_class(tmp,"data.frame")
   expect_equal(names(tmp),c("id","reading","agecap","ann","rad","radcap"))
@@ -131,45 +141,97 @@ test_that("combineData() results",{
   tmp <- combineData("Oto140306_DHO.rds",deletePlusGrowth=FALSE)
   expect_s3_class(tmp,"data.frame")
   expect_equal(names(tmp),c("id","reading","agecap","ann","rad","radcap"))
+  ##### Increments
+  tmp <- combineData("Scale_1_DHO.rds",deletePlusGrowth=FALSE,typeOut="inc")
+  expect_s3_class(tmp,"data.frame")
+  expect_equal(names(tmp),c("id","reading","agecap","ann","radcap","inc"))
+  expect_equal(nrow(tmp),6)
+  tmp <- combineData("Oto140306_DHO.rds",deletePlusGrowth=FALSE,typeOut="inc")
+  expect_s3_class(tmp,"data.frame")
+  expect_equal(names(tmp),c("id","reading","agecap","ann","radcap","inc"))
   ### Wide Format
   #### Deleting plus growth
+  ##### Radii
   tmp <- combineData("Scale_1_DHO.rds",formatOut="wide")
   expect_s3_class(tmp,"data.frame")
   expect_equal(names(tmp),c("id","reading","agecap","radcap",
                             "rad1","rad2","rad3","rad4","rad5"))
   expect_equal(nrow(tmp),1)
+  ##### Increments
+  tmp <- combineData("Scale_1_DHO.rds",formatOut="wide",typeOut="inc")
+  expect_s3_class(tmp,"data.frame")
+  expect_equal(names(tmp),c("id","reading","agecap","radcap",
+                            "inc1","inc2","inc3","inc4","inc5"))
+  expect_equal(nrow(tmp),1)
   #### Not deleting plus growth
+  ##### Radii
   tmp <- combineData("Scale_1_DHO.rds",formatOut="wide",deletePlusGrowth=FALSE)
   expect_s3_class(tmp,"data.frame")
   expect_equal(names(tmp),c("id","reading","agecap","radcap",
                             "rad1","rad2","rad3","rad4","rad5","rad6"))
   expect_equal(nrow(tmp),1)
+  ##### Increments
+  tmp <- combineData("Scale_1_DHO.rds",formatOut="wide",
+                     deletePlusGrowth=FALSE,typeOut="inc")
+  expect_s3_class(tmp,"data.frame")
+  expect_equal(names(tmp),c("id","reading","agecap","radcap",
+                            "inc1","inc2","inc3","inc4","inc5","inc6"))
+  expect_equal(nrow(tmp),1)
   
   ## Multiple files
   ### Long Format
   #### Deleting plus growth
+  ##### Radii
   tmp <- combineData(c("Scale_1_DHO.rds","Scale_1_OHD.rds"))
   expect_s3_class(tmp,"data.frame")
   expect_equal(names(tmp),c("id","reading","agecap","ann","rad","radcap"))
   expect_equal(nrow(tmp),10)
+  ##### Increments
+  tmp <- combineData(c("Scale_1_DHO.rds","Scale_1_OHD.rds"),typeOut="inc")
+  expect_s3_class(tmp,"data.frame")
+  expect_equal(names(tmp),c("id","reading","agecap","ann","radcap","inc"))
+  expect_equal(nrow(tmp),10)
   #### Not deleting plus growth
+  ##### Radii
   tmp <- combineData(c("Scale_1_DHO.rds","Scale_1_OHD.rds"),deletePlusGrowth=FALSE)
   expect_s3_class(tmp,"data.frame")
   expect_equal(names(tmp),c("id","reading","agecap","ann","rad","radcap"))
   expect_equal(nrow(tmp),12)
+  ##### Increments
+  tmp <- combineData(c("Scale_1_DHO.rds","Scale_1_OHD.rds"),
+                     deletePlusGrowth=FALSE,typeOut="inc")
+  expect_s3_class(tmp,"data.frame")
+  expect_equal(names(tmp),c("id","reading","agecap","ann","radcap","inc"))
+  expect_equal(nrow(tmp),12)
   ### Wide Format
   #### Deleting plus growth
+  ##### Radii
   tmp <- combineData(c("Scale_1_DHO.rds","Scale_1_OHD.rds"),formatOut="wide")
   expect_s3_class(tmp,"data.frame")
   expect_equal(names(tmp),c("id","reading","agecap","radcap",
                             "rad1","rad2","rad3","rad4","rad5"))
   expect_equal(nrow(tmp),2)
+  ##### Increments
+  tmp <- combineData(c("Scale_1_DHO.rds","Scale_1_OHD.rds"),
+                     formatOut="wide",typeOut="inc")
+  expect_s3_class(tmp,"data.frame")
+  expect_equal(names(tmp),c("id","reading","agecap","radcap",
+                            "inc1","inc2","inc3","inc4","inc5"))
+  expect_equal(nrow(tmp),2)
   #### Not deleting plus growth
+  ##### Radii
   tmp <- combineData(c("Scale_1_DHO.rds","Scale_1_OHD.rds"),
                      formatOut="wide",deletePlusGrowth=FALSE)
   expect_s3_class(tmp,"data.frame")
   expect_equal(names(tmp),c("id","reading","agecap","radcap",
                             "rad1","rad2","rad3","rad4","rad5","rad6"))
+  expect_equal(nrow(tmp),2)
+  ##### Increments
+  tmp <- combineData(c("Scale_1_DHO.rds","Scale_1_OHD.rds"),
+                     formatOut="wide",deletePlusGrowth=FALSE,typeOut="inc")
+  expect_s3_class(tmp,"data.frame")
+  expect_equal(names(tmp),c("id","reading","agecap","radcap",
+                            "inc1","inc2","inc3","inc4","inc5","inc6"))
   expect_equal(nrow(tmp),2)
 })
 
