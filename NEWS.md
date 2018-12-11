@@ -1,4 +1,6 @@
 # RFishBC 0.1.9000 ongoing
+* Added several items (mostly images) to .Rbuildignore to lower bloat of package.
+* Added validation tests (still need to be run manually) from Sullivan data.
 * `combineData()`: Modified. Changed `outFormat=` to `formatOut=`. Added `outType=` to allow user to choose either radial or incremental measurements as output.
 * `digitizeRadii()`: Modified. Changed `showTransect=` to `makeTransect`. Changed so that `snap2Transect` is changed to `FALSE` if it is `TRUE` and `makeTransect=FALSE`. Radii are now computed as the cumulative sum of increments rather than the distance from the selected point back to the structure center. This addresses [#32](https://github.com/droglenc/RFishBC/issues/32).
 * `RFBCoptions()`: Modified. Now includes `makeTransect=` used in `digitizeRadii()`. Now includes `connect=`, `col.connect=`, and `lwd.connect=` used in `showDigitizedImage()`. Because of those changes `showTransect=` has been removed.
