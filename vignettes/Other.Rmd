@@ -1,0 +1,108 @@
+---
+title: "Other Features / Common Questions"
+author: "Derek H. Ogle"
+date: "`r Sys.Date()`"
+output: 
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: vignette
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+# Collect Just Age Data
+
+Some researchers would like to use RFishBC to collect age data only without any concern for measurements on the image for the purposes of back-calculation. RFishBC will record measurements on the structure but these measurements can ultimately be ignored if you simply want to have a data.frame of estimated ages. This is demonstrated below using a few functions from the `dplyr` package.
+
+```{r message=FALSE}
+library(RFishBC)
+library(dplyr)
+```
+
+This example also uses the "DHO" readings of "Scale_1.jpg", "Scale_2.jpg", and "Scale_3.jpg" demonstrated in the [Combine Data from Multiple Structures section of the Collecting Radial Measurements](collectRadiiData.html#multiplestructures) vignette. These readings are put into a list using `listFiles()` and their data are combined into a **WIDE** format data.frame below (as described in [the Collecting Radial Measurements](collectRadiiData.html#multiplestructures) vignette).
+
+```{r}
+( fns <- listFiles("rds",other=c("Scale","DHO")) )
+( dfrad2 <- combineData(fns,formatOut="wide") )
+```
+
+A data.frame of just ages is created from this data.frame by removing all variables that contain the word "rad" using `select()` from `dplyr`. The `select()` function requires the original data.frame as its first argument and then directions on variables to select as the ensuing arguments. There are several ways to get the required data.frame with these simple data as shown below -- one can select variables individually, select contiguous variables, or deselect (negative sign) variables that contain the word "rad".
+
+```{r}
+( dfrad2ages <- select(dfrad2,id,reading,agecap) )
+( dfrad2ages <- select(dfrad2,id:agecap) )
+( dfrad2ages <- select(dfrad2,-contains("rad")) )
+```
+
+The `agecap` variable can be renamed with `rename()` from `dplyr`.
+
+```{r}
+( dfrad2ages <- rename(dfrad2ages,age=agecap) )
+```
+
+\  
+
+\ 
+
+
+# Curved Growth Trajectories
+
+Some structures, especially otoliths, often have "growth trajectories" on which the user wants to mark annuli that are nonlinear. In these instances, the use of a linear transect is inappropriate. RFishBC can handle such circumstances by using `makeTransect=FALSE` in `digitizeRadii()`. When using `makeTransect=FALSE` the user will not select a transect as shown in the [Collecting Radial Measurements](collectRadiiData.html) vignette. The user will instead be prompted to successively mark the structure center, annuli, and structure margin.
+
+```{r eval=FALSE}
+digitizeRadii("DWS_Oto_89765.jpg",id=89765,reading="DHO",edgeIsAnnulus=TRUE,
+              makeTransect=FALSE,windowSize=10)
+```
+
+The results can be seen with `showDigitizedImage()` as described in the [Visualize Radial Data](seeRadiiData.html) vignette.
+
+```{r eval=FALSE}
+showDigitizedImage("DWS_Oto_89765_DHO.rds",
+                   annuliLabels=c(1:8,10,12,14,17),cex.ann=0.8)
+```
+
+![](figures/DWS_Oto_89765_A.jpg)
+
+\  
+
+RFishBC calculates radii as the cumulative sum of the annular increments rather than the distance from the structure center to the annuli. These radii or increments can be extracted as described in the [Collecting Radial Measurements](collectRadiiData.html) vignette.
+
+```{r}
+combineData("DWS_Oto_89765_DHO.rds",formatOut="wide")
+combineData("DWS_Oto_89765_DHO.rds",formatOut="wide",typeOut="inc")
+```
+
+\  
+
+\ 
+
+
+# Extract Increments Rather than Radii
+
+As noted in the [Introduction to Back-calculation](BCIntro.html) vignette, radial measurements are the distance from the structure center to the annulus.[^CurvedRadii] In some instances, the user may desire incremental rather than radial measurements. Incremental measurements are the distances between successive annuli, with the first increment being the distance from the structure center to the first annulus. Increments may be extracted from the data stored in the R data file with `combineData()` using `typeOut="inc"`. For example, the radial and incremental measurements for the "DHO" reading of "Scale_1.jpg" in wide format are shown below.
+```{r}
+combineData("Scale_1_DHO.rds",formatOut="wide")
+combineData("Scale_1_DHO.rds",typeOut="inc",formatOut="wide")
+```
+
+Of course, increments from several sets of measurements may also be extracted (note that the list of R data files in `fns` was created [above](l#collect-just-age-data))
+
+```{r}
+combineData(fns,formatOut="wide")
+combineData(fns,typeOut="inc",formatOut="wide")
+```
+
+\  
+
+\  
+
+
+# Footnotes
+
+[^CurvedRadii]: Note that with [curved growth trajectories](#curved-growth-trajectories), radial measurements are the cumulative sum of the distances between annuli with the first distance being from the structure center to the first annulus.

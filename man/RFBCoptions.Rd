@@ -27,7 +27,7 @@ The arguments that can be set with this function are:
 \item{\code{suffix}: }{A single character string that will be added to the RData file name. If \code{NULL} and \code{reading} is not \code{NULL}, then this will be replaced with the value in \code{reading}. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
 \item{\code{edgeIsAnnulus}: }{A single logical that indicates whether the structure margin should be considered an annulus (\code{TRUE}) or not (\code{FALSE}). Use \code{FALSE} if growth between the last annulus and the structure margin is not a complete year's worth of growth (i.e., \dQuote{plus-growth}). Defaults to \code{NULL} which means that the user must set this value. Used in \code{\link{digitizeRadii}}.}
 \item{\code{windowSize}: }{A single numeric used to set the size of the largest dimension for the window in which the structure image is opened. This size will be the width for wider images and the height for taller images. The other dimension will be set relative to this so that the image is displayed in its native aspect ratio. Defaults to 7 inches. Used in \code{\link{digitizeRadii}} and \code{\link{findScalingFactor}}.}
-\item{\code{deviceType}: }{A single character that identifies the type of graphic device in which the image will be shown. Defaults to \code{deviceType="windows} which should be used with a Windows OS, but can be set to \code{deviceType="X11} which should be used with a Mac OS.}
+\item{\code{deviceType}: }{A single character that identifies the type of graphic device in which the image will be shown. Defaults to \code{deviceType="windows"} which should be used with a Windows OS, but can be set to \code{deviceType="X11"} which should be used with a Mac OS.}
 \item{\code{popID}: }{A single logical that indicates if the fish ID dialog box (only on Windows if no \code{ID} is given in \code{\link{digitizeRadii}}) is populated with a guess at the fish ID. The guess is from using the pattern in \code{IDpattern} (see below) on the image file name sans the extension. This may be useful for when the image name contains the fish ID (and no other numbers). Defaults to \code{TRUE}. Used in \code{\link{digitizeRadii}}.}
 \item{\code{IDpattern}: }{A single regular expression that indicates how to extract a possible fish ID from an image file name. Defaults to selecting all characters after the last underscore in the image file name (sans extension). Used in \code{\link{digitizeRadii}} and \code{\link{getID}}.}
 \item{\code{IDreplace}: }{A string to replace the expression matched in \code{IDpattern}. Used in \code{\link{digitizeRadii}} and \code{\link{getID}}.}
@@ -36,10 +36,13 @@ The arguments that can be set with this function are:
 \item{\code{scaleBarLength}: }{A single numeric that represents the actual length of the scale-bar. Ignored if \code{scaleBar=FALSE}. Defaults to \code{NULL}; thus, the user must enter a value if \code{scaleBar=TRUE}. Used in \code{\link{digitizeRadii}}.}
 \item{\code{col.scaleBar}: }{The color of the scale-bar line if \code{scalebar=TRUE}. Defaults to \code{"yellow"}. Used in \code{\link{digitizeRadii}}, \code{\link{showDigitizedImage}}, and \code{\link{findScalingFactor}}.}
 \item{\code{lwd.scaleBar}: }{The line width of the scale-bar line if \code{scalebar=TRUE}. Defaults to \code{2}. Used in \code{\link{digitizeRadii}}, \code{\link{showDigitizedImage}}, and \code{\link{findScalingFactor}}.}
-\item{\code{showTransect}: }{A single logical that indicates whether the transect between the points selected at the structure center and margin should be shown. Defaults to \code{TRUE}. Used in \code{\link{digitizeRadii}} and  \code{\link{showDigitizedImage}}.}
+\item{\code{makeTransect}: }{A single logical that indicates whether a transect between the points selected at the structure center and margin should be made. Defaults to \code{TRUE}. Used in \code{\link{digitizeRadii}}.}
 \item{\code{snap2Transect}: }{A single logical that indicates whether the coordinates of the selected points that represent annuli should be moved to fall exactly on the transect from the structure center to margin. If \code{TRUE} then the points will be moved perpendicularly to the transect (and the original user-selected point will not be seen on the image). If \code{FALSE} then the points will be where the user selected them. Defaults to \code{TRUE}. Used in \code{\link{digitizeRadii}}.}
-\item{\code{col.transect}: }{The color of the transect line if \code{showTransect=TRUE}. Defaults to \code{"cyan"}. Used  in \code{\link{digitizeRadii}} or \code{showTransect=TRUE} in \code{\link{showDigitizedImage}}.}
-\item{\code{lwd.transect}: }{The width of the transect line if \code{showTransect=TRUE}. Defaults to \code{2}. Used  in \code{\link{digitizeRadii}} or \code{showTransect=TRUE} in \code{\link{showDigitizedImage}}.}
+\item{\code{col.transect}: }{The color of the transect line if \code{makeTransect=TRUE} in \code{\link{digitizeRadii}}. Defaults to \code{"cyan"}.}
+\item{\code{lwd.transect}: }{The width of the transect line if \code{makeTransect=TRUE} in \code{\link{digitizeRadii}}. Defaults to \code{2}.}
+\item{\code{connect}: }{A single logical that indicates whether the selected points should be connected with a line. Defaults to \code{TRUE}. Used in \code{\link{showDigitizedImage}}.}
+\item{\code{col.connect}: }{The color of the connecting line if \code{connect=TRUE}  in \code{\link{showDigitizedImage}}. Defaults to \code{"cyan"}.}
+\item{\code{lwd.connect}: }{The width of the connecting line if \code{connect=TRUE}  in \code{\link{showDigitizedImage}}. Defaults to \code{2}.}
 \item{\code{pch.sel}: }{The plotting character of points for selected annuli in \code{\link{digitizeRadii}}. Defaults to \code{20} (a small solid circle).}
 \item{\code{col.sel}: }{The color of points for selected annuli in \code{\link{digitizeRadii}}. Defaults to \code{"yellow"}.}
 \item{\code{cex.sel}: }{The character expansion value of points for selected annuli in \code{\link{digitizeRadii}}. Defaults to \code{1}.}
@@ -67,11 +70,11 @@ The argument values can be reset to the original defaults by using \code{reset=T
 RFBCoptions()
 
 ## Show how to see and set one option
-RFBCoptions()$showTransect
-RFBCoptions(showTransect=FALSE)
-RFBCoptions()$showTransect
+RFBCoptions()$makeTransect
+RFBCoptions(makeTransect=FALSE)
+RFBCoptions()$makeTransect
 RFBCoptions(reset=TRUE)
-RFBCoptions()$showTransect
+RFBCoptions()$makeTransect
 
 ## Multiple options can also be set at once
 RFBCoptions(pch.show=3,col.show="blue",cex.show=3)

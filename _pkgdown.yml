@@ -11,7 +11,7 @@ template:
     bootswatch: spacelab
   
 development:
-  mode: unreleased
+  mode: release
   
 reference:
   - title: Collect Radii Data
@@ -48,15 +48,17 @@ navbar:
     - text: Vignettes
       menu:
         - text: Short Introduction
-          href: articles/BCIntro/BCIntro.html
+          href: articles/BCIntro.html
         - text: Collect Radii Data
-          href: articles/MeasureRadii/collectRadiiData.html
+          href: articles/collectRadiiData.html
         - text: Visualize Radii Data
-          href: articles/MeasureRadii/seeRadiiData.html
+          href: articles/seeRadiiData.html
         - text: Back-Calculating Lengths
-          href: articles/BCCalc/BCCalc.html
+          href: articles/BCCalc.html
         - text: Suggested Workflow
-          href: articles/Workflow/BCWorkflow.html
+          href: articles/BCWorkflow.html
+        - text: Other Features
+          href: articles/Other.html
     - text: Reference
       href: reference/index.html
     - text: News

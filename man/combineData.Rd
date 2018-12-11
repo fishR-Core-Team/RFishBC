@@ -4,13 +4,15 @@
 \alias{combineData}
 \title{Combines radii data from multiple files into one data.frame}
 \usage{
-combineData(nms, outFormat = c("long", "wide"),
-  deletePlusGrowth = TRUE)
+combineData(nms, formatOut = c("long", "wide"), typeOut = c("radii",
+  "increments"), deletePlusGrowth = TRUE)
 }
 \arguments{
 \item{nms}{A string (or vector of strings) that indicates the R data file(s) created with \code{\link{digitizeRadii}}. If missing the user will be provided a dialog box from which to choose the file(s). The file(s) must be in the current working directory (see \code{\link{getwd}} result). May also be a single \code{RFishBC} object created with \code{\link{digitizeRadii}}.}
 
-\item{outFormat}{A string that indicates the output format for the combined data. The \code{"wide"} (DEFAULT) format has one-radius-per-line (i.e., each radial measurement for a fish in on a separate row), whereas the \code{"long"} format has one-fish-per-line (i.e., each radial measurement for a fish is in a separate column).}
+\item{formatOut}{A string that indicates the output format for the combined data. The \code{"wide"} (DEFAULT) format has one-radius-per-line (i.e., each radial measurement for a fish in on a separate row), whereas the \code{"long"} format has one-fish-per-line (i.e., each radial measurement for a fish is in a separate column).}
+
+\item{typeOut}{A string that indicated output type for the combined data. The \code{"radii"} (DEFAULT) type will output the radial measurements, whereas the \code{"increments"} will output incremental measurements.}
 
 \item{deletePlusGrowth}{A logical that indicates whether the radial measurement that corresponds to \dQuote{plus-growth} should be deleted from the returned data.frame (\code{TRUE}; DEFAULT) or not (\code{FALSE}).}
 }

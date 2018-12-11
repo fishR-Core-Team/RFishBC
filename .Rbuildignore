@@ -2,17 +2,19 @@
 ^\.Rproj\.user$
 
 ^\.Rhistory
-^vignettes
-^docs
 ^\.gitignore$
 ^_pkgdown\.yml
 ^README\.md
 ^\.travis\.yml$
 ^appveyor\.yml$
+
+^\.github
+^pkgdown
+^vignettes
+^docs
 ^data-raw$
-cran-comments.md
 ^cran-comments
 
-man/figures/logo.png
-inst/sticker/
-github/
+^man/figures/logo\.png
+^inst/sticker
+^tests/Validating

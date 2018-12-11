@@ -6,7 +6,7 @@
 \usage{
 digitizeRadii(img, id, reading, suffix, description, edgeIsAnnulus, popID,
   IDpattern, IDreplace, windowSize, deviceType, closeWindow, scaleBar,
-  scaleBarLength, col.scaleBar, lwd.scaleBar, scalingFactor, showTransect,
+  scaleBarLength, col.scaleBar, lwd.scaleBar, scalingFactor, makeTransect,
   snap2Transect, col.transect, lwd.transect, pch.sel, col.sel, cex.sel,
   pch.del, col.del, showInfo, pos.info, cex.info, col.info)
 }
@@ -45,7 +45,7 @@ digitizeRadii(img, id, reading, suffix, description, edgeIsAnnulus, popID,
 
 \item{scalingFactor}{See details in \code{\link{RFBCoptions}}.}
 
-\item{showTransect}{See details in \code{\link{RFBCoptions}}.}
+\item{makeTransect}{See details in \code{\link{RFBCoptions}}.}
 
 \item{snap2Transect}{See details in \code{\link{RFBCoptions}}.}
 
