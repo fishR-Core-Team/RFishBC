@@ -105,7 +105,7 @@
       <h1>Other Features / Common Questions</h1>
                         <h4 class="author">Derek H. Ogle</h4>
             
-            <h4 class="date">2018-12-09</h4>
+            <h4 class="date">2018-12-10</h4>
       
       
       <div class="hidden name"><code>Other.Rmd</code></div>
@@ -125,34 +125,34 @@
 <span class="co">#&gt; [1] "Scale_1_DHO.rds" "Scale_2_DHO.rds" "Scale_3_DHO.rds"</span>
 ( dfrad2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/combineData.html">combineData</a></span>(fns,<span class="dt">formatOut=</span><span class="st">"wide"</span>) )
 <span class="co">#&gt;   id reading agecap    radcap      rad1      rad2      rad3      rad4</span>
-<span class="co">#&gt; 1  1     DHO      5 0.5159177 0.2126143 0.2805828 0.3276884 0.4549164</span>
-<span class="co">#&gt; 2  2     DHO      5 0.3877236 0.1309190 0.2213984 0.2879634 0.3327377</span>
-<span class="co">#&gt; 3  3     DHO      1 0.5178437 0.5178437        NA        NA        NA</span>
+<span class="co">#&gt; 1  1     DHO      5 0.5146011 0.2127403 0.2791615 0.3418421 0.4622381</span>
+<span class="co">#&gt; 2  2     DHO      4 0.3979388 0.1414644 0.2277237 0.2990282 0.3519334</span>
+<span class="co">#&gt; 3  3     DHO      1 0.5174685 0.5174685        NA        NA        NA</span>
 <span class="co">#&gt;        rad5</span>
-<span class="co">#&gt; 1 0.5002030</span>
-<span class="co">#&gt; 2 0.3762318</span>
+<span class="co">#&gt; 1 0.4988664</span>
+<span class="co">#&gt; 2        NA</span>
 <span class="co">#&gt; 3        NA</span></code></pre></div>
 <p>A data.frame of just ages is created from this data.frame by removing all variables that contain the word “rad” using <code>select()</code> from <code>dplyr</code>. The <code>select()</code> function requires the original data.frame as its first argument and then directions on variables to select as the ensuing arguments. There are several ways to get the required data.frame with these simple data as shown below – one can select variables individually, select contiguous variables, or deselect (negative sign) variables that contain the word “rad”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">( dfrad2ages &lt;-<span class="st"> </span><span class="kw">select</span>(dfrad2,id,reading,agecap) )
 <span class="co">#&gt;   id reading agecap</span>
 <span class="co">#&gt; 1  1     DHO      5</span>
-<span class="co">#&gt; 2  2     DHO      5</span>
+<span class="co">#&gt; 2  2     DHO      4</span>
 <span class="co">#&gt; 3  3     DHO      1</span>
 ( dfrad2ages &lt;-<span class="st"> </span><span class="kw">select</span>(dfrad2,id<span class="op">:</span>agecap) )
 <span class="co">#&gt;   id reading agecap</span>
 <span class="co">#&gt; 1  1     DHO      5</span>
-<span class="co">#&gt; 2  2     DHO      5</span>
+<span class="co">#&gt; 2  2     DHO      4</span>
 <span class="co">#&gt; 3  3     DHO      1</span>
 ( dfrad2ages &lt;-<span class="st"> </span><span class="kw">select</span>(dfrad2,<span class="op">-</span><span class="kw">contains</span>(<span class="st">"rad"</span>)) )
 <span class="co">#&gt;   id reading agecap</span>
 <span class="co">#&gt; 1  1     DHO      5</span>
-<span class="co">#&gt; 2  2     DHO      5</span>
+<span class="co">#&gt; 2  2     DHO      4</span>
 <span class="co">#&gt; 3  3     DHO      1</span></code></pre></div>
 <p>The <code>agecap</code> variable can be renamed with <code>rename()</code> from <code>dplyr</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">( dfrad2ages &lt;-<span class="st"> </span><span class="kw">rename</span>(dfrad2ages,<span class="dt">age=</span>agecap) )
 <span class="co">#&gt;   id reading age</span>
 <span class="co">#&gt; 1  1     DHO   5</span>
-<span class="co">#&gt; 2  2     DHO   5</span>
+<span class="co">#&gt; 2  2     DHO   4</span>
 <span class="co">#&gt; 3  3     DHO   1</span></code></pre></div>
 <p> </p>
 <p> </p>
@@ -173,18 +173,20 @@
 <p>RFishBC calculates radii as the cumulative sum of the annular increments rather than the distance from the structure center to the annuli. These radii or increments can be extracted as described in the <a href="collectRadiiData.html">Collecting Radial Measurements</a> vignette.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/combineData.html">combineData</a></span>(<span class="st">"DWS_Oto_89765_DHO.rds"</span>,<span class="dt">formatOut=</span><span class="st">"wide"</span>)
 <span class="co">#&gt;      id reading agecap   radcap      rad1      rad2      rad3      rad4</span>
-<span class="co">#&gt; 1 89765     DHO     17 1.572107 0.2001381 0.4533916 0.6994898 0.8211866</span>
+<span class="co">#&gt; 1 89765     DHO     17 1.566603 0.1662264 0.4384333 0.6922088 0.8132031</span>
 <span class="co">#&gt;        rad5     rad6     rad7     rad8     rad9    rad10    rad11    rad12</span>
-<span class="co">#&gt; 1 0.9436526 1.054603 1.142438 1.199203 1.273751 1.351155 1.386356 1.418645</span>
-<span class="co">#&gt;      rad13    rad14    rad15    rad16    rad17</span>
-<span class="co">#&gt; 1 1.454211 1.492326 1.526732 1.555963 1.572107</span>
+<span class="co">#&gt; 1 0.9268816 1.048548 1.132069 1.183711 1.267861 1.344196 1.381198 1.416685</span>
+<span class="co">#&gt;      rad13    rad14    rad15   rad16    rad17</span>
+<span class="co">#&gt; 1 1.451155 1.479214 1.517481 1.54954 1.566603</span>
 <span class="kw"><a href="../reference/combineData.html">combineData</a></span>(<span class="st">"DWS_Oto_89765_DHO.rds"</span>,<span class="dt">formatOut=</span><span class="st">"wide"</span>,<span class="dt">typeOut=</span><span class="st">"inc"</span>)
 <span class="co">#&gt;      id reading agecap   radcap      inc1      inc2      inc3      inc4</span>
-<span class="co">#&gt; 1 89765     DHO     17 1.572107 0.2001381 0.2532535 0.2460982 0.1216968</span>
-<span class="co">#&gt;        inc5    inc6       inc7       inc8       inc9      inc10      inc11</span>
-<span class="co">#&gt; 1 0.1224661 0.11095 0.08783543 0.05676528 0.07454759 0.07740438 0.03520101</span>
-<span class="co">#&gt;        inc12      inc13      inc14      inc15      inc16      inc17</span>
-<span class="co">#&gt; 1 0.03228892 0.03556554 0.03811477 0.03440639 0.02923092 0.01614446</span></code></pre></div>
+<span class="co">#&gt; 1 89765     DHO     17 1.566603 0.1662264 0.2722069 0.2537755 0.1209943</span>
+<span class="co">#&gt;        inc5      inc6       inc7      inc8       inc9      inc10</span>
+<span class="co">#&gt; 1 0.1136785 0.1216662 0.08352094 0.0516422 0.08415023 0.07633529</span>
+<span class="co">#&gt;        inc11      inc12     inc13      inc14      inc15      inc16</span>
+<span class="co">#&gt; 1 0.03700193 0.03548637 0.0344699 0.02805947 0.03826742 0.03205867</span>
+<span class="co">#&gt;        inc17</span>
+<span class="co">#&gt; 1 0.01706312</span></code></pre></div>
 <p> </p>
 <p> </p>
 </div>
@@ -194,32 +196,32 @@
 <p>As noted in the <a href="BCIntro.html">Introduction to Back-calculation</a> vignette, radial measurements are the distance from the structure center to the annulus.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> In some instances, the user may desire incremental rather than radial measurements. Incremental measurements are the distances between successive annuli, with the first increment being the distance from the structure center to the first annulus. Increments may be extracted from the data stored in the R data file with <code><a href="../reference/combineData.html">combineData()</a></code> using <code>typeOut="inc"</code>. For example, the radial and incremental measurements for the “DHO” reading of “Scale_1.jpg” in wide format are shown below.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/combineData.html">combineData</a></span>(<span class="st">"Scale_1_DHO.rds"</span>,<span class="dt">formatOut=</span><span class="st">"wide"</span>)
 <span class="co">#&gt;   id reading agecap    radcap      rad1      rad2      rad3      rad4</span>
-<span class="co">#&gt; 1  1     DHO      5 0.5159177 0.2126143 0.2805828 0.3276884 0.4549164</span>
-<span class="co">#&gt;       rad5</span>
-<span class="co">#&gt; 1 0.500203</span>
+<span class="co">#&gt; 1  1     DHO      5 0.5146011 0.2127403 0.2791615 0.3418421 0.4622381</span>
+<span class="co">#&gt;        rad5</span>
+<span class="co">#&gt; 1 0.4988664</span>
 <span class="kw"><a href="../reference/combineData.html">combineData</a></span>(<span class="st">"Scale_1_DHO.rds"</span>,<span class="dt">typeOut=</span><span class="st">"inc"</span>,<span class="dt">formatOut=</span><span class="st">"wide"</span>)
-<span class="co">#&gt;   id reading agecap    radcap      inc1       inc2       inc3     inc4</span>
-<span class="co">#&gt; 1  1     DHO      5 0.5159177 0.2126143 0.06796846 0.04710562 0.127228</span>
+<span class="co">#&gt;   id reading agecap    radcap      inc1       inc2       inc3      inc4</span>
+<span class="co">#&gt; 1  1     DHO      5 0.5146011 0.2127403 0.06642116 0.06268054 0.1203961</span>
 <span class="co">#&gt;         inc5</span>
-<span class="co">#&gt; 1 0.04528655</span></code></pre></div>
+<span class="co">#&gt; 1 0.03662824</span></code></pre></div>
 <p>Of course, increments from several sets of measurements may also be extracted (note that the list of R data files in <code>fns</code> was created <a href="l#collect-just-age-data">above</a>)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/combineData.html">combineData</a></span>(fns,<span class="dt">formatOut=</span><span class="st">"wide"</span>)
 <span class="co">#&gt;   id reading agecap    radcap      rad1      rad2      rad3      rad4</span>
-<span class="co">#&gt; 1  1     DHO      5 0.5159177 0.2126143 0.2805828 0.3276884 0.4549164</span>
-<span class="co">#&gt; 2  2     DHO      5 0.3877236 0.1309190 0.2213984 0.2879634 0.3327377</span>
-<span class="co">#&gt; 3  3     DHO      1 0.5178437 0.5178437        NA        NA        NA</span>
+<span class="co">#&gt; 1  1     DHO      5 0.5146011 0.2127403 0.2791615 0.3418421 0.4622381</span>
+<span class="co">#&gt; 2  2     DHO      4 0.3979388 0.1414644 0.2277237 0.2990282 0.3519334</span>
+<span class="co">#&gt; 3  3     DHO      1 0.5174685 0.5174685        NA        NA        NA</span>
 <span class="co">#&gt;        rad5</span>
-<span class="co">#&gt; 1 0.5002030</span>
-<span class="co">#&gt; 2 0.3762318</span>
+<span class="co">#&gt; 1 0.4988664</span>
+<span class="co">#&gt; 2        NA</span>
 <span class="co">#&gt; 3        NA</span>
 <span class="kw"><a href="../reference/combineData.html">combineData</a></span>(fns,<span class="dt">typeOut=</span><span class="st">"inc"</span>,<span class="dt">formatOut=</span><span class="st">"wide"</span>)
-<span class="co">#&gt;   id reading agecap    radcap       inc1       inc2       inc3       inc4</span>
-<span class="co">#&gt; 1  1     DHO      5 0.5159177  0.2126143 0.06796846 0.04710562 0.12722798</span>
-<span class="co">#&gt; 2  2     DHO      5 0.3877236 -0.3692840 0.09047942 0.06656501 0.04477429</span>
-<span class="co">#&gt; 3  3     DHO      1 0.5178437  0.1416119         NA         NA         NA</span>
+<span class="co">#&gt;   id reading agecap    radcap      inc1       inc2       inc3       inc4</span>
+<span class="co">#&gt; 1  1     DHO      5 0.5146011 0.2127403 0.06642116 0.06268054 0.12039607</span>
+<span class="co">#&gt; 2  2     DHO      4 0.3979388 0.1414644 0.08625928 0.07130452 0.05290518</span>
+<span class="co">#&gt; 3  3     DHO      1 0.5174685 0.5174685         NA         NA         NA</span>
 <span class="co">#&gt;         inc5</span>
-<span class="co">#&gt; 1 0.04528655</span>
-<span class="co">#&gt; 2 0.04349411</span>
+<span class="co">#&gt; 1 0.03662824</span>
+<span class="co">#&gt; 2         NA</span>
 <span class="co">#&gt; 3         NA</span></code></pre></div>
 <p> </p>
 <p> </p>

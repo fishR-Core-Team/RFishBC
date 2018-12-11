@@ -16,3 +16,11 @@ cran-comments.md
 man/figures/logo.png
 inst/sticker/
 github/
+
+## images needed for vignettes but not the package
+vignettes/aaaMakeDataVignettes.R
+vignettes/Scale_2.jpg
+vignettes/Scale_3.jpg
+vignettes/Oto140306.jpg
+vignettes/DWS_Oto_89765.jpg
+vignettes/zzzTempRdsFiles/

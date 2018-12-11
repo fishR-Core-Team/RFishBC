@@ -62,8 +62,20 @@ showDigitizedImage <- function(nms,deviceType,
   if (inherits(nms,"RFishBC")) nms <- nms$datanm                         # nocov
     else nms <- iHndlFilenames(nms,filter="RData",multi=TRUE)
   ## Prepare for multiple readings #############################################
-  num2do <- length(nms)
+  # check that all were created with digitizeRadii() and from same image
+  tmp <- NULL
+  for (i in seq_along(nms)) {
+    if (!isRData(nms[i]))
+      STOP("File is not an RData file saved from 'digitizeRadii().")
+    dat <- readRDS(nms[i])
+    if (!inherits(dat,"RFishBC"))
+      STOP("File does not appear to be from 'digitizeRadii().")
+    tmp <- c(tmp,dat$image)
+  }
+  if (length(unique(tmp))>1)
+    STOP("Files appear to derive from different structure images.")
   # expand pchs, colors, cexs, lwds to number of transects
+  num2do <- length(nms)
   pch.show <- rep(pch.show,ceiling(num2do/length(pch.show)))
   col.show <- rep(col.show,ceiling(num2do/length(col.show)))
   cex.show <- rep(cex.show,ceiling(num2do/length(cex.show)))
@@ -72,11 +84,7 @@ showDigitizedImage <- function(nms,deviceType,
 
   ## Display results ###########################################################
   for (i in seq_along(nms)) {
-    if (!isRData(nms[i]))
-      STOP("File is not an RData file saved from 'digitizeRadii().")
     dat <- readRDS(nms[i])
-    if (!inherits(dat,"RFishBC"))
-      STOP("File does not appear to be from 'digitizeRadii().")
     #### If first then show the image
     if (i==1) {
       iGetImage(dat$image,id=NULL,
@@ -84,8 +92,6 @@ showDigitizedImage <- function(nms,deviceType,
                 showInfo=FALSE,pos.info=NULL,cex.info=NULL,col.info=NULL)
       origImage <- dat$image
     }
-    if (origImage!=dat$image)
-      STOP("Files appear to derive from different structure images.")
     #### Show scale-bar, if it was digitized
     if (!is.null(dat$sbPts)) graphics::lines(y~x,data=dat$sbPts,
                                              col=col.scaleBar,lwd=lwd.scaleBar)

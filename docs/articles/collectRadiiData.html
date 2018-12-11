@@ -105,7 +105,7 @@
       <h1>Collect radial measurements from a calcified structure by interactively selecting annuli</h1>
                         <h4 class="author">Derek H. Ogle</h4>
             
-            <h4 class="date">2018-12-09</h4>
+            <h4 class="date">2018-12-10</h4>
       
       
       <div class="hidden name"><code>collectRadiiData.Rmd</code></div>
@@ -299,17 +299,17 @@ ids &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumen
 <p>The radial measurements recorded from one structure may be seen by submitting the R data file name to <code><a href="../reference/combineData.html">combineData()</a></code>.<a href="#fn13" class="footnoteRef" id="fnref13"><sup>13</sup></a> By default the radial measurement that includes the “plus-growth” will be omitted (as this radial measurement is equal to the radial measurement at capture and is thus redundant with the value in the <code>radcap</code> column).<a href="#fn14" class="footnoteRef" id="fnref14"><sup>14</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/combineData.html">combineData</a></span>(<span class="st">"Scale_1_DHO.rds"</span>)
 <span class="co">#&gt;   id reading agecap ann       rad    radcap</span>
-<span class="co">#&gt; 1  1     DHO      5   1 0.2126143 0.5159177</span>
-<span class="co">#&gt; 2  1     DHO      5   2 0.2805828 0.5159177</span>
-<span class="co">#&gt; 3  1     DHO      5   3 0.3276884 0.5159177</span>
-<span class="co">#&gt; 4  1     DHO      5   4 0.4549164 0.5159177</span>
-<span class="co">#&gt; 5  1     DHO      5   5 0.5002030 0.5159177</span></code></pre></div>
+<span class="co">#&gt; 1  1     DHO      5   1 0.2127403 0.5146011</span>
+<span class="co">#&gt; 2  1     DHO      5   2 0.2791615 0.5146011</span>
+<span class="co">#&gt; 3  1     DHO      5   3 0.3418421 0.5146011</span>
+<span class="co">#&gt; 4  1     DHO      5   4 0.4622381 0.5146011</span>
+<span class="co">#&gt; 5  1     DHO      5   5 0.4988664 0.5146011</span></code></pre></div>
 <p>By default the data are shown in “long” format where each row consists of one radial measurement with all radial measurements for an individual fish distributed across several rows. The radial data can be shown in “wide” format where each row consists of all the radial measurements (in separate columns) for an individual fish by including <code>formatOut="wide"</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/combineData.html">combineData</a></span>(<span class="st">"Scale_1_DHO.rds"</span>,<span class="dt">formatOut=</span><span class="st">"wide"</span>)
 <span class="co">#&gt;   id reading agecap    radcap      rad1      rad2      rad3      rad4</span>
-<span class="co">#&gt; 1  1     DHO      5 0.5159177 0.2126143 0.2805828 0.3276884 0.4549164</span>
-<span class="co">#&gt;       rad5</span>
-<span class="co">#&gt; 1 0.500203</span></code></pre></div>
+<span class="co">#&gt; 1  1     DHO      5 0.5146011 0.2127403 0.2791615 0.3418421 0.4622381</span>
+<span class="co">#&gt;        rad5</span>
+<span class="co">#&gt; 1 0.4988664</span></code></pre></div>
 <p> </p>
 <p> </p>
 <hr>
@@ -331,26 +331,25 @@ ids &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumen
 <p>The <code><a href="../reference/listFiles.html">listFiles()</a></code> result should be saved to an object so that the names can be given to <code><a href="../reference/combineData.html">combineData()</a></code> as shown below.<a href="#fn15" class="footnoteRef" id="fnref15"><sup>15</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">( dfrad &lt;-<span class="st"> </span><span class="kw"><a href="../reference/combineData.html">combineData</a></span>(fns) )
 <span class="co">#&gt;    id reading agecap ann       rad    radcap</span>
-<span class="co">#&gt; 1   1     DHO      5   1 0.2126143 0.5159177</span>
-<span class="co">#&gt; 2   1     DHO      5   2 0.2805828 0.5159177</span>
-<span class="co">#&gt; 3   1     DHO      5   3 0.3276884 0.5159177</span>
-<span class="co">#&gt; 4   1     DHO      5   4 0.4549164 0.5159177</span>
-<span class="co">#&gt; 5   1     DHO      5   5 0.5002030 0.5159177</span>
-<span class="co">#&gt; 7   2     DHO      5   1 0.1309190 0.3877236</span>
-<span class="co">#&gt; 8   2     DHO      5   2 0.2213984 0.3877236</span>
-<span class="co">#&gt; 9   2     DHO      5   3 0.2879634 0.3877236</span>
-<span class="co">#&gt; 10  2     DHO      5   4 0.3327377 0.3877236</span>
-<span class="co">#&gt; 11  2     DHO      5   5 0.3762318 0.3877236</span>
-<span class="co">#&gt; 13  3     DHO      1   1 0.5178437 0.5178437</span></code></pre></div>
+<span class="co">#&gt; 1   1     DHO      5   1 0.2127403 0.5146011</span>
+<span class="co">#&gt; 2   1     DHO      5   2 0.2791615 0.5146011</span>
+<span class="co">#&gt; 3   1     DHO      5   3 0.3418421 0.5146011</span>
+<span class="co">#&gt; 4   1     DHO      5   4 0.4622381 0.5146011</span>
+<span class="co">#&gt; 5   1     DHO      5   5 0.4988664 0.5146011</span>
+<span class="co">#&gt; 7   2     DHO      4   1 0.1414644 0.3979388</span>
+<span class="co">#&gt; 8   2     DHO      4   2 0.2277237 0.3979388</span>
+<span class="co">#&gt; 9   2     DHO      4   3 0.2990282 0.3979388</span>
+<span class="co">#&gt; 10  2     DHO      4   4 0.3519334 0.3979388</span>
+<span class="co">#&gt; 12  3     DHO      1   1 0.5174685 0.5174685</span></code></pre></div>
 <p>Again, the data can be shown in “wide” format by including <code>formatOut="wide"</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">( dfrad2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/combineData.html">combineData</a></span>(fns,<span class="dt">formatOut=</span><span class="st">"wide"</span>) )
 <span class="co">#&gt;   id reading agecap    radcap      rad1      rad2      rad3      rad4</span>
-<span class="co">#&gt; 1  1     DHO      5 0.5159177 0.2126143 0.2805828 0.3276884 0.4549164</span>
-<span class="co">#&gt; 2  2     DHO      5 0.3877236 0.1309190 0.2213984 0.2879634 0.3327377</span>
-<span class="co">#&gt; 3  3     DHO      1 0.5178437 0.5178437        NA        NA        NA</span>
+<span class="co">#&gt; 1  1     DHO      5 0.5146011 0.2127403 0.2791615 0.3418421 0.4622381</span>
+<span class="co">#&gt; 2  2     DHO      4 0.3979388 0.1414644 0.2277237 0.2990282 0.3519334</span>
+<span class="co">#&gt; 3  3     DHO      1 0.5174685 0.5174685        NA        NA        NA</span>
 <span class="co">#&gt;        rad5</span>
-<span class="co">#&gt; 1 0.5002030</span>
-<span class="co">#&gt; 2 0.3762318</span>
+<span class="co">#&gt; 1 0.4988664</span>
+<span class="co">#&gt; 2        NA</span>
 <span class="co">#&gt; 3        NA</span></code></pre></div>
 <p> </p>
 <p> </p>
@@ -367,28 +366,27 @@ ids &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumen
 <span class="st">  </span><span class="kw">inner_join</span>(dfrad,<span class="dt">by=</span><span class="st">"id"</span>)
 fishdat
 <span class="co">#&gt;    id  loc sex len reading agecap ann       rad    radcap</span>
-<span class="co">#&gt; 1   1 MI-5   M 189     DHO      5   1 0.2126143 0.5159177</span>
-<span class="co">#&gt; 2   1 MI-5   M 189     DHO      5   2 0.2805828 0.5159177</span>
-<span class="co">#&gt; 3   1 MI-5   M 189     DHO      5   3 0.3276884 0.5159177</span>
-<span class="co">#&gt; 4   1 MI-5   M 189     DHO      5   4 0.4549164 0.5159177</span>
-<span class="co">#&gt; 5   1 MI-5   M 189     DHO      5   5 0.5002030 0.5159177</span>
-<span class="co">#&gt; 6   2 MI-6   F 210     DHO      5   1 0.1309190 0.3877236</span>
-<span class="co">#&gt; 7   2 MI-6   F 210     DHO      5   2 0.2213984 0.3877236</span>
-<span class="co">#&gt; 8   2 MI-6   F 210     DHO      5   3 0.2879634 0.3877236</span>
-<span class="co">#&gt; 9   2 MI-6   F 210     DHO      5   4 0.3327377 0.3877236</span>
-<span class="co">#&gt; 10  2 MI-6   F 210     DHO      5   5 0.3762318 0.3877236</span>
-<span class="co">#&gt; 11  3 MI-5   M 145     DHO      1   1 0.5178437 0.5178437</span></code></pre></div>
+<span class="co">#&gt; 1   1 MI-5   M 189     DHO      5   1 0.2127403 0.5146011</span>
+<span class="co">#&gt; 2   1 MI-5   M 189     DHO      5   2 0.2791615 0.5146011</span>
+<span class="co">#&gt; 3   1 MI-5   M 189     DHO      5   3 0.3418421 0.5146011</span>
+<span class="co">#&gt; 4   1 MI-5   M 189     DHO      5   4 0.4622381 0.5146011</span>
+<span class="co">#&gt; 5   1 MI-5   M 189     DHO      5   5 0.4988664 0.5146011</span>
+<span class="co">#&gt; 6   2 MI-6   F 210     DHO      4   1 0.1414644 0.3979388</span>
+<span class="co">#&gt; 7   2 MI-6   F 210     DHO      4   2 0.2277237 0.3979388</span>
+<span class="co">#&gt; 8   2 MI-6   F 210     DHO      4   3 0.2990282 0.3979388</span>
+<span class="co">#&gt; 9   2 MI-6   F 210     DHO      4   4 0.3519334 0.3979388</span>
+<span class="co">#&gt; 10  3 MI-5   M 145     DHO      1   1 0.5174685 0.5174685</span></code></pre></div>
 <p>One could also join with the “wide” data in <code>dfrad2</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fishdat2 &lt;-<span class="st"> </span>dffish <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">inner_join</span>(dfrad2,<span class="dt">by=</span><span class="st">"id"</span>)
 fishdat2
 <span class="co">#&gt;   id  loc sex len reading agecap    radcap      rad1      rad2      rad3</span>
-<span class="co">#&gt; 1  1 MI-5   M 189     DHO      5 0.5159177 0.2126143 0.2805828 0.3276884</span>
-<span class="co">#&gt; 2  2 MI-6   F 210     DHO      5 0.3877236 0.1309190 0.2213984 0.2879634</span>
-<span class="co">#&gt; 3  3 MI-5   M 145     DHO      1 0.5178437 0.5178437        NA        NA</span>
+<span class="co">#&gt; 1  1 MI-5   M 189     DHO      5 0.5146011 0.2127403 0.2791615 0.3418421</span>
+<span class="co">#&gt; 2  2 MI-6   F 210     DHO      4 0.3979388 0.1414644 0.2277237 0.2990282</span>
+<span class="co">#&gt; 3  3 MI-5   M 145     DHO      1 0.5174685 0.5174685        NA        NA</span>
 <span class="co">#&gt;        rad4      rad5</span>
-<span class="co">#&gt; 1 0.4549164 0.5002030</span>
-<span class="co">#&gt; 2 0.3327377 0.3762318</span>
+<span class="co">#&gt; 1 0.4622381 0.4988664</span>
+<span class="co">#&gt; 2 0.3519334        NA</span>
 <span class="co">#&gt; 3        NA        NA</span></code></pre></div>
 <p>Either file can be written to a “comma-separated values” (CSV) file<a href="#fn17" class="footnoteRef" id="fnref17"><sup>17</sup></a> with <code><a href="https://www.rdocumentation.org/packages/utils/topics/write.table">write.csv()</a></code> using the R object name (e.g., <code>fishdat</code> or <code>fishdat2</code>) as the first argument and a name for the file in <code>file=</code>. Additionally, I prefer to have non-quoted values by using <code>quote=FALSE</code> and no row names by using <code>row.names=FALSE</code>. For example, the “one-measurement-per-line” data can be output to “Kiyi2014_BCs.csv” as follows.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/write.table">write.csv</a></span>(fishdat,<span class="dt">file=</span><span class="st">"Kiyi2014_BCs.csv"</span>,<span class="dt">quote=</span><span class="ot">FALSE</span>,<span class="dt">row.names=</span><span class="ot">FALSE</span>)</code></pre></div>
