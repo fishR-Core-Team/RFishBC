@@ -70,7 +70,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -140,9 +140,9 @@
       
     </div>
 
-    <div id="rfishbc-0-1-9000-ongoing" class="section level1">
+    <div id="rfishbc-0-2-0-18-dec-18" class="section level1">
 <h1 class="page-header">
-<a href="#rfishbc-0-1-9000-ongoing" class="anchor"></a>RFishBC 0.1.9000 ongoing<small> Unreleased </small>
+<a href="#rfishbc-0-2-0-18-dec-18" class="anchor"></a>RFishBC 0.2.0 18-Dec-18<small> Unreleased </small>
 </h1>
 <ul>
 <li>Added several items (mostly images) to .Rbuildignore to lower bloat of package.</li>
@@ -151,11 +151,11 @@
 <li>
 <code><a href="../reference/combineData.html">combineData()</a></code>: Modified. Changed <code>outFormat=</code> to <code>formatOut=</code>. Added <code>outType=</code> to allow user to choose either radial or incremental measurements as output.</li>
 <li>
-<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Changed <code>showTransect=</code> to <code>makeTransect</code>. Changed so that <code>snap2Transect</code> is changed to <code>FALSE</code> if it is <code>TRUE</code> and <code>makeTransect=FALSE</code>. Radii are now computed as the cumulative sum of increments rather than the distance from the selected point back to the structure center. This addresses <a href="https://github.com/droglenc/RFishBC/issues/32">#32</a>.</li>
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Changed <code>showTransect=</code> to <code>makeTransect</code>. Changed so that <code>snap2Transect</code> is changed to <code>FALSE</code> if it is <code>TRUE</code> and <code>makeTransect=FALSE</code>. Radii are now computed as the cumulative sum of increments rather than the distance from the selected point back to the structure center. This addresses <a href="https://github.com/droglenc/RFishBC/issues/32">#32</a> [Thanks to Alan Hanke].</li>
 <li>
 <code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code>: Modified. Now includes <code>makeTransect=</code> used in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>. Now includes <code>connect=</code>, <code>col.connect=</code>, and <code>lwd.connect=</code> used in <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>. Because of those changes <code>showTransect=</code> has been removed.</li>
 <li>
-<code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>: Modified. Changed <code>showTransect=</code> to <code>connect=</code>, <code>col.transect=</code> to <code>col.connect=</code>, and <code>lwd.transect=</code> to <code>lwd.connect=</code> (this helps address <a href="https://github.com/droglenc/RFishBC/issues/32">#32</a>). Also removed the points that are plotted at the structure center and, if not an annulus, margin (this addresses <a href="https://github.com/droglenc/RFishBC/issues/31">#31</a>). Made more robust checks for when the user tries to plot two images from different structures.</li>
+<code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>: Modified. Changed <code>showTransect=</code> to <code>connect=</code>, <code>col.transect=</code> to <code>col.connect=</code>, and <code>lwd.transect=</code> to <code>lwd.connect=</code> (this helps address <a href="https://github.com/droglenc/RFishBC/issues/32">#32</a>) [Thanks to Alan Hanke]. Also removed the points that are plotted at the structure center and, if not an annulus, margin (this addresses <a href="https://github.com/droglenc/RFishBC/issues/31">#31</a>). Made more robust checks for when the user tries to plot two images from different structures.</li>
 </ul>
 </div>
     <div id="rfishbc-0-1-2-9-dec-18" class="section level1">
@@ -474,7 +474,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#rfishbc-0-1-9000-ongoing">0.1.9000</a></li>
+        <li><a href="#rfishbc-0-2-0-18-dec-18">0.2.0</a></li>
         <li><a href="#rfishbc-0-1-2-9-dec-18">0.1.2</a></li>
         <li><a href="#rfishbc-0-1-1-12-nov-18">0.1.1</a></li>
         <li><a href="#rfishbc-0-1-0-7-nov-18">0.1.0</a></li>
