@@ -1,4 +1,4 @@
-# RFishBC 0.1.9000 ongoing
+# RFishBC 0.2.0 18-Dec-18
 * Added several items (mostly images) to .Rbuildignore to lower bloat of package.
 * Added .Rbuildignore to remove sticker folder from package directory.
 * Added validation tests (still need to be run manually) from Sullivan data.
