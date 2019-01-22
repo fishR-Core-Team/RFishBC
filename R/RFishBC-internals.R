@@ -185,6 +185,7 @@ iScalingFactorFromScaleBar <- function(msg2,knownLength,pixW2H,
                                        col.scaleBar,lwd.scaleBar,
                                        pch.sel,col.sel,cex.sel,
                                        pch.del,col.del) {          # nocov start
+  ## Select the scale-bar
   sbPts <- iSelectPt(2,"Select ends of scale-bar:",msg2,
                      pch.sel=pch.sel,col.sel=col.sel,cex.sel=cex.sel,
                      pch.del=pch.del,col.del=col.del,

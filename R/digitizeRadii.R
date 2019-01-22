@@ -16,6 +16,7 @@
 #' @param IDreplace See details in \code{\link{RFBCoptions}}.
 #' @param scaleBar See details in \code{\link{RFBCoptions}}.
 #' @param scaleBarLength See details in \code{\link{RFBCoptions}}.
+#' @param scaleBarUnits See details in \code{\link{RFBCoptions}}.
 #' @param col.scaleBar See details in \code{\link{RFBCoptions}}.
 #' @param lwd.scaleBar See details in \code{\link{RFBCoptions}}.
 #' @param scalingFactor See details in \code{\link{RFBCoptions}}.
@@ -44,6 +45,7 @@
 #'   \item{\code{sfSource}: }{A character string that identifies whether the scaling factor was \code{"Provided"} through the \code{scalingFactor} argument or derived from a \code{"scaleBar"}.}
 #'   \item{\code{sbPts}: }{A data.frame of \code{x} and \code{y} coordinates for the endpoints of the scale-bar if the scaling factor was derived from a scale-bar.}
 #'   \item{\code{sbLength}: }{A single numeric that is the known (actual) length of the scale-bar if the scaling factor was derived from a scale-bar.}
+#'   \item{\code{sbUnits}: }{A single character that is the units of measurement for the known (actual) length of the scale-bar if the scaling factor was derived from a scale-bar.}
 #'   \item{\code{slpTransect}: }{The slope of the transect.}
 #'   \item{\code{intTransect}: }{The intercept of the transect.}
 #'   \item{\code{slpPerpTransect}: }{The slope of the line perpendicular to the transect.}
@@ -68,7 +70,8 @@
 digitizeRadii <- function(img,id,reading,suffix,
                           description,edgeIsAnnulus,popID,IDpattern,IDreplace,
                           windowSize,deviceType,closeWindow,
-                          scaleBar,scaleBarLength,col.scaleBar,lwd.scaleBar,
+                          scaleBar,scaleBarLength,scaleBarUnits,
+                          col.scaleBar,lwd.scaleBar,
                           scalingFactor,makeTransect,snap2Transect,
                           col.transect,lwd.transect,
                           pch.sel,col.sel,cex.sel,
@@ -87,17 +90,25 @@ digitizeRadii <- function(img,id,reading,suffix,
   if (missing(IDreplace)) IDreplace <- iGetopt("IDreplace")
   if (missing(scaleBar)) scaleBar <- iGetopt("scaleBar")
   if (missing(scaleBarLength)) scaleBarLength <- iGetopt("scaleBarLength")
+  if (missing(scaleBarUnits)) scaleBarUnits <- iGetopt("scaleBarUnits")
   if (missing(scalingFactor)) scalingFactor <- iGetopt("scalingFactor")
   if (scaleBar & is.null(scaleBarLength))
     STOP("Must provide a 'scaleBarLength' when 'scaleBar=TRUE'.")
+  if (scaleBar & is.null(scaleBarUnits))
+    STOP("Must provide a 'scaleBarUnits' when 'scaleBar=TRUE'.")
   if (!is.null(scaleBarLength)) {
     if (!is.numeric(scaleBarLength)) STOP("'scaleBarLength' must be numeric.")
     if (scaleBarLength<=0) STOP("'scaleBarLength' must be positive.")
     if (scalingFactor!=RFBCoptions()$scalingFactor)
       STOP("Can not set both 'scaleBarLength' and 'scalingFactor'.")
   }
+  if (!is.null(scaleBarUnits)) {
+    if (!is.character(scaleBarUnits)) STOP("'scaleBarUnits' must be a character.")
+  }
   if (!scaleBar & !is.null(scaleBarLength)) 
     STOP("Can not use 'scaleBarLength=' with 'scaleBar=FALSE'.")
+  if (!scaleBar & !is.null(scaleBarUnits)) 
+    STOP("Can not use 'scaleBarUnits=' with 'scaleBar=FALSE'.")
   if (!is.null(scalingFactor)) {
     if (!is.numeric(scalingFactor)) STOP("'scalingFactor' must be numeric.")
     if (scalingFactor<=0) STOP("'scalingFactor' must be positive.")
@@ -165,7 +176,8 @@ digitizeRadii <- function(img,id,reading,suffix,
       digitizeRadii(img[i],id=id[i],reading,suffix,
                     description,edgeIsAnnulus,popID,IDpattern,IDreplace,
                     windowSize,deviceType,closeWindow,
-                    scaleBar,scaleBarLength,col.scaleBar,lwd.scaleBar,
+                    scaleBar,scaleBarLength,scaleBarUnits,
+                    col.scaleBar,lwd.scaleBar,
                     scalingFactor,makeTransect,snap2Transect,
                     col.transect,lwd.transect,
                     pch.sel,col.sel,cex.sel,
@@ -178,7 +190,8 @@ digitizeRadii <- function(img,id,reading,suffix,
     dat <- iDigitizeRadii1(img,id,reading,suffix,
                            description,edgeIsAnnulus,popID,IDpattern,IDreplace,
                            windowSize,deviceType,
-                           scaleBar,scaleBarLength,col.scaleBar,lwd.scaleBar,
+                           scaleBar,scaleBarLength,scaleBarUnits,
+                           col.scaleBar,lwd.scaleBar,
                            scalingFactor,makeTransect,snap2Transect,
                            col.transect,lwd.transect,
                            pch.sel,col.sel,cex.sel,
@@ -204,7 +217,8 @@ digitizeRadii <- function(img,id,reading,suffix,
 iDigitizeRadii1 <- function(img,id,reading,suffix,
                             description,edgeIsAnnulus,popID,IDpattern,IDreplace,
                             windowSize,deviceType,
-                            scaleBar,scaleBarLength,col.scaleBar,lwd.scaleBar,
+                            scaleBar,scaleBarLength,scaleBarUnits,
+                            col.scaleBar,lwd.scaleBar,
                             scalingFactor,makeTransect,snap2Transect,
                             col.transect,lwd.transect,
                             pch.sel,col.sel,cex.sel,
@@ -227,7 +241,8 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
     RULE("Select endpoints of scale-bar.")
     RULE(msg2,line="-")
     sfSource <- "scaleBar"
-    sbInfo <- iScalingFactorFromScaleBar(msg2,scaleBarLength,windowInfo$pixW2H,
+    sbInfo <- iScalingFactorFromScaleBar(msg2,scaleBarLength,
+                                         windowInfo$pixW2H,
                                          col.scaleBar=col.scaleBar,
                                          lwd.scaleBar=lwd.scaleBar,
                                          pch.sel=pch.sel,col.sel=col.sel,
@@ -321,10 +336,10 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
          " No file written for ",img,".\n\n")
     iDigitizeRadii1(img,id,reading,suffix,description,edgeIsAnnulus,popID,
                     IDpattern,IDreplace,windowSize,deviceType,scaleBar,
-                    scaleBarLength,col.scaleBar,lwd.scaleBar,scalingFactor,
-                    makeTransect,snap2Transect,col.transect,lwd.transect,
-                    pch.sel,col.sel,cex.sel,pch.del,col.del,showInfo,pos.info,
-                    cex.info,col.info)
+                    scaleBarLength,scaleBarUnits,col.scaleBar,lwd.scaleBar,
+                    scalingFactor,makeTransect,snap2Transect,col.transect,
+                    lwd.transect,pch.sel,col.sel,cex.sel,pch.del,col.del,
+                    showInfo,pos.info,cex.info,col.info)
   } else { ### process results because not abort/restarted
     ### Create a master data object and write to RData file in working directory
     #### Name of RData file
@@ -335,7 +350,7 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
     dat <- list(image=img,datanm=datanm,description=description,
                 edgeIsAnnulus=edgeIsAnnulus,snap2Transect=snap2Transect,
                 scalingFactor=scalingFactor,sfSource=sfSource,
-                sbPts=sbPts,sbLength=scaleBarLength,
+                sbPts=sbPts,sbLength=scaleBarLength,sbUnits=scaleBarUnits,
                 slpTransect=slpTransect,intTransect=intTransect,
                 slpPerpTransect=slpPerpTransect,
                 windowSize=windowInfo$windowSize,

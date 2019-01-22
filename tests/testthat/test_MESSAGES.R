@@ -18,6 +18,8 @@ test_that("RFBCoptions() error messages",{
                "value out of range")
   expect_error(RFBCoptions(scaleBar="Derek"),
                "TRUE,FALSE")
+  expect_error(RFBCoptions(showScaleBarLength="Derek"),
+               "TRUE,FALSE")
   expect_error(RFBCoptions(lwd.scaleBar=0),
                "value out of range")
   expect_error(RFBCoptions(lwd.scaleBar=11),
@@ -78,16 +80,19 @@ test_that("digitizeRadii() error messages",{
                "must be TRUE or FALSE")
   expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE),
                "Must provide a")
-  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE,scaleBarLength=0),
-               "must be positive")
-  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE,scaleBarLength=-1),
-               "must be positive")
-  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE,
-                             scaleBarLength="derek"),
-               "must be numeric")
-  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=FALSE,scaleBarLength=1),
-               "Can not use")
-  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE,
+  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE,scaleBarLength=1),
+               "Must provide a")
+  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE,scaleBarUnits="mm",
+                             scaleBarLength=0),"must be positive")
+  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE,scaleBarUnits="mm",
+                             scaleBarLength=-1),"must be positive")
+  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE,scaleBarUnits="mm",
+                             scaleBarLength="derek"),"must be numeric")
+  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE,scaleBarUnits=7,
+                             scaleBarLength=1),"must be a character")
+  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=FALSE,scaleBarUnits="mm",
+                             scaleBarLength=1),"Can not use")
+  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE,scaleBarUnits="mm",
                              scaleBarLength=1,scalingFactor=1.1),
                "Can not set both")
   expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scalingFactor="derek"),

@@ -40,11 +40,11 @@ combineData(junk)         # uses the object created above
 combineData(junk2)        # should show agecap=1 and 1 annulus
 
 
-## Process the otolith
+## Process the otolith (use scale bar)
 digitizeRadii("Oto140306.jpg",id="140306",reading="DHO",
               description="Used to demonstrate use of scale-bar.",
-              scaleBar=TRUE,scaleBarLength=1,edgeIsAnnulus=TRUE,
-              windowSize=12)
+              scaleBar=TRUE,scaleBarLength=1,scaleBarUnits="mm",
+              edgeIsAnnulus=TRUE,windowSize=12)
 showDigitizedImage("Oto140306_DHO.rds",cex.ann=0.7)
 showDigitizedImage("Oto140306_DHO.rds",annuliLabels=1:6)
 showDigitizedImage("Oto140306_DHO.rds",annuliLabels=c(2,5))

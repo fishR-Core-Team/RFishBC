@@ -12,6 +12,7 @@
 #' @param lwd.connect See details in \code{\link{RFBCoptions}}.
 #' @param col.scaleBar See details in \code{\link{RFBCoptions}}.
 #' @param lwd.scaleBar See details in \code{\link{RFBCoptions}}.
+#' @param showScaleBarLength See details in \code{\link{RFBCoptions}}.
 #' @param showAnnuliLabels See details in \code{\link{RFBCoptions}}.
 #' @param annuliLabels See details in \code{\link{RFBCoptions}}.
 #' @param col.ann See details in \code{\link{RFBCoptions}}.
@@ -34,7 +35,7 @@
 showDigitizedImage <- function(nms,deviceType,
                                pch.show,col.show,cex.show,
                                connect,col.connect,lwd.connect,
-                               col.scaleBar,lwd.scaleBar,
+                               col.scaleBar,lwd.scaleBar,showScaleBarLength,
                                showAnnuliLabels,annuliLabels,col.ann,cex.ann) {
   ## handle options
   if (missing(deviceType)) deviceType <- iGetopt("deviceType")
@@ -46,6 +47,7 @@ showDigitizedImage <- function(nms,deviceType,
   if (missing(lwd.connect)) lwd.connect <- iGetopt("lwd.connect")
   if (missing(col.scaleBar)) col.scaleBar <- iGetopt("col.scaleBar")
   if (missing(lwd.scaleBar)) lwd.scaleBar <- iGetopt("lwd.scaleBar")
+  if (missing(showScaleBarLength)) showScaleBarLength <- iGetopt("showScaleBarLength")
   if (missing(showAnnuliLabels)) showAnnuliLabels <- iGetopt("showAnnuliLabels")
   if (missing(annuliLabels)) annuliLabels <- iGetopt("annuliLabels")
   if (!showAnnuliLabels) if (!is.null(annuliLabels))
@@ -92,9 +94,13 @@ showDigitizedImage <- function(nms,deviceType,
                 showInfo=FALSE,pos.info=NULL,cex.info=NULL,col.info=NULL)
       origImage <- dat$image
     }
-    #### Show scale-bar, if it was digitized
-    if (!is.null(dat$sbPts)) graphics::lines(y~x,data=dat$sbPts,
-                                             col=col.scaleBar,lwd=lwd.scaleBar)
+    #### Show scale-bar, if it was digitized, and scale-bar length if asked
+    #### for (but only for the first reading)
+    if (!is.null(dat$sbPts)) {
+      graphics::lines(y~x,data=dat$sbPts,col=col.scaleBar,lwd=lwd.scaleBar)
+      if (i==1 & showScaleBarLength)
+        iShowScaleBarLength(dat,col.scaleBar)
+    }
     #### Show connected points if asked to do so
     if (connect) graphics::lines(y~x,data=dat$pts,
                                  lwd=lwd.connect[i],col=col.connect[i])
@@ -157,3 +163,28 @@ iShowAnnuliLabels <- function(dat,annuliLabels,col.ann,cex.ann) { # nocov start
                  col=col.ann,cex=cex.ann,pos=pos)
 } # nocov end
 
+########################################################################
+## Show annuli numbers on the showDigitizedImage() image
+########################################################################
+iShowScaleBarLength <- function(dat,col.scaleBar) { # nocov start
+  ## Get the scale-bar points, length, and units
+  pts <- dat$sbPts
+  len <- dat$sbLength
+  if (!"sbUnits" %in% names(dat)) {
+    ### Allows use with data created before sbUnits was added (v0.2.1)
+    units <- "units"
+  } else {
+    ### Handles after sbUnits was added
+    units <- ifelse(is.null(dat$sbUnits),"units",dat$sbUnits)
+  }
+  ### Change "units" to "unit" if the scale-bar length is 1
+  if (units=="units" & isTRUE(all.equal(len,1))) units <- "unit"
+  ## Find the degree of angle for the scale-bar slope
+  deg <- atan(diff(pts$y)/diff(pts$x))*180/pi
+  ## Convert absolute transect degrees into a position for the text
+  pos <- ifelse(deg>=0 & deg<=45,1,4)
+  ## Create a label
+  lbl <- paste(len,units,sep=" ")
+  ## Place text at the midpoint of the transect
+  graphics::text(mean(pts$x),mean(pts$y),label=lbl,col=col.scaleBar,pos=pos)
+} # nocov end
