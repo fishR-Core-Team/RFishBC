@@ -91,7 +91,8 @@ iRFBCopts <- settings::options_manager(reading=NULL,description=NULL,
                 popID=TRUE,IDpattern='.*\\_',IDreplace='',
                 scalingFactor=1,scaleBar=FALSE,
                 scaleBarLength=NULL,scaleBarUnits=NULL,
-                col.scaleBar="yellow",lwd.scaleBar=2,showScaleBarLength=TRUE,
+                col.scaleBar="yellow",lwd.scaleBar=2,
+                showScaleBarLength=TRUE,cex.scaleBar=1,
                 makeTransect=TRUE,snap2Transect=TRUE,
                 col.transect="cyan",lwd.transect=2,
                 connect=TRUE,col.connect="cyan",lwd.connect=2,
@@ -123,7 +124,8 @@ iRFBCopts <- settings::options_manager(reading=NULL,description=NULL,
                                           "left"),
                 cex.info=settings::inrange(min=0.1,max=10),
                 showAnnuliLabels=settings::inlist(TRUE,FALSE),
-                cex.ann=settings::inrange(min=0.1,max=10)
+                cex.ann=settings::inrange(min=0.1,max=10),
+                cex.scaleBar=settings::inrange(min=0.1,max=10)
               )
 )
 

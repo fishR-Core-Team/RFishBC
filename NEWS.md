@@ -1,7 +1,7 @@
 # RFishBC 0.2.0.9000 ongoing
 * `digitizeRadii()`: Modified. Added `sbUnits=` for addressing [#36](https://github.com/droglenc/RFishBC/issues/36).
-* `RFBCoptions()`: Modified. Added `showScaleBarLength=` and `sbUnits=`.
-* `showDigitizedImage()`: Modified. Added `showScaleBarLength=` with associated code to show the units of the scale-bar beneath the scale-bar (if it was digitized). This addresses [#36](https://github.com/droglenc/RFishBC/issues/36).
+* `RFBCoptions()`: Modified. Added `showScaleBarLength=`, `scaleBarUnits=`, and `cex.scaleBar=`.
+* `showDigitizedImage()`: Modified. Added `showScaleBarLength=` and `cex.scaleBar=` with associated code to show the units of the scale-bar beneath the scale-bar (if it was digitized). This addresses [#36](https://github.com/droglenc/RFishBC/issues/36). Changed how annuli labels are printed such that `col.ann=` and `cex.ann` can be appropriate vectors of colors and sizes.
 
 # RFishBC 0.2.0 18-Dec-18
 * Added several items (mostly images) to .Rbuildignore to lower bloat of package.
