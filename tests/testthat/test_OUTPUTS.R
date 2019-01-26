@@ -31,8 +31,8 @@ test_that("digitizeRadii() results without scale-bar",{
   expect_type(dat1,"list")
   expect_equal(names(dat1),c("image","datanm","description","edgeIsAnnulus",
                              "snap2Transect","scalingFactor","sfSource","sbPts",
-                             "sbLength","slpTransect","intTransect","slpPerpTransect",
-                             "windowSize","pixW2H","pts","radii"))
+                             "sbLength","sbUnits","slpTransect","intTransect",
+                             "slpPerpTransect","windowSize","pixW2H","pts","radii"))
   expect_type(dat1$image,"character")
   expect_type(dat1$datanm,"character")
   expect_null(dat1$description)
@@ -47,6 +47,7 @@ test_that("digitizeRadii() results without scale-bar",{
   expect_equal(dat1$sfSource,"Provided")
   expect_null(dat1$sbPts)
   expect_null(dat1$sbLength)
+  expect_null(dat1$sbUnits)
   expect_type(dat1$slpTransect,"double")
   expect_equal(length(dat1$slpTransect),1)
   expect_type(dat1$intTransect,"double")
@@ -72,8 +73,8 @@ test_that("digitizeRadii() results with scale-bar",{
   expect_type(dat2,"list")
   expect_equal(names(dat2),c("image","datanm","description","edgeIsAnnulus",
                             "snap2Transect","scalingFactor","sfSource","sbPts",
-                            "sbLength","slpTransect","intTransect","slpPerpTransect",
-                            "windowSize","pixW2H","pts","radii"))
+                            "sbLength","sbUnits","slpTransect","intTransect",
+                            "slpPerpTransect","windowSize","pixW2H","pts","radii"))
   expect_type(dat2$image,"character")
   expect_type(dat2$datanm,"character")
   expect_type(dat2$description,"character")
@@ -92,6 +93,8 @@ test_that("digitizeRadii() results with scale-bar",{
   expect_equal(nrow(dat2$sbPts),2)
   expect_type(dat2$sbLength,"double")
   expect_equal(length(dat2$sbLength),1)
+  expect_type(dat2$sbUnits,"character")
+  expect_equal(length(dat2$sbUnits),1)
   expect_type(dat2$slpTransect,"double")
   expect_equal(length(dat2$slpTransect),1)
   expect_type(dat2$intTransect,"double")

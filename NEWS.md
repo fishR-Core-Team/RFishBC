@@ -1,5 +1,8 @@
 # RFishBC 0.2.0.9000 ongoing
-
+* `combineData()`: Modified. Fixed two bugs related to how age-0 fish with no measured annuli are combined (thanks to Rory Feeney). Fixed how returned results are sorted (by id, reading, and ann; rather than just id and ann).
+* `digitizeRadii()`: Modified. Added `sbUnits=` for addressing [#36](https://github.com/droglenc/RFishBC/issues/36). Fixed poor warning message when `snap2transect=TRUE` and `makeTransect=FALSE`.
+* `RFBCoptions()`: Modified. Added `showScaleBarLength=`, `scaleBarUnits=`, and `cex.scaleBar=`.
+* `showDigitizedImage()`: Modified. Added `showScaleBarLength=` and `cex.scaleBar=` with associated code to show the units of the scale-bar beneath the scale-bar (if it was digitized). This addresses [#36](https://github.com/droglenc/RFishBC/issues/36). Changed how annuli labels are printed such that `col.ann=` and `cex.ann` can be appropriate vectors of colors and sizes.
 
 # RFishBC 0.2.0 18-Dec-18
 * Added several items (mostly images) to .Rbuildignore to lower bloat of package.

@@ -23,8 +23,10 @@
 #' \item{\code{scalingFactor}: }{A single numeric used to convert measurements on the structure image to actual measurements on the structure. Measurements on the structure image will be multiplied by this value. Ignored if \code{scaleBar=TRUE}. Defaults to \code{1}. Used in \code{\link{digitizeRadii}}.}
 #' \item{\code{scaleBar}: }{A single logical that indicates whether the user will be prompted to select the endpoints of a scale-bar on the structure image. If \code{TRUE}, then must also use \code{scaleBarLength}. If \code{FALSE}, then consider using \code{scalingFactor}. Defaults to \code{FALSE}. Used in \code{\link{digitizeRadii}}.}
 #' \item{\code{scaleBarLength}: }{A single numeric that represents the actual length of the scale-bar. Ignored if \code{scaleBar=FALSE}. Defaults to \code{NULL}; thus, the user must enter a value if \code{scaleBar=TRUE}. Used in \code{\link{digitizeRadii}}.}
+#' \item{\code{scaleBarUnits}: }{A single character that represents the units of measurement for the actual length of the scale-bar. Ignored if \code{scaleBar=FALSE}. Defaults to \code{NULL}; thus, the user must enter a value if \code{scaleBar=TRUE}. Used in \code{\link{digitizeRadii}}.}
 #' \item{\code{col.scaleBar}: }{The color of the scale-bar line if \code{scalebar=TRUE}. Defaults to \code{"yellow"}. Used in \code{\link{digitizeRadii}}, \code{\link{showDigitizedImage}}, and \code{\link{findScalingFactor}}.}
 #' \item{\code{lwd.scaleBar}: }{The line width of the scale-bar line if \code{scalebar=TRUE}. Defaults to \code{2}. Used in \code{\link{digitizeRadii}}, \code{\link{showDigitizedImage}}, and \code{\link{findScalingFactor}}.}
+#' \item{\code{showScaleBarLength}: }{A single logical that indicates whether the length of the scale-bar line should be shown on the image. Used in \code{\link{showDigitizedImage}}.}
 #' \item{\code{makeTransect}: }{A single logical that indicates whether a transect between the points selected at the structure center and margin should be made. Defaults to \code{TRUE}. Used in \code{\link{digitizeRadii}}.}
 #' \item{\code{snap2Transect}: }{A single logical that indicates whether the coordinates of the selected points that represent annuli should be moved to fall exactly on the transect from the structure center to margin. If \code{TRUE} then the points will be moved perpendicularly to the transect (and the original user-selected point will not be seen on the image). If \code{FALSE} then the points will be where the user selected them. Defaults to \code{TRUE}. Used in \code{\link{digitizeRadii}}.}
 #' \item{\code{col.transect}: }{The color of the transect line if \code{makeTransect=TRUE} in \code{\link{digitizeRadii}}. Defaults to \code{"cyan"}.}
@@ -87,8 +89,10 @@ iRFBCopts <- settings::options_manager(reading=NULL,description=NULL,
                 suffix=NULL,edgeIsAnnulus=NULL,
                 windowSize=7,deviceType="default",closeWindow=TRUE,
                 popID=TRUE,IDpattern='.*\\_',IDreplace='',
-                scalingFactor=1,scaleBar=FALSE,scaleBarLength=NULL,
+                scalingFactor=1,scaleBar=FALSE,
+                scaleBarLength=NULL,scaleBarUnits=NULL,
                 col.scaleBar="yellow",lwd.scaleBar=2,
+                showScaleBarLength=TRUE,cex.scaleBar=1,
                 makeTransect=TRUE,snap2Transect=TRUE,
                 col.transect="cyan",lwd.transect=2,
                 connect=TRUE,col.connect="cyan",lwd.connect=2,
@@ -106,6 +110,7 @@ iRFBCopts <- settings::options_manager(reading=NULL,description=NULL,
                 scalingFactor=settings::inrange(min=1e-10,max=Inf),
                 scaleBar=settings::inlist(TRUE,FALSE),
                 lwd.scaleBar=settings::inrange(min=1,max=10),
+                showScaleBarLength=settings::inlist(TRUE,FALSE),
                 makeTransect=settings::inlist(TRUE,FALSE),
                 snap2Transect=settings::inlist(TRUE,FALSE),
                 lwd.transect=settings::inrange(min=1,max=10),
@@ -119,7 +124,8 @@ iRFBCopts <- settings::options_manager(reading=NULL,description=NULL,
                                           "left"),
                 cex.info=settings::inrange(min=0.1,max=10),
                 showAnnuliLabels=settings::inlist(TRUE,FALSE),
-                cex.ann=settings::inrange(min=0.1,max=10)
+                cex.ann=settings::inrange(min=0.1,max=10),
+                cex.scaleBar=settings::inrange(min=0.1,max=10)
               )
 )
 
