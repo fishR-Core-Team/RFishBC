@@ -46,9 +46,13 @@ showDigitizedImage <- function(nms,deviceType,
   if (missing(cex.show)) cex.show <- iGetopt("cex.show")
   if (missing(connect)) connect <- iGetopt("connect")
   if (missing(col.connect)) col.connect <- iGetopt("col.connect")
+  if (length(col.connect)>1) STOP("Can use only one color in 'col.connect='.")
   if (missing(lwd.connect)) lwd.connect <- iGetopt("lwd.connect")
+  if (length(lwd.connect)>1) STOP("Can use only one value in 'lwd.connect='.")
   if (missing(col.scaleBar)) col.scaleBar <- iGetopt("col.scaleBar")
+  if (length(col.scaleBar)>1) STOP("Can use only one color in 'col.scaleBar='.")
   if (missing(lwd.scaleBar)) lwd.scaleBar <- iGetopt("lwd.scaleBar")
+  if (length(lwd.scaleBar)>1) STOP("Can use only one value in 'lwd.scaleBar='.")
   if (missing(showScaleBarLength)) showScaleBarLength <- iGetopt("showScaleBarLength")
   if (missing(cex.scaleBar)) cex.scaleBar <- iGetopt("cex.scaleBar")
   if (missing(showAnnuliLabels)) showAnnuliLabels <- iGetopt("showAnnuliLabels")
@@ -96,13 +100,12 @@ showDigitizedImage <- function(nms,deviceType,
                 windowSize=dat$windowSize,deviceType=deviceType,
                 showInfo=FALSE,pos.info=NULL,cex.info=NULL,col.info=NULL)
       origImage <- dat$image
-    }
-    #### Show scale-bar, if it was digitized, and scale-bar length if asked
-    #### for (but only for the first reading)
-    if (!is.null(dat$sbPts)) {
-      graphics::lines(y~x,data=dat$sbPts,col=col.scaleBar,lwd=lwd.scaleBar)
-      if (i==1 & showScaleBarLength)
-        iShowScaleBarLength(dat,col.scaleBar,cex.scaleBar)
+      #### Show scale-bar, if it was digitized, and scale-bar length if asked
+      #### for (but only for the first reading)
+      if (!is.null(dat$sbPts)) {
+        graphics::lines(y~x,data=dat$sbPts,col=col.scaleBar,lwd=lwd.scaleBar)
+        if (showScaleBarLength) iShowScaleBarLength(dat,col.scaleBar,cex.scaleBar)
+      }
     }
     #### Show connected points if asked to do so
     if (connect) graphics::lines(y~x,data=dat$pts,
@@ -154,16 +157,22 @@ iShowAnnuliLabels <- function(dat,annuliLabels,col.ann,cex.ann) { # nocov start
   
   ## Put on text
   #### Use all annuli if annuliLabels not supplied by user
-  if (is.null(annuliLabels)) annuliLabels <- 1:max(dat$radii$ann)
+  if (is.null(annuliLabels)) annuliLabels <- 1:max(dat$radii$agecap)
   #### get just the points to be labelled
   pts <- pts[rownames(pts) %in% annuliLabels,]
+  ## Check colors
+  if (length(col.ann)>1 & length(col.ann)<length(annuliLabels))
+    WARN("Colors in 'col.ann' will be recylced.")
+  ## Check cexs
+  if (length(cex.ann)>1 & length(cex.ann)<length(annuliLabels))
+    WARN("Values in 'cex.ann' will be recylced.")
   #### put the labels on the plot
   graphics::text(y~x,data=pts,labels=annuliLabels,font=2,
                  col=col.ann,cex=cex.ann,pos=pos)
 } # nocov end
 
 ########################################################################
-## Show annuli numbers on the showDigitizedImage() image
+## Show known length of scale-bar on the showDigitizedImage() image
 ########################################################################
 iShowScaleBarLength <- function(dat,col.scaleBar,cex.scaleBar) { # nocov start
   ## Get the scale-bar points, length, and units

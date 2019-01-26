@@ -38,6 +38,17 @@ combineData(c("Scale_1_DHO.rds","Scale_1_OHD.rds","Scale_1_ODH.rds"))
 combineData()             # choose one file and then choose the three
 combineData(junk)         # uses the object created above
 combineData(junk2)        # should show agecap=1 and 1 annulus
+combineData(junk3)        # should show agecap=0 and no annuli
+combineData(junk,typeOut="inc")
+combineData(junk2,typeOut="inc")        # should show agecap=1 and 1 annulus
+combineData(junk3,typeOut="inc")        # should show agecap=0 and no annuli
+combineData(junk,formatOut="wide")
+combineData(junk2,formatOut="wide")        # should show agecap=1 and 1 annulus
+combineData(junk3,formatOut="wide")        # should show agecap=0 and no annuli
+combineData(junk,typeOut="inc",formatOut="wide")
+combineData(junk2,typeOut="inc",formatOut="wide")        # should show agecap=1 and 1 annulus
+combineData(junk3,typeOut="inc",formatOut="wide")        # should show agecap=0 and no annuli
+combineData(c("Scale_1_DHO.rds","Scale_3_DHO.rds","Scale_3_TEMP.rds"),formatOut="wide")
 
 
 ## Process the otolith (use scale bar)
@@ -64,11 +75,18 @@ digitizeRadii("DWS_Oto_89765.jpg",id="89765",reading="DHO",
               description="Curved growth trajectory",edgeIsAnnulus=TRUE,
               windowSize=12,makeTransect=FALSE)
 showDigitizedImage("DWS_Oto_89765_DHO.rds",cex.ann=0.7)
+showDigitizedImage("DWS_Oto_89765_DHO.rds",cex.ann=0.7,connect=FALSE,
+                   annuliLabels=c(1:10,12,14,16,18),col.ann=c("yellow","white"))
+showDigitizedImage("DWS_Oto_89765_DHO.rds",connect=FALSE,
+                   annuliLabels=c(1,5,10,15,19),
+                   col.ann=c("yellow","white","red","green","blue"),
+                   cex.ann=c(1,1.25,1.5,1.75,2))
 
 #### move these to a dead directory so that they don't appear in the vignettes
 fns <- c(listFiles(".rds",other="MULT"),
          listFiles(".rds",other="TEMP"),
-         listFiles(".rds",other="ABORT"))
+         listFiles(".rds",other="ABORT"),
+         listFiles(".rds",other="WIAFS"))
 file.copy(fns,"zzzTempRdsFiles/",overwrite=TRUE)
 file.remove(fns)
 

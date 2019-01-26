@@ -45,19 +45,21 @@ combineData <- function(nms,formatOut=c("long","wide"),
   if (deletePlusGrowth) {
     ## Get all age-0 fish and include no annulus or radius, but the radcap
     d1 <- d[d$agecap==0,]
-    if (nrow(d1)>0) d1$ann <- d1$rad <- d1$inc <- NA
+    if (nrow(d1)>0) d1$ann <- d1$rad <- NA
     ## Get all >age-0 fish and then remove the plus-growth
     d2 <- d[d$agecap>0,]
     d2 <- d2[d2$ann<=d2$agecap,]
-    ## Put the age-0 and >age-0 fish back together, sort by ID and ann
+    ## Put the age-0 and >age-0 fish back together; sort by ID, reading, and
+    ## ann; change rownames so they don't look so weird
     d <- rbind(d1,d2)
-    d <- d[order(d$id,d$ann),]
+    d <- d[order(d$id,d$reading,d$ann),]
+    rownames(d) <- NULL
   }
   ## If incremental measurements are asked for then create them & remove radii
   if (typeOut!="radii") {
     d$inc <- c(NA,diff(d$rad))
-    d$inc[d$ann==1] <- d$rad[d$ann==1]
-    d <- d[,-which(names(d)=="rad")]
+    d$inc[!is.na(d$ann) & d$ann==1] <- d$rad[!is.na(d$ann) & d$ann==1]
+    d <- d[,names(d)!="rad"]
   }
   ## Convert to wide (one-fish-per-line) format
   if (formatOut=="wide") {
@@ -65,6 +67,9 @@ combineData <- function(nms,formatOut=c("long","wide"),
     else d <- tidyr::spread(d,key=ann,value=inc,sep="inc")
     ## Remove "ann" from variable names
     names(d) <- gsub("ann","",names(d))
+    ## Remove the radNA or incNA column names that would appear for fall-caught
+    ## age-0 fish (i.e., no actual annular radius or increment)
+    d <- d[,!names(d) %in% c("radNA","incNA")]
   }
   d
 }

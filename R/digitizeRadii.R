@@ -114,7 +114,9 @@ digitizeRadii <- function(img,id,reading,suffix,
     if (scalingFactor<=0) STOP("'scalingFactor' must be positive.")
   }
   if (missing(col.scaleBar)) col.scaleBar <- iGetopt("col.scaleBar")
+  if (length(col.scaleBar)>1) STOP("Can use only one color in 'col.scaleBar='.")
   if (missing(lwd.scaleBar)) lwd.scaleBar <- iGetopt("lwd.scaleBar")
+  if (length(lwd.scaleBar)>1) STOP("Can use only one value in 'lwd.scaleBar='.")
   if (missing(makeTransect)) makeTransect<- iGetopt("makeTransect")
   if (missing(snap2Transect)) snap2Transect<- iGetopt("snap2Transect")
   if (snap2Transect & !makeTransect) {
@@ -123,7 +125,9 @@ digitizeRadii <- function(img,id,reading,suffix,
         "because 'makeTransect=FALSE'.\n\n")
   }
   if (missing(col.transect)) col.transect <- iGetopt("col.transect")
+  if (length(col.transect)>1) STOP("Can use only one color in 'col.transect='.")
   if (missing(lwd.transect)) lwd.transect <- iGetopt("lwd.transect")
+  if (length(lwd.transect)>1) STOP("Can use only one value in 'lwd.transect='.")
   if (missing(pch.sel)) pch.sel <- iGetopt("pch.sel")
   if (missing(col.sel)) col.sel <- iGetopt("col.sel")
   if (missing(cex.sel)) cex.sel <- iGetopt("cex.sel")
@@ -307,7 +311,7 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
       #### Add transect (focus and margin) to the points
       pts <- rbind(trans.pts,pts)
       #### Re-order points by distance from the first point (the focus)
-      pts <- iOrderPts(pts)
+      pts <- iOrderPts(pts,edgeIsAnnulus)
       numAnn <- nrow(pts)-2
       if (edgeIsAnnulus) numAnn <- numAnn+1
       #### Tell the user how many points were selected
@@ -427,13 +431,14 @@ iSnap2Transect <- function(pts,trans.pts,
 ########################################################################
 ## Orders a data.frame of x-y coordinates by distance from first point.
 ########################################################################
-iOrderPts <- function(pts) {
+iOrderPts <- function(pts,edgeIsAnnulus) {
   ## find a matrix of distances from the first point (in the first column
   ## returned by dist()), finds the order of those distances, and re-orders
   ## the original points by that order and returns the result
   pts <- pts[order(as.matrix(stats::dist(pts))[,1]),]
   ## change rownames
   if (nrow(pts)==2) rownames(pts) <- c("center","edge")
+  else if (edgeIsAnnulus) rownames(pts) <- c("center",1:(nrow(pts)-1))
   else rownames(pts) <- c("center",1:(nrow(pts)-2),"edge")
   ## Return data.frame
   pts
