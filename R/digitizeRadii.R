@@ -119,7 +119,7 @@ digitizeRadii <- function(img,id,reading,suffix,
   if (missing(snap2Transect)) snap2Transect<- iGetopt("snap2Transect")
   if (snap2Transect & !makeTransect) {
     snap2Transect <- makeTransect
-    cat("\n!! NOTE that 'snap2Transect' change to 'TRUE'",
+    cat("\n!! NOTE that 'snap2Transect' change to 'FALSE'",
         "because 'makeTransect=FALSE'.\n\n")
   }
   if (missing(col.transect)) col.transect <- iGetopt("col.transect")
