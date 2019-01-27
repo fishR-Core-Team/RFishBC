@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9000</span>
       </span>
     </div>
 
@@ -151,9 +151,10 @@
 
     <pre class="usage"><span class='fu'>digitizeRadii</span>(<span class='no'>img</span>, <span class='no'>id</span>, <span class='no'>reading</span>, <span class='no'>suffix</span>, <span class='no'>description</span>, <span class='no'>edgeIsAnnulus</span>, <span class='no'>popID</span>,
   <span class='no'>IDpattern</span>, <span class='no'>IDreplace</span>, <span class='no'>windowSize</span>, <span class='no'>deviceType</span>, <span class='no'>closeWindow</span>, <span class='no'>scaleBar</span>,
-  <span class='no'>scaleBarLength</span>, <span class='no'>col.scaleBar</span>, <span class='no'>lwd.scaleBar</span>, <span class='no'>scalingFactor</span>, <span class='no'>makeTransect</span>,
-  <span class='no'>snap2Transect</span>, <span class='no'>col.transect</span>, <span class='no'>lwd.transect</span>, <span class='no'>pch.sel</span>, <span class='no'>col.sel</span>, <span class='no'>cex.sel</span>,
-  <span class='no'>pch.del</span>, <span class='no'>col.del</span>, <span class='no'>showInfo</span>, <span class='no'>pos.info</span>, <span class='no'>cex.info</span>, <span class='no'>col.info</span>)</pre>
+  <span class='no'>scaleBarLength</span>, <span class='no'>scaleBarUnits</span>, <span class='no'>col.scaleBar</span>, <span class='no'>lwd.scaleBar</span>, <span class='no'>scalingFactor</span>,
+  <span class='no'>makeTransect</span>, <span class='no'>snap2Transect</span>, <span class='no'>col.transect</span>, <span class='no'>lwd.transect</span>, <span class='no'>pch.sel</span>,
+  <span class='no'>col.sel</span>, <span class='no'>cex.sel</span>, <span class='no'>pch.del</span>, <span class='no'>col.del</span>, <span class='no'>showInfo</span>, <span class='no'>pos.info</span>, <span class='no'>cex.info</span>,
+  <span class='no'>col.info</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -212,6 +213,10 @@
     </tr>
     <tr>
       <th>scaleBarLength</th>
+      <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>scaleBarUnits</th>
       <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
     </tr>
     <tr>
@@ -292,6 +297,7 @@
 <li><p><code>sfSource</code>: A character string that identifies whether the scaling factor was <code>"Provided"</code> through the <code>scalingFactor</code> argument or derived from a <code>"scaleBar"</code>.</p></li>
 <li><p><code>sbPts</code>: A data.frame of <code>x</code> and <code>y</code> coordinates for the endpoints of the scale-bar if the scaling factor was derived from a scale-bar.</p></li>
 <li><p><code>sbLength</code>: A single numeric that is the known (actual) length of the scale-bar if the scaling factor was derived from a scale-bar.</p></li>
+<li><p><code>sbUnits</code>: A single character that is the units of measurement for the known (actual) length of the scale-bar if the scaling factor was derived from a scale-bar.</p></li>
 <li><p><code>slpTransect</code>: The slope of the transect.</p></li>
 <li><p><code>intTransect</code>: The intercept of the transect.</p></li>
 <li><p><code>slpPerpTransect</code>: The slope of the line perpendicular to the transect.</p></li>

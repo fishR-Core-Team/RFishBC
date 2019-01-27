@@ -136,6 +136,10 @@ At this point (i.e., after having selected the transect endpoints), the image ma
 
 \  
 
+If you prefer not to use a transect, for example if the "growth trajectory" is primarily curved, then set `makeTransect=FALSE` (which will then change `snap2Transect=` to `FALSE`). If you choose not to define a transect, then, in contrast to what is described in the next section, you will be prompted to select the structure center and successive annuli out to the margin.
+
+\  
+
 ### Selecting Annuli
 Once a transect has been identified on the structure (assuming that you are using a transect), then you can select points on the structure that represent annuli. Points are selected by clicking with the first (left) mouse button at a point on the image. The most recently selected point can be removed by pressing the 'd' key (for "delete"). When the last point has been selected, press the 'f' (for "finished") key.
 

@@ -68,6 +68,17 @@ showDigitizedImage("Oto140306_DHO.rds",pch.show="+",col.show="blue",
 
 \  
 
+You can also just show the points without the transect and individually control the color of the annuli labels.
+
+```{r eval=FALSE}
+showDigitizedImage("Oto140306_DHO.rds",annuliLabels=c(1:6,8,10,13),
+                   connect=FALSE,col.ann=c(rep("black",8),"white"),cex.ann=1)
+```
+
+![](figures/Oto140306_F.jpg)
+
+\  
+
 \  
 
 ----

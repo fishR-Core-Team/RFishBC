@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9000</span>
       </span>
     </div>
 
@@ -105,7 +105,7 @@
       <h1>Compute Back-Calculated Lengths</h1>
                         <h4 class="author">Derek H. Ogle</h4>
             
-            <h4 class="date">2018-12-18</h4>
+            <h4 class="date">2019-01-27</h4>
       
       
       <div class="hidden name"><code>BCCalc.Rmd</code></div>
@@ -164,8 +164,8 @@
 <span class="co">#&gt; 5  6     SMB   WB    E    1988     72</span>
 <span class="co">#&gt; 6  7     SMB   WB    E    1988     80</span></code></pre></div>
 <p>These data can be joined by the common <code>id</code> variable as shown in the <a href="../MeasureRadii/collectRadiiData.html#outputdata">Output Data File section of the Collecting Radii Data</a> vignette. The data were also arranged by <code>id</code> to facilitate comparisons throughout this vignette.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">SMBassWB &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/join.html">inner_join</a></span>(SMBassWB1,SMBassWB2,<span class="dt">by=</span><span class="st">"id"</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(id)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">SMBassWB &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/join.html">inner_join</a></span>(SMBassWB1,SMBassWB2,<span class="dt">by=</span><span class="st">"id"</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(id)
 <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(SMBassWB,<span class="dt">n=</span><span class="dv">3</span>)
 <span class="co">#&gt;    id species lake gear yearcap lencap reading agecap  radcap    rad1</span>
 <span class="co">#&gt; 1 374     SMB   WB    E    1990    243     DHO      7 7.57375 1.01672</span>
@@ -293,10 +293,10 @@
 <div id="summarizing-back-calculated-lengths" class="section level1">
 <h1 class="hasAnchor">
 <a href="#summarizing-back-calculated-lengths" class="anchor"></a>Summarizing Back-Calculated Lengths</h1>
-<p>For example, the mean back-calculated length-at-age may be computed with <code><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> and <code><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code> as shown below for the long-format Fraser-Lee results.</p>
+<p>For example, the mean back-calculated length-at-age may be computed with <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code> as shown below for the long-format Fraser-Lee results.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tmp &lt;-<span class="st"> </span>SMBassWB_FL2 <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(ann) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span>(<span class="dt">n=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/FSA/topics/validn">validn</a></span>(bclen),
+<span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(ann) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span>(<span class="dt">n=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/FSA/topics/validn">validn</a></span>(bclen),
             <span class="dt">mn=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Round">round</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(bclen),<span class="dv">0</span>),
             <span class="dt">sd=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Round">round</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/sd">sd</a></span>(bclen),<span class="dv">1</span>)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/as.data.frame">as.data.frame</a></span>()
@@ -343,7 +343,7 @@ tmp
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p>Both of these data.frames are available in the <code>RFishBC</code> package. However, these types of data could be the result of using <code>comineData()</code> and <code><a href="http://dplyr.tidyverse.org/reference/join.html">inner_join()</a></code> or from loading a relevant CSV file as demonstrated in <a href="../MeasureRadii/collectRadiiData.html#outputdata">Output Data File section of the Collecting Radii Data</a> vignette.<a href="#fnref1">↩</a></p></li>
+<li id="fn1"><p>Both of these data.frames are available in the <code>RFishBC</code> package. However, these types of data could be the result of using <code>comineData()</code> and <code><a href="https://dplyr.tidyverse.org/reference/join.html">inner_join()</a></code> or from loading a relevant CSV file as demonstrated in <a href="../MeasureRadii/collectRadiiData.html#outputdata">Output Data File section of the Collecting Radii Data</a> vignette.<a href="#fnref1">↩</a></p></li>
 <li id="fn2"><p>Note that this file contains information from fish captured in years other than 1990.<a href="#fnref2">↩</a></p></li>
 <li id="fn3"><p>Arranging the data by fish id is not required for the work below. It is simply used here for demonstration purposes.<a href="#fnref3">↩</a></p></li>
 <li id="fn4"><p>The <code>species</code>, <code>lake</code>, <code>gear</code>, <code>yearcap</code>, and <code>reading</code> variables are not needed in this vignette, but could be needed in further statistical analyses.<a href="#fnref4">↩</a></p></li>

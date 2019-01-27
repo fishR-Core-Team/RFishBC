@@ -56,6 +56,11 @@ digitizeRadii("Oto140306.jpg",id="140306",reading="DHO",
               description="Used to demonstrate use of scale-bar.",
               scaleBar=TRUE,scaleBarLength=1,scaleBarUnits="mm",
               edgeIsAnnulus=TRUE,windowSize=12)
+showDigitizedImage("Oto140306_DHO.rds",pch.show="+",col.show="blue",
+                   col.connect="white",col.ann="black",cex.ann=1,
+                   annuliLabels=c(1:6,8,10,13))
+showDigitizedImage("Oto140306_DHO.rds",annuliLabels=c(1:6,8,10,13),
+                   connect=FALSE,col.ann=c(rep("black",8),"white"),cex.ann=1)
 showDigitizedImage("Oto140306_DHO.rds",cex.ann=0.7)
 showDigitizedImage("Oto140306_DHO.rds",annuliLabels=1:6)
 showDigitizedImage("Oto140306_DHO.rds",annuliLabels=c(2,5))

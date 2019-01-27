@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9000</span>
       </span>
     </div>
 
@@ -105,7 +105,7 @@
       <h1>Visualize Points Selected on a Calcified Structure</h1>
                         <h4 class="author">Derek H. Ogle</h4>
             
-            <h4 class="date">2018-12-18</h4>
+            <h4 class="date">2019-01-27</h4>
       
       
       <div class="hidden name"><code>seeRadiiData.Rmd</code></div>
@@ -150,6 +150,13 @@
                    <span class="dt">annuliLabels=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">13</span>))</code></pre></div>
 <div class="figure">
 <img src="figures/Oto140306_E.jpg">
+</div>
+<p> </p>
+<p>You can also just show the points without the transect and individually control the color of the annuli labels.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/showDigitizedImage.html">showDigitizedImage</a></span>(<span class="st">"Oto140306_DHO.rds"</span>,<span class="dt">annuliLabels=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">13</span>),
+                   <span class="dt">connect=</span><span class="ot">FALSE</span>,<span class="dt">col.ann=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="st">"black"</span>,<span class="dv">8</span>),<span class="st">"white"</span>),<span class="dt">cex.ann=</span><span class="dv">1</span>)</code></pre></div>
+<div class="figure">
+<img src="figures/Oto140306_F.jpg">
 </div>
 <p> </p>
 <p> </p>
