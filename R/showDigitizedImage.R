@@ -158,7 +158,9 @@ iShowAnnuliLabels <- function(dat,annuliLabels,col.ann,cex.ann) { # nocov start
   ## Put on text
   #### Use all annuli if annuliLabels not supplied by user
   if (is.null(annuliLabels)) annuliLabels <- 1:max(dat$radii$agecap)
-  #### get just the points to be labelled
+  #### Make sure provided annuliLabels exist in the data
+  annuliLabels <- annuliLabels[annuliLabels %in% rownames(pts)]
+  #### Get just the points to be labelled
   pts <- pts[rownames(pts) %in% annuliLabels,]
   ## Check colors
   if (length(col.ann)>1 & length(col.ann)<length(annuliLabels))
