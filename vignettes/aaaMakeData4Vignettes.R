@@ -3,7 +3,7 @@ devtools::load_all(".")
 setwd("C:/aaaWork/Programs/GitHub/RFishBC/vignettes")
 
 ## Process Scales
-junk <- digitizeRadii("Scale_1.jpg",id="1",reading="DHO",edgeIsAnnulus=FALSE)
+junk <- digitizeRadii("Scale_1.jpg",id="1",reading="DHO",edgeIsAnnulus=FALSE,windowSize=10)
 ## choose Scale_1.jpg and set id to 1 ... use a different transect
 digitizeRadii(reading="OHD",edgeIsAnnulus=FALSE,popID=TRUE)
 ## use yet another different transect
@@ -31,6 +31,11 @@ junk3 <- digitizeRadii("Scale_3.jpg",id="3",reading="TEMP",edgeIsAnnulus=FALSE)
 #### Some tests of these functions
 showDigitizedImage("Scale_1_DHO.rds")
 showDigitizedImage(c("Scale_1_DHO.rds","Scale_1_OHD.rds","Scale_1_ODH.rds"))
+showDigitizedImage("Scale_1_DHO.rds",pch.show="arrows")
+showDigitizedImage(c("Scale_1_DHO.rds","Scale_1_OHD.rds","Scale_1_ODH.rds"),
+                   pch.show="arrows",col.show=1:3)
+showDigitizedImage(c("Scale_1_DHO.rds","Scale_1_OHD.rds","Scale_1_ODH.rds"),
+                   pch.show="arrows",col.show=1:3,connect=FALSE)
 showDigitizedImage()      # choose one file and then choose the three (of same fish)
 showDigitizedImage(junk)  # uses the object created above
 combineData("Scale_1_DHO.rds")
