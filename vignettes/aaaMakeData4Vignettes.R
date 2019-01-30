@@ -59,8 +59,12 @@ digitizeRadii("Oto140306.jpg",id="140306",reading="DHO",
 showDigitizedImage("Oto140306_DHO.rds",pch.show="+",col.show="blue",
                    col.connect="white",col.ann="black",cex.ann=1,
                    annuliLabels=c(1:6,8,10,13))
+showDigitizedImage("Oto140306_DHO.rds",pch.show=c(1,19),col.show=c("blue","red"),
+                   col.connect="white",col.ann="black",cex.ann=1,
+                   annuliLabels=c(1:6,8,10,13))
 showDigitizedImage("Oto140306_DHO.rds",annuliLabels=c(1:6,8,10,13),
-                   connect=FALSE,col.ann=c(rep("black",8),"white"),cex.ann=1)
+                   connect=FALSE,col.ann=c(rep("black",8),"white"),
+                   col.show=c(rep("black",11),rep("white",2)),cex.ann=1)
 showDigitizedImage("Oto140306_DHO.rds",cex.ann=0.7)
 showDigitizedImage("Oto140306_DHO.rds",annuliLabels=1:6)
 showDigitizedImage("Oto140306_DHO.rds",annuliLabels=c(2,5))

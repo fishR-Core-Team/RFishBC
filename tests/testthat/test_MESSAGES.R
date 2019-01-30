@@ -148,6 +148,19 @@ test_that("showDigitizedImage() messages",{
                "Can use only one")
   expect_error(showDigitizedImage("Oto140306_DHO.rds",lwd.scaleBar=1:2),
                "Can use only one")
+  expect_warning(showDigitizedImage("Oto140306_DHO.rds",pch.show=1:3),
+                 "was recycled")
+  expect_warning(showDigitizedImage("Oto140306_DHO.rds",col.show=1:3),
+                 "was recycled")
+  expect_warning(showDigitizedImage("Oto140306_DHO.rds",cex.show=1:3),
+                 "was recycled")
+  expect_warning(showDigitizedImage("Oto140306_DHO.rds",
+                                    annuliLabels=1:5,col.ann=1:3),
+                 "was recycled")
+  expect_warning(showDigitizedImage("Oto140306_DHO.rds",
+                                    annuliLabels=1:5,cex.ann=1:3),
+                 "was recycled")
+  grDevices::dev.off()
 })
 
 
