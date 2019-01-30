@@ -60,6 +60,10 @@ test_that("RFBCoptions() error messages",{
                "value out of range")
   expect_error(RFBCoptions(cex.ann=11),
                "value out of range")
+  expect_error(RFBCoptions(offset.ann=-0.1),
+               "value out of range")
+  expect_error(RFBCoptions(offset.ann=11),
+               "value out of range")
   expect_error(RFBCoptions(cex.scaleBar=0),
                "value out of range")
   expect_error(RFBCoptions(cex.scaleBar=11),

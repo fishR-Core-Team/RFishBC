@@ -18,6 +18,7 @@
 #' @param annuliLabels See details in \code{\link{RFBCoptions}}.
 #' @param col.ann See details in \code{\link{RFBCoptions}}.
 #' @param cex.ann See details in \code{\link{RFBCoptions}}.
+#' @param offset.ann See details in \code{\link{RFBCoptions}}.
 #'
 #' @return None, but an image is plotted with, at least, the selected points.
 #' 
@@ -38,7 +39,8 @@ showDigitizedImage <- function(nms,deviceType,
                                connect,col.connect,lwd.connect,
                                col.scaleBar,lwd.scaleBar,
                                showScaleBarLength,cex.scaleBar,
-                               showAnnuliLabels,annuliLabels,col.ann,cex.ann) {
+                               showAnnuliLabels,annuliLabels,
+                               col.ann,cex.ann,offset.ann) {
   ## handle options
   if (missing(deviceType)) deviceType <- iGetopt("deviceType")
   if (missing(pch.show)) pch.show <- iGetopt("pch.show")
@@ -61,6 +63,7 @@ showDigitizedImage <- function(nms,deviceType,
     STOP("'annuliLabels' not needed when 'showAnnuliLabels=FALSE'")
   if (missing(col.ann)) col.ann <- iGetopt("col.ann")
   if (missing(cex.ann)) cex.ann <- iGetopt("cex.ann")
+  if (missing(offset.ann)) offset.ann <- iGetopt("offset.ann")
   dat <- NULL # try to avoid "no visible binding" note
   
   ## Get image file names ######################################################
@@ -86,7 +89,8 @@ showDigitizedImage <- function(nms,deviceType,
                            showScaleBarLength,col.scaleBar,lwd.scaleBar,cex.scaleBar,
                            connect,col.connect,lwd.connect,
                            pch.show,col.show,cex.show,
-                           showAnnuliLabels,annuliLabels,col.ann,cex.ann)
+                           showAnnuliLabels,annuliLabels,
+                           col.ann,cex.ann,offset.ann)
   } else {
     tmp <- NULL
     for (i in seq_along(nms)) {
@@ -118,7 +122,7 @@ showDigitizedImage <- function(nms,deviceType,
                                        connect,col.connect[i],lwd.connect[i],
                                        pch.show[i],col.show[i],cex.show[i],
                                        showAnnuliLabels=FALSE,annuliLabels="",
-                                       col.ann[i],cex.ann[i])
+                                       col.ann[i],cex.ann[i],offset.ann[i])
       else {
         ## Show connected points if asked to do so
         if (connect) graphics::lines(y~x,data=dat$pts,
@@ -143,7 +147,8 @@ iShowOneDigitizedImage <- function(dat,deviceType,
                                    lwd.scaleBar,cex.scaleBar,
                                    connect,col.connect,lwd.connect,
                                    pch.show,col.show,cex.show,
-                                   showAnnuliLabels,annuliLabels,col.ann,cex.ann) {
+                                   showAnnuliLabels,annuliLabels,
+                                   col.ann,cex.ann,offset.ann) {
   ## Get and display the image
   iGetImage(dat$image,id=NULL,
             windowSize=dat$windowSize,deviceType=deviceType,
@@ -170,7 +175,8 @@ iShowOneDigitizedImage <- function(dat,deviceType,
                      col=col.show[length(col.show)],cex=cex.show[length(cex.show)])
   #### Show annuli labels if asked to do so
   if (showAnnuliLabels)
-    iShowAnnuliLabels(dat,annuliLabels=annuliLabels,col.ann=col.ann,cex.ann=cex.ann)
+    iShowAnnuliLabels(dat,annuliLabels=annuliLabels,
+                      col.ann=col.ann,cex.ann=cex.ann,offset.ann=offset.ann)
 }
 
 
@@ -178,7 +184,8 @@ iShowOneDigitizedImage <- function(dat,deviceType,
 ########################################################################
 ## Show annuli numbers on the showDigitizedImage() image
 ########################################################################
-iShowAnnuliLabels <- function(dat,annuliLabels,col.ann,cex.ann) { # nocov start
+iShowAnnuliLabels <- function(dat,annuliLabels,
+                              col.ann,cex.ann,offset.ann) { # nocov start
   ## Get points to plot
   pts <- dat$pts
   
@@ -217,7 +224,7 @@ iShowAnnuliLabels <- function(dat,annuliLabels,col.ann,cex.ann) { # nocov start
     WARN("'cex.ann' was recycled.")
   #### put the labels on the plot
   graphics::text(y~x,data=pts,labels=annuliLabels,font=2,
-                 col=col.ann,cex=cex.ann,pos=pos)
+                 col=col.ann,cex=cex.ann,pos=pos,offset=offset.ann)
 } # nocov end
 
 ########################################################################
