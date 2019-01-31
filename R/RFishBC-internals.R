@@ -10,12 +10,12 @@
 ########################################################################
 ## Sends a start-up message to the console when the package is loaded.
 ########################################################################
-.onAttach <- function(lib,pkg,...) {
+.onAttach <- function(lib,pkg,...) {                               # nocov start
   vers <- read.dcf(system.file("DESCRIPTION",package=pkg,lib.loc=lib),
                    fields="Version")
   msg <- paste0("## RFishBC v",vers,". See vignettes at derekogle.com/RFishBC/.\n")
   packageStartupMessage(msg)
-}
+}                                                                  # nocov end
 
 
 
@@ -64,9 +64,8 @@ iHndlFilenames <- function(nm,filter,multi=TRUE) {
   dn <- dirname(nm[1])
   wd <- getwd()
   if (!dn %in% c(".",wd)) {
-    message("The current working directory is ",wd)
-    message("The directory with the chosen file is ",dn)
-    STOP("The file MUST be in the current working directory.\n",
+    STOP("The file is in ",normalizePath(dn),", which is NOT\n",
+         "       the current working directory of ",normalizePath(wd),".\n",
          "       Please use 'setwd()' to change the working directory\n",
          "       and then try the function again.")
   }
@@ -90,10 +89,10 @@ iGetImage <- function(fname,id,windowSize,deviceType,
   img <- readbitmap::read.bitmap(fname,native=TRUE)
   ## Get window size so image displayed in its native aspect ratio.
   ## Only needed if windowSize contains one value.
-  if (length(windowSize)==1) {                                   # nocov start
+  if (length(windowSize)==1) {                                     # nocov start
     cf <- dim(img)[2:1]
     windowSize <- windowSize*cf/max(cf) 
-  }                                                              # nocov end
+  }
   tmp <- grDevices::dev.cur()
   ## If a window is already open, close it as its aspect ratio may be wrong 
   if (tmp!=1 & names(tmp)!="RStudioGD") grDevices::dev.off()
@@ -110,7 +109,8 @@ iGetImage <- function(fname,id,windowSize,deviceType,
   graphics::plot.new()
   graphics::rasterImage(img,0,0,1,1)
   ## Add ID information to image if told to do so
-  if (showInfo) iPlaceText(paste0("ID=",id),pos.info,cex=cex.info,col=col.info)
+  if (showInfo)
+    iPlaceText(paste0("ID=",id),pos.info,cex=cex.info,col=col.info)  # nocov end
   ## Return information
   invisible(list(windowSize=windowSize,pixW2H=windowSize[1]/windowSize[2]))
 }
@@ -125,7 +125,7 @@ iSelectPt <- function(numPts,msg1,msg2,
                       pch.sel,col.sel,cex.sel,
                       pch.del,col.del,
                       snap2Transect,trans.pts,
-                      slpTransect,intTransect,slpPerpTransect) {# nocov start
+                      slpTransect,intTransect,slpPerpTransect) {   # nocov start
   ## Internal function for handling mouse down event
   mouseDown <- function(buttons,x,y) {
     tmp <- data.frame(x=graphics::grconvertX(x,"ndc","user"),
@@ -175,7 +175,7 @@ iSelectPt <- function(numPts,msg1,msg2,
   grDevices::getGraphicsEvent(paste0(msg1,msg2),consolePrompt="",
                               onMouseDown=mouseDown,onKeybd=keyPress)
   dat
-}   # nocov end
+}                                                                  # nocov end
 
 
 ########################################################################
@@ -203,13 +203,13 @@ iScalingFactorFromScaleBar <- function(msg2,knownLength,pixW2H,
   } else { # data.frame not returned b/c abort/restarted
     sbPts  # just return the sbPts object
   }
-} # nocov end
+}                                                                  # nocov end
 
 
 ########################################################################
 ## Places text in txt= on an active plot at a position given in pos=
 ########################################################################
-iPlaceText <- function(txt,pos,cex,col) {   # nocov start
+iPlaceText <- function(txt,pos,cex,col) {                          # nocov start
   usr <- graphics::par("usr")
   if (pos=="topleft") {
     graphics::text(usr[1],usr[4],txt,adj=c(0,1),col=col,cex=cex)
@@ -228,7 +228,7 @@ iPlaceText <- function(txt,pos,cex,col) {   # nocov start
   } else if (pos=="left") {
     graphics::text(usr[1],mean(usr[3:4]),txt,adj=c(0,0.5),col=col,cex=cex)
   }
-} # nocov end
+}                                                                  # nocov end
 
 
 ########################################################################

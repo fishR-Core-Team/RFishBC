@@ -490,4 +490,18 @@ test_that("Miscellaneous internals output",{
   expect_true(grepl(msg,tmp))
   tmp <- capture.output(RFishBC:::RULE(msg))
   expect_true(grepl(msg,tmp))
+  
+  tmp <- iGetImage("Scale_1.jpg",windowSize=10,
+                   deviceType="default",id="1",showInfo=TRUE,
+                   pos.info="topleft",cex.info=1,col.info="yellow")
+  grDevices::dev.off()
+  expect_is(tmp,"list")
+  expect_type(tmp$windowSize,"double")
+  expect_equal(length(tmp$windowSize),2)
+  expect_equal(tmp$windowSize[1],10)
+  expect_type(tmp$pixW2H,"double")
+  expect_equal(length(tmp$pixW2H),1)
+  
+  expect_true(isRData("Scale_1_DHO.rds"))
+  expect_false(isRData("Scale_1.jpg"))
 })  

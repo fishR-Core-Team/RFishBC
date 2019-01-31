@@ -3,6 +3,21 @@ context("RFishBC MESSAGES")
 source("EXS_growthUtils.R")
 source("EXS_collectRadii.R")
 
+test_that("Internal Function messages",{
+  expect_error(STOP("This is a test error."),"This is a test error")
+  expect_warning(WARN("This is a test warning."),"This is a test warning")
+  expect_equal(capture_output(DONE("This is a test note.")),
+               "<U+2714> This is a test note.")
+  expect_equal(capture_output(NOTE("This is a test note.")),
+               "<U+2630> This is a test note.")
+  expect_equal(capture_output(RULE("This is a test note.")),
+               "== This is a test note. ========================================================")
+  expect_error(iHndlFilenames("../test-all.R"),"which is NOT")
+  expect_silent(iHndlFilenames("Scale_1_DHO.rds"))
+  expect_equal(iHndlFilenames("Scale_1_DHO.rds"),"Scale_1_DHO.rds")
+})
+
+
 test_that("RFBCoptions() error messages",{
   expect_warning(RFBCoptions(Derek=TRUE),
                  "Ignoring options not defined in manager")
@@ -82,7 +97,7 @@ test_that("digitizeRadii() error messages",{
                edgeIsAnnulus=TRUE),
                "Lengths of image file names and IDs must be equal")
   expect_error(digitizeRadii("testdata/small_ex.jpg",id=1,edgeIsAnnulus=TRUE),
-               "The file MUST be in the current working directory")
+               "which is NOT")
   ## Errors in options arguments  
   expect_error(digitizeRadii(edgeIsAnnulus="derek"),
                "must be TRUE or FALSE")
