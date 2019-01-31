@@ -6,12 +6,7 @@ source("EXS_collectRadii.R")
 test_that("Internal Function messages",{
   expect_error(STOP("This is a test error."),"This is a test error")
   expect_warning(WARN("This is a test warning."),"This is a test warning")
-  expect_equal(capture_output(DONE("This is a test note.")),
-               "<U+2714> This is a test note.")
-  expect_equal(capture_output(NOTE("This is a test note.")),
-               "<U+2630> This is a test note.")
-  expect_equal(capture_output(RULE("This is a test note.")),
-               "== This is a test note. ========================================================")
+
   expect_error(iHndlFilenames("../test-all.R"),"which is NOT")
   expect_silent(iHndlFilenames("Scale_1_DHO.rds"))
   expect_equal(iHndlFilenames("Scale_1_DHO.rds"),"Scale_1_DHO.rds")

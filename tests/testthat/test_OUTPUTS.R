@@ -490,7 +490,7 @@ test_that("Miscellaneous internals output",{
   expect_true(grepl(msg,tmp))
   tmp <- capture.output(RFishBC:::RULE(msg))
   expect_true(grepl(msg,tmp))
-  
+
   tmp <- iGetImage("Scale_1.jpg",windowSize=10,
                    deviceType="default",id="1",showInfo=TRUE,
                    pos.info="topleft",cex.info=1,col.info="yellow")
