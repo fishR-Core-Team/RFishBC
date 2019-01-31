@@ -144,10 +144,6 @@ test_that("showDigitizedImage() messages",{
   expect_error(showDigitizedImage("Oto140306_DHO.rds",showAnnuliLabels=FALSE,
                                   annuliLabels=1:3),
                "not needed when")
-  expect_error(showDigitizedImage("Oto140306_DHO.rds",col.connect=c("blue","red")),
-               "Can use only one")
-  expect_error(showDigitizedImage("Oto140306_DHO.rds",lwd.connect=1:2),
-               "Can use only one")
   expect_error(showDigitizedImage("Oto140306_DHO.rds",col.scaleBar=c("blue","red")),
                "Can use only one")
   expect_error(showDigitizedImage("Oto140306_DHO.rds",lwd.scaleBar=1:2),
