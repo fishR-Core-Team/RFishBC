@@ -3,7 +3,7 @@ devtools::load_all(".")
 setwd("C:/aaaWork/Programs/GitHub/RFishBC/vignettes")
 
 ## Process Scales
-junk <- digitizeRadii("Scale_1.jpg",id="1",reading="DHO",edgeIsAnnulus=FALSE)
+junk <- digitizeRadii("Scale_1.jpg",id="1",reading="DHO",edgeIsAnnulus=FALSE,windowSize=10)
 ## choose Scale_1.jpg and set id to 1 ... use a different transect
 digitizeRadii(reading="OHD",edgeIsAnnulus=FALSE,popID=TRUE)
 ## use yet another different transect
@@ -31,6 +31,11 @@ junk3 <- digitizeRadii("Scale_3.jpg",id="3",reading="TEMP",edgeIsAnnulus=FALSE)
 #### Some tests of these functions
 showDigitizedImage("Scale_1_DHO.rds")
 showDigitizedImage(c("Scale_1_DHO.rds","Scale_1_OHD.rds","Scale_1_ODH.rds"))
+showDigitizedImage("Scale_1_DHO.rds",pch.show="arrows")
+showDigitizedImage(c("Scale_1_DHO.rds","Scale_1_OHD.rds","Scale_1_ODH.rds"),
+                   pch.show="arrows",col.show=1:3)
+showDigitizedImage(c("Scale_1_DHO.rds","Scale_1_OHD.rds","Scale_1_ODH.rds"),
+                   pch.show="arrows",col.show=1:3,connect=FALSE)
 showDigitizedImage()      # choose one file and then choose the three (of same fish)
 showDigitizedImage(junk)  # uses the object created above
 combineData("Scale_1_DHO.rds")
@@ -59,8 +64,12 @@ digitizeRadii("Oto140306.jpg",id="140306",reading="DHO",
 showDigitizedImage("Oto140306_DHO.rds",pch.show="+",col.show="blue",
                    col.connect="white",col.ann="black",cex.ann=1,
                    annuliLabels=c(1:6,8,10,13))
+showDigitizedImage("Oto140306_DHO.rds",pch.show=c(1,19),col.show=c("blue","red"),
+                   col.connect="white",col.ann="black",cex.ann=1,
+                   annuliLabels=c(1:6,8,10,13))
 showDigitizedImage("Oto140306_DHO.rds",annuliLabels=c(1:6,8,10,13),
-                   connect=FALSE,col.ann=c(rep("black",8),"white"),cex.ann=1)
+                   connect=FALSE,col.ann=c(rep("black",8),"white"),
+                   col.show=c(rep("black",11),rep("white",2)),cex.ann=1)
 showDigitizedImage("Oto140306_DHO.rds",cex.ann=0.7)
 showDigitizedImage("Oto140306_DHO.rds",annuliLabels=1:6)
 showDigitizedImage("Oto140306_DHO.rds",annuliLabels=c(2,5))

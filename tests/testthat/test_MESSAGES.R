@@ -60,6 +60,10 @@ test_that("RFBCoptions() error messages",{
                "value out of range")
   expect_error(RFBCoptions(cex.ann=11),
                "value out of range")
+  expect_error(RFBCoptions(offset.ann=-0.1),
+               "value out of range")
+  expect_error(RFBCoptions(offset.ann=11),
+               "value out of range")
   expect_error(RFBCoptions(cex.scaleBar=0),
                "value out of range")
   expect_error(RFBCoptions(cex.scaleBar=11),
@@ -140,14 +144,23 @@ test_that("showDigitizedImage() messages",{
   expect_error(showDigitizedImage("Oto140306_DHO.rds",showAnnuliLabels=FALSE,
                                   annuliLabels=1:3),
                "not needed when")
-  expect_error(showDigitizedImage("Oto140306_DHO.rds",col.connect=c("blue","red")),
-               "Can use only one")
-  expect_error(showDigitizedImage("Oto140306_DHO.rds",lwd.connect=1:2),
-               "Can use only one")
   expect_error(showDigitizedImage("Oto140306_DHO.rds",col.scaleBar=c("blue","red")),
                "Can use only one")
   expect_error(showDigitizedImage("Oto140306_DHO.rds",lwd.scaleBar=1:2),
                "Can use only one")
+  expect_warning(showDigitizedImage("Oto140306_DHO.rds",pch.show=1:3),
+                 "was recycled")
+  expect_warning(showDigitizedImage("Oto140306_DHO.rds",col.show=1:3),
+                 "was recycled")
+  expect_warning(showDigitizedImage("Oto140306_DHO.rds",cex.show=1:3),
+                 "was recycled")
+  expect_warning(showDigitizedImage("Oto140306_DHO.rds",
+                                    annuliLabels=1:5,col.ann=1:3),
+                 "was recycled")
+  expect_warning(showDigitizedImage("Oto140306_DHO.rds",
+                                    annuliLabels=1:5,cex.ann=1:3),
+                 "was recycled")
+  grDevices::dev.off()
 })
 
 

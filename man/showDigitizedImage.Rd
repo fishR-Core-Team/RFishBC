@@ -6,7 +6,8 @@
 \usage{
 showDigitizedImage(nms, deviceType, pch.show, col.show, cex.show, connect,
   col.connect, lwd.connect, col.scaleBar, lwd.scaleBar, showScaleBarLength,
-  cex.scaleBar, showAnnuliLabels, annuliLabels, col.ann, cex.ann)
+  cex.scaleBar, showAnnuliLabels, annuliLabels, col.ann, cex.ann,
+  offset.ann)
 }
 \arguments{
 \item{nms}{A string (or vector of strings) that indicates the R data file(s) created with \code{\link{digitizeRadii}}. If missing the user will be provided a dialog box from which to choose the file(s). The file(s) must be in the current working directory (see \code{\link{getwd}} result). May also be a single \code{RFishBC} object created with \code{\link{digitizeRadii}}.}
@@ -40,6 +41,8 @@ showDigitizedImage(nms, deviceType, pch.show, col.show, cex.show, connect,
 \item{col.ann}{See details in \code{\link{RFBCoptions}}.}
 
 \item{cex.ann}{See details in \code{\link{RFBCoptions}}.}
+
+\item{offset.ann}{See details in \code{\link{RFBCoptions}}.}
 }
 \value{
 None, but an image is plotted with, at least, the selected points.
