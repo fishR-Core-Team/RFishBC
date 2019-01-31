@@ -504,4 +504,62 @@ test_that("Miscellaneous internals output",{
   
   expect_true(isRData("Scale_1_DHO.rds"))
   expect_false(isRData("Scale_1.jpg"))
+  
+  ## check iOrderPts ... randomize point and see if they get ordered properly
+  tmp <- dat1$pts
+  tmp2 <- tmp[c(1,sample(2:6),7),]
+  rownames(tmp2) <- 1:7
+  tmp2 <- RFishBC:::iOrderPts(tmp2,edgeIsAnnulus=FALSE)
+  expect_equal(tmp,tmp2)
+  
+  tmp <- dat2$pts
+  tmp2 <- tmp[c(1,sample(2:14)),]
+  rownames(tmp2) <- 1:14
+  tmp2 <- RFishBC:::iOrderPts(tmp2,edgeIsAnnulus=TRUE)
+  expect_equal(tmp,tmp2)
+  
+  tmp <- tmp2 <- dat1$pts[c(1,nrow(dat1$pts)),]
+  rownames(tmp2) <- 1:2
+  tmp2 <- RFishBC:::iOrderPts(tmp2,edgeIsAnnulus=FALSE)
+  expect_equal(tmp,tmp2)
+  
+  tmp <- tmp2 <- dat2$pts[c(1,nrow(dat2$pts)),]
+  rownames(tmp)[2] <- 1
+  rownames(tmp2) <- 1:2
+  tmp2 <- RFishBC:::iOrderPts(tmp2,edgeIsAnnulus=TRUE)
+  expect_equal(tmp,tmp2)
+  
+  ## Check convert points to radii
+  tmp <- data.frame(x=0,y=1:5)
+  tmp2 <- RFishBC:::iPts2Rad(tmp,edgeIsAnnulus=TRUE,scalingFactor=1,
+                             pixW2H=1,id=1,reading="DHO")
+  expect_true(all(tmp2$agecap==4))
+  expect_true(all(tmp2$radcap==4))
+  expect_equal(tmp2$rad,1:4)
+  tmp2 <- RFishBC:::iPts2Rad(tmp,edgeIsAnnulus=FALSE,scalingFactor=1,
+                             pixW2H=1,id=1,reading="DHO")
+  expect_true(all(tmp2$agecap==3))
+  expect_true(all(tmp2$radcap==4))
+  expect_equal(tmp2$rad,1:4)
+  
+  tmp <- data.frame(x=1:5,y=1:5)
+  tmp2 <- RFishBC:::iPts2Rad(tmp,edgeIsAnnulus=TRUE,scalingFactor=1,
+                             pixW2H=1,id=1,reading="DHO")
+  expect_true(all(tmp2$agecap==4))
+  expect_true(all(tmp2$radcap==4*sqrt(2)))
+  expect_equal(tmp2$rad,(1:4)*sqrt(2))
+  
+  tmp <- data.frame(x=(1:5)/2,y=1:5)
+  tmp2 <- RFishBC:::iPts2Rad(tmp,edgeIsAnnulus=TRUE,scalingFactor=1,
+                             pixW2H=2,id=1,reading="DHO")
+  expect_true(all(tmp2$agecap==4))
+  expect_true(all(tmp2$radcap==4*sqrt(2)))
+  expect_equal(tmp2$rad,(1:4)*sqrt(2))
+
+  tmp <- data.frame(x=1:5,y=(1:5)/2)
+  tmp2 <- RFishBC:::iPts2Rad(tmp,edgeIsAnnulus=TRUE,scalingFactor=1,
+                             pixW2H=1/2,id=1,reading="DHO")
+  expect_true(all(tmp2$agecap==4))
+  expect_true(all(tmp2$radcap==4*sqrt(2)/2))
+  expect_equal(tmp2$rad,(1:4)*sqrt(2)/2)
 })  

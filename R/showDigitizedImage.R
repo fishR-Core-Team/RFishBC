@@ -80,10 +80,10 @@ showDigitizedImage <- function(nms,deviceType,
   
   ## Get image file names ######################################################
   ## If nms is missing then allow the user to choose a file or files
-  if (missing(nms)) nms <- iHndlFilenames(nms,filter="RData",multi=TRUE) # nocov
+  if (missing(nms)) nms <- iHndlFilenames(nms,filter="RData",multi=TRUE) # nocov start
   ## If nms is an RFishBC object (and not a filename) then extract the 
   ##   filename otherwise process the filename(s)
-  if (inherits(nms,"RFishBC")) nms <- nms$datanm                         # nocov
+  if (inherits(nms,"RFishBC")) nms <- nms$datanm                         # nocov end
     else nms <- iHndlFilenames(nms,filter="RData",multi=TRUE)
   
   ## Get number of readings ####################################################
@@ -240,7 +240,7 @@ iShowAnnuliLabels <- function(dat,annuliLabels,
   ## put the labels on the plot
   graphics::text(y~x,data=pts,labels=annuliLabels,font=2,
                  col=col.ann,cex=cex.ann,pos=pos,offset=offset.ann)
-} # nocov end
+}                                                                  # nocov end
 
 
 
@@ -248,7 +248,7 @@ iShowAnnuliLabels <- function(dat,annuliLabels,
 ## Find a position for the "arrow" or the annulus label based on the
 ##   slope of the transect or the first and last selected points.
 ########################################################################
-iFindLabelPos <- function(dat) { # nocov start
+iFindLabelPos <- function(dat) {                                   # nocov start
   ## Get slope of transect if used, otherwise find rough value from 1st/ last pts
   if (!is.null(dat$slpTransect)) slp <- dat$slpTransect
   else {
@@ -271,14 +271,14 @@ iFindLabelPos <- function(dat) { # nocov start
   else if (deg>315 & deg<=360) pos <- 1 # below
   ## Return the position
   pos
-}
+}                                                                  # nocov end
 
 
 
 ########################################################################
 ## Show known length of scale-bar on the showDigitizedImage() image
 ########################################################################
-iShowScaleBarLength <- function(dat,col.scaleBar,cex.scaleBar) { # nocov start
+iShowScaleBarLength <- function(dat,col.scaleBar,cex.scaleBar) {   # nocov start
   ## Get the scale-bar points, length, and units
   pts <- dat$sbPts
   len <- dat$sbLength
@@ -300,4 +300,4 @@ iShowScaleBarLength <- function(dat,col.scaleBar,cex.scaleBar) { # nocov start
   ## Place text at the midpoint of the transect
   graphics::text(mean(pts$x),mean(pts$y),label=lbl,pos=pos,
                  col=col.scaleBar,cex=cex.scaleBar)
-} # nocov end
+}                                                                  # nocov end

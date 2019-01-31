@@ -93,9 +93,13 @@ test_that("digitizeRadii() error messages",{
                "Lengths of image file names and IDs must be equal")
   expect_error(digitizeRadii("testdata/small_ex.jpg",id=1,edgeIsAnnulus=TRUE),
                "which is NOT")
+  
   ## Errors in options arguments  
+  expect_error(digitizeRadii(),
+               "must be TRUE or FALSE")
   expect_error(digitizeRadii(edgeIsAnnulus="derek"),
                "must be TRUE or FALSE")
+  
   expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE),
                "Must provide a")
   expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE,scaleBarLength=1),
@@ -113,18 +117,38 @@ test_that("digitizeRadii() error messages",{
   expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE,scaleBarUnits="mm",
                              scaleBarLength=1,scalingFactor=1.1),
                "Can not set both")
+  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=FALSE,scaleBarUnits="mm"),
+               "Can not use")
+  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE,scaleBarLength=1,
+                             scaleBarUnits="mm",col.scaleBar=1:2),
+               "Can use only one color in")
+  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scaleBar=TRUE,scaleBarLength=1,
+                             scaleBarUnits="mm",lwd.scaleBar=1:2),
+               "Can use only one value in")  
+  
   expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scalingFactor="derek"),
                "must be numeric")
   expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scalingFactor=0),
                "must be positive")
   expect_error(digitizeRadii(edgeIsAnnulus=TRUE,scalingFactor=-1),
                "must be positive")
+  
   expect_error(digitizeRadii(edgeIsAnnulus=TRUE,windowSize="derek"),
                "must be numeric")
   expect_error(digitizeRadii(edgeIsAnnulus=TRUE,windowSize=0),
                "must be positive")
   expect_error(digitizeRadii(edgeIsAnnulus=TRUE,windowSize=-1),
                "must be positive")
+  
+  expect_message(try(digitizeRadii(edgeIsAnnulus=TRUE,snap2Transect=TRUE,
+                                   makeTransect=FALSE,col.transect=1:2),
+                     silent=TRUE),
+                 "changed to 'FALSE'")
+  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,col.transect=1:2),
+               "Can use only one color in")
+  expect_error(digitizeRadii(edgeIsAnnulus=TRUE,lwd.transect=1:2),
+               "Can use only one value in")
+  
 })
 
 

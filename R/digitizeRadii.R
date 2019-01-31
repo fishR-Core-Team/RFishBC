@@ -81,7 +81,7 @@ digitizeRadii <- function(img,id,reading,suffix,
   if (missing(reading)) reading <- iGetopt("reading")
   if (missing(description)) description <- iGetopt("description")
   if (missing(suffix)) suffix <- iGetopt("suffix")
-  if (is.null(suffix) & !is.null(reading)) suffix <- reading
+  if (is.null(suffix) & !is.null(reading)) suffix <- reading             # nocov
   if (missing(edgeIsAnnulus)) edgeIsAnnulus <- iGetopt("edgeIsAnnulus")
   if (!is.logical(edgeIsAnnulus))
     STOP("'edgeIsAnnulus' must be TRUE or FALSE.")
@@ -121,8 +121,8 @@ digitizeRadii <- function(img,id,reading,suffix,
   if (missing(snap2Transect)) snap2Transect<- iGetopt("snap2Transect")
   if (snap2Transect & !makeTransect) {
     snap2Transect <- makeTransect
-    cat("\n!! NOTE that 'snap2Transect' change to 'FALSE'",
-        "because 'makeTransect=FALSE'.\n\n")
+    message("\n!! 'snap2Transect' changed to 'FALSE'",
+            " because 'makeTransect=FALSE'.\n\n")
   }
   if (missing(col.transect)) col.transect <- iGetopt("col.transect")
   if (length(col.transect)>1) STOP("Can use only one color in 'col.transect='.")
@@ -165,16 +165,16 @@ digitizeRadii <- function(img,id,reading,suffix,
     } else {
       ## Set ID to the initial guesses at IDs when multiple images given
       id <- initID
-    }                                                             # nocov end
+    }                                                              # nocov end
   } else {
     ## Make sure that img and id have the same length
     if (length(img)!=length(id))
       STOP("Lengths of image file names and IDs must be equal.")
   }  
-  if (missing(id) | is.null(id)) STOP("You must provide a unique ID in 'id'.")
+  if (missing(id) | is.null(id)) STOP("You must provide a unique ID in 'id'.") # nocov
   
   ## ===========================================================================
-  if (length(img)>1) {
+  if (length(img)>1) {                                             # nocov start
     ## More than one image to process
     for (i in seq_along(img)) {
       digitizeRadii(img[i],id=id[i],reading,suffix,
@@ -204,7 +204,7 @@ digitizeRadii <- function(img,id,reading,suffix,
     if (closeWindow) grDevices::dev.off()
   }
   invisible(dat)
-}
+}                                                                  # nocov end
 
 
 
@@ -227,7 +227,7 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
                             col.transect,lwd.transect,
                             pch.sel,col.sel,cex.sel,
                             pch.del,col.del,
-                            showInfo,pos.info,cex.info,col.info) {
+                            showInfo,pos.info,cex.info,col.info) { # nocov start
 
   ## Setup logicals that allow an abort or a restart ===========================
   abort <- restart <- FALSE
@@ -367,7 +367,7 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
     DONE("Results written to ",datanm,".\n\n")
     invisible(dat)    
   }
-}
+}                                                                  # nocov end
 
 
 ########################################################################
@@ -401,7 +401,7 @@ iPts2Rad <- function(pts,edgeIsAnnulus,scalingFactor,pixW2H,id,reading) {
 ## Perpendicularly "slides" a point to fall on the transect.
 ########################################################################
 iSnap2Transect <- function(pts,trans.pts,
-                           slpTransect,intTransect,slpPerpTransect) {
+                           slpTransect,intTransect,slpPerpTransect) { # nocov start
   if (is.infinite(slpTransect)) {
     ## Transect is perfectly vertical
     ### x-value of point of intercept with transect is same as x on transect
@@ -424,7 +424,7 @@ iSnap2Transect <- function(pts,trans.pts,
   }
   ### Return snapped coordinates
   data.frame(x=intersectsX,y=intersectsY)
-}
+}                                                                 # nocov end
 
 
 
@@ -437,9 +437,8 @@ iOrderPts <- function(pts,edgeIsAnnulus) {
   ## the original points by that order and returns the result
   pts <- pts[order(as.matrix(stats::dist(pts))[,1]),]
   ## change rownames
-  if (nrow(pts)==2) rownames(pts) <- c("center","edge")
-  else if (edgeIsAnnulus) rownames(pts) <- c("center",1:(nrow(pts)-1))
-  else rownames(pts) <- c("center",1:(nrow(pts)-2),"edge")
+  rownames(pts) <- c("center",1:(nrow(pts)-1))
+  if (!edgeIsAnnulus) rownames(pts)[nrow(pts)] <- "edge"
   ## Return data.frame
   pts
 }
