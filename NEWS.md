@@ -1,5 +1,6 @@
 # RFishBC 0.2.0.9000 ongoing
 * Updated vignettes.
+* Added more tests.
 * `combineData()`: Modified. Fixed two bugs related to how age-0 fish with no measured annuli are combined (thanks to Rory Feeney). Fixed how returned results are sorted (by id, reading, and ann; rather than just id and ann).
 * `digitizeRadii()`: Modified. Added `sbUnits=` for addressing [#36](https://github.com/droglenc/RFishBC/issues/36). Fixed poor warning message when `snap2transect=TRUE` and `makeTransect=FALSE`.
 * `RFBCoptions()`: Modified. Added `showScaleBarLength=`, `scaleBarUnits=`, and `cex.scaleBar=`.

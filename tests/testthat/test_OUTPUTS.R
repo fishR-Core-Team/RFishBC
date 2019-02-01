@@ -562,4 +562,12 @@ test_that("Miscellaneous internals output",{
   expect_true(all(tmp2$agecap==4))
   expect_true(all(tmp2$radcap==4*sqrt(2)/2))
   expect_equal(tmp2$rad,(1:4)*sqrt(2)/2)
+  
+  ## Label positions
+  tmp <- RFishBC:::iFindLabelPos(dat1)
+  expect_is(tmp,"integer")
+  expect_equal(tmp,4)
+  tmp <- RFishBC:::iFindLabelPos(dat2)
+  expect_is(tmp,"integer")
+  expect_equal(tmp,1)
 })  

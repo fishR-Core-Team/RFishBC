@@ -93,10 +93,10 @@ showDigitizedImage <- function(nms,deviceType,
   if (num2do==1) {
     ### Make sure file is an RData file from digitizeRadii()
     if (!isRData(nms)) 
-      STOP("File is not an RData file saved from 'digitizeRadii().")
+      STOP(nms," is not an RData file saved from 'digitizeRadii().")
     dat <- readRDS(nms)
     if (!inherits(dat,"RFishBC")) 
-      STOP("File does not appear to be from 'digitizeRadii().")
+      STOP(nms," does not appear to be from 'digitizeRadii().")
     iShowOneDigitizedImage(dat,deviceType,
                            showScaleBarLength,col.scaleBar,lwd.scaleBar,cex.scaleBar,
                            connect,col.connect,lwd.connect,
@@ -108,10 +108,10 @@ showDigitizedImage <- function(nms,deviceType,
     for (i in seq_along(nms)) {
       ### Make sure each file is an RData file from digitizeRadii()
       if (!isRData(nms[i]))
-        STOP(nms[i],"is not an RData file saved from 'digitizeRadii().")
+        STOP(nms[i]," is not an RData file saved from 'digitizeRadii().")
       dat <- readRDS(nms[i])
       if (!inherits(dat,"RFishBC"))
-        STOP(nms[i],"does not appear to be from 'digitizeRadii().")
+        STOP(nms[i]," does not appear to be from 'digitizeRadii().")
       if (!is.null(tmp)) {
         if (dat$image!=tmp) {
           grDevices::dev.off()
@@ -135,7 +135,7 @@ showDigitizedImage <- function(nms,deviceType,
                                        useArrows,pch.show[i],col.show[i],cex.show[i],
                                        showAnnuliLabels=FALSE,annuliLabels="",
                                        col.ann[i],cex.ann[i],offset.ann[i])
-      else {
+      else {                                                       # nocov start
         ## Show connected points if asked to do so
         if (connect) graphics::lines(y~x,data=dat$pts,
                                      lwd=lwd.connect[i],col=col.connect[i],
@@ -158,7 +158,7 @@ showDigitizedImage <- function(nms,deviceType,
             graphics::points(dat$pts[nrow(dat$pts),],
                              pch=pch.show[i],col=col.show[i],cex=cex.show[i])
         }
-      }
+      }                                                            # nocov end
     }
   }
 }
@@ -248,7 +248,7 @@ iShowAnnuliLabels <- function(dat,annuliLabels,
 ## Find a position for the "arrow" or the annulus label based on the
 ##   slope of the transect or the first and last selected points.
 ########################################################################
-iFindLabelPos <- function(dat) {                                   # nocov start
+iFindLabelPos <- function(dat) {
   ## Get slope of transect if used, otherwise find rough value from 1st/ last pts
   if (!is.null(dat$slpTransect)) slp <- dat$slpTransect
   else {
@@ -261,17 +261,17 @@ iFindLabelPos <- function(dat) {                                   # nocov start
   if (dat$pts$x[nrow(dat$pts)]<dat$pts$x[1]) deg <- deg+180
   ## Convert absolute transect degrees into a position for the text/arrow
   deg <- abs(deg)
-  if (deg>=0 & deg<=45) pos <- 1        # below
-  else if (deg>45 & deg<=90) pos <- 4   # right
-  else if (deg>90 & deg<=135) pos <- 2  # left
-  else if (deg>135 & deg<=180) pos <- 1 # below
-  else if (deg>180 & deg<=225) pos <- 1 # below
-  else if (deg>225 & deg<=270) pos <- 4 # right
-  else if (deg>270 & deg<=315) pos <- 2 # left
-  else if (deg>315 & deg<=360) pos <- 1 # below
+  if (deg>=0 & deg<=45) pos <- 1L        # below
+  else if (deg>45 & deg<=90) pos <- 4L   # right
+  else if (deg>90 & deg<=135) pos <- 2L  # left
+  else if (deg>135 & deg<=180) pos <- 1L # below
+  else if (deg>180 & deg<=225) pos <- 1L # below
+  else if (deg>225 & deg<=270) pos <- 4L # right
+  else if (deg>270 & deg<=315) pos <- 2L # left
+  else if (deg>315 & deg<=360) pos <- 1L # below
   ## Return the position
   pos
-}                                                                  # nocov end
+}
 
 
 
