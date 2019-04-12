@@ -230,10 +230,10 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
                             showInfo,pos.info,cex.info,col.info) { # nocov start
 
   ## Setup logicals that allow an abort or a restart ===========================
-  abort <- restart <- FALSE
+  abort <- restart <- killed <- FALSE
   
   ## Setup a message ===========================================================
-  msg2 <- "  'f'=finished, 'd'=delete, 'q'=abort, 'z'=restart"
+  msg2 <- "  'f'=finished, 'd'=delete, 'q'=abort, 'z'=restart, 'k'=kill"
 
   ## Loads image given in img ==================================================
   windowInfo <- iGetImage(img,id,windowSize,deviceType,
@@ -256,9 +256,10 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
       sbPts <- sbInfo$sbPts
       scalingFactor <- sbInfo$scalingFactor
       DONE("Found scaling factor from selected scale-bar.\n")
-    } else { # no list returned b/c abort/restarted
+    } else { # no list returned b/c abort/restarted/killed
       if (sbInfo=="ABORT") abort <- TRUE
       else if (sbInfo=="RESTART") restart <- TRUE
+      else if (sbInfo=="KILLED") killed <- TRUE
     }
   } else { ## No scale bar on the plot ... using the scaling factor
     DONE("Using scaling factor provided in 'scalingFactor'.\n")
@@ -270,7 +271,7 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
   ## User selects a transect on the image ======================================
   if (!makeTransect) {
     slpTransect <- intTransect <- slpPerpTransect <- trans.pts <- NULL
-  } else if (!abort & !restart) {
+  } else if (!abort & !restart & !killed) {
     RULE("Select FOCUS (center) and MARGIN (edge) of the structure.")
     RULE(msg2,line="-")
     trans.pts <- iSelectPt(2,"Select FOCUS and MARGIN:",msg2,
@@ -290,14 +291,15 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
       } else {
         DONE("Transect selected.\n")
       }
-    } else { # no data.frame returned b/c abort/restarted
+    } else { # no data.frame returned b/c abort/restarted/killed
       if (trans.pts=="ABORT") abort <- TRUE
       else if (trans.pts=="RESTART") restart <- TRUE
+      else if (trans.pts=="KILLED") killed <- TRUE
     }
   }
   
   ## User selects annuli on the image ==========================================
-  if (!abort & !restart) {
+  if (!abort & !restart & !killed) {
     RULE(ifelse(makeTransect,"Select points that are annuli.",
                 "Select FOCUS, then ANNULI, and then MARGIN."))
     RULE(msg2,line="-")
@@ -317,27 +319,38 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
       #### Tell the user how many points were selected
       if (numAnn==1) DONE("1 point was selected as an annulus.\n")
       else DONE(numAnn," points were selected as annuli.\n")
-    } else { # data.frame not returned because abort/restarted
+    } else { # data.frame not returned because abort/restarted/killed
       if (pts=="ABORT") abort <- TRUE
       else if (pts=="RESTART") restart <- TRUE
+      else if (pts=="KILLED") killed <- TRUE
     }
   }
   
   ## Converts selected points to radial measurements ===========================
   ##    as long as not aborted or asked to restart =============================
-  if (!abort & !restart) {
+  if (!abort & !restart & !killed) {
     radii <- iPts2Rad(pts,edgeIsAnnulus=edgeIsAnnulus,scalingFactor=scalingFactor,
                       pixW2H=windowInfo$pixW2H,id=id,reading=reading)
   }
 
   ## Finish up =================================================================
-  if (abort) {
+  if (killed) {
+    ## send a message
     cat("\n\n")
-    DONE("Processing was ABORTED by user! No file written for ",img,".\n")
+    DONE2("Entire processing was ABORTED by user! No file was written for ",img,".\n")
+    ## close the image window
+    grDevices::dev.off()
+    ## stop further functioning ... but do it quietly and thus, more elegantly
+    opt <- options(show.error.messages=FALSE)
+    on.exit(options(opt))
+    stop()
+  } else if (abort) {
+    cat("\n\n")
+    DONE2("Processing of image was ABORTED by user! No file written for ",img,".\n")
   } else if (restart) {
     cat("\n\n")
-    DONE("Processing is being RESTARTED as requested by user.",
-         " No file written for ",img,".\n\n")
+    DONE2("Processing is being RESTARTED as requested by user.",
+          " No file written for ",img,".\n\n")
     iDigitizeRadii1(img,id,reading,suffix,description,edgeIsAnnulus,popID,
                     IDpattern,IDreplace,windowSize,deviceType,scaleBar,
                     scaleBarLength,scaleBarUnits,col.scaleBar,lwd.scaleBar,

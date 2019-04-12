@@ -34,6 +34,8 @@ WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
 ################################################################################
 DONE <- function(...) 
   cli::cat_line(crayon::green(clisymbols::symbol$tick)," ",...)
+DONE2 <- function(...) 
+  cli::cat_line(crayon::red(clisymbols::symbol$cross)," ",...)
 NOTE <- function(...) 
   cli::cat_line(crayon::blue(clisymbols::symbol$menu)," ",...)
 RULE <- function(msg,line="=",line_col="green")
@@ -167,6 +169,11 @@ iSelectPt <- function(numPts,msg1,msg2,
     ### User requesting to start over with a clean slate
     if (key=="z") {
       dat <<- "RESTART"
+      return(invisible(1))
+    }
+    ### User requesting to kill (same as abort for single image, gets out of loop if multiple images)
+    if (key=="k") {
+      dat <<- "KILLED"
       return(invisible(1))
     }
   }
