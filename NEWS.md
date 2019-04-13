@@ -2,6 +2,7 @@
 * Updated vignettes.
 * Added more tests.
 * `addNote()`: Added (addresses [#41](https://github.com/droglenc/RFishBC/issues/41); thanks to Rory Feeney).
+* `backCalc()`: Modfified to address [#34](https://github.com/droglenc/RFishBC/issues/34).
 * `combineData()`: Modified. Fixed two bugs related to how age-0 fish with no measured annuli are combined (thanks to Rory Feeney). Fixed how returned results are sorted (by id, reading, and ann; rather than just id and ann).
 * `digitizeRadii()`: Modified. Added `sbUnits=` for addressing [#36](https://github.com/droglenc/RFishBC/issues/36). Added `addNotes` and `note` that allows adding a special note to the R Data file (addresses [#41](https://github.com/droglenc/RFishBC/issues/41); thanks to Rory Feeney) Added "kill" functionality to stop processing of all images in a queue (addresses [#40](https://github.com/droglenc/RFishBC/issues/40); thanks to Rory Feeney). Fixed poor warning message when `snap2transect=TRUE` and `makeTransect=FALSE`.
 * `findNotes()`: Added (addresses [#41](https://github.com/droglenc/RFishBC/issues/41); thanks to Rory Feeney).

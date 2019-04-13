@@ -64,7 +64,7 @@ backCalc <- function(dat,lencap,BCM,inFormat,outFormat=inFormat,
   b <- c <- A <- B <- C <- NULL
   ### Get data (one lencap and one radcap per id) for regressions
   regdat <- dat[dat$ann==1,]
-  regLcap <- regdat[,rlang::quo_name(rlang::enquo(lencap))]
+  regLcap <- regdat[,rlang::quo_name(rlang::enquo(lencap)),drop=TRUE]
   regRcap <- regdat$radcap
   regAcap <- regdat$agecap
   ### Fit the models
@@ -148,7 +148,7 @@ backCalc <- function(dat,lencap,BCM,inFormat,outFormat=inFormat,
   ### Get the back-calculation model function
   BCFUN <- bcFuns(BCM)
   ### Get the length-at-capture info (as it may variable names)
-  Lcap <- dat[,rlang::quo_name(rlang::enquo(lencap))]
+  Lcap <- dat[,rlang::quo_name(rlang::enquo(lencap)),drop=TRUE]
   ### Back-calculate ... assumes names from digitizeRadii
   dat$bclen <- BCFUN(Lcap,dat$rad,dat$radcap,
                      Ai=dat$ann,Acap=dat$agecap,
