@@ -212,6 +212,8 @@ Additionally, a user may want to change a number of these arguments from their d
 <li><p><code>annuliLabels</code>: A numeric vector that indicates the numbers for which annuli should be labeled when <code>showAnnuliLabels=TRUE</code>. Defaults to <code>NULL</code> which indicates that all annuli should be labeled. Used in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>.</p></li>
 <li><p><code>col.ann</code>: The color of the annuli number text when <code>showAnnuliLabels=TRUE</code> in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>. Defaults to <code>"yellow"</code>.</p></li>
 <li><p><code>cex.ann</code>: The character expansion value  of the annuli number text when <code>showAnnuliLabels=TRUE</code> in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>. Defaults to <code>1.2</code>.</p></li>
+<li><p><code>offset.ann</code>: A numeric value that specifies the offset (in proportions of a character width) of the annuli labels from the point when <code>showAnnuliLabels=TRUE</code> in <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>. Defaults to <code>0.5</code>.</p></li>
+<li><p><code>addNote</code>: A logical for whether the user can add or will be prompted to add a special note to the RData file when using <code><a href='digitizeRadii.html'>digitizeRadii</a></code>. Example notes may indicate that the image was poor, some annuli were suspect, or the image should be re-read.</p></li>
 </ul>
     <p>The user will likely only use this function to change arguments at the start of a script, so that those values will be used throughout the analyses in the script. If the values for the arguments need to be changed in any instance of <code><a href='digitizeRadii.html'>digitizeRadii</a></code> or <code><a href='showDigitizedImage.html'>showDigitizedImage</a></code>, then it is more efficient to change the argument within the call to those functions.</p>
 <p>The argument values can be reset to the original defaults by using <code>reset=TRUE</code>. See examples.</p>
@@ -345,6 +347,12 @@ Additionally, a user may want to change a number of these arguments from their d
 #&gt; 
 #&gt; $cex.ann
 #&gt; [1] 1.2
+#&gt; 
+#&gt; $offset.ann
+#&gt; [1] 0.5
+#&gt; 
+#&gt; $addNote
+#&gt; [1] FALSE
 #&gt; </div><div class='input'>
 <span class='co'>## Show how to see and set one option</span>
 <span class='fu'>RFBCoptions</span>()$<span class='no'>makeTransect</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>RFBCoptions</span>(<span class='kw'>makeTransect</span><span class='kw'>=</span><span class='fl'>FALSE</span>)

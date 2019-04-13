@@ -204,6 +204,8 @@ The user can "start over" the processing of any image by pressing the "z" key at
 
 The user may also abort or skip processing an image that has been loaded by pressing the "q" key at any time during the processing. This will most likely be useful when processing multiple images at one time as described previously. For example, an image may appear that is unreadable such that annuli cannot be reliably marked on the image. Note that aborting processing an image will result in no R data file being created for that image.
 
+If the user is processing multiple images as shown in the [Processing Multiple Images](#multipleimages) section, then "q" will abort the current image and move to the next image. However, pressing "k" (i.e., "kill" the process) will abort the current image and NOT move on to any other images.
+
 \  
 
 \  
@@ -352,12 +354,6 @@ write.csv(fishdat,file="Kiyi2014_BCs.csv",quote=FALSE,row.names=FALSE)
 [^actuallength]: Some back-calculation methods require knowing the relationship between actual scale length and fish length. See the [Short Introducton to Back-Calculation](BCIntro.html) vignette for more details.
 
 [^sforder]: Thus, `findScalingFactor()` would be run prior to `digitizeRadii()`.
-
-[^twomonitors]: For example, you could have R/RStudio on one monitor and the window with the structure image on the other.
-
-[^sdifilename]: If no file name is given, then a dialog box will appear from which the data file can be selected.
-
-[^noteabove]: The first set of readings were made in the first section above.
 
 [^combinedatawd]: If no file name is given, then a dialog box will appear from which the data file can be selected. It is also assumed that the file is in the current working directory.
 

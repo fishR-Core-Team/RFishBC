@@ -140,24 +140,32 @@
       
     </div>
 
-    <div id="rfishbc-0-2-0-9000-ongoing" class="section level1">
+    <div id="rfishbc-0209000-ongoing" class="section level1">
 <h1 class="page-header">
-<a href="#rfishbc-0-2-0-9000-ongoing" class="anchor"></a>RFishBC 0.2.0.9000 ongoing<small> Unreleased </small>
+<a href="#rfishbc-0209000-ongoing" class="anchor"></a>RFishBC 0.2.0.9000 ongoing<small> Unreleased </small>
 </h1>
 <ul>
+<li>Updated vignettes.</li>
+<li>Added more tests.</li>
+<li>
+<code><a href="../reference/addNote.html">addNote()</a></code>: Added (addresses <a href="https://github.com/droglenc/RFishBC/issues/41">#41</a>; thanks to Rory Feeney).</li>
+<li>
+<code><a href="../reference/backCalc.html">backCalc()</a></code>: Modfified to address <a href="https://github.com/droglenc/RFishBC/issues/34">#34</a>.</li>
 <li>
 <code><a href="../reference/combineData.html">combineData()</a></code>: Modified. Fixed two bugs related to how age-0 fish with no measured annuli are combined (thanks to Rory Feeney). Fixed how returned results are sorted (by id, reading, and ann; rather than just id and ann).</li>
 <li>
-<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Added <code>sbUnits=</code> for addressing <a href="https://github.com/droglenc/RFishBC/issues/36">#36</a>. Fixed poor warning message when <code>snap2transect=TRUE</code> and <code>makeTransect=FALSE</code>.</li>
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Added <code>sbUnits=</code> for addressing <a href="https://github.com/droglenc/RFishBC/issues/36">#36</a>. Added <code>addNotes</code> and <code>note</code> that allows adding a special note to the R Data file (addresses <a href="https://github.com/droglenc/RFishBC/issues/41">#41</a>; thanks to Rory Feeney) Added “kill” functionality to stop processing of all images in a queue (addresses <a href="https://github.com/droglenc/RFishBC/issues/40">#40</a>; thanks to Rory Feeney). Fixed poor warning message when <code>snap2transect=TRUE</code> and <code>makeTransect=FALSE</code>.</li>
 <li>
-<code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code>: Modified. Added <code>showScaleBarLength=</code>, <code>scaleBarUnits=</code>, and <code>cex.scaleBar=</code>.</li>
+<code><a href="../reference/findNotes.html">findNotes()</a></code>: Added (addresses <a href="https://github.com/droglenc/RFishBC/issues/41">#41</a>; thanks to Rory Feeney).</li>
 <li>
-<code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>: Modified. Added <code>showScaleBarLength=</code> and <code>cex.scaleBar=</code> with associated code to show the units of the scale-bar beneath the scale-bar (if it was digitized). This addresses <a href="https://github.com/droglenc/RFishBC/issues/36">#36</a>. Changed how annuli labels are printed such that <code>col.ann=</code> and <code>cex.ann</code> can be appropriate vectors of colors and sizes.</li>
+<code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code>: Modified. Added <code>addNote</code>, <code>showScaleBarLength=</code>, <code>scaleBarUnits=</code>, and <code>cex.scaleBar=</code>.</li>
+<li>
+<code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>: Modified. Rewrote the function to be less redundant; allow <code>pch.show=</code>, <code>col.show=</code>, and <code>cex.show=</code> to be appropriate vectors (when only one reading is displayed); allowed <code>pch.show="arrows"</code> to plot arrows (addresses <a href="https://github.com/droglenc/RFishBC/issues/38">#38</a>); assure that all values in <code>annuliLabels=</code> exist in the data; allow <code>col.ann=</code> and <code>cex.ann</code> to be appropriate vectors; provide <code>offset.ann=</code>; and show units of the scale-bar beneath the scale-bar (if it was digitized) by adding <code>showScaleBarLength=</code> and <code>cex.scaleBar=</code> (addresses <a href="https://github.com/droglenc/RFishBC/issues/36">#36</a>).</li>
 </ul>
 </div>
-    <div id="rfishbc-0-2-0-18-dec-18" class="section level1">
+    <div id="rfishbc-020-18-dec-18" class="section level1">
 <h1 class="page-header">
-<a href="#rfishbc-0-2-0-18-dec-18" class="anchor"></a>RFishBC 0.2.0 18-Dec-18<small> 2018-12-18 </small>
+<a href="#rfishbc-020-18-dec-18" class="anchor"></a>RFishBC 0.2.0 18-Dec-18<small> 2018-12-18 </small>
 </h1>
 <ul>
 <li>Added several items (mostly images) to .Rbuildignore to lower bloat of package.</li>
@@ -173,9 +181,9 @@
 <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>: Modified. Changed <code>showTransect=</code> to <code>connect=</code>, <code>col.transect=</code> to <code>col.connect=</code>, and <code>lwd.transect=</code> to <code>lwd.connect=</code> (this helps address <a href="https://github.com/droglenc/RFishBC/issues/32">#32</a>) [Thanks to Alan Hanke]. Also removed the points that are plotted at the structure center and, if not an annulus, margin (this addresses <a href="https://github.com/droglenc/RFishBC/issues/31">#31</a>). Made more robust checks for when the user tries to plot two images from different structures.</li>
 </ul>
 </div>
-    <div id="rfishbc-0-1-2-9-dec-18" class="section level1">
+    <div id="rfishbc-012-9-dec-18" class="section level1">
 <h1 class="page-header">
-<a href="#rfishbc-0-1-2-9-dec-18" class="anchor"></a>RFishBC 0.1.2 9-Dec-18<small> Unreleased </small>
+<a href="#rfishbc-012-9-dec-18" class="anchor"></a>RFishBC 0.1.2 9-Dec-18<small> Unreleased </small>
 </h1>
 <ul>
 <li>Added dependency to <code>cli</code> package for <code><a href="../reference/FSA-internals.html">DONE()</a></code>, <code><a href="../reference/FSA-internals.html">NOTE()</a></code>, and <code>RULE()</code> (see below).</li>
@@ -191,9 +199,9 @@
 <code>RULE()</code>: Added.</li>
 </ul>
 </div>
-    <div id="rfishbc-0-1-1-12-nov-18" class="section level1">
+    <div id="rfishbc-011-12-nov-18" class="section level1">
 <h1 class="page-header">
-<a href="#rfishbc-0-1-1-12-nov-18" class="anchor"></a>RFishBC 0.1.1 12-Nov-18<small> 2018-11-18 </small>
+<a href="#rfishbc-011-12-nov-18" class="anchor"></a>RFishBC 0.1.1 12-Nov-18<small> 2018-11-18 </small>
 </h1>
 <ul>
 <li>Released to CRAN.</li>
@@ -203,9 +211,9 @@
 <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>. Modified. Added a note that draws attention when <code>snap2Transect=TRUE</code> and <code>showTransect=FALSE</code> (i.e., “snapping” to a transect that is not shown). At least partially addresses <a href="https://github.com/droglenc/RFishBC/issues/30">#30</a>.</li>
 </ul>
 </div>
-    <div id="rfishbc-0-1-0-7-nov-18" class="section level1">
+    <div id="rfishbc-010-7-nov-18" class="section level1">
 <h1 class="page-header">
-<a href="#rfishbc-0-1-0-7-nov-18" class="anchor"></a>RFishBC 0.1.0 7-Nov-18<small> Unreleased </small>
+<a href="#rfishbc-010-7-nov-18" class="anchor"></a>RFishBC 0.1.0 7-Nov-18<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -224,9 +232,9 @@
 <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>: Modified. Removed <code>closeWindow=</code> and <code>sepWindow()</code>.</li>
 </ul>
 </div>
-    <div id="rfishbc-0-0-13-6-oct-18" class="section level1">
+    <div id="rfishbc-0013-6-oct-18" class="section level1">
 <h1 class="page-header">
-<a href="#rfishbc-0-0-13-6-oct-18" class="anchor"></a>RFishBC 0.0.13 6-Oct-18<small> Unreleased </small>
+<a href="#rfishbc-0013-6-oct-18" class="anchor"></a>RFishBC 0.0.13 6-Oct-18<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -237,9 +245,9 @@
 <code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>: Modified. Changed to allow the user to abort or restart the process, similar to for <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.</li>
 </ul>
 </div>
-    <div id="rfishbc-0-0-12-3-oct-18" class="section level1">
+    <div id="rfishbc-0012-3-oct-18" class="section level1">
 <h1 class="page-header">
-<a href="#rfishbc-0-0-12-3-oct-18" class="anchor"></a>RFishBC 0.0.12 3-Oct-18<small> Unreleased </small>
+<a href="#rfishbc-0012-3-oct-18" class="anchor"></a>RFishBC 0.0.12 3-Oct-18<small> Unreleased </small>
 </h1>
 <ul>
 <li>Excluded many of the interactive lines from the coverage statistics. Updated other tests (aiming for comprehensiveness).</li>
@@ -253,9 +261,9 @@
 <code><a href="../reference/getID.html">getID()</a></code>: Modified. Slightly simplified code. Added tests.</li>
 </ul>
 </div>
-    <div id="rfishbc-0-0-11-26-jul-18" class="section level1">
+    <div id="rfishbc-0011-26-jul-18" class="section level1">
 <h1 class="page-header">
-<a href="#rfishbc-0-0-11-26-jul-18" class="anchor"></a>RFishBC 0.0.11 26-Jul-18<small> Unreleased </small>
+<a href="#rfishbc-0011-26-jul-18" class="anchor"></a>RFishBC 0.0.11 26-Jul-18<small> Unreleased </small>
 </h1>
 <ul>
 <li>Set TravisCI to auto-update the webpage documentation (<a href="https://www.datacamp.com/community/tutorials/cd-package-docs-pkgdown-travis">See this</a>).</li>
@@ -269,9 +277,9 @@
 <code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code>: Modified. Added <code>IDpattern=</code> (Part of addressing <a href="https://github.com/droglenc/RFishBC/issues/20">#20</a>).</li>
 </ul>
 </div>
-    <div id="rfishbc-0-0-10-3-july-18" class="section level1">
+    <div id="rfishbc-0010-3-july-18" class="section level1">
 <h1 class="page-header">
-<a href="#rfishbc-0-0-10-3-july-18" class="anchor"></a>RFishBC 0.0.10 3-July-18<small> Unreleased </small>
+<a href="#rfishbc-0010-3-july-18" class="anchor"></a>RFishBC 0.0.10 3-July-18<small> Unreleased </small>
 </h1>
 <ul>
 <li>Added CITATION file.</li>
@@ -291,9 +299,9 @@
 <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>: Modified. Fixed bug in <code>iShowAnnuliLabels()</code> (addressed <a href="https://github.com/droglenc/RFishBC/issues/12">#12</a>; thanks to <a href="https://github.com/Otoliths">Liuyong Ding</a>). Allowed first argument to be an <code>RFishBC</code> object saved from <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> (partially addresses <a href="https://github.com/droglenc/RFishBC/issues/16">#16</a>; thanks to <a href="https://github.com/jcdoll79">Jason Doll</a>). Changed <code>nm=</code> to <code>nms=</code> to be consistent with <code><a href="../reference/combineData.html">combineData()</a></code>.</li>
 </ul>
 </div>
-    <div id="rfishbc-0-0-9-18-may-18" class="section level1">
+    <div id="rfishbc-009-18-may-18" class="section level1">
 <h1 class="page-header">
-<a href="#rfishbc-0-0-9-18-may-18" class="anchor"></a>RFishBC 0.0.9 18-May-18<small> Unreleased </small>
+<a href="#rfishbc-009-18-may-18" class="anchor"></a>RFishBC 0.0.9 18-May-18<small> Unreleased </small>
 </h1>
 <ul>
 <li>Added <code>rlang</code>, <code>stringr</code>, and <code>tidyr</code> to Imports.</li>
@@ -322,9 +330,9 @@
 <code>StdIntLit</code>: Added.</li>
 </ul>
 </div>
-    <div id="rfishbc-0-0-8-13-may-18" class="section level1">
+    <div id="rfishbc-008-13-may-18" class="section level1">
 <h1 class="page-header">
-<a href="#rfishbc-0-0-8-13-may-18" class="anchor"></a>RFishBC 0.0.8 13-May-18<small> Unreleased </small>
+<a href="#rfishbc-008-13-may-18" class="anchor"></a>RFishBC 0.0.8 13-May-18<small> Unreleased </small>
 </h1>
 <ul>
 <li>Added tests.</li>
@@ -339,9 +347,9 @@
 <code>isRdata()</code>: Added.</li>
 </ul>
 </div>
-    <div id="rfishbc-0-0-7-10-may-18" class="section level1">
+    <div id="rfishbc-007-10-may-18" class="section level1">
 <h1 class="page-header">
-<a href="#rfishbc-0-0-7-10-may-18" class="anchor"></a>RFishBC 0.0.7 10-May-18<small> Unreleased </small>
+<a href="#rfishbc-007-10-may-18" class="anchor"></a>RFishBC 0.0.7 10-May-18<small> Unreleased </small>
 </h1>
 <ul>
 <li>Updated tests.</li>
@@ -358,9 +366,9 @@
 <code><a href="../reference/FSA-internals.html">iSelectPt()</a></code>: Added.</li>
 </ul>
 </div>
-    <div id="rfishbc-0-0-6-9-may-18" class="section level1">
+    <div id="rfishbc-006-9-may-18" class="section level1">
 <h1 class="page-header">
-<a href="#rfishbc-0-0-6-9-may-18" class="anchor"></a>RFishBC 0.0.6 9-May-18<small> Unreleased </small>
+<a href="#rfishbc-006-9-may-18" class="anchor"></a>RFishBC 0.0.6 9-May-18<small> Unreleased </small>
 </h1>
 <ul>
 <li>Added some tests.</li>
@@ -373,9 +381,9 @@
 <code><a href="../reference/FSA-internals.html">iHndlFilenames()</a></code>: Modified. Slight modification of the error messages.</li>
 </ul>
 </div>
-    <div id="rfishbc-0-0-5-29-apr-18" class="section level1">
+    <div id="rfishbc-005-29-apr-18" class="section level1">
 <h1 class="page-header">
-<a href="#rfishbc-0-0-5-29-apr-18" class="anchor"></a>RFishBC 0.0.5 29-Apr-18<small> Unreleased </small>
+<a href="#rfishbc-005-29-apr-18" class="anchor"></a>RFishBC 0.0.5 29-Apr-18<small> Unreleased </small>
 </h1>
 <ul>
 <li>Changed license from MIT to GPL-3.</li>
@@ -391,9 +399,9 @@
 <code><a href="../reference/FSA-internals.html">iHndlFilenames()</a></code>: Modified. Streamlined and changed to using <code><a href="https://www.rdocumentation.org/packages/utils/topics/choose.files">choose.files()</a></code> to allow for more efficient selection of multiple files. Filtered the choices to image files or RData files. Now checks to see if the user is using Windows and if the selected files are in the current working directory.</li>
 </ul>
 </div>
-    <div id="rfishbc-0-0-4-29-apr-18" class="section level1">
+    <div id="rfishbc-004-29-apr-18" class="section level1">
 <h1 class="page-header">
-<a href="#rfishbc-0-0-4-29-apr-18" class="anchor"></a>RFishBC 0.0.4 29-Apr-18<small> Unreleased </small>
+<a href="#rfishbc-004-29-apr-18" class="anchor"></a>RFishBC 0.0.4 29-Apr-18<small> Unreleased </small>
 </h1>
 <ul>
 <li>Complete reworking of the code. The big difference is a requirement that the data files be in the current working directory.</li>
@@ -421,9 +429,9 @@
 <code>iShowTransect()</code>: Deleted. Deleted. Moved into <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> and <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>.</li>
 </ul>
 </div>
-    <div id="rfishbc-0-0-3-28-apr-18" class="section level1">
+    <div id="rfishbc-003-28-apr-18" class="section level1">
 <h1 class="page-header">
-<a href="#rfishbc-0-0-3-28-apr-18" class="anchor"></a>RFishBC 0.0.3 28-Apr-18<small> Unreleased </small>
+<a href="#rfishbc-003-28-apr-18" class="anchor"></a>RFishBC 0.0.3 28-Apr-18<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -446,9 +454,9 @@
 <code>ishowTransect()</code>: Added. Moved this code out of <code>iSelectAnnuli()</code>. Also called from <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>.</li>
 </ul>
 </div>
-    <div id="rfishbc-0-0-2-27-apr-18" class="section level1">
+    <div id="rfishbc-002-27-apr-18" class="section level1">
 <h1 class="page-header">
-<a href="#rfishbc-0-0-2-27-apr-18" class="anchor"></a>RFishBC 0.0.2 27-Apr-18<small> Unreleased </small>
+<a href="#rfishbc-002-27-apr-18" class="anchor"></a>RFishBC 0.0.2 27-Apr-18<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -475,9 +483,9 @@
 <code>showDigitizedData()</code>: Modified. Moved <code><a href="https://www.rdocumentation.org/packages/base/topics/file.choose">file.choose()</a></code> for <code>fname=</code> out of argument list and into the main function code. Also modified to allow the user to select an object out of the current working directory (only works with a single file).</li>
 </ul>
 </div>
-    <div id="rfishbc-0-0-1-16-apr-18" class="section level1">
+    <div id="rfishbc-001-16-apr-18" class="section level1">
 <h1 class="page-header">
-<a href="#rfishbc-0-0-1-16-apr-18" class="anchor"></a>RFishBC 0.0.1 16-Apr-18<small> Unreleased </small>
+<a href="#rfishbc-001-16-apr-18" class="anchor"></a>RFishBC 0.0.1 16-Apr-18<small> Unreleased </small>
 </h1>
 <ul>
 <li>First version. Everything is new.</li>
@@ -489,24 +497,24 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#rfishbc-0-2-0-9000-ongoing">0.2.0.9000</a></li>
-        <li><a href="#rfishbc-0-2-0-18-dec-18">0.2.0</a></li>
-        <li><a href="#rfishbc-0-1-2-9-dec-18">0.1.2</a></li>
-        <li><a href="#rfishbc-0-1-1-12-nov-18">0.1.1</a></li>
-        <li><a href="#rfishbc-0-1-0-7-nov-18">0.1.0</a></li>
-        <li><a href="#rfishbc-0-0-13-6-oct-18">0.0.13</a></li>
-        <li><a href="#rfishbc-0-0-12-3-oct-18">0.0.12</a></li>
-        <li><a href="#rfishbc-0-0-11-26-jul-18">0.0.11</a></li>
-        <li><a href="#rfishbc-0-0-10-3-july-18">0.0.10</a></li>
-        <li><a href="#rfishbc-0-0-9-18-may-18">0.0.9</a></li>
-        <li><a href="#rfishbc-0-0-8-13-may-18">0.0.8</a></li>
-        <li><a href="#rfishbc-0-0-7-10-may-18">0.0.7</a></li>
-        <li><a href="#rfishbc-0-0-6-9-may-18">0.0.6</a></li>
-        <li><a href="#rfishbc-0-0-5-29-apr-18">0.0.5</a></li>
-        <li><a href="#rfishbc-0-0-4-29-apr-18">0.0.4</a></li>
-        <li><a href="#rfishbc-0-0-3-28-apr-18">0.0.3</a></li>
-        <li><a href="#rfishbc-0-0-2-27-apr-18">0.0.2</a></li>
-        <li><a href="#rfishbc-0-0-1-16-apr-18">0.0.1</a></li>
+        <li><a href="#rfishbc-0209000-ongoing">0.2.0.9000</a></li>
+        <li><a href="#rfishbc-020-18-dec-18">0.2.0</a></li>
+        <li><a href="#rfishbc-012-9-dec-18">0.1.2</a></li>
+        <li><a href="#rfishbc-011-12-nov-18">0.1.1</a></li>
+        <li><a href="#rfishbc-010-7-nov-18">0.1.0</a></li>
+        <li><a href="#rfishbc-0013-6-oct-18">0.0.13</a></li>
+        <li><a href="#rfishbc-0012-3-oct-18">0.0.12</a></li>
+        <li><a href="#rfishbc-0011-26-jul-18">0.0.11</a></li>
+        <li><a href="#rfishbc-0010-3-july-18">0.0.10</a></li>
+        <li><a href="#rfishbc-009-18-may-18">0.0.9</a></li>
+        <li><a href="#rfishbc-008-13-may-18">0.0.8</a></li>
+        <li><a href="#rfishbc-007-10-may-18">0.0.7</a></li>
+        <li><a href="#rfishbc-006-9-may-18">0.0.6</a></li>
+        <li><a href="#rfishbc-005-29-apr-18">0.0.5</a></li>
+        <li><a href="#rfishbc-004-29-apr-18">0.0.4</a></li>
+        <li><a href="#rfishbc-003-28-apr-18">0.0.3</a></li>
+        <li><a href="#rfishbc-002-27-apr-18">0.0.2</a></li>
+        <li><a href="#rfishbc-001-16-apr-18">0.0.1</a></li>
       </ul>
     </div>
   </div>

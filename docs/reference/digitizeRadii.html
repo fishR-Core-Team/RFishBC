@@ -154,7 +154,7 @@
   <span class='no'>scaleBarLength</span>, <span class='no'>scaleBarUnits</span>, <span class='no'>col.scaleBar</span>, <span class='no'>lwd.scaleBar</span>, <span class='no'>scalingFactor</span>,
   <span class='no'>makeTransect</span>, <span class='no'>snap2Transect</span>, <span class='no'>col.transect</span>, <span class='no'>lwd.transect</span>, <span class='no'>pch.sel</span>,
   <span class='no'>col.sel</span>, <span class='no'>cex.sel</span>, <span class='no'>pch.del</span>, <span class='no'>col.del</span>, <span class='no'>showInfo</span>, <span class='no'>pos.info</span>, <span class='no'>cex.info</span>,
-  <span class='no'>col.info</span>)</pre>
+  <span class='no'>col.info</span>, <span class='no'>addNote</span>, <span class='no'>note</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -283,6 +283,14 @@
       <th>col.info</th>
       <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
     </tr>
+    <tr>
+      <th>addNote</th>
+      <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>note</th>
+      <td><p>A specific note about this reading (e.g., a note that the image was poor, some annulus were suspect, or the image should be re-read.). If missing then the user will be prompted to include a note if <code>addNote=TRUE</code>.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -305,6 +313,7 @@
 <li><p><code>pixW2H</code>: The ratio of pixel width to height. This is used to correct measurements for when an image is not square.</p></li>
 <li><p><code>pts</code>: A data.frame that contains the <code>x</code> and <code>y</code> coordinates on the image for the selected annuli. These points may have been &#8220;snapped&#8221; to the transect if <code>snap2Transect==TRUE</code>.</p></li>
 <li><p><code>radii</code>: A data.frame that contains the unique <code>id</code>, the <code>reading</code> code, the age-at-capture in <code>agecap</code>, the annulus number in <code>ann</code>, the radial measurements in <code>rad</code>, and the radial measurement at capture in <code>radcap</code>.</p></li>
+<li><p><code>note</code>: A string that contains a note about the reading (e.g., a note that the image was poor, some annulus were suspect, or the image should be re-read.)</p></li>
 </ul><p>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>

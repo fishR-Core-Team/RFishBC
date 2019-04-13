@@ -105,7 +105,7 @@
       <h1>Visualize Points Selected on a Calcified Structure</h1>
                         <h4 class="author">Derek H. Ogle</h4>
             
-            <h4 class="date">2019-01-27</h4>
+            <h4 class="date">2019-04-13</h4>
       
       
       <div class="hidden name"><code>seeRadiiData.Rmd</code></div>
@@ -125,12 +125,12 @@
 <li>“Scale_1_OHD.rds”: a third set of annular points selected on the “Scale_1.jpg” file in the <a href="collectRadiiData.html">Collecting Radial Measurements</a> vignette.</li>
 <li>“Oto140306_DHO.rds”: annular points selected on the “Oto140306.jpg” file. In contrast to the previous images, this image had a 1-mm scale-bar. This R data file was created with the following code.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/digitizeRadii.html">digitizeRadii</a></span>(<span class="st">"Oto140306.jpg"</span>,<span class="dt">id=</span><span class="st">"140306"</span>,<span class="dt">reading=</span><span class="st">"DHO"</span>,
-              <span class="dt">description=</span><span class="st">"Used to demonstrate use of scale-bar."</span>,
-              <span class="dt">scaleBar=</span><span class="ot">TRUE</span>,<span class="dt">scaleBarLength=</span><span class="dv">1</span>,<span class="dt">edgeIsAnnulus=</span><span class="ot">TRUE</span>,
-              <span class="dt">windowSize=</span><span class="dv">12</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="../reference/digitizeRadii.html">digitizeRadii</a></span>(<span class="st">"Oto140306.jpg"</span>,<span class="dt">id=</span><span class="st">"140306"</span>,<span class="dt">reading=</span><span class="st">"DHO"</span>,</a>
+<a class="sourceLine" id="cb1-2" title="2">              <span class="dt">description=</span><span class="st">"Used to demonstrate use of scale-bar."</span>,</a>
+<a class="sourceLine" id="cb1-3" title="3">              <span class="dt">scaleBar=</span><span class="ot">TRUE</span>,<span class="dt">scaleBarLength=</span><span class="dv">1</span>,<span class="dt">edgeIsAnnulus=</span><span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb1-4" title="4">              <span class="dt">windowSize=</span><span class="dv">12</span>)</a></code></pre></div>
 <p>Only the <code>RFishBC</code> package is needed for this vignette.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(RFishBC)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(RFishBC)</a></code></pre></div>
 <p> </p>
 <p> </p>
 <hr>
@@ -138,26 +138,20 @@
 <div id="visualize-one-set-of-annuli" class="section level1">
 <h1 class="hasAnchor">
 <a href="#visualize-one-set-of-annuli" class="anchor"></a>Visualize One Set of Annuli</h1>
-<p>You can review the selected annuli on a structure with <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>, which requires only the name of an R data file created from <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/showDigitizedImage.html">showDigitizedImage</a></span>(<span class="st">"Scale_1_DHO.rds"</span>)</code></pre></div>
-<div class="figure">
-<img src="figures/Scale_1_A.jpg">
-</div>
+<p>You can review the selected annuli on a structure with <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>, which requires only the name of an R data file created from <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="../reference/showDigitizedImage.html">showDigitizedImage</a></span>(<span class="st">"Scale_1_DHO.rds"</span>)</a></code></pre></div>
+<p><img src="figures/Scale_1_A.jpg"></p>
 <p> </p>
 <p>The plotting character, color, and relative size of the selected points may be changed with <code>pch.show=</code>, <code>col.show=</code>, and <code>cex.show=</code>, respectively. By default, the points are connected which will display as a linear transect if <code>makeTransect=TRUE</code> (the default) was used when selecting annuli in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>. The color and width of the connected lines may be changed with <code>col.connect=</code> and <code>lwd.connect=</code>. The connected lines may be excluded altogether with <code>connect=FALSE</code>. Annuli will be numbered if <code>showAnnuliLabels=TRUE</code> (the default) with label colors and relative size changed with <code>col.ann=</code> and <code>cex.ann=</code>, respectively. Annuli for which numbers are plotted may be controlled with <code>annuliLabels=</code> (e.g., only the first six plus several others after that are shown for the Kiyi otolith below). Defaults for all of these arguments may be set with <code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code> as was demonstrated in the <a href="collectRadiiData.html#setoptions1">Setting Arguments section of this vignette</a></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/showDigitizedImage.html">showDigitizedImage</a></span>(<span class="st">"Oto140306_DHO.rds"</span>,<span class="dt">pch.show=</span><span class="st">"+"</span>,<span class="dt">col.show=</span><span class="st">"blue"</span>,
-                   <span class="dt">col.connect=</span><span class="st">"white"</span>,<span class="dt">col.ann=</span><span class="st">"black"</span>,<span class="dt">cex.ann=</span><span class="dv">1</span>,
-                   <span class="dt">annuliLabels=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">13</span>))</code></pre></div>
-<div class="figure">
-<img src="figures/Oto140306_E.jpg">
-</div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="../reference/showDigitizedImage.html">showDigitizedImage</a></span>(<span class="st">"Oto140306_DHO.rds"</span>,<span class="dt">pch.show=</span><span class="st">"+"</span>,<span class="dt">col.show=</span><span class="st">"blue"</span>,</a>
+<a class="sourceLine" id="cb4-2" title="2">                   <span class="dt">col.connect=</span><span class="st">"white"</span>,<span class="dt">col.ann=</span><span class="st">"black"</span>,<span class="dt">cex.ann=</span><span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb4-3" title="3">                   <span class="dt">annuliLabels=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">13</span>))</a></code></pre></div>
+<p><img src="figures/Oto140306_E.jpg"></p>
 <p> </p>
 <p>You can also just show the points without the transect and individually control the color of the annuli labels.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/showDigitizedImage.html">showDigitizedImage</a></span>(<span class="st">"Oto140306_DHO.rds"</span>,<span class="dt">annuliLabels=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">13</span>),
-                   <span class="dt">connect=</span><span class="ot">FALSE</span>,<span class="dt">col.ann=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="st">"black"</span>,<span class="dv">8</span>),<span class="st">"white"</span>),<span class="dt">cex.ann=</span><span class="dv">1</span>)</code></pre></div>
-<div class="figure">
-<img src="figures/Oto140306_F.jpg">
-</div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="../reference/showDigitizedImage.html">showDigitizedImage</a></span>(<span class="st">"Oto140306_DHO.rds"</span>,<span class="dt">annuliLabels=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">13</span>),</a>
+<a class="sourceLine" id="cb5-2" title="2">                   <span class="dt">connect=</span><span class="ot">FALSE</span>,<span class="dt">col.ann=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="st">"black"</span>,<span class="dv">8</span>),<span class="st">"white"</span>),<span class="dt">cex.ann=</span><span class="dv">1</span>)</a></code></pre></div>
+<p><img src="figures/Oto140306_F.jpg"></p>
 <p> </p>
 <p> </p>
 <hr>
@@ -167,25 +161,23 @@
 <a href="#visualize-multiple-readings-of-same-structure" class="anchor"></a>Visualize Multiple Readings of Same Structure</h1>
 <p>In some instances, you may be interested in visually comparing the selected points from multiple readings of the same structure. The <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code> function can accomplish this if it is given a vector of R data file names created from the same structure.</p>
 <p>The <code><a href="../reference/listFiles.html">listFiles()</a></code> function (described in the <a href="collectRadiiData.html">Collecting Radial Measurements</a> vignette) may be used to identify all filenames in the current working directory that have the file extension given in the first argument. For example, all files with the “rds” extension are found below.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/listFiles.html">listFiles</a></span>(<span class="st">"rds"</span>)
-<span class="co">#&gt; [1] "DWS_Oto_89765_DHO.rds" "Oto140306_DHO.rds"     "Oto140306_OHD.rds"    </span>
-<span class="co">#&gt; [4] "Scale_1_DHO.rds"       "Scale_1_ODH.rds"       "Scale_1_OHD.rds"      </span>
-<span class="co">#&gt; [7] "Scale_2_DHO.rds"       "Scale_3_DHO.rds"</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="../reference/listFiles.html">listFiles</a></span>(<span class="st">"rds"</span>)</a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="co">#&gt; [1] "DWS_Oto_89765_DHO.rds"  "Oto140306_DHO.rds"     </span></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="co">#&gt; [3] "Oto140306_OHD.rds"      "Scale_1_DHO.rds"       </span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="co">#&gt; [5] "Scale_1_ODH.rds"        "Scale_1_OHD.rds"       </span></a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="co">#&gt; [7] "Scale_2_DHO.rds"        "Scale_2_OLDwNoNote.rds"</span></a>
+<a class="sourceLine" id="cb6-6" title="6"><span class="co">#&gt; [9] "Scale_3_DHO.rds"</span></a></code></pre></div>
 <p>This list of names can be further filtered by including other key words for the filenames in <code>other=</code>. For example, all files with the “rds” extension that contain the keyword “Scale_1” are returned below. For our purposes here, these filenames are saved into an object (e.g., <code>fns</code>).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">( fns &lt;-<span class="st"> </span><span class="kw"><a href="../reference/listFiles.html">listFiles</a></span>(<span class="st">"rds"</span>,<span class="dt">other=</span><span class="st">"Scale_1"</span>) )
-<span class="co">#&gt; [1] "Scale_1_DHO.rds" "Scale_1_ODH.rds" "Scale_1_OHD.rds"</span></code></pre></div>
-<p>The multiple readings of “Scale_1” can be seen by giving this set of filenames to <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/showDigitizedImage.html">showDigitizedImage</a></span>(fns)</code></pre></div>
-<div class="figure">
-<img src="figures/Scale_1_B.jpg">
-</div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">( fns &lt;-<span class="st"> </span><span class="kw"><a href="../reference/listFiles.html">listFiles</a></span>(<span class="st">"rds"</span>,<span class="dt">other=</span><span class="st">"Scale_1"</span>) )</a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="co">#&gt; [1] "Scale_1_DHO.rds" "Scale_1_ODH.rds" "Scale_1_OHD.rds"</span></a></code></pre></div>
+<p>The multiple readings of “Scale_1” can be seen by giving this set of filenames to <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="../reference/showDigitizedImage.html">showDigitizedImage</a></span>(fns)</a></code></pre></div>
+<p><img src="figures/Scale_1_B.jpg"></p>
 <p> </p>
 <p>Aspects of the connecting lines and points may be controlled with arguments to <code>showDigitizedData()</code>. For example, the code below uses different colors for each set of connecting lines and points.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/showDigitizedImage.html">showDigitizedImage</a></span>(fns,<span class="dt">col.show=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"yellow"</span>,<span class="st">"red"</span>,<span class="st">"blue"</span>),
-                   <span class="dt">col.connect=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"red"</span>,<span class="st">"yellow"</span>,<span class="st">"green"</span>),<span class="dt">lwd.connect=</span><span class="dv">2</span>)</code></pre></div>
-<div class="figure">
-<img src="figures/Scale_1_C.jpg">
-</div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="../reference/showDigitizedImage.html">showDigitizedImage</a></span>(fns,<span class="dt">col.show=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"yellow"</span>,<span class="st">"red"</span>,<span class="st">"blue"</span>),</a>
+<a class="sourceLine" id="cb9-2" title="2">                   <span class="dt">col.connect=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"red"</span>,<span class="st">"yellow"</span>,<span class="st">"green"</span>),<span class="dt">lwd.connect=</span><span class="dv">2</span>)</a></code></pre></div>
+<p><img src="figures/Scale_1_C.jpg"></p>
 <p> </p>
 <p> </p>
 </div>
@@ -196,8 +188,8 @@
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p>If no file name is given, then a dialog box will appear from which the data file can be selected. It is assumed that the file is in the current working directory.<a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>If no file names are given, then a dialog box will appear from which multiple data files can be selected.<a href="#fnref2">↩</a></p></li>
+<li id="fn1"><p>If no file name is given, then a dialog box will appear from which the data file can be selected. It is assumed that the file is in the current working directory.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>If no file names are given, then a dialog box will appear from which multiple data files can be selected.<a href="#fnref2" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
   </div>

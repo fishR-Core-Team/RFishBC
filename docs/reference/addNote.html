@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Show points selected on a structure image and saved in an R data file — showDigitizedImage • RFishBC</title>
+<title>Add a note to an existing RData file — addNote • RFishBC</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -37,9 +37,9 @@
 
 
 
-<meta property="og:title" content="Show points selected on a structure image and saved in an R data file — showDigitizedImage" />
+<meta property="og:title" content="Add a note to an existing RData file — addNote" />
 
-<meta property="og:description" content="Show points selected on a structure image to represent annuli that were saved to an R data file using digitizeRadii. This allows the user to reexaminine the selected points or overlay selected points from multiple readings of the structure." />
+<meta property="og:description" content="Use this to add a note to a saved R data file that was created with digitizeRadii. Can be used to flag the reading for some reason." />
 
 <meta property="og:image" content="http://derekogle.com/RFishBC/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -138,111 +138,43 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Show points selected on a structure image and saved in an R data file</h1>
+    <h1>Add a note to an existing RData file</h1>
     
-    <div class="hidden name"><code>showDigitizedImage.Rd</code></div>
+    <div class="hidden name"><code>addNote.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Show points selected on a structure image to represent annuli that were saved to an R data file using <code><a href='digitizeRadii.html'>digitizeRadii</a></code>. This allows the user to reexaminine the selected points or overlay selected points from multiple readings of the structure.</p>
+    <p>Use this to add a note to a saved R data file that was created with <code><a href='digitizeRadii.html'>digitizeRadii</a></code>. Can be used to flag the reading for some reason.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>showDigitizedImage</span>(<span class='no'>nms</span>, <span class='no'>deviceType</span>, <span class='no'>pch.show</span>, <span class='no'>col.show</span>, <span class='no'>cex.show</span>, <span class='no'>connect</span>,
-  <span class='no'>col.connect</span>, <span class='no'>lwd.connect</span>, <span class='no'>col.scaleBar</span>, <span class='no'>lwd.scaleBar</span>, <span class='no'>showScaleBarLength</span>,
-  <span class='no'>cex.scaleBar</span>, <span class='no'>showAnnuliLabels</span>, <span class='no'>annuliLabels</span>, <span class='no'>col.ann</span>, <span class='no'>cex.ann</span>,
-  <span class='no'>offset.ann</span>)</pre>
+    <pre class="usage"><span class='fu'>addNote</span>(<span class='no'>nms</span>, <span class='no'>note</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>nms</th>
-      <td><p>A string (or vector of strings) that indicates the R data file(s) created with <code><a href='digitizeRadii.html'>digitizeRadii</a></code>. If missing the user will be provided a dialog box from which to choose the file(s). The file(s) must be in the current working directory (see <code><a href='https://www.rdocumentation.org/packages/base/topics/getwd'>getwd</a></code> result). May also be a single <code>RFishBC</code> object created with <code><a href='digitizeRadii.html'>digitizeRadii</a></code>.</p></td>
+      <td><p>A string that indicates the R data file created with <code><a href='digitizeRadii.html'>digitizeRadii</a></code> (in the current directory) to which the note should be added.</p></td>
     </tr>
     <tr>
-      <th>deviceType</th>
-      <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>pch.show</th>
-      <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>col.show</th>
-      <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>cex.show</th>
-      <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>connect</th>
-      <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>col.connect</th>
-      <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>lwd.connect</th>
-      <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>col.scaleBar</th>
-      <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>lwd.scaleBar</th>
-      <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>showScaleBarLength</th>
-      <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>cex.scaleBar</th>
-      <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>showAnnuliLabels</th>
-      <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>annuliLabels</th>
-      <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>col.ann</th>
-      <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>cex.ann</th>
-      <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>offset.ann</th>
-      <td><p>See details in <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></td>
+      <th>note</th>
+      <td><p>The note (as a string) to be added to the R data file. If missing the user will be provided a dialog box in which to enter the note.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>None, but an image is plotted with, at least, the selected points.</p>
+    <p>None, but the <code>note</code> object in the R Data file(s) given in <code>nms</code> will be modified.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function requires interaction from the user. A detailed description of its use is in <a href='http://derekogle.com/RFishBC/articles/MeasureRadii/seeRadiiData.html'>this vignette</a> on the <a href='http://derekogle.com/RFishBC/index.html'>RFishBC website</a>.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='digitizeRadii.html'>digitizeRadii</a></code> and <code><a href='RFBCoptions.html'>RFBCoptions</a></code>.</p></div>
+    <p>A detailed description of its use is in the "Other Features" vignette on the <a href='http://derekogle.com/RFishBC/index.html'>RFishBC website</a>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>## None because this requires interaction from the user.
-## See the link to the extensive documentation in the Details.
+    <pre class="examples"><div class='input'>## See the link to the extensive documentation in the Details.
 
 </div></pre>
   </div>
@@ -254,8 +186,6 @@
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

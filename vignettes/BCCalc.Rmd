@@ -180,9 +180,3 @@ sumTable(bclen~agecap*ann,data=SMBassWB_FL2,digits=0)
 [^otherdataorigins]: If your data originated from somewhere else, then you may need to rename your variables to meet these conventions.
 
 [^FraserLeea]: If `a` is not provided by the user for the Fraser-Lee model, then it will be estimated from the intercepts of the linear regression of fish length on structure radius.
-
-[^inc2rad]: If the data.frame had contained incremental measurements, then it could be converted to radial measurements with `gConvert()`.
-
-[^couldusewide]: The length- and structure radius-at-capture variables could be used here instead as those pairs of data only appear once for each fish in the data.frame.
-
-[^2brackets]: The two brackets are used here when extracting the specific coefficients so that the name (i.e., label) for the coefficient is not included. This removes the distracting "[Intercept]" or variable name labels above the coefficients.
