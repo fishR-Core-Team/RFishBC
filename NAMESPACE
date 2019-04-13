@@ -2,11 +2,13 @@
 
 export(RFBCoptions)
 export(aStandard)
+export(addNote)
 export(addRadCap)
 export(backCalc)
 export(bcFuns)
 export(combineData)
 export(digitizeRadii)
+export(findNotes)
 export(findScalingFactor)
 export(gConvert)
 export(getID)

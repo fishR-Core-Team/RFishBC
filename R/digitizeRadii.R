@@ -33,6 +33,8 @@
 #' @param pos.info See details in \code{\link{RFBCoptions}}.
 #' @param cex.info See details in \code{\link{RFBCoptions}}.
 #' @param col.info See details in \code{\link{RFBCoptions}}.
+#' @param addNote See details in \code{\link{RFBCoptions}}.
+#' @param note A specific note about this reading (e.g., a note that the image was poor, some annulus were suspect, or the image should be re-read.). If missing then the user will be prompted to include a note if \code{addNote=TRUE}.
 #'
 #' @return \code{NULL} if more than one file was given in \code{img} or, if only one file was given, a list that contains the following:
 #' \itemize{
@@ -53,6 +55,7 @@
 #'   \item{\code{pixW2H}: }{The ratio of pixel width to height. This is used to correct measurements for when an image is not square.}
 #'   \item{\code{pts}: }{A data.frame that contains the \code{x} and \code{y} coordinates on the image for the selected annuli. These points may have been \dQuote{snapped} to the transect if \code{snap2Transect==TRUE}.}
 #'   \item{\code{radii}: }{A data.frame that contains the unique \code{id}, the \code{reading} code, the age-at-capture in \code{agecap}, the annulus number in \code{ann}, the radial measurements in \code{rad}, and the radial measurement at capture in \code{radcap}.}
+#'   \item{\code{note}: }{A string that contains a note about the reading (e.g., a note that the image was poor, some annulus were suspect, or the image should be re-read.)}
 #' }.
 #' 
 #' @details This function requires interaction from the user. A detailed description of its use is in the vignettes on the \href{http://derekogle.com/RFishBC/index.html}{RFishBC website}.
@@ -76,7 +79,8 @@ digitizeRadii <- function(img,id,reading,suffix,
                           col.transect,lwd.transect,
                           pch.sel,col.sel,cex.sel,
                           pch.del,col.del,
-                          showInfo,pos.info,cex.info,col.info) {
+                          showInfo,pos.info,cex.info,col.info,
+                          addNote,note) {
   ## Process argument defaults =================================================
   if (missing(reading)) reading <- iGetopt("reading")
   if (missing(description)) description <- iGetopt("description")
@@ -142,6 +146,8 @@ digitizeRadii <- function(img,id,reading,suffix,
   if (missing(pos.info)) pos.info <- iGetopt("pos.info")
   if (missing(cex.info)) cex.info <- iGetopt("cex.info")
   if (missing(col.info)) col.info <- iGetopt("col.info")
+  if (missing(addNote)) addNote <- iGetopt("addNote")
+  if (missing(note)) note <- ""
 
   ## Handle getting the image filename =========================================
   img <- iHndlFilenames(img,filter="images",multi=TRUE)
@@ -186,7 +192,8 @@ digitizeRadii <- function(img,id,reading,suffix,
                     col.transect,lwd.transect,
                     pch.sel,col.sel,cex.sel,
                     pch.del,col.del,
-                    showInfo,pos.info,cex.info,col.info)
+                    showInfo,pos.info,cex.info,col.info,
+                    addNote,note)
     }
     dat <- NULL
   } else {
@@ -200,7 +207,8 @@ digitizeRadii <- function(img,id,reading,suffix,
                            col.transect,lwd.transect,
                            pch.sel,col.sel,cex.sel,
                            pch.del,col.del,
-                           showInfo,pos.info,cex.info,col.info)
+                           showInfo,pos.info,cex.info,col.info,
+                           addNote,note)
     if (closeWindow) grDevices::dev.off()
   }
   invisible(dat)
@@ -227,13 +235,14 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
                             col.transect,lwd.transect,
                             pch.sel,col.sel,cex.sel,
                             pch.del,col.del,
-                            showInfo,pos.info,cex.info,col.info) { # nocov start
+                            showInfo,pos.info,cex.info,col.info,
+                            addNote,note) { # nocov start
 
   ## Setup logicals that allow an abort or a restart ===========================
-  abort <- restart <- FALSE
+  abort <- restart <- killed <- FALSE
   
   ## Setup a message ===========================================================
-  msg2 <- "  'f'=finished, 'd'=delete, 'q'=abort, 'z'=restart"
+  msg2 <- "  'f'=finished, 'd'=delete, 'q'=abort, 'z'=restart, 'k'=kill"
 
   ## Loads image given in img ==================================================
   windowInfo <- iGetImage(img,id,windowSize,deviceType,
@@ -256,9 +265,10 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
       sbPts <- sbInfo$sbPts
       scalingFactor <- sbInfo$scalingFactor
       DONE("Found scaling factor from selected scale-bar.\n")
-    } else { # no list returned b/c abort/restarted
+    } else { # no list returned b/c abort/restarted/killed
       if (sbInfo=="ABORT") abort <- TRUE
       else if (sbInfo=="RESTART") restart <- TRUE
+      else if (sbInfo=="KILLED") killed <- TRUE
     }
   } else { ## No scale bar on the plot ... using the scaling factor
     DONE("Using scaling factor provided in 'scalingFactor'.\n")
@@ -270,7 +280,7 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
   ## User selects a transect on the image ======================================
   if (!makeTransect) {
     slpTransect <- intTransect <- slpPerpTransect <- trans.pts <- NULL
-  } else if (!abort & !restart) {
+  } else if (!abort & !restart & !killed) {
     RULE("Select FOCUS (center) and MARGIN (edge) of the structure.")
     RULE(msg2,line="-")
     trans.pts <- iSelectPt(2,"Select FOCUS and MARGIN:",msg2,
@@ -290,14 +300,15 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
       } else {
         DONE("Transect selected.\n")
       }
-    } else { # no data.frame returned b/c abort/restarted
+    } else { # no data.frame returned b/c abort/restarted/killed
       if (trans.pts=="ABORT") abort <- TRUE
       else if (trans.pts=="RESTART") restart <- TRUE
+      else if (trans.pts=="KILLED") killed <- TRUE
     }
   }
   
   ## User selects annuli on the image ==========================================
-  if (!abort & !restart) {
+  if (!abort & !restart & !killed) {
     RULE(ifelse(makeTransect,"Select points that are annuli.",
                 "Select FOCUS, then ANNULI, and then MARGIN."))
     RULE(msg2,line="-")
@@ -317,27 +328,38 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
       #### Tell the user how many points were selected
       if (numAnn==1) DONE("1 point was selected as an annulus.\n")
       else DONE(numAnn," points were selected as annuli.\n")
-    } else { # data.frame not returned because abort/restarted
+    } else { # data.frame not returned because abort/restarted/killed
       if (pts=="ABORT") abort <- TRUE
       else if (pts=="RESTART") restart <- TRUE
+      else if (pts=="KILLED") killed <- TRUE
     }
   }
   
   ## Converts selected points to radial measurements ===========================
   ##    as long as not aborted or asked to restart =============================
-  if (!abort & !restart) {
+  if (!abort & !restart & !killed) {
     radii <- iPts2Rad(pts,edgeIsAnnulus=edgeIsAnnulus,scalingFactor=scalingFactor,
                       pixW2H=windowInfo$pixW2H,id=id,reading=reading)
   }
 
   ## Finish up =================================================================
-  if (abort) {
+  if (killed) {
+    ## send a message
     cat("\n\n")
-    DONE("Processing was ABORTED by user! No file written for ",img,".\n")
+    DONE2("Entire processing was ABORTED by user! No file was written for ",img,".\n")
+    ## close the image window
+    grDevices::dev.off()
+    ## stop further functioning ... but do it quietly and thus, more elegantly
+    opt <- options(show.error.messages=FALSE)
+    on.exit(options(opt))
+    stop()
+  } else if (abort) {
+    cat("\n\n")
+    DONE2("Processing of image was ABORTED by user! No file written for ",img,".\n")
   } else if (restart) {
     cat("\n\n")
-    DONE("Processing is being RESTARTED as requested by user.",
-         " No file written for ",img,".\n\n")
+    DONE2("Processing is being RESTARTED as requested by user.",
+          " No file written for ",img,".\n\n")
     iDigitizeRadii1(img,id,reading,suffix,description,edgeIsAnnulus,popID,
                     IDpattern,IDreplace,windowSize,deviceType,scaleBar,
                     scaleBarLength,scaleBarUnits,col.scaleBar,lwd.scaleBar,
@@ -350,6 +372,8 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
     datanm <- paste0(tools::file_path_sans_ext(img),
                      ifelse(!is.null(suffix),"_",""),
                      suffix,".rds")
+    #### Add a note (if asked to do so)
+    if (addNote & note=="") note <- iGetNote(note)
     #### Master data object
     dat <- list(image=img,datanm=datanm,description=description,
                 edgeIsAnnulus=edgeIsAnnulus,snap2Transect=snap2Transect,
@@ -359,7 +383,8 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
                 slpPerpTransect=slpPerpTransect,
                 windowSize=windowInfo$windowSize,
                 pixW2H=windowInfo$pixW2H,
-                pts=pts,radii=radii)
+                pts=pts,radii=radii,note=note)
+    #### Make RFishBC class
     class(dat) <- "RFishBC"
     #### Write the RData file
     saveRDS(dat,file=datanm)
