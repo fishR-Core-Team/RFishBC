@@ -100,6 +100,52 @@ combineData(fns,typeOut="inc",formatOut="wide")
 
 \  
 
+\ 
+
+
+# Using "Flagging" Notes
+
+A user may want to include a "flagging note" for a particular reading in the corresponding R Data file. These notes may be used, for example, to indicate that the reading was particularly difficult, needs to be reviewed, or needs to be re-read. As of version 0.2.1, notes may be added to the `note` object in the R Data files in two ways.
+
+First, a note may be added to an already saved R Data file with `addNote()`. If no arguments are included in this function then the user will be prompted to choose the existing R Data file and then to enter the note.  If the R Data file previously had a note then that note will be over-written with the new note. The user may also supply the name of the R Data file as the first argument and the note as the second argument to `addNote()`. For example, the following code would add a simple note to the "Scale_1_DHO.rds" file.
+
+```{r eval=FALSE}
+addNote("Scale_1_DHO.rds","3rd annulus location was difficult")
+```
+
+Second, a note may be added before the R Data file is written by including `addNote=TRUE` to `digitizeRadii()`. The note may be provided before processing the image by including the note in `note=` in `digitizeRadii()`. However, the user is more likely to not have a note about the reading of the image until after the image has been read. If no note is given in `note=` (the default behavior) then the user will be prompted to enter a note after the image has been read but before the R Data file is written. This option may be set for the session with `RFBCoptions()` (as demonstrated in the [Collecting Radial Measurements](collectRadiiData.html) vignette). For example, the following code would result in the dialog box shown below.
+
+```{r eval=FALSE}
+RFBCoptions(reading="DHO",edgeIsAnnulus=FALSE,windowSize=10,addNote=TRUE)
+digitizeRadii("Scale_1.jpg",id="1")
+```
+
+![](figures/Scale_1_D.jpg)
+
+The notes for a list of R Data file names may be found with `findNotes()`. The first argument to this function can be a vector of R Data file names in the current working directory. If this argument is missing, then the user will be prompted to choose R Data files from a dialog box. For example, the following code returns the list of notes for all fish ids and readings in the current working directory (note that the second file listed is not a valid file, so it was excluded from the vector given to `findNotes()`).
+
+```{r}
+( tmp <- listFiles(".rds") )
+findNotes(tmp[-2])
+```
+
+The results from `findNotes()` is a vector that can be manipulated. For example, the following shows the list for only those ids and readings for which a note was made.
+
+```{r}
+notes <- findNotes(tmp[-2])
+dplyr::filter(notes,note!="")
+```
+
+Additionally, one can append the notes to the radial (or incremental) measurements returned from `combineData()` (e.g., [as shown above](l#collect-just-age-data)) using `left_join()` from `dplyr` as shown below.
+
+```{r}
+( fns <- listFiles("rds",other=c("Scale","DHO")) )
+( dfrad2 <- combineData(fns,formatOut="wide") )
+dplyr::left_join(dfrad2,notes,by=c("id","reading"))
+```
+
+\  
+
 \  
 
 

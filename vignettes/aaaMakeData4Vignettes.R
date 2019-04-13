@@ -3,7 +3,8 @@ devtools::load_all(".")
 setwd("C:/aaaWork/Programs/GitHub/RFishBC/vignettes")
 
 ## Process Scales
-junk <- digitizeRadii("Scale_1.jpg",id="1",reading="DHO",edgeIsAnnulus=FALSE,windowSize=10)
+junk <- digitizeRadii("Scale_1.jpg",id="1",reading="DHO",edgeIsAnnulus=FALSE,
+                      windowSize=10,addNote=TRUE)
 ## choose Scale_1.jpg and set id to 1 ... use a different transect
 digitizeRadii(reading="OHD",edgeIsAnnulus=FALSE,popID=TRUE)
 ## use yet another different transect
@@ -96,7 +97,12 @@ showDigitizedImage("DWS_Oto_89765_DHO.rds",connect=FALSE,
                    col.ann=c("yellow","white","red","green","blue"),
                    cex.ann=c(1,1.25,1.5,1.75,2))
 
-#### move these to a dead directory so that they don't appear in the vignettes
+#### Adding notes
+addNote("Scale_1_ODH.rds","Test note as argument")
+addNote("Scale_1_OHD.rds")
+findNotes(listFiles(ext=".rds",other="Scale"))
+
+#### Move these to a dead directory so that they don't appear in the vignettes
 fns <- c(listFiles(".rds",other="MULT"),
          listFiles(".rds",other="TEMP"),
          listFiles(".rds",other="ABORT"),

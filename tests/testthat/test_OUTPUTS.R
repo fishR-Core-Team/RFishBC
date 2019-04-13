@@ -32,7 +32,8 @@ test_that("digitizeRadii() results without scale-bar",{
   expect_equal(names(dat1),c("image","datanm","description","edgeIsAnnulus",
                              "snap2Transect","scalingFactor","sfSource","sbPts",
                              "sbLength","sbUnits","slpTransect","intTransect",
-                             "slpPerpTransect","windowSize","pixW2H","pts","radii"))
+                             "slpPerpTransect","windowSize","pixW2H","pts","radii",
+                             "note"))
   expect_type(dat1$image,"character")
   expect_type(dat1$datanm,"character")
   expect_null(dat1$description)
@@ -74,7 +75,8 @@ test_that("digitizeRadii() results with scale-bar",{
   expect_equal(names(dat2),c("image","datanm","description","edgeIsAnnulus",
                             "snap2Transect","scalingFactor","sfSource","sbPts",
                             "sbLength","sbUnits","slpTransect","intTransect",
-                            "slpPerpTransect","windowSize","pixW2H","pts","radii"))
+                            "slpPerpTransect","windowSize","pixW2H","pts","radii",
+                            "note"))
   expect_type(dat2$image,"character")
   expect_type(dat2$datanm,"character")
   expect_type(dat2$description,"character")

@@ -1,9 +1,11 @@
 # RFishBC 0.2.0.9000 ongoing
 * Updated vignettes.
 * Added more tests.
+* `addNote()`: Added (addresses [#41](https://github.com/droglenc/RFishBC/issues/41); thanks to Rory Feeney).
 * `combineData()`: Modified. Fixed two bugs related to how age-0 fish with no measured annuli are combined (thanks to Rory Feeney). Fixed how returned results are sorted (by id, reading, and ann; rather than just id and ann).
-* `digitizeRadii()`: Modified. Added `sbUnits=` for addressing [#36](https://github.com/droglenc/RFishBC/issues/36). Added "kill" functionality to stop processing of all images in a queue (addresses [#40](https://github.com/droglenc/RFishBC/issues/40)). Fixed poor warning message when `snap2transect=TRUE` and `makeTransect=FALSE`.
-* `RFBCoptions()`: Modified. Added `showScaleBarLength=`, `scaleBarUnits=`, and `cex.scaleBar=`.
+* `digitizeRadii()`: Modified. Added `sbUnits=` for addressing [#36](https://github.com/droglenc/RFishBC/issues/36). Added `addNotes` and `note` that allows adding a special note to the R Data file (addresses [#41](https://github.com/droglenc/RFishBC/issues/41); thanks to Rory Feeney) Added "kill" functionality to stop processing of all images in a queue (addresses [#40](https://github.com/droglenc/RFishBC/issues/40); thanks to Rory Feeney). Fixed poor warning message when `snap2transect=TRUE` and `makeTransect=FALSE`.
+* `findNotes()`: Added (addresses [#41](https://github.com/droglenc/RFishBC/issues/41); thanks to Rory Feeney).
+* `RFBCoptions()`: Modified. Added `addNote`, `showScaleBarLength=`, `scaleBarUnits=`, and `cex.scaleBar=`.
 * `showDigitizedImage()`: Modified. Rewrote the function to be less redundant; allow `pch.show=`, `col.show=`, and `cex.show=` to be appropriate vectors (when only one reading is displayed); allowed `pch.show="arrows"` to plot arrows (addresses [#38](https://github.com/droglenc/RFishBC/issues/38)); assure that all values in `annuliLabels=` exist in the data; allow `col.ann=` and `cex.ann` to be appropriate vectors; provide `offset.ann=`; and show units of the scale-bar beneath the scale-bar (if it was digitized) by adding `showScaleBarLength=` and `cex.scaleBar=` (addresses [#36](https://github.com/droglenc/RFishBC/issues/36)).  
 
 # RFishBC 0.2.0 18-Dec-18

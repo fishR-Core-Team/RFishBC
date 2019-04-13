@@ -62,6 +62,7 @@ The arguments that can be set with this function are:
 \item{\code{col.ann}: }{The color of the annuli number text when \code{showAnnuliLabels=TRUE} in \code{\link{showDigitizedImage}}. Defaults to \code{"yellow"}.}
 \item{\code{cex.ann}: }{The character expansion value  of the annuli number text when \code{showAnnuliLabels=TRUE} in \code{\link{showDigitizedImage}}. Defaults to \code{1.2}.}
 \item{\code{offset.ann}: }{A numeric value that specifies the offset (in proportions of a character width) of the annuli labels from the point when \code{showAnnuliLabels=TRUE} in \code{\link{showDigitizedImage}}. Defaults to \code{0.5}.}
+\item{\code{addNote}: }{A logical for whether the user can add or will be prompted to add a special note to the RData file when using \code{\link{digitizeRadii}}. Example notes may indicate that the image was poor, some annuli were suspect, or the image should be re-read.}
 } 
 
 The user will likely only use this function to change arguments at the start of a script, so that those values will be used throughout the analyses in the script. If the values for the arguments need to be changed in any instance of \code{\link{digitizeRadii}} or \code{\link{showDigitizedImage}}, then it is more efficient to change the argument within the call to those functions.
