@@ -33,6 +33,8 @@ reference:
     contents:
       - listFiles
       - getID
+      - addNote
+      - findNotes
       - addRadCap
       - gConvert
   - title: Data
