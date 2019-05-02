@@ -18,3 +18,4 @@
 ^man/figures/logo\.png
 ^inst/sticker
 ^tests/Validating
+^tests/testthat/Rplots*
