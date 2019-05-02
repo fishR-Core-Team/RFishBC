@@ -1,3 +1,5 @@
+# RFishBC 0.2.3 ongoing
+
 # RFishBC 0.2.2 2-May-19
 * Added URL for fishBC software per CRAN request.
 * Added a directive to ignore Rplots* files when building the package (i.e., to .rbuildignore). This reduces the size of the tar-ball per CRAN request.
