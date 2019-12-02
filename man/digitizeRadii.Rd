@@ -4,12 +4,41 @@
 \alias{digitizeRadii}
 \title{Collect radial measurements from a calcified structure by interactively selecting annuli}
 \usage{
-digitizeRadii(img, id, reading, suffix, description, edgeIsAnnulus, popID,
-  IDpattern, IDreplace, windowSize, deviceType, closeWindow, scaleBar,
-  scaleBarLength, scaleBarUnits, col.scaleBar, lwd.scaleBar, scalingFactor,
-  makeTransect, snap2Transect, col.transect, lwd.transect, pch.sel,
-  col.sel, cex.sel, pch.del, col.del, showInfo, pos.info, cex.info,
-  col.info, addNote, note)
+digitizeRadii(
+  img,
+  id,
+  reading,
+  suffix,
+  description,
+  edgeIsAnnulus,
+  popID,
+  IDpattern,
+  IDreplace,
+  windowSize,
+  deviceType,
+  closeWindow,
+  scaleBar,
+  scaleBarLength,
+  scaleBarUnits,
+  col.scaleBar,
+  lwd.scaleBar,
+  scalingFactor,
+  makeTransect,
+  snap2Transect,
+  col.transect,
+  lwd.transect,
+  pch.sel,
+  col.sel,
+  cex.sel,
+  pch.del,
+  col.del,
+  showInfo,
+  pos.info,
+  cex.info,
+  col.info,
+  addNote,
+  note
+)
 }
 \arguments{
 \item{img}{A vector of strings that indicates the image (must be PNG, JPG, BMP, or TIFF) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file(s). Alternatively the user can supply the name(s) of the file(s). Either way the file(s) must be in the current working directory.}

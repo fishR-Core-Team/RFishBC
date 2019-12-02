@@ -4,8 +4,20 @@
 \alias{findScalingFactor}
 \title{Find scaling factor from object of known length}
 \usage{
-findScalingFactor(img, knownLength, windowSize, deviceType, closeWindow,
-  col.scaleBar, lwd.scaleBar, pch.sel, col.sel, cex.sel, pch.del, col.del)
+findScalingFactor(
+  img,
+  knownLength,
+  windowSize,
+  deviceType,
+  closeWindow,
+  col.scaleBar,
+  lwd.scaleBar,
+  pch.sel,
+  col.sel,
+  cex.sel,
+  pch.del,
+  col.del
+)
 }
 \arguments{
 \item{img}{A string that indicates the image (must be PNG, JPG, BMP, or TIFF) to be loaded and plotted. By default the user will be provided a dialog box from which to choose the file. Alternatively the user can supply the name of the file (will look for this file in the current working directory).}

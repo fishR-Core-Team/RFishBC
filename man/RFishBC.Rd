@@ -3,7 +3,6 @@
 \docType{package}
 \name{RFishBC}
 \alias{RFishBC}
-\alias{RFishBC-package}
 \title{RFishBC.}
 \description{
 The RFishBC package helps fisheries scientists collect growth data from calcified structures and back-calculate estimated lengths at previous ages. The package is intended to replace much of the functionality provided by the now out-date fishBC software. See the package webpage at [http://derekogle.com/RFishBC].

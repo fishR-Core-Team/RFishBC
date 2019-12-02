@@ -365,7 +365,7 @@ iDigitizeRadii1 <- function(img,id,reading,suffix,
                     scaleBarLength,scaleBarUnits,col.scaleBar,lwd.scaleBar,
                     scalingFactor,makeTransect,snap2Transect,col.transect,
                     lwd.transect,pch.sel,col.sel,cex.sel,pch.del,col.del,
-                    showInfo,pos.info,cex.info,col.info)
+                    showInfo,pos.info,cex.info,col.info,addNote,note)
   } else { ### process results because not abort/restarted
     ### Create a master data object and write to RData file in working directory
     #### Name of RData file

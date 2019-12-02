@@ -4,8 +4,12 @@
 \alias{combineData}
 \title{Combines radii data from multiple files into one data.frame}
 \usage{
-combineData(nms, formatOut = c("long", "wide"), typeOut = c("radii",
-  "increments"), deletePlusGrowth = TRUE)
+combineData(
+  nms,
+  formatOut = c("long", "wide"),
+  typeOut = c("radii", "increments"),
+  deletePlusGrowth = TRUE
+)
 }
 \arguments{
 \item{nms}{A string (or vector of strings) that indicates the R data file(s) created with \code{\link{digitizeRadii}}. If missing the user will be provided a dialog box from which to choose the file(s). The file(s) must be in the current working directory (see \code{\link{getwd}} result). May also be a single \code{RFishBC} object created with \code{\link{digitizeRadii}}.}

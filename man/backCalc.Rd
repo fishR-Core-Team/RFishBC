@@ -4,9 +4,20 @@
 \alias{backCalc}
 \title{Back-calculate length at previous ages from standard data format.}
 \usage{
-backCalc(dat, lencap, BCM, inFormat, outFormat = inFormat, a = NULL,
-  L0p = NULL, R0p = NULL, L0 = NULL, R0 = NULL,
-  deletePlusGrowth = TRUE, digits = getOption("digits"))
+backCalc(
+  dat,
+  lencap,
+  BCM,
+  inFormat,
+  outFormat = inFormat,
+  a = NULL,
+  L0p = NULL,
+  R0p = NULL,
+  L0 = NULL,
+  R0 = NULL,
+  deletePlusGrowth = TRUE,
+  digits = getOption("digits")
+)
 }
 \arguments{
 \item{dat}{A data.frame created with \code{\link{combineData}} that MUST have at least the length-at-capture appended as a variable. See Details.}

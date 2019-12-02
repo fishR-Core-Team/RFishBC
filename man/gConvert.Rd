@@ -4,8 +4,13 @@
 \alias{gConvert}
 \title{Converts between types of measurements.}
 \usage{
-gConvert(df, in.pre = NULL, in.var = NULL, out.type = c("inc",
-  "rad"), out.pre = out.type)
+gConvert(
+  df,
+  in.pre = NULL,
+  in.var = NULL,
+  out.type = c("inc", "rad"),
+  out.pre = out.type
+)
 }
 \arguments{
 \item{df}{A data.frame that contains the growth measurement data in one-fish-per-line (i.e., \dQuote{wide}) format.}
