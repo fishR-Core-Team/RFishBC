@@ -1,4 +1,6 @@
 # RFishBC 0.2.3 ongoing
+* Now using ROxygen2 7.0.1.
+* `digitizeRadii()`: Modified. Fixed bug with `addNote=` when restarting an image. Thanks to Ben Neely for pointing out the issue.
 
 # RFishBC 0.2.2 2-May-19
 * Added URL for fishBC software per CRAN request.
