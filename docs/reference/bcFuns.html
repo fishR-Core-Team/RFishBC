@@ -15,21 +15,25 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,12 +41,12 @@
 
 
 
+
 <meta property="og:title" content="Creates a function for a specific model. — bcFuns" />
-
 <meta property="og:description" content="Creates a function for a specific model based on definitions in Vigliola and Meekan (2009)." />
-
 <meta property="og:image" content="http://derekogle.com/RFishBC/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -54,6 +58,7 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -72,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
       </span>
     </div>
 
@@ -112,7 +117,6 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
@@ -133,6 +137,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -144,13 +149,11 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Creates a function for a specific model based on definitions in Vigliola and Meekan (2009).</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>bcFuns</span>(<span class='no'>BCM</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -159,91 +162,80 @@
       <td><p>A single numeric between 1 and 22 or a string that indicates which model to use (based on numbers and names in Vigliola and Meekan (2009)).</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A function that can be used to predict length at previous age (Li) given length-at-capture (Lcap), hard-part radius-at-age i (Ri), and hard-part radius-at-capture (Rcap). In addition, some functions/models may require the previous age (agei) and the age-at-capture (agec), certain parameters related to the biological intercept (R0p &amp; L0p), or certain parameters estimated from various regression models (a,b,c,A,B,C). See source for more information.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The following models, based on definitions with abbreviations and model numbers from Vigliola and Meekan (2009), are supported.</p>
 <table class='table'>
-<tr><td></td><td><b>Abbreviation</b></td><td></td></tr>
-<tr><td></td><td><b>Number</b></td><td></td></tr>
-<tr><td></td><td><b>Model</b></td><td></td></tr>
-<tr><td></td><td>DALE</td><td>1</td></tr>
-<tr><td>Dahl-Lea</td><td></td><td>FRALE</td></tr>
-<tr><td>2</td><td>Fraser-Lee</td><td></td></tr>
+<tr><td><b>Abbreviation</b></td><td><b>Number</b></td><td><b>Model</b></td></tr>
+<tr><td>DALE</td><td>1</td><td>Dahl-Lea</td></tr>
+<tr><td>FRALE</td><td>2</td><td>Fraser-Lee</td></tr>
 <tr><td>BI, LBI</td><td>3</td><td>(Linear) Biological Intercept</td></tr>
-<tr><td></td><td>BPH, LBPH</td><td>4</td></tr>
-<tr><td>(Linear) Body Proportional Hypothesis</td><td></td><td>TVG</td></tr>
-<tr><td>5</td><td>Time-Varying Growth</td><td></td></tr>
+<tr><td>BPH, LBPH</td><td>4</td><td>(Linear) Body Proportional Hypothesis</td></tr>
+<tr><td>TVG</td><td>5</td><td>Time-Varying Growth</td></tr>
 <tr><td>SPH, LSPH</td><td>6</td><td>(Linear) Scale Proportional Hypothesis</td></tr>
-<tr><td></td><td>AE, AESPH</td><td>7</td></tr>
-<tr><td>(Age Effect) Scale Proportional Hypothesis</td><td></td><td>AEBPH</td></tr>
-<tr><td>8</td><td>(Age Effect) Body Proportional Hypothesis</td><td></td></tr>
+<tr><td>AE, AESPH</td><td>7</td><td>(Age Effect) Scale Proportional Hypothesis</td></tr>
+<tr><td>AEBPH</td><td>8</td><td>(Age Effect) Body Proportional Hypothesis</td></tr>
 <tr><td>MONA</td><td>9</td><td>Monastyrsky</td></tr>
-<tr><td></td><td>MONA-BPH</td><td>10</td></tr>
-<tr><td>Monastyrsky Body Proportional Hypothesis</td><td></td><td>MONA-SPH</td></tr>
-<tr><td>11</td><td>Monastyrsky Scale Proportional Hypothesis</td><td></td></tr>
+<tr><td>MONA-BPH</td><td>10</td><td>Monastyrsky Body Proportional Hypothesis</td></tr>
+<tr><td>MONA-SPH</td><td>11</td><td>Monastyrsky Scale Proportional Hypothesis</td></tr>
 <tr><td>WAKU</td><td>12</td><td>Watanabe and Kuroki</td></tr>
-<tr><td></td><td>FRY</td><td>13</td></tr>
-<tr><td>Fry</td><td></td><td>MF, ABI</td></tr>
-<tr><td>14</td><td>Modified Fry, Allometric Biological Intercept</td><td></td></tr>
+<tr><td>FRY</td><td>13</td><td>Fry</td></tr>
+<tr><td>MF, ABI</td><td>14</td><td>Modified Fry, Allometric Biological Intercept</td></tr>
 <tr><td>FRY-BPH, ABPH</td><td>15</td><td>Fry, Allometric Body Proportional Hypothesis</td></tr>
-<tr><td></td><td>FRY-SPH, ASPH</td><td>16</td></tr>
-<tr><td>Fry, Allometric Scale Proportional Hypothesis</td><td></td><td>QBPH</td></tr>
-<tr><td>17</td><td>Quadratic Body Proportional Hypothesis</td><td></td></tr>
+<tr><td>FRY-SPH, ASPH</td><td>16</td><td>Fry, Allometric Scale Proportional Hypothesis</td></tr>
+<tr><td>QBPH</td><td>17</td><td>Quadratic Body Proportional Hypothesis</td></tr>
 <tr><td>QSPH</td><td>18</td><td>Quadratic Scale Proportional Hypothesis</td></tr>
-<tr><td></td><td>PBPH</td><td>19</td></tr>
-<tr><td>Polynomial Body Proportional Hypothesis</td><td></td><td>PSPH</td></tr>
-<tr><td>20</td><td>Polynomial Scale Proportional Hypothesis</td><td></td></tr>
+<tr><td>PBPH</td><td>19</td><td>Polynomial Body Proportional Hypothesis</td></tr>
+<tr><td>PSPH</td><td>20</td><td>Polynomial Scale Proportional Hypothesis</td></tr>
 <tr><td>EBPH</td><td>21</td><td>Exponential Body Proportional Hypothesis</td></tr>
-<tr><td></td><td>ESPH</td><td>22</td></tr>
-<tr><td>Exponential Scale Proportional Hypothesis</td><td></td><td></td></tr>
+<tr><td>ESPH</td><td>22</td><td>Exponential Scale Proportional Hypothesis</td></tr>
 </table>
-    
+
+
     <h2 class="hasAnchor" id="ifar-supplement"><a class="anchor" href="#ifar-supplement"></a>IFAR Supplement</h2>
 
     <p><a href='http://derekogle.com/IFAR/supplements/backcalculation/'>http://derekogle.com/IFAR/supplements/backcalculation/</a></p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Vigliola, L. and M.G. Meekan. 2009. The back-calculation of fish growth from otoliths. pp. 174-211. in B.S. Green et al. (editors). Tropical Fish Otoliths: Information for Assessment, Management and Ecology. Review: Methods and Technologies in Fish Biology and Fisheries 11. Springer. [Was (is?) available from https://www.researchgate.net/publication/226394736_The_Back-Calculation_of_Fish_Growth_From_Otoliths.]</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Simple Examples</span>
-( <span class='no'>bcm1</span> <span class='kw'>&lt;-</span> <span class='fu'>bcFuns</span>(<span class='fl'>1</span>) )</div><div class='output co'>#&gt; function(Lcap,Ri,Rcap,...,verbose=TRUE) {
-#&gt;         if (verbose) DONE("Using the Dahl-Lea model.")
-#&gt;         (Ri/Rcap)*Lcap
-#&gt;       }
-#&gt; &lt;environment: 0x0000000017f9b630&gt;</div><div class='input'><span class='fu'>bcm1</span>(<span class='fl'>20</span>,<span class='fl'>10</span>,<span class='fl'>40</span>)</div><div class='output co'>#&gt; <span style='color: #00BB00;'>&lt;U+2714&gt;</span><span> Using the Dahl-Lea model.</div><div class='output co'>#&gt; [1] 5</div><div class='input'>
+( <span class='no'>bcm1</span> <span class='kw'>&lt;-</span> <span class='fu'>bcFuns</span>(<span class='fl'>1</span>) )</div><div class='output co'>#&gt; function (Lcap, Ri, Rcap, ..., verbose = TRUE) 
+#&gt; {
+#&gt;     if (verbose) 
+#&gt;         DONE("Using the Dahl-Lea model.")
+#&gt;     (Ri/Rcap) * Lcap
+#&gt; }
+#&gt; &lt;bytecode: 0x000000001415dad0&gt;
+#&gt; &lt;environment: 0x0000000014173f88&gt;</div><div class='input'><span class='fu'>bcm1</span>(<span class='fl'>20</span>,<span class='fl'>10</span>,<span class='fl'>40</span>)</div><div class='output co'>#&gt; <span style='color: #00BB00;'>&lt;U+2714&gt;</span><span> Using the Dahl-Lea model.</div><div class='output co'>#&gt; [1] 5</div><div class='input'>
 <span class='co'>## Example with dummy length-at-cap, radii-at-cap, and radii-at-age</span>
-<span class='no'>lencap</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>100</span>,<span class='fl'>100</span>,<span class='fl'>100</span>,<span class='fl'>150</span>,<span class='fl'>150</span>)
-<span class='no'>radcap</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>20</span>,<span class='fl'>20</span>,<span class='fl'>20</span>,<span class='fl'>30</span>,<span class='fl'>30</span>)
-<span class='no'>rad</span>    <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>( <span class='fl'>5</span>,<span class='fl'>10</span>,<span class='fl'>15</span>,<span class='fl'>15</span>,<span class='fl'>25</span>)
+<span class='no'>lencap</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>100</span>,<span class='fl'>100</span>,<span class='fl'>100</span>,<span class='fl'>150</span>,<span class='fl'>150</span>)
+<span class='no'>radcap</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20</span>,<span class='fl'>20</span>,<span class='fl'>20</span>,<span class='fl'>30</span>,<span class='fl'>30</span>)
+<span class='no'>rad</span>    <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='fl'>5</span>,<span class='fl'>10</span>,<span class='fl'>15</span>,<span class='fl'>15</span>,<span class='fl'>25</span>)
 <span class='fu'>bcm1</span>(<span class='no'>lencap</span>,<span class='no'>rad</span>,<span class='no'>radcap</span>)</div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>&lt;U+2714&gt;</span><span> Using the Dahl-Lea model.</div><div class='output co'>#&gt; [1]  25  50  75  75 125</div><div class='input'>
-( <span class='no'>bcm2</span> <span class='kw'>&lt;-</span> <span class='fu'>bcFuns</span>(<span class='st'>"FRALE"</span>) )</div><div class='output co'>#&gt; function(Lcap,Ri,Rcap,a,...,verbose=TRUE) {
-#&gt;         if (verbose) DONE("Using the Fraser-Lee model with a=",a,".")
-#&gt;         a+(Lcap-a)*(Ri/Rcap)
-#&gt;       }
-#&gt; &lt;environment: 0x0000000017d99598&gt;</div><div class='input'><span class='fu'>bcm2</span>(<span class='no'>lencap</span>,<span class='no'>rad</span>,<span class='no'>radcap</span>,<span class='fl'>2</span>)  <span class='co'># demonstrated with a=2</span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>&lt;U+2714&gt;</span><span> Using the Fraser-Lee model with a=2.</div><div class='output co'>#&gt; [1]  26.5000  51.0000  75.5000  76.0000 125.3333</div><div class='input'>
+( <span class='no'>bcm2</span> <span class='kw'>&lt;-</span> <span class='fu'>bcFuns</span>(<span class='st'>"FRALE"</span>) )</div><div class='output co'>#&gt; function (Lcap, Ri, Rcap, a, ..., verbose = TRUE) 
+#&gt; {
+#&gt;     if (verbose) 
+#&gt;         DONE("Using the Fraser-Lee model with a=", a, ".")
+#&gt;     a + (Lcap - a) * (Ri/Rcap)
+#&gt; }
+#&gt; &lt;bytecode: 0x000000001415d558&gt;
+#&gt; &lt;environment: 0x0000000014c80f68&gt;</div><div class='input'><span class='fu'>bcm2</span>(<span class='no'>lencap</span>,<span class='no'>rad</span>,<span class='no'>radcap</span>,<span class='fl'>2</span>)  <span class='co'># demonstrated with a=2</span></div><div class='output co'>#&gt; </span><span style='color: #00BB00;'>&lt;U+2714&gt;</span><span> Using the Fraser-Lee model with a=2.</div><div class='output co'>#&gt; [1]  26.5000  51.0000  75.5000  76.0000 125.3333</div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#ifar-supplement">IFAR Supplement</a></li>
-
       <li><a href="#references">References</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -252,19 +244,23 @@
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by Derek Ogle.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

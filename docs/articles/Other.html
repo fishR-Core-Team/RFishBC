@@ -13,8 +13,9 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Other Features / Common Questions">
 <meta property="og:description" content="">
 <meta property="og:image" content="http://derekogle.com/RFishBC/logo.png">
@@ -37,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
       </span>
     </div>
 
@@ -99,13 +100,14 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Other Features / Common Questions</h1>
                         <h4 class="author">Derek H. Ogle</h4>
             
-            <h4 class="date">2019-05-02</h4>
+            <h4 class="date">2019-12-11</h4>
       
       
       <div class="hidden name"><code>Other.Rmd</code></div>
@@ -118,20 +120,16 @@
 <h1 class="hasAnchor">
 <a href="#collect-just-age-data" class="anchor"></a>Collect Just Age Data</h1>
 <p>Some researchers would like to use RFishBC to collect age data only without any concern for measurements on the image for the purposes of back-calculation. RFishBC will record measurements on the structure but these measurements can ultimately be ignored if you simply want to have a data.frame of estimated ages. This is demonstrated below using a few functions from the <code>dplyr</code> package.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(RFishBC)</a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(RFishBC)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a></code></pre></div>
 <p>This example also uses the “DHO” readings of “Scale_1.jpg”, “Scale_2.jpg”, and “Scale_3.jpg” demonstrated in the <a href="collectRadiiData.html#multiplestructures">Combine Data from Multiple Structures section of the Collecting Radial Measurements</a> vignette. These readings are put into a list using <code><a href="../reference/listFiles.html">listFiles()</a></code> and their data are combined into a <strong>WIDE</strong> format data.frame below (as described in <a href="collectRadiiData.html#multiplestructures">the Collecting Radial Measurements</a> vignette).</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">( fns &lt;-<span class="st"> </span><span class="kw"><a href="../reference/listFiles.html">listFiles</a></span>(<span class="st">"rds"</span>,<span class="dt">other=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Scale"</span>,<span class="st">"DHO"</span>)) )</a>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">( fns &lt;-<span class="st"> </span><span class="kw"><a href="../reference/listFiles.html">listFiles</a></span>(<span class="st">"rds"</span>,<span class="dt">other=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Scale"</span>,<span class="st">"DHO"</span>)) )</a>
 <a class="sourceLine" id="cb2-2" title="2"><span class="co">#&gt; [1] "Scale_1_DHO.rds" "Scale_2_DHO.rds" "Scale_3_DHO.rds"</span></a>
 <a class="sourceLine" id="cb2-3" title="3">( dfrad2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/combineData.html">combineData</a></span>(fns,<span class="dt">formatOut=</span><span class="st">"wide"</span>) )</a>
-<a class="sourceLine" id="cb2-4" title="4"><span class="co">#&gt;   id reading agecap    radcap      rad1      rad2      rad3      rad4</span></a>
-<a class="sourceLine" id="cb2-5" title="5"><span class="co">#&gt; 1  1     DHO      5 0.5163737 0.2208691 0.2893299 0.3259383 0.4626601</span></a>
-<a class="sourceLine" id="cb2-6" title="6"><span class="co">#&gt; 2  2     DHO      4 0.3908662 0.1377625 0.2236611 0.3026716 0.3530492</span></a>
-<a class="sourceLine" id="cb2-7" title="7"><span class="co">#&gt; 3  3     DHO      1 0.5202232 0.5202232        NA        NA        NA</span></a>
-<a class="sourceLine" id="cb2-8" title="8"><span class="co">#&gt;        rad5</span></a>
-<a class="sourceLine" id="cb2-9" title="9"><span class="co">#&gt; 1 0.5017862</span></a>
-<a class="sourceLine" id="cb2-10" title="10"><span class="co">#&gt; 2        NA</span></a>
-<a class="sourceLine" id="cb2-11" title="11"><span class="co">#&gt; 3        NA</span></a></code></pre></div>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co">#&gt;   id reading agecap    radcap      rad1      rad2      rad3      rad4      rad5</span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="co">#&gt; 1  1     DHO      5 0.5163737 0.2208691 0.2893299 0.3259383 0.4626601 0.5017862</span></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="co">#&gt; 2  2     DHO      4 0.3908662 0.1377625 0.2236611 0.3026716 0.3530492        NA</span></a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="co">#&gt; 3  3     DHO      1 0.5202232 0.5202232        NA        NA        NA        NA</span></a></code></pre></div>
 <p>A data.frame of just ages is created from this data.frame by removing all variables that contain the word “rad” using <code>select()</code> from <code>dplyr</code>. The <code>select()</code> function requires the original data.frame as its first argument and then directions on variables to select as the ensuing arguments. There are several ways to get the required data.frame with these simple data as shown below – one can select variables individually, select contiguous variables, or deselect (negative sign) variables that contain the word “rad”.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">( dfrad2ages &lt;-<span class="st"> </span><span class="kw">select</span>(dfrad2,id,reading,agecap) )</a>
 <a class="sourceLine" id="cb3-2" title="2"><span class="co">#&gt;   id reading agecap</span></a>
@@ -165,26 +163,24 @@
 <a class="sourceLine" id="cb5-2" title="2">              <span class="dt">makeTransect=</span><span class="ot">FALSE</span>,<span class="dt">windowSize=</span><span class="dv">10</span>)</a></code></pre></div>
 <p>The results can be seen with <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code> as described in the <a href="seeRadiiData.html">Visualize Radial Data</a> vignette.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="../reference/showDigitizedImage.html">showDigitizedImage</a></span>(<span class="st">"DWS_Oto_89765_DHO.rds"</span>,</a>
-<a class="sourceLine" id="cb6-2" title="2">                   <span class="dt">annuliLabels=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">12</span>,<span class="dv">14</span>,<span class="dv">17</span>),<span class="dt">cex.ann=</span><span class="fl">0.8</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb6-2" title="2">                   <span class="dt">annuliLabels=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">12</span>,<span class="dv">14</span>,<span class="dv">17</span>),<span class="dt">cex.ann=</span><span class="fl">0.8</span>)</a></code></pre></div>
 <p><img src="figures/DWS_Oto_89765_A.jpg"></p>
 <p> </p>
 <p>RFishBC calculates radii as the cumulative sum of the annular increments rather than the distance from the structure center to the annuli. These radii or increments can be extracted as described in the <a href="collectRadiiData.html">Collecting Radial Measurements</a> vignette.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw"><a href="../reference/combineData.html">combineData</a></span>(<span class="st">"DWS_Oto_89765_DHO.rds"</span>,<span class="dt">formatOut=</span><span class="st">"wide"</span>)</a>
 <a class="sourceLine" id="cb7-2" title="2"><span class="co">#&gt;      id reading agecap  radcap      rad1      rad2      rad3      rad4</span></a>
 <a class="sourceLine" id="cb7-3" title="3"><span class="co">#&gt; 1 89765     DHO     19 1.52889 0.1609664 0.4130613 0.6681783 0.7902489</span></a>
-<a class="sourceLine" id="cb7-4" title="4"><span class="co">#&gt;        rad5      rad6     rad7     rad8     rad9    rad10    rad11</span></a>
-<a class="sourceLine" id="cb7-5" title="5"><span class="co">#&gt; 1 0.9018444 0.9340365 1.014203 1.099765 1.159114 1.229457 1.258141</span></a>
-<a class="sourceLine" id="cb7-6" title="6"><span class="co">#&gt;      rad12    rad13    rad14    rad15    rad16    rad17    rad18   rad19</span></a>
-<a class="sourceLine" id="cb7-7" title="7"><span class="co">#&gt; 1 1.298337 1.344228 1.372911 1.411179 1.442248 1.477615 1.511827 1.52889</span></a>
+<a class="sourceLine" id="cb7-4" title="4"><span class="co">#&gt;        rad5      rad6     rad7     rad8     rad9    rad10    rad11    rad12</span></a>
+<a class="sourceLine" id="cb7-5" title="5"><span class="co">#&gt; 1 0.9018444 0.9340365 1.014203 1.099765 1.159114 1.229457 1.258141 1.298337</span></a>
+<a class="sourceLine" id="cb7-6" title="6"><span class="co">#&gt;      rad13    rad14    rad15    rad16    rad17    rad18   rad19</span></a>
+<a class="sourceLine" id="cb7-7" title="7"><span class="co">#&gt; 1 1.344228 1.372911 1.411179 1.442248 1.477615 1.511827 1.52889</span></a>
 <a class="sourceLine" id="cb7-8" title="8"><span class="kw"><a href="../reference/combineData.html">combineData</a></span>(<span class="st">"DWS_Oto_89765_DHO.rds"</span>,<span class="dt">formatOut=</span><span class="st">"wide"</span>,<span class="dt">typeOut=</span><span class="st">"inc"</span>)</a>
-<a class="sourceLine" id="cb7-9" title="9"><span class="co">#&gt;      id reading agecap  radcap      inc1      inc2     inc3      inc4</span></a>
-<a class="sourceLine" id="cb7-10" title="10"><span class="co">#&gt; 1 89765     DHO     19 1.52889 0.1609664 0.2520949 0.255117 0.1220706</span></a>
-<a class="sourceLine" id="cb7-11" title="11"><span class="co">#&gt;        inc5       inc6       inc7       inc8       inc9      inc10</span></a>
-<a class="sourceLine" id="cb7-12" title="12"><span class="co">#&gt; 1 0.1115955 0.03219214 0.08016677 0.08556216 0.05934844 0.07034342</span></a>
-<a class="sourceLine" id="cb7-13" title="13"><span class="co">#&gt;        inc11      inc12      inc13      inc14      inc15     inc16</span></a>
-<a class="sourceLine" id="cb7-14" title="14"><span class="co">#&gt; 1 0.02868355 0.04019624 0.04589046 0.02868355 0.03826742 0.0310698</span></a>
-<a class="sourceLine" id="cb7-15" title="15"><span class="co">#&gt;        inc17      inc18      inc19</span></a>
-<a class="sourceLine" id="cb7-16" title="16"><span class="co">#&gt; 1 0.03536676 0.03421178 0.01706312</span></a></code></pre></div>
+<a class="sourceLine" id="cb7-9" title="9"><span class="co">#&gt;      id reading agecap  radcap      inc1      inc2     inc3      inc4      inc5</span></a>
+<a class="sourceLine" id="cb7-10" title="10"><span class="co">#&gt; 1 89765     DHO     19 1.52889 0.1609664 0.2520949 0.255117 0.1220706 0.1115955</span></a>
+<a class="sourceLine" id="cb7-11" title="11"><span class="co">#&gt;         inc6       inc7       inc8       inc9      inc10      inc11      inc12</span></a>
+<a class="sourceLine" id="cb7-12" title="12"><span class="co">#&gt; 1 0.03219214 0.08016677 0.08556216 0.05934844 0.07034342 0.02868355 0.04019624</span></a>
+<a class="sourceLine" id="cb7-13" title="13"><span class="co">#&gt;        inc13      inc14      inc15     inc16      inc17      inc18      inc19</span></a>
+<a class="sourceLine" id="cb7-14" title="14"><span class="co">#&gt; 1 0.04589046 0.02868355 0.03826742 0.0310698 0.03536676 0.03421178 0.01706312</span></a></code></pre></div>
 <p> </p>
 <p> </p>
 </div>
@@ -193,34 +189,28 @@
 <a href="#extract-increments-rather-than-radii" class="anchor"></a>Extract Increments Rather than Radii</h1>
 <p>As noted in the <a href="BCIntro.html">Introduction to Back-calculation</a> vignette, radial measurements are the distance from the structure center to the annulus.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> In some instances, the user may desire incremental rather than radial measurements. Incremental measurements are the distances between successive annuli, with the first increment being the distance from the structure center to the first annulus. Increments may be extracted from the data stored in the R data file with <code><a href="../reference/combineData.html">combineData()</a></code> using <code>typeOut="inc"</code>. For example, the radial and incremental measurements for the “DHO” reading of “Scale_1.jpg” in wide format are shown below.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="../reference/combineData.html">combineData</a></span>(<span class="st">"Scale_1_DHO.rds"</span>,<span class="dt">formatOut=</span><span class="st">"wide"</span>)</a>
-<a class="sourceLine" id="cb8-2" title="2"><span class="co">#&gt;   id reading agecap    radcap      rad1      rad2      rad3      rad4</span></a>
-<a class="sourceLine" id="cb8-3" title="3"><span class="co">#&gt; 1  1     DHO      5 0.5163737 0.2208691 0.2893299 0.3259383 0.4626601</span></a>
-<a class="sourceLine" id="cb8-4" title="4"><span class="co">#&gt;        rad5</span></a>
-<a class="sourceLine" id="cb8-5" title="5"><span class="co">#&gt; 1 0.5017862</span></a>
-<a class="sourceLine" id="cb8-6" title="6"><span class="kw"><a href="../reference/combineData.html">combineData</a></span>(<span class="st">"Scale_1_DHO.rds"</span>,<span class="dt">typeOut=</span><span class="st">"inc"</span>,<span class="dt">formatOut=</span><span class="st">"wide"</span>)</a>
-<a class="sourceLine" id="cb8-7" title="7"><span class="co">#&gt;   id reading agecap    radcap      inc1       inc2       inc3      inc4</span></a>
-<a class="sourceLine" id="cb8-8" title="8"><span class="co">#&gt; 1  1     DHO      5 0.5163737 0.2208691 0.06846078 0.03660836 0.1367218</span></a>
-<a class="sourceLine" id="cb8-9" title="9"><span class="co">#&gt;         inc5</span></a>
-<a class="sourceLine" id="cb8-10" title="10"><span class="co">#&gt; 1 0.03912615</span></a></code></pre></div>
+<a class="sourceLine" id="cb8-2" title="2"><span class="co">#&gt;   id reading agecap    radcap      rad1      rad2      rad3      rad4      rad5</span></a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="co">#&gt; 1  1     DHO      5 0.5163737 0.2208691 0.2893299 0.3259383 0.4626601 0.5017862</span></a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="kw"><a href="../reference/combineData.html">combineData</a></span>(<span class="st">"Scale_1_DHO.rds"</span>,<span class="dt">typeOut=</span><span class="st">"inc"</span>,<span class="dt">formatOut=</span><span class="st">"wide"</span>)</a>
+<a class="sourceLine" id="cb8-5" title="5"><span class="co">#&gt;   id reading agecap    radcap      inc1       inc2       inc3      inc4</span></a>
+<a class="sourceLine" id="cb8-6" title="6"><span class="co">#&gt; 1  1     DHO      5 0.5163737 0.2208691 0.06846078 0.03660836 0.1367218</span></a>
+<a class="sourceLine" id="cb8-7" title="7"><span class="co">#&gt;         inc5</span></a>
+<a class="sourceLine" id="cb8-8" title="8"><span class="co">#&gt; 1 0.03912615</span></a></code></pre></div>
 <p>Of course, increments from several sets of measurements may also be extracted (note that the list of R data files in <code>fns</code> was created <a href="l#collect-just-age-data">above</a>)</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="../reference/combineData.html">combineData</a></span>(fns,<span class="dt">formatOut=</span><span class="st">"wide"</span>)</a>
-<a class="sourceLine" id="cb9-2" title="2"><span class="co">#&gt;   id reading agecap    radcap      rad1      rad2      rad3      rad4</span></a>
-<a class="sourceLine" id="cb9-3" title="3"><span class="co">#&gt; 1  1     DHO      5 0.5163737 0.2208691 0.2893299 0.3259383 0.4626601</span></a>
-<a class="sourceLine" id="cb9-4" title="4"><span class="co">#&gt; 2  2     DHO      4 0.3908662 0.1377625 0.2236611 0.3026716 0.3530492</span></a>
-<a class="sourceLine" id="cb9-5" title="5"><span class="co">#&gt; 3  3     DHO      1 0.5202232 0.5202232        NA        NA        NA</span></a>
-<a class="sourceLine" id="cb9-6" title="6"><span class="co">#&gt;        rad5</span></a>
-<a class="sourceLine" id="cb9-7" title="7"><span class="co">#&gt; 1 0.5017862</span></a>
-<a class="sourceLine" id="cb9-8" title="8"><span class="co">#&gt; 2        NA</span></a>
-<a class="sourceLine" id="cb9-9" title="9"><span class="co">#&gt; 3        NA</span></a>
-<a class="sourceLine" id="cb9-10" title="10"><span class="kw"><a href="../reference/combineData.html">combineData</a></span>(fns,<span class="dt">typeOut=</span><span class="st">"inc"</span>,<span class="dt">formatOut=</span><span class="st">"wide"</span>)</a>
-<a class="sourceLine" id="cb9-11" title="11"><span class="co">#&gt;   id reading agecap    radcap      inc1       inc2       inc3       inc4</span></a>
-<a class="sourceLine" id="cb9-12" title="12"><span class="co">#&gt; 1  1     DHO      5 0.5163737 0.2208691 0.06846078 0.03660836 0.13672182</span></a>
-<a class="sourceLine" id="cb9-13" title="13"><span class="co">#&gt; 2  2     DHO      4 0.3908662 0.1377625 0.08589861 0.07901049 0.05037762</span></a>
-<a class="sourceLine" id="cb9-14" title="14"><span class="co">#&gt; 3  3     DHO      1 0.5202232 0.5202232         NA         NA         NA</span></a>
-<a class="sourceLine" id="cb9-15" title="15"><span class="co">#&gt;         inc5</span></a>
-<a class="sourceLine" id="cb9-16" title="16"><span class="co">#&gt; 1 0.03912615</span></a>
-<a class="sourceLine" id="cb9-17" title="17"><span class="co">#&gt; 2         NA</span></a>
-<a class="sourceLine" id="cb9-18" title="18"><span class="co">#&gt; 3         NA</span></a></code></pre></div>
+<a class="sourceLine" id="cb9-2" title="2"><span class="co">#&gt;   id reading agecap    radcap      rad1      rad2      rad3      rad4      rad5</span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="co">#&gt; 1  1     DHO      5 0.5163737 0.2208691 0.2893299 0.3259383 0.4626601 0.5017862</span></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="co">#&gt; 2  2     DHO      4 0.3908662 0.1377625 0.2236611 0.3026716 0.3530492        NA</span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="co">#&gt; 3  3     DHO      1 0.5202232 0.5202232        NA        NA        NA        NA</span></a>
+<a class="sourceLine" id="cb9-6" title="6"><span class="kw"><a href="../reference/combineData.html">combineData</a></span>(fns,<span class="dt">typeOut=</span><span class="st">"inc"</span>,<span class="dt">formatOut=</span><span class="st">"wide"</span>)</a>
+<a class="sourceLine" id="cb9-7" title="7"><span class="co">#&gt;   id reading agecap    radcap      inc1       inc2       inc3       inc4</span></a>
+<a class="sourceLine" id="cb9-8" title="8"><span class="co">#&gt; 1  1     DHO      5 0.5163737 0.2208691 0.06846078 0.03660836 0.13672182</span></a>
+<a class="sourceLine" id="cb9-9" title="9"><span class="co">#&gt; 2  2     DHO      4 0.3908662 0.1377625 0.08589861 0.07901049 0.05037762</span></a>
+<a class="sourceLine" id="cb9-10" title="10"><span class="co">#&gt; 3  3     DHO      1 0.5202232 0.5202232         NA         NA         NA</span></a>
+<a class="sourceLine" id="cb9-11" title="11"><span class="co">#&gt;         inc5</span></a>
+<a class="sourceLine" id="cb9-12" title="12"><span class="co">#&gt; 1 0.03912615</span></a>
+<a class="sourceLine" id="cb9-13" title="13"><span class="co">#&gt; 2         NA</span></a>
+<a class="sourceLine" id="cb9-14" title="14"><span class="co">#&gt; 3         NA</span></a></code></pre></div>
 <p> </p>
 <p> </p>
 </div>
@@ -236,21 +226,19 @@
 <p><img src="figures/Scale_1_D.jpg"></p>
 <p>The notes for a list of R Data file names may be found with <code><a href="../reference/findNotes.html">findNotes()</a></code>. The first argument to this function can be a vector of R Data file names in the current working directory. If this argument is missing, then the user will be prompted to choose R Data files from a dialog box. For example, the following code returns the list of notes for all fish ids and readings in the current working directory (note that the second file listed is not a valid file, so it was excluded from the vector given to <code><a href="../reference/findNotes.html">findNotes()</a></code>).</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">( tmp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/listFiles.html">listFiles</a></span>(<span class="st">".rds"</span>) )</a>
-<a class="sourceLine" id="cb12-2" title="2"><span class="co">#&gt; [1] "DWS_Oto_89765_DHO.rds"  "Oto140306_DHO.rds"     </span></a>
-<a class="sourceLine" id="cb12-3" title="3"><span class="co">#&gt; [3] "Oto140306_OHD.rds"      "Scale_1_DHO.rds"       </span></a>
-<a class="sourceLine" id="cb12-4" title="4"><span class="co">#&gt; [5] "Scale_1_ODH.rds"        "Scale_1_OHD.rds"       </span></a>
-<a class="sourceLine" id="cb12-5" title="5"><span class="co">#&gt; [7] "Scale_2_DHO.rds"        "Scale_2_OLDwNoNote.rds"</span></a>
-<a class="sourceLine" id="cb12-6" title="6"><span class="co">#&gt; [9] "Scale_3_DHO.rds"</span></a>
-<a class="sourceLine" id="cb12-7" title="7"><span class="kw"><a href="../reference/findNotes.html">findNotes</a></span>(tmp[<span class="op">-</span><span class="dv">2</span>])</a>
-<a class="sourceLine" id="cb12-8" title="8"><span class="co">#&gt;       id reading                               note</span></a>
-<a class="sourceLine" id="cb12-9" title="9"><span class="co">#&gt; 1  89765     DHO                                   </span></a>
-<a class="sourceLine" id="cb12-10" title="10"><span class="co">#&gt; 2 140306     OHD                                   </span></a>
-<a class="sourceLine" id="cb12-11" title="11"><span class="co">#&gt; 3      1     DHO 3rd annulus location was difficult</span></a>
-<a class="sourceLine" id="cb12-12" title="12"><span class="co">#&gt; 4      1     ODH              Test note as argument</span></a>
-<a class="sourceLine" id="cb12-13" title="13"><span class="co">#&gt; 5      1     OHD             Test not as dialog box</span></a>
-<a class="sourceLine" id="cb12-14" title="14"><span class="co">#&gt; 6      2     DHO                                   </span></a>
-<a class="sourceLine" id="cb12-15" title="15"><span class="co">#&gt; 7      2     DHO                                   </span></a>
-<a class="sourceLine" id="cb12-16" title="16"><span class="co">#&gt; 8      3     DHO</span></a></code></pre></div>
+<a class="sourceLine" id="cb12-2" title="2"><span class="co">#&gt; [1] "DWS_Oto_89765_DHO.rds"  "Oto140306_DHO.rds"      "Oto140306_OHD.rds"     </span></a>
+<a class="sourceLine" id="cb12-3" title="3"><span class="co">#&gt; [4] "Scale_1_DHO.rds"        "Scale_1_ODH.rds"        "Scale_1_OHD.rds"       </span></a>
+<a class="sourceLine" id="cb12-4" title="4"><span class="co">#&gt; [7] "Scale_2_DHO.rds"        "Scale_2_OLDwNoNote.rds" "Scale_3_DHO.rds"</span></a>
+<a class="sourceLine" id="cb12-5" title="5"><span class="kw"><a href="../reference/findNotes.html">findNotes</a></span>(tmp[<span class="op">-</span><span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb12-6" title="6"><span class="co">#&gt;       id reading                               note</span></a>
+<a class="sourceLine" id="cb12-7" title="7"><span class="co">#&gt; 1  89765     DHO                                   </span></a>
+<a class="sourceLine" id="cb12-8" title="8"><span class="co">#&gt; 2 140306     OHD                                   </span></a>
+<a class="sourceLine" id="cb12-9" title="9"><span class="co">#&gt; 3      1     DHO 3rd annulus location was difficult</span></a>
+<a class="sourceLine" id="cb12-10" title="10"><span class="co">#&gt; 4      1     ODH              Test note as argument</span></a>
+<a class="sourceLine" id="cb12-11" title="11"><span class="co">#&gt; 5      1     OHD             Test not as dialog box</span></a>
+<a class="sourceLine" id="cb12-12" title="12"><span class="co">#&gt; 6      2     DHO                                   </span></a>
+<a class="sourceLine" id="cb12-13" title="13"><span class="co">#&gt; 7      2     DHO                                   </span></a>
+<a class="sourceLine" id="cb12-14" title="14"><span class="co">#&gt; 8      3     DHO</span></a></code></pre></div>
 <p>The results from <code><a href="../reference/findNotes.html">findNotes()</a></code> is a vector that can be manipulated. For example, the following shows the list for only those ids and readings for which a note was made.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">notes &lt;-<span class="st"> </span><span class="kw"><a href="../reference/findNotes.html">findNotes</a></span>(tmp[<span class="op">-</span><span class="dv">2</span>])</a>
 <a class="sourceLine" id="cb13-2" title="2">dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(notes,note<span class="op">!=</span><span class="st">""</span>)</a>
@@ -259,28 +247,24 @@
 <a class="sourceLine" id="cb13-5" title="5"><span class="co">#&gt; 2  1     ODH              Test note as argument</span></a>
 <a class="sourceLine" id="cb13-6" title="6"><span class="co">#&gt; 3  1     OHD             Test not as dialog box</span></a></code></pre></div>
 <p>Additionally, one can append the notes to the radial (or incremental) measurements returned from <code><a href="../reference/combineData.html">combineData()</a></code> (e.g., <a href="l#collect-just-age-data">as shown above</a>) using <code>left_join()</code> from <code>dplyr</code> as shown below.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">( fns &lt;-<span class="st"> </span><span class="kw"><a href="../reference/listFiles.html">listFiles</a></span>(<span class="st">"rds"</span>,<span class="dt">other=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Scale"</span>,<span class="st">"DHO"</span>)) )</a>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">( fns &lt;-<span class="st"> </span><span class="kw"><a href="../reference/listFiles.html">listFiles</a></span>(<span class="st">"rds"</span>,<span class="dt">other=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Scale"</span>,<span class="st">"DHO"</span>)) )</a>
 <a class="sourceLine" id="cb14-2" title="2"><span class="co">#&gt; [1] "Scale_1_DHO.rds" "Scale_2_DHO.rds" "Scale_3_DHO.rds"</span></a>
 <a class="sourceLine" id="cb14-3" title="3">( dfrad2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/combineData.html">combineData</a></span>(fns,<span class="dt">formatOut=</span><span class="st">"wide"</span>) )</a>
-<a class="sourceLine" id="cb14-4" title="4"><span class="co">#&gt;   id reading agecap    radcap      rad1      rad2      rad3      rad4</span></a>
-<a class="sourceLine" id="cb14-5" title="5"><span class="co">#&gt; 1  1     DHO      5 0.5163737 0.2208691 0.2893299 0.3259383 0.4626601</span></a>
-<a class="sourceLine" id="cb14-6" title="6"><span class="co">#&gt; 2  2     DHO      4 0.3908662 0.1377625 0.2236611 0.3026716 0.3530492</span></a>
-<a class="sourceLine" id="cb14-7" title="7"><span class="co">#&gt; 3  3     DHO      1 0.5202232 0.5202232        NA        NA        NA</span></a>
-<a class="sourceLine" id="cb14-8" title="8"><span class="co">#&gt;        rad5</span></a>
-<a class="sourceLine" id="cb14-9" title="9"><span class="co">#&gt; 1 0.5017862</span></a>
-<a class="sourceLine" id="cb14-10" title="10"><span class="co">#&gt; 2        NA</span></a>
-<a class="sourceLine" id="cb14-11" title="11"><span class="co">#&gt; 3        NA</span></a>
-<a class="sourceLine" id="cb14-12" title="12">dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/join.html">left_join</a></span>(dfrad2,notes,<span class="dt">by=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"id"</span>,<span class="st">"reading"</span>))</a>
-<a class="sourceLine" id="cb14-13" title="13"><span class="co">#&gt;   id reading agecap    radcap      rad1      rad2      rad3      rad4</span></a>
-<a class="sourceLine" id="cb14-14" title="14"><span class="co">#&gt; 1  1     DHO      5 0.5163737 0.2208691 0.2893299 0.3259383 0.4626601</span></a>
-<a class="sourceLine" id="cb14-15" title="15"><span class="co">#&gt; 2  2     DHO      4 0.3908662 0.1377625 0.2236611 0.3026716 0.3530492</span></a>
-<a class="sourceLine" id="cb14-16" title="16"><span class="co">#&gt; 3  2     DHO      4 0.3908662 0.1377625 0.2236611 0.3026716 0.3530492</span></a>
-<a class="sourceLine" id="cb14-17" title="17"><span class="co">#&gt; 4  3     DHO      1 0.5202232 0.5202232        NA        NA        NA</span></a>
-<a class="sourceLine" id="cb14-18" title="18"><span class="co">#&gt;        rad5                               note</span></a>
-<a class="sourceLine" id="cb14-19" title="19"><span class="co">#&gt; 1 0.5017862 3rd annulus location was difficult</span></a>
-<a class="sourceLine" id="cb14-20" title="20"><span class="co">#&gt; 2        NA                                   </span></a>
-<a class="sourceLine" id="cb14-21" title="21"><span class="co">#&gt; 3        NA                                   </span></a>
-<a class="sourceLine" id="cb14-22" title="22"><span class="co">#&gt; 4        NA</span></a></code></pre></div>
+<a class="sourceLine" id="cb14-4" title="4"><span class="co">#&gt;   id reading agecap    radcap      rad1      rad2      rad3      rad4      rad5</span></a>
+<a class="sourceLine" id="cb14-5" title="5"><span class="co">#&gt; 1  1     DHO      5 0.5163737 0.2208691 0.2893299 0.3259383 0.4626601 0.5017862</span></a>
+<a class="sourceLine" id="cb14-6" title="6"><span class="co">#&gt; 2  2     DHO      4 0.3908662 0.1377625 0.2236611 0.3026716 0.3530492        NA</span></a>
+<a class="sourceLine" id="cb14-7" title="7"><span class="co">#&gt; 3  3     DHO      1 0.5202232 0.5202232        NA        NA        NA        NA</span></a>
+<a class="sourceLine" id="cb14-8" title="8">dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/join.html">left_join</a></span>(dfrad2,notes,<span class="dt">by=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"id"</span>,<span class="st">"reading"</span>))</a>
+<a class="sourceLine" id="cb14-9" title="9"><span class="co">#&gt;   id reading agecap    radcap      rad1      rad2      rad3      rad4      rad5</span></a>
+<a class="sourceLine" id="cb14-10" title="10"><span class="co">#&gt; 1  1     DHO      5 0.5163737 0.2208691 0.2893299 0.3259383 0.4626601 0.5017862</span></a>
+<a class="sourceLine" id="cb14-11" title="11"><span class="co">#&gt; 2  2     DHO      4 0.3908662 0.1377625 0.2236611 0.3026716 0.3530492        NA</span></a>
+<a class="sourceLine" id="cb14-12" title="12"><span class="co">#&gt; 3  2     DHO      4 0.3908662 0.1377625 0.2236611 0.3026716 0.3530492        NA</span></a>
+<a class="sourceLine" id="cb14-13" title="13"><span class="co">#&gt; 4  3     DHO      1 0.5202232 0.5202232        NA        NA        NA        NA</span></a>
+<a class="sourceLine" id="cb14-14" title="14"><span class="co">#&gt;                                 note</span></a>
+<a class="sourceLine" id="cb14-15" title="15"><span class="co">#&gt; 1 3rd annulus location was difficult</span></a>
+<a class="sourceLine" id="cb14-16" title="16"><span class="co">#&gt; 2                                   </span></a>
+<a class="sourceLine" id="cb14-17" title="17"><span class="co">#&gt; 3                                   </span></a>
+<a class="sourceLine" id="cb14-18" title="18"><span class="co">#&gt; 4</span></a></code></pre></div>
 <p> </p>
 <p> </p>
 </div>
@@ -297,6 +281,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -313,17 +298,20 @@
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by Derek Ogle.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

@@ -22,7 +22,7 @@ Character vector.
 This returns a vector of fish identification values from a vector of image file names.
 }
 \details{
-By default it is assumed that the ID value follows an underscore at the end/tail of image file name (sans extension). Other patterns can be used by giving a suitable regular expression to \code{IDpattern} and possibly a replacement (usually a group identifier such as \dQuote{\\1}) in \code{IDreplace}. You may find this \href{https://spannbaueradam.shinyapps.io/r_regex_tester/}{R Regex Tester App} useful for identifying the necessary regular expression pattern for your situation.
+By default it is assumed that the ID value follows an underscore at the end/tail of image file name (sans extension). Other patterns can be used by giving a suitable regular expression to \code{IDpattern} and possibly a replacement (usually a group identifier such as \dQuote{\\1}) in \code{IDreplace}. You may find the webpage at \code{spannbaueradam.shinyapps.io/r_regex_tester/} useful for identifying the necessary regular expression pattern for your situation.
 
 If the pattern in \code{IDpattern} does not exist in each element of \code{x} then an error will be returned. In other words, the fish identification value must be in the same \dQuote{place} (based on \code{IDpattern}) in EVERY image filename.
 

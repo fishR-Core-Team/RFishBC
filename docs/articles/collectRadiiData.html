@@ -13,8 +13,9 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Collect radial measurements from a calcified structure by interactively selecting annuli">
 <meta property="og:description" content="">
 <meta property="og:image" content="http://derekogle.com/RFishBC/logo.png">
@@ -37,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
       </span>
     </div>
 
@@ -99,13 +100,14 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Collect radial measurements from a calcified structure by interactively selecting annuli</h1>
                         <h4 class="author">Derek H. Ogle</h4>
             
-            <h4 class="date">2019-05-02</h4>
+            <h4 class="date">2019-12-11</h4>
       
       
       <div class="hidden name"><code>collectRadiiData.Rmd</code></div>
@@ -139,18 +141,18 @@
 <p> </p>
 <p>Ideally, but not necessarily, the image will also contain an object of known length (e.g., a “scale-bar”) so that actual lengths on the structure can be found. If a scale-bar is absent, then the measured lengths will be on an arbitrary scale (i.e., the actual values will be meaningless but the proportion of the total structure radius to each annulus will be meaningful). An image of a Kiyi otolith with a 1-mm scale-bar is shown in later sections of this vignette.</p>
 <p>The process described herein requires that all images to be processed be in the same directory or folder. To be most efficient (and simple), this directory should contain ONLY image files related to a particular project (e.g., one species for one water body for one year) and all image files should be of the same type (e.g., png or jpg). Additionally, as shown in the <a href="#multipleimages">Processing Multiple Images</a> section below, it may be more efficient if the image file names end with an underscore (i.e., a "_") followed by the fish’s unique identification number (and then, of course, the file extension).</p>
-<p>The working directory of R should be set with <code><a href="https://www.rdocumentation.org/packages/base/topics/getwd">setwd()</a></code> to the directory that contains the images. The following is an example of setting a working directory in R.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/getwd">setwd</a></span>(<span class="st">"c:/work/aging/Kiyi2014"</span>)</a></code></pre></div>
+<p>The working directory of R should be set with <code><a href="https://rdrr.io/r/base/getwd.html">setwd()</a></code> to the directory that contains the images. The following is an example of setting a working directory in R.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span>(<span class="st">"c:/work/aging/Kiyi2014"</span>)</a></code></pre></div>
 <p>The working directory may also be set interactively through a dialog box using the following code.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/getwd">setwd</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/choose.dir">choose.dir</a></span>())</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span>(<span class="kw"><a href="https://rdrr.io/r/utils/choose.dir.html">choose.dir</a></span>())</a></code></pre></div>
 <p>Finally, note that the process described herein will produce one R data object file (.rds files; hereafter called “R data file”) for each set of measurements made on a structure image. These R data files will be saved in the current working directory (likely the directory with the structure image files). I suggest keeping the R data files and corresponding structure image files together at all times, as the R data files serve as archives of the data collected from the structure image files.</p>
 </div>
 <div id="r-packages" class="section level3">
 <h3 class="hasAnchor">
 <a href="#r-packages" class="anchor"></a>R Packages</h3>
 <p>The methods described in this vignette require the following packages.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(RFishBC)</a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)    <span class="co"># for mutate(), inner_join(), %&gt;%</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(RFishBC)</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)    <span class="co"># for mutate(), inner_join(), %&gt;%</span></a></code></pre></div>
 <p> </p>
 <p> </p>
 <hr>
@@ -237,8 +239,8 @@
 <h3 class="hasAnchor">
 <a href="#multipleimages" class="anchor"></a>Processing Multiple Images</h3>
 <p>It will be common to process a number of image files, one after another. The selection of the images can be made more efficient by supplying <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> a vector of image file names and corresponding fish IDs. These vectors can be constructed in a variety of ways before calling <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>. First, the user can simply type the image names and fish IDs into vectors; e.g.,</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">imgs &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Scale_1.jpg"</span>,<span class="st">"Scale_2.jpg"</span>,<span class="st">"Scale_3.jpg"</span>)</a>
-<a class="sourceLine" id="cb5-2" title="2">ids &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"1"</span>,<span class="st">"2"</span>,<span class="st">"3"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">imgs &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Scale_1.jpg"</span>,<span class="st">"Scale_2.jpg"</span>,<span class="st">"Scale_3.jpg"</span>)</a>
+<a class="sourceLine" id="cb5-2" title="2">ids &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"1"</span>,<span class="st">"2"</span>,<span class="st">"3"</span>)</a></code></pre></div>
 <p>However, if the image file names follow a general pattern, for example always being JPG files and always containing the word “Scale” or “Bass” or something similar, then a list of all image file names in the current working directory can be obtained with <code><a href="../reference/listFiles.html">listFiles()</a></code>. This function takes the common extension as its first argument and the common “other” words in <code>other=</code>. For example, the following code finds all JPG files that also contain the word “Scale” in the current working directory.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">( imgs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/listFiles.html">listFiles</a></span>(<span class="st">"jpg"</span>,<span class="dt">other=</span><span class="st">"Scale"</span>))</a>
 <a class="sourceLine" id="cb6-2" title="2"><span class="co">#&gt; [1] "Scale_1.jpg" "Scale_2.jpg" "Scale_3.jpg"</span></a></code></pre></div>
@@ -270,7 +272,7 @@
 <div id="setoptions1" class="section level1">
 <h1 class="hasAnchor">
 <a href="#setoptions1" class="anchor"></a>Setting Argument Defaults for a Session</h1>
-<p>As described above, <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> has several arguments that provide flexibility when measuring radii on images. The default values for all of these arguments can be seen with <code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code> (i.e., without any arguments). The value for any argument can be seen by appending the argument name to <code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code> with a <code>$</code>. For example, the current setting for the <code>makeTransect</code> argument is <code>TRUE</code> as shown below.</p>
+<p>As described above, <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> has several arguments that provide flexibility when measuring radii on images. The default values for all of these arguments can be seen with <code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code> (i.e., without any arguments). The value for any argument can be seen by appending the argument name to <code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code> with a <code><a href="https://rdrr.io/r/base/Extract.html">$</a></code>. For example, the current setting for the <code>makeTransect</code> argument is <code>TRUE</code> as shown below.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw"><a href="../reference/RFBCoptions.html">RFBCoptions</a></span>()<span class="op">$</span>makeTransect</a>
 <a class="sourceLine" id="cb12-2" title="2"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
 <p>Default values for these arguments may be changed within <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>. For example, the code below sets the “reading” label to “DHO”, the edge to not be considered an annulus, the width of the transect line to be thicker, and identifying that a scale-bar with a known length of 0.6 mm is present.</p>
@@ -299,10 +301,8 @@
 <a class="sourceLine" id="cb16-7" title="7"><span class="co">#&gt; 5  1     DHO      5   5 0.5017862 0.5163737</span></a></code></pre></div>
 <p>By default the data are shown in “long” format where each row consists of one radial measurement with all radial measurements for an individual fish distributed across several rows. The radial data can be shown in “wide” format where each row consists of all the radial measurements (in separate columns) for an individual fish by including <code>formatOut="wide"</code>.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw"><a href="../reference/combineData.html">combineData</a></span>(<span class="st">"Scale_1_DHO.rds"</span>,<span class="dt">formatOut=</span><span class="st">"wide"</span>)</a>
-<a class="sourceLine" id="cb17-2" title="2"><span class="co">#&gt;   id reading agecap    radcap      rad1      rad2      rad3      rad4</span></a>
-<a class="sourceLine" id="cb17-3" title="3"><span class="co">#&gt; 1  1     DHO      5 0.5163737 0.2208691 0.2893299 0.3259383 0.4626601</span></a>
-<a class="sourceLine" id="cb17-4" title="4"><span class="co">#&gt;        rad5</span></a>
-<a class="sourceLine" id="cb17-5" title="5"><span class="co">#&gt; 1 0.5017862</span></a></code></pre></div>
+<a class="sourceLine" id="cb17-2" title="2"><span class="co">#&gt;   id reading agecap    radcap      rad1      rad2      rad3      rad4      rad5</span></a>
+<a class="sourceLine" id="cb17-3" title="3"><span class="co">#&gt; 1  1     DHO      5 0.5163737 0.2208691 0.2893299 0.3259383 0.4626601 0.5017862</span></a></code></pre></div>
 <p> </p>
 <p> </p>
 <hr>
@@ -315,13 +315,11 @@
 <a class="sourceLine" id="cb18-2" title="2"><span class="kw"><a href="../reference/digitizeRadii.html">digitizeRadii</a></span>()  <span class="co"># Select both images in a dialog box</span></a></code></pre></div>
 <p>Radial measurements from multiple structures can be combined into one data.frame with <code><a href="../reference/combineData.html">combineData()</a></code> if the appropriate R data file names are listed in a vector. The <code><a href="../reference/listFiles.html">listFiles()</a></code> function may be used to identify all filenames in the current working directory that have the file extension given in the first argument. For example, all files in the current working directory with the “rds” extension are identified below.</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw"><a href="../reference/listFiles.html">listFiles</a></span>(<span class="st">"rds"</span>)</a>
-<a class="sourceLine" id="cb19-2" title="2"><span class="co">#&gt; [1] "DWS_Oto_89765_DHO.rds"  "Oto140306_DHO.rds"     </span></a>
-<a class="sourceLine" id="cb19-3" title="3"><span class="co">#&gt; [3] "Oto140306_OHD.rds"      "Scale_1_DHO.rds"       </span></a>
-<a class="sourceLine" id="cb19-4" title="4"><span class="co">#&gt; [5] "Scale_1_ODH.rds"        "Scale_1_OHD.rds"       </span></a>
-<a class="sourceLine" id="cb19-5" title="5"><span class="co">#&gt; [7] "Scale_2_DHO.rds"        "Scale_2_OLDwNoNote.rds"</span></a>
-<a class="sourceLine" id="cb19-6" title="6"><span class="co">#&gt; [9] "Scale_3_DHO.rds"</span></a></code></pre></div>
+<a class="sourceLine" id="cb19-2" title="2"><span class="co">#&gt; [1] "DWS_Oto_89765_DHO.rds"  "Oto140306_DHO.rds"      "Oto140306_OHD.rds"     </span></a>
+<a class="sourceLine" id="cb19-3" title="3"><span class="co">#&gt; [4] "Scale_1_DHO.rds"        "Scale_1_ODH.rds"        "Scale_1_OHD.rds"       </span></a>
+<a class="sourceLine" id="cb19-4" title="4"><span class="co">#&gt; [7] "Scale_2_DHO.rds"        "Scale_2_OLDwNoNote.rds" "Scale_3_DHO.rds"</span></a></code></pre></div>
 <p>This list of names can be further filtered by including other key words for the filenames in <code>other=</code>. In this case, the list should be limited to those files with “Scale” in the name and those files with just “DHO”.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1">( fns &lt;-<span class="st"> </span><span class="kw"><a href="../reference/listFiles.html">listFiles</a></span>(<span class="st">"rds"</span>,<span class="dt">other=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Scale"</span>,<span class="st">"DHO"</span>)) )</a>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1">( fns &lt;-<span class="st"> </span><span class="kw"><a href="../reference/listFiles.html">listFiles</a></span>(<span class="st">"rds"</span>,<span class="dt">other=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Scale"</span>,<span class="st">"DHO"</span>)) )</a>
 <a class="sourceLine" id="cb20-2" title="2"><span class="co">#&gt; [1] "Scale_1_DHO.rds" "Scale_2_DHO.rds" "Scale_3_DHO.rds"</span></a></code></pre></div>
 <p>The <code><a href="../reference/listFiles.html">listFiles()</a></code> result should be saved to an object so that the names can be given to <code><a href="../reference/combineData.html">combineData()</a></code> as shown below.<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a></p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1">( dfrad &lt;-<span class="st"> </span><span class="kw"><a href="../reference/combineData.html">combineData</a></span>(fns) )</a>
@@ -338,14 +336,10 @@
 <a class="sourceLine" id="cb21-12" title="12"><span class="co">#&gt; 10  3     DHO      1   1 0.5202232 0.5202232</span></a></code></pre></div>
 <p>Again, the data can be shown in “wide” format by including <code>formatOut="wide"</code>.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1">( dfrad2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/combineData.html">combineData</a></span>(fns,<span class="dt">formatOut=</span><span class="st">"wide"</span>) )</a>
-<a class="sourceLine" id="cb22-2" title="2"><span class="co">#&gt;   id reading agecap    radcap      rad1      rad2      rad3      rad4</span></a>
-<a class="sourceLine" id="cb22-3" title="3"><span class="co">#&gt; 1  1     DHO      5 0.5163737 0.2208691 0.2893299 0.3259383 0.4626601</span></a>
-<a class="sourceLine" id="cb22-4" title="4"><span class="co">#&gt; 2  2     DHO      4 0.3908662 0.1377625 0.2236611 0.3026716 0.3530492</span></a>
-<a class="sourceLine" id="cb22-5" title="5"><span class="co">#&gt; 3  3     DHO      1 0.5202232 0.5202232        NA        NA        NA</span></a>
-<a class="sourceLine" id="cb22-6" title="6"><span class="co">#&gt;        rad5</span></a>
-<a class="sourceLine" id="cb22-7" title="7"><span class="co">#&gt; 1 0.5017862</span></a>
-<a class="sourceLine" id="cb22-8" title="8"><span class="co">#&gt; 2        NA</span></a>
-<a class="sourceLine" id="cb22-9" title="9"><span class="co">#&gt; 3        NA</span></a></code></pre></div>
+<a class="sourceLine" id="cb22-2" title="2"><span class="co">#&gt;   id reading agecap    radcap      rad1      rad2      rad3      rad4      rad5</span></a>
+<a class="sourceLine" id="cb22-3" title="3"><span class="co">#&gt; 1  1     DHO      5 0.5163737 0.2208691 0.2893299 0.3259383 0.4626601 0.5017862</span></a>
+<a class="sourceLine" id="cb22-4" title="4"><span class="co">#&gt; 2  2     DHO      4 0.3908662 0.1377625 0.2236611 0.3026716 0.3530492        NA</span></a>
+<a class="sourceLine" id="cb22-5" title="5"><span class="co">#&gt; 3  3     DHO      1 0.5202232 0.5202232        NA        NA        NA        NA</span></a></code></pre></div>
 <p> </p>
 <p> </p>
 <hr>
@@ -353,9 +347,9 @@
 <div id="outputdata" class="section level1">
 <h1 class="hasAnchor">
 <a href="#outputdata" class="anchor"></a>Output Data File</h1>
-<p>Other information about the fish (e.g., location of capture, length, sex) is likely held in a separate file. Below, example “other” data are loaded into the <code>dffish</code> data.frame. Note that the <code>id</code> variable created from processing the structure images above are characters. In this case, <code><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.csv()</a></code> reads the <code>id</code> variable from the external data file as numeric because the unique IDs were simple numbers. The second line of code below converts these numeric IDs to characters so that this data.frame can be joined with the radial measurements data.frame from above.<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a></p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1">dffish &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.csv</a></span>(<span class="st">"FishData.csv"</span>,<span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb23-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/character">as.character</a></span>(id))</a></code></pre></div>
+<p>Other information about the fish (e.g., location of capture, length, sex) is likely held in a separate file. Below, example “other” data are loaded into the <code>dffish</code> data.frame. Note that the <code>id</code> variable created from processing the structure images above are characters. In this case, <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> reads the <code>id</code> variable from the external data file as numeric because the unique IDs were simple numbers. The second line of code below converts these numeric IDs to characters so that this data.frame can be joined with the radial measurements data.frame from above.<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1">dffish &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="st">"FishData.csv"</span>,<span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb23-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id=</span><span class="kw"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(id))</a></code></pre></div>
 <p>The data in the <code>dffish</code> and <code>dfrad</code> data.frames are then joined by the common <code>id</code> variable using <code>inner_join()</code>.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1">fishdat &lt;-<span class="st"> </span>dffish <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb24-2" title="2"><span class="st">  </span><span class="kw">inner_join</span>(dfrad,<span class="dt">by=</span><span class="st">"id"</span>)</a>
@@ -383,8 +377,8 @@
 <a class="sourceLine" id="cb25-9" title="9"><span class="co">#&gt; 1 0.4626601 0.5017862</span></a>
 <a class="sourceLine" id="cb25-10" title="10"><span class="co">#&gt; 2 0.3530492        NA</span></a>
 <a class="sourceLine" id="cb25-11" title="11"><span class="co">#&gt; 3        NA        NA</span></a></code></pre></div>
-<p>Either file can be written to a “comma-separated values” (CSV) file<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a> with <code><a href="https://www.rdocumentation.org/packages/utils/topics/write.table">write.csv()</a></code> using the R object name (e.g., <code>fishdat</code> or <code>fishdat2</code>) as the first argument and a name for the file in <code>file=</code>. Additionally, I prefer to have non-quoted values by using <code>quote=FALSE</code> and no row names by using <code>row.names=FALSE</code>. For example, the “one-measurement-per-line” data can be output to “Kiyi2014_BCs.csv” as follows.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/write.table">write.csv</a></span>(fishdat,<span class="dt">file=</span><span class="st">"Kiyi2014_BCs.csv"</span>,<span class="dt">quote=</span><span class="ot">FALSE</span>,<span class="dt">row.names=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<p>Either file can be written to a “comma-separated values” (CSV) file<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a> with <code><a href="https://rdrr.io/r/utils/write.table.html">write.csv()</a></code> using the R object name (e.g., <code>fishdat</code> or <code>fishdat2</code>) as the first argument and a name for the file in <code>file=</code>. Additionally, I prefer to have non-quoted values by using <code>quote=FALSE</code> and no row names by using <code>row.names=FALSE</code>. For example, the “one-measurement-per-line” data can be output to “Kiyi2014_BCs.csv” as follows.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/write.table.html">write.csv</a></span>(fishdat,<span class="dt">file=</span><span class="st">"Kiyi2014_BCs.csv"</span>,<span class="dt">quote=</span><span class="ot">FALSE</span>,<span class="dt">row.names=</span><span class="ot">FALSE</span>)</a></code></pre></div>
 <p> </p>
 <p> </p>
 </div>
@@ -395,9 +389,9 @@
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p>In RStudio, the working directory can be set with any of the options under the Session … Set Working Directory menu. My preference is to start a script that will contain all of the code described later in this vignette. If this script is saved to the same directory with the structure images then the working directory can be set in RStudio with the Session … Set Working Directory … to Source File Location menu items. I then copy the resultant <code><a href="https://www.rdocumentation.org/packages/base/topics/getwd">setwd()</a></code> code to my script so that I do not have to use the menu items when I run this script again.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn1"><p>In RStudio, the working directory can be set with any of the options under the Session … Set Working Directory menu. My preference is to start a script that will contain all of the code described later in this vignette. If this script is saved to the same directory with the structure images then the working directory can be set in RStudio with the Session … Set Working Directory … to Source File Location menu items. I then copy the resultant <code><a href="https://rdrr.io/r/base/getwd.html">setwd()</a></code> code to my script so that I do not have to use the menu items when I run this script again.<a href="#fnref1" class="footnote-back">↩</a></p></li>
 <li id="fn2"><p>I use my initials (“DHO”) here for <code>reading=</code> simply as an example. You will likely want to use something else.<a href="#fnref2" class="footnote-back">↩</a></p></li>
-<li id="fn3"><p>This assumes that the <code>Scale_1.jpg</code> file is in the current working directory. Use <code><a href="https://www.rdocumentation.org/packages/base/topics/getwd">getwd()</a></code> to see the current working directory.<a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>This assumes that the <code>Scale_1.jpg</code> file is in the current working directory. Use <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> to see the current working directory.<a href="#fnref3" class="footnote-back">↩</a></p></li>
 <li id="fn4"><p>Actually much more than the radial measurements are recorded in the R data file (see <a href="http://derekogle.com/RFishBC/reference/digitizeRadii.html#value">here</a>). Also note that the radii are on an arbitrary scale in this case because no scale-bar was available on the image.<a href="#fnref4" class="footnote-back">↩</a></p></li>
 <li id="fn5"><p>The many specific arguments to <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> are controlled with <code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code> (described later) and described in detail <a href="http://derekogle.com/RFishBC/reference/RFBCoptions.html#details">here</a>.<a href="#fnref5" class="footnote-back">↩</a></p></li>
 <li id="fn6"><p>A more detailed description about the structure can be given to <code>description</code> for saving in the R data file for future use. For example, one may use <code>description="Kiyi scale read once by Ogle on 22-Apr-18"</code> to provide more information about the structure reading.<a href="#fnref6" class="footnote-back">↩</a></p></li>
@@ -417,6 +411,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -436,17 +431,20 @@
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by Derek Ogle.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>
