@@ -23,7 +23,7 @@ General desriptions for using **RFishBC** are under the *Vignettes* tab at the t
 **RFishBC** is now available on CRAN and can be installed as usual from there. The most recent development version (on GitHub) of **RFishBC** may be installed by running the two lines below in your R console.
 
 ```r
-if (!require('manipulate')) utils::install.packages('manipulate')
+if (!require('remotes')) install.packages('remotes'); require('remotes')
 remotes::install_github('droglenc/RFishBC')
 ```
 
