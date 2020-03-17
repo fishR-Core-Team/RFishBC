@@ -23,8 +23,8 @@ General desriptions for using **RFishBC** are under the *Vignettes* tab at the t
 **RFishBC** is now available on CRAN and can be installed as usual from there. The most recent development version (on GitHub) of **RFishBC** may be installed by running the two lines below in your R console.
 
 ```r
-if (!require('devtools')) install.packages('devtools'); require('devtools')
-devtools::install_github('droglenc/RFishBC')
+if (!require('manipulate')) utils::install.packages('manipulate')
+remotes::install_github('droglenc/RFishBC')
 ```
 
 You may need to have R Tools installed on your system to use the two lines above. See the instructions for ([R Tools for Windows](https://cran.r-project.org/bin/windows/Rtools/) or [R Tools for Mac OS X](https://cran.r-project.org/bin/macosx/tools/)). Additionally, you may need the X11 graphics functionality if using Mac OS.

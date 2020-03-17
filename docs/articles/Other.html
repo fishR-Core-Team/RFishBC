@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3.9000</span>
       </span>
     </div>
 
@@ -107,7 +107,7 @@
       <h1>Other Features / Common Questions</h1>
                         <h4 class="author">Derek H. Ogle</h4>
             
-            <h4 class="date">2019-12-11</h4>
+            <h4 class="date">2020-03-17</h4>
       
       
       <div class="hidden name"><code>Other.Rmd</code></div>
@@ -121,7 +121,8 @@
 <a href="#collect-just-age-data" class="anchor"></a>Collect Just Age Data</h1>
 <p>Some researchers would like to use RFishBC to collect age data only without any concern for measurements on the image for the purposes of back-calculation. RFishBC will record measurements on the structure but these measurements can ultimately be ignored if you simply want to have a data.frame of estimated ages. This is demonstrated below using a few functions from the <code>dplyr</code> package.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(RFishBC)</a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a></code></pre></div>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="co">#&gt; Warning: package 'dplyr' was built under R version 3.6.3</span></a></code></pre></div>
 <p>This example also uses the “DHO” readings of “Scale_1.jpg”, “Scale_2.jpg”, and “Scale_3.jpg” demonstrated in the <a href="collectRadiiData.html#multiplestructures">Combine Data from Multiple Structures section of the Collecting Radial Measurements</a> vignette. These readings are put into a list using <code><a href="../reference/listFiles.html">listFiles()</a></code> and their data are combined into a <strong>WIDE</strong> format data.frame below (as described in <a href="collectRadiiData.html#multiplestructures">the Collecting Radial Measurements</a> vignette).</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">( fns &lt;-<span class="st"> </span><span class="kw"><a href="../reference/listFiles.html">listFiles</a></span>(<span class="st">"rds"</span>,<span class="dt">other=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Scale"</span>,<span class="st">"DHO"</span>)) )</a>
 <a class="sourceLine" id="cb2-2" title="2"><span class="co">#&gt; [1] "Scale_1_DHO.rds" "Scale_2_DHO.rds" "Scale_3_DHO.rds"</span></a>

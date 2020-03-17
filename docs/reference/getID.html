@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3.9000</span>
       </span>
     </div>
 
@@ -180,7 +180,7 @@
     <p>Character vector.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>By default it is assumed that the ID value follows an underscore at the end/tail of image file name (sans extension). Other patterns can be used by giving a suitable regular expression to <code>IDpattern</code> and possibly a replacement (usually a group identifier such as &#8220;\1&#8221;) in <code>IDreplace</code>. You may find this <a href='https://spannbaueradam.shinyapps.io/r_regex_tester/'>R Regex Tester App</a> useful for identifying the necessary regular expression pattern for your situation.</p>
+    <p>By default it is assumed that the ID value follows an underscore at the end/tail of image file name (sans extension). Other patterns can be used by giving a suitable regular expression to <code>IDpattern</code> and possibly a replacement (usually a group identifier such as &#8220;\1&#8221;) in <code>IDreplace</code>. You may find the webpage at <code>spannbaueradam.shinyapps.io/r_regex_tester/</code> useful for identifying the necessary regular expression pattern for your situation.</p>
 <p>If the pattern in <code>IDpattern</code> does not exist in each element of <code>x</code> then an error will be returned. In other words, the fish identification value must be in the same &#8220;place&#8221; (based on <code>IDpattern</code>) in EVERY image filename.</p>
 <p>If the vector of returned IDs contains any duplicated values then a warning will be issued.</p>
 <p>The list of image file names in a given folder/directory may be obtained with <code><a href='listFiles.html'>listFiles</a></code>.</p>
