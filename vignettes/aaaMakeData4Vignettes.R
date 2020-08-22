@@ -102,6 +102,22 @@ addNote("Scale_1_ODH.rds","Test note as argument")
 addNote("Scale_1_OHD.rds")
 findNotes(listFiles(ext=".rds",other="Scale"))
 
+
+#### Try loop for showDigitizedImages ... 1 shows graphic, 2 creates jpg file
+tmp <- listFiles(".rds")
+for (i in tmp) {
+  showDigitizedImage(i)
+  invisible(readline(prompt="Press [enter] to continue"))
+} 
+
+for (i in tmp) {
+  showDigitizedImage(i)
+  nm <- paste0(tools::file_path_sans_ext(i),"_graph,jpg")
+  dev.copy(jpeg,nm)
+  dev.off()
+} 
+
+
 #### Move these to a dead directory so that they don't appear in the vignettes
 fns <- c(listFiles(".rds",other="MULT"),
          listFiles(".rds",other="TEMP"),
