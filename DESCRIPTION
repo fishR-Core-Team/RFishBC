@@ -1,6 +1,6 @@
 Package: RFishBC
 Version: 0.2.3.9000
-Date: 2019-12-11
+Date: 2020-8-23
 Title: Back-Calculation of Fish Length
 Authors@R: person("Derek","Ogle",
     email="derek@derekogle.com",
@@ -34,4 +34,4 @@ Suggests:
     pkgdown,
     testthat
 Encoding: UTF-8
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1

@@ -20,7 +20,7 @@
 #' @param cex.ann See details in \code{\link{RFBCoptions}}.
 #' @param offset.ann See details in \code{\link{RFBCoptions}}.
 #'
-#' @return None, but an image is plotted with, at least, the selected points.
+#' @return A list that contains the size of the window in \code{windowSize} and the pixel width to heigh ration in \code{pixW2H}. In addition, an image is plotted with, at least, the selected points.
 #' 
 #' @details This function requires interaction from the user. A detailed description of its use is in \href{http://derekogle.com/RFishBC/articles/MeasureRadii/seeRadiiData.html}{this vignette} on the \href{http://derekogle.com/RFishBC/index.html}{RFishBC website}.
 #'
@@ -97,12 +97,13 @@ showDigitizedImage <- function(nms,deviceType,
     dat <- readRDS(nms)
     if (!inherits(dat,"RFishBC")) 
       STOP(nms," does not appear to be from 'digitizeRadii().")
-    iShowOneDigitizedImage(dat,deviceType,
-                           showScaleBarLength,col.scaleBar,lwd.scaleBar,cex.scaleBar,
-                           connect,col.connect,lwd.connect,
-                           useArrows,pch.show,col.show,cex.show,
-                           showAnnuliLabels,annuliLabels,
-                           col.ann,cex.ann,offset.ann)
+    img <- iShowOneDigitizedImage(dat,deviceType,
+                                  showScaleBarLength,col.scaleBar,
+                                  lwd.scaleBar,cex.scaleBar,
+                                  connect,col.connect,lwd.connect,
+                                  useArrows,pch.show,col.show,cex.show,
+                                  showAnnuliLabels,annuliLabels,
+                                  col.ann,cex.ann,offset.ann)
   } else {
     tmp <- NULL
     for (i in seq_along(nms)) {
@@ -128,13 +129,14 @@ showDigitizedImage <- function(nms,deviceType,
       lwd.connect <- rep(lwd.connect,ceiling(num2do/length(lwd.connect)))
       
       ### Make or add to image
-      if (i==1) iShowOneDigitizedImage(dat,deviceType,
-                                       showScaleBarLength,col.scaleBar,
-                                       lwd.scaleBar,cex.scaleBar,
-                                       connect,col.connect[i],lwd.connect[i],
-                                       useArrows,pch.show[i],col.show[i],cex.show[i],
-                                       showAnnuliLabels=FALSE,annuliLabels="",
-                                       col.ann[i],cex.ann[i],offset.ann[i])
+      if (i==1) 
+        img <- iShowOneDigitizedImage(dat,deviceType,
+                                      showScaleBarLength,col.scaleBar,
+                                      lwd.scaleBar,cex.scaleBar,
+                                      connect,col.connect[i],lwd.connect[i],
+                                      useArrows,pch.show[i],col.show[i],cex.show[i],
+                                      showAnnuliLabels=FALSE,annuliLabels="",
+                                      col.ann[i],cex.ann[i],offset.ann[i])
       else {                                                       # nocov start
         ## Show connected points if asked to do so
         if (connect) graphics::lines(y~x,data=dat$pts,
@@ -161,6 +163,7 @@ showDigitizedImage <- function(nms,deviceType,
       }                                                            # nocov end
     }
   }
+  invisible(img)
 }
 
 ########################################################################
@@ -174,9 +177,9 @@ iShowOneDigitizedImage <- function(dat,deviceType,
                                    showAnnuliLabels,annuliLabels,
                                    col.ann,cex.ann,offset.ann) {
   ## Get and display the image
-  iGetImage(dat$image,id=NULL,
-            windowSize=dat$windowSize,deviceType=deviceType,
-            showInfo=FALSE,pos.info=NULL,cex.info=NULL,col.info=NULL)
+  img <- iGetImage(dat$image,id=NULL,
+                   windowSize=dat$windowSize,deviceType=deviceType,
+                   showInfo=FALSE,pos.info=NULL,cex.info=NULL,col.info=NULL)
   ## Show scale-bar, if it was digitized, and scale-bar length if asked for
   if (!is.null(dat$sbPts)) {
     graphics::lines(y~x,data=dat$sbPts,col=col.scaleBar,lwd=lwd.scaleBar)
@@ -212,6 +215,7 @@ iShowOneDigitizedImage <- function(dat,deviceType,
   if (showAnnuliLabels)
     iShowAnnuliLabels(dat,annuliLabels=annuliLabels,
                       col.ann=col.ann,cex.ann=cex.ann,offset.ann=offset.ann)
+  invisible(img)
 }
 
 

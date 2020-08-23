@@ -4,12 +4,14 @@
 \name{StdIntLit}
 \alias{StdIntLit}
 \title{Standard intercepts for Fraser-Lee model by species.}
-\format{A data frame with 1 rows and 3 variables:
+\format{
+A data frame with 1 rows and 3 variables:
 \describe{
   \item{species}{Fish species.}
   \item{a}{Standard intercept value (in mm).}
   \item{source}{Source of the standard.}
-}}
+}
+}
 \usage{
 StdIntLit
 }

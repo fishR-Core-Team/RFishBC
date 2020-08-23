@@ -60,7 +60,7 @@ showDigitizedImage(
 \item{offset.ann}{See details in \code{\link{RFBCoptions}}.}
 }
 \value{
-None, but an image is plotted with, at least, the selected points.
+A list that contains the size of the window in \code{windowSize} and the pixel width to heigh ration in \code{pixW2H}. In addition, an image is plotted with, at least, the selected points.
 }
 \description{
 Show points selected on a structure image to represent annuli that were saved to an R data file using \code{\link{digitizeRadii}}. This allows the user to reexaminine the selected points or overlay selected points from multiple readings of the structure.

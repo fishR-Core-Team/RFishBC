@@ -111,9 +111,9 @@ for (i in tmp) {
 } 
 
 for (i in tmp) {
-  showDigitizedImage(i)
-  nm <- paste0(tools::file_path_sans_ext(i),"_graph,jpg")
-  dev.copy(jpeg,nm)
+  d <- showDigitizedImage(i)
+  nm <- paste0(tools::file_path_sans_ext(i),"_graph.jpg")
+  dev.copy(jpeg,nm,width=d$windowSize[1],height=d$windowSize[2],units="in",res=72)
   dev.off()
 } 
 

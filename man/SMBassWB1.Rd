@@ -4,7 +4,8 @@
 \name{SMBassWB1}
 \alias{SMBassWB1}
 \title{Fish-specific data for West Bearskin Lake Smallmouth Bass.}
-\format{A data frame with 445 rows and 10 variables:
+\format{
+A data frame with 445 rows and 10 variables:
 \describe{
   \item{id}{An identification number unique to each fish.}
   \item{species}{Fish species (all are \dQuote{SMB}).}
@@ -12,7 +13,8 @@
   \item{gear}{Capture gear (\code{E}=electrofishing, \code{T}=trapnet).}
   \item{yearcap}{Year of capture.}
   \item{lencap}{Total length-at-capture (mm)}
-}}
+}
+}
 \source{
 Originally from \code{\link[FSA]{SMBassWB}} in \pkg{FSA}. Rearranged to demonstrate functions in this package.
 }

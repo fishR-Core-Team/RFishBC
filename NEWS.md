@@ -1,4 +1,6 @@
-# RFishBC 0.2.3 ongoing
+# RFishBC 0.2.4 ongoing
+* Now using ROxygen2 7.1.1.
+* `showDigitizedRadii()`: Modified. Now returns the window size in `windowSize` and the pixel width to height ratio in `pixW2H`. This better allows the user to save the `showDigitizedRadii()` image as an image file in a loop (see examples in aaaMakeDataVignetts.R). Eventually this will be used to address [#43](https://github.com/droglenc/RFishBC/issues/43).
 
 # RFishBC 0.2.3 11-December-19
 * Now using ROxygen2 7.0.1.
