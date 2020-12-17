@@ -25,6 +25,9 @@
     <loc>http://derekogle.com/RFishBC/reference/aStandard.html</loc>
   </url>
   <url>
+    <loc>http://derekogle.com/RFishBC/reference/addNote.html</loc>
+  </url>
+  <url>
     <loc>http://derekogle.com/RFishBC/reference/addRadCap.html</loc>
   </url>
   <url>
@@ -38,6 +41,9 @@
   </url>
   <url>
     <loc>http://derekogle.com/RFishBC/reference/digitizeRadii.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/RFishBC/reference/findNotes.html</loc>
   </url>
   <url>
     <loc>http://derekogle.com/RFishBC/reference/findScalingFactor.html</loc>
@@ -55,18 +61,21 @@
     <loc>http://derekogle.com/RFishBC/reference/showDigitizedImage.html</loc>
   </url>
   <url>
-    <loc>http://derekogle.com/RFishBC/articles/BCCalc/BCCalc.html</loc>
+    <loc>http://derekogle.com/RFishBC/articles/BCCalc.html</loc>
   </url>
   <url>
-    <loc>http://derekogle.com/RFishBC/articles/BCIntro/BCIntro.html</loc>
+    <loc>http://derekogle.com/RFishBC/articles/BCIntro.html</loc>
   </url>
   <url>
-    <loc>http://derekogle.com/RFishBC/articles/MeasureRadii/collectRadiiData.html</loc>
+    <loc>http://derekogle.com/RFishBC/articles/BCWorkflow.html</loc>
   </url>
   <url>
-    <loc>http://derekogle.com/RFishBC/articles/MeasureRadii/seeRadiiData.html</loc>
+    <loc>http://derekogle.com/RFishBC/articles/Other.html</loc>
   </url>
   <url>
-    <loc>http://derekogle.com/RFishBC/articles/Workflow/BCWorkflow.html</loc>
+    <loc>http://derekogle.com/RFishBC/articles/collectRadiiData.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/RFishBC/articles/seeRadiiData.html</loc>
   </url>
 </urlset>
