@@ -35,8 +35,9 @@ jobs:
       - name: Install dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)
-          install.packages("prettydoc", type = "binary")
           install.packages("pkgdown", type = "binary")
+          install.packages("prettydoc", type = "binary")
+          install.packages("captioner", type = "binary")
         shell: Rscript {0}
 
       - name: Install package
