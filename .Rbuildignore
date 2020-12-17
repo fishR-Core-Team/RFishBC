@@ -5,8 +5,6 @@
 ^\.gitignore$
 ^_pkgdown\.yml
 ^README\.md
-^\.travis\.yml$
-^appveyor\.yml$
 
 ^\.github
 ^pkgdown
