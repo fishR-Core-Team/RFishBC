@@ -17,3 +17,5 @@
 ^inst/sticker
 ^tests/Validating
 ^tests/testthat/Rplots*
+^\.github$
+^codecov\.yml$

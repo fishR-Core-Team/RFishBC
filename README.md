@@ -2,7 +2,8 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1218245.svg)](https://doi.org/10.5281/zenodo.1218245)
 [![CRAN Status](http://www.r-pkg.org/badges/version/RFishBC)](http://www.r-pkg.org/pkg/RFishBC)
 [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%203%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-3.0.html)
-
+[![R-CMD-check](https://github.com/droglenc/RFishBC/workflows/R-CMD-check/badge.svg)](https://github.com/droglenc/RFishBC/actions)
+[![Codecov test coverage](https://codecov.io/gh/droglenc/RFishBC/branch/master/graph/badge.svg)](https://codecov.io/gh/droglenc/RFishBC?branch=master)
 [![CRAN RStudio mirror downloads rate](http://cranlogs.r-pkg.org/badges/RFishBC)
 ![CRAN RSTudio mirror downloads total](http://cranlogs.r-pkg.org/badges/grand-total/RFishBC)](http://www.r-pkg.org/pkg/RFishBC)
 [![Rdoc](http://www.rdocumentation.org/badges/version/RFishBC)](http://www.rdocumentation.org/packages/RFishBC)

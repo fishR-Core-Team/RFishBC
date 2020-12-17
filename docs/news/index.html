@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -44,7 +48,6 @@
 
 <meta property="og:title" content="Changelog" />
 <meta property="og:image" content="http://derekogle.com/RFishBC/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -62,7 +65,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -119,13 +122,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/RFishBC">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -142,17 +145,27 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
-      
+      <h1 data-toc-skip>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/droglenc/RFishBC/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="rfishbc-023-ongoing" class="section level1">
-<h1 class="page-header">
-<a href="#rfishbc-023-ongoing" class="anchor"></a>RFishBC 0.2.3 ongoing<small> 2019-12-12 </small>
+    <div id="rfishbc-024-ongoing" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.4">
+<a href="#rfishbc-024-ongoing" class="anchor"></a>RFishBC 0.2.4 ongoing<small> Unreleased </small>
 </h1>
+<ul>
+<li>Removed Travis-CI and appveyor.</li>
+<li>No longer using coveralls for coverage statistics. Changed to codecov.io.</li>
+<li>Added GitHub Action for CI/CD (used <code><a href="https://usethis.r-lib.org/reference/use_github_action.html">usethis::use_github_action_check_standard()</a></code>).</li>
+<li>Added GitHub Action for pkgdown (used <code><a href="https://usethis.r-lib.org/reference/use_github_action.html">usethis::use_github_action("pkgdown")</a></code>).</li>
+<li>Added GitHub Action for code coverage with codecov.io.</li>
+<li>Now using ROxygen2 7.1.1.</li>
+<li>
+<code>showDigitizedRadii()</code>: Modified. Now returns the window size in <code>windowSize</code> and the pixel width to height ratio in <code>pixW2H</code>. This better allows the user to save the <code>showDigitizedRadii()</code> image as an image file in a loop (see examples in aaaMakeDataVignetts.R). Eventually this will be used to address <a href="https://github.com/droglenc/RFishBC/issues/43"><a href='https://github.com/droglenc/RFishBC/issues/43'>#43</a></a>.</li>
+</ul>
 </div>
     <div id="rfishbc-023-11-december-19" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.3">
 <a href="#rfishbc-023-11-december-19" class="anchor"></a>RFishBC 0.2.3 11-December-19<small> 2019-12-12 </small>
 </h1>
 <ul>
@@ -162,7 +175,7 @@
 </ul>
 </div>
     <div id="rfishbc-022-2-may-19" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.2">
 <a href="#rfishbc-022-2-may-19" class="anchor"></a>RFishBC 0.2.2 2-May-19<small> 2019-05-02 </small>
 </h1>
 <ul>
@@ -171,30 +184,30 @@
 </ul>
 </div>
     <div id="rfishbc-021-1-may-19" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.1">
 <a href="#rfishbc-021-1-may-19" class="anchor"></a>RFishBC 0.2.1 1-May-19<small> Unreleased </small>
 </h1>
 <ul>
 <li>Updated vignettes.</li>
 <li>Added more tests.</li>
 <li>
-<code><a href="../reference/addNote.html">addNote()</a></code>: Added (addresses <a href="https://github.com/droglenc/RFishBC/issues/41">#41</a>; thanks to Rory Feeney).</li>
+<code><a href="../reference/addNote.html">addNote()</a></code>: Added (addresses <a href="https://github.com/droglenc/RFishBC/issues/41"><a href='https://github.com/droglenc/RFishBC/issues/41'>#41</a></a>; thanks to Rory Feeney).</li>
 <li>
-<code><a href="../reference/backCalc.html">backCalc()</a></code>: Modfified to address <a href="https://github.com/droglenc/RFishBC/issues/34">#34</a>.</li>
+<code><a href="../reference/backCalc.html">backCalc()</a></code>: Modfified to address <a href="https://github.com/droglenc/RFishBC/issues/34"><a href='https://github.com/droglenc/RFishBC/issues/34'>#34</a></a>.</li>
 <li>
 <code><a href="../reference/combineData.html">combineData()</a></code>: Modified. Fixed two bugs related to how age-0 fish with no measured annuli are combined (thanks to Rory Feeney). Fixed how returned results are sorted (by id, reading, and ann; rather than just id and ann).</li>
 <li>
-<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Added <code>sbUnits=</code> for addressing <a href="https://github.com/droglenc/RFishBC/issues/36">#36</a>. Added <code>addNotes</code> and <code>note</code> that allows adding a special note to the R Data file (addresses <a href="https://github.com/droglenc/RFishBC/issues/41">#41</a>; thanks to Rory Feeney) Added “kill” functionality to stop processing of all images in a queue (addresses <a href="https://github.com/droglenc/RFishBC/issues/40">#40</a>; thanks to Rory Feeney). Fixed poor warning message when <code>snap2transect=TRUE</code> and <code>makeTransect=FALSE</code>.</li>
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Added <code>sbUnits=</code> for addressing <a href="https://github.com/droglenc/RFishBC/issues/36"><a href='https://github.com/droglenc/RFishBC/issues/36'>#36</a></a>. Added <code>addNotes</code> and <code>note</code> that allows adding a special note to the R Data file (addresses <a href="https://github.com/droglenc/RFishBC/issues/41"><a href='https://github.com/droglenc/RFishBC/issues/41'>#41</a></a>; thanks to Rory Feeney) Added “kill” functionality to stop processing of all images in a queue (addresses <a href="https://github.com/droglenc/RFishBC/issues/40"><a href='https://github.com/droglenc/RFishBC/issues/40'>#40</a></a>; thanks to Rory Feeney). Fixed poor warning message when <code>snap2transect=TRUE</code> and <code>makeTransect=FALSE</code>.</li>
 <li>
-<code><a href="../reference/findNotes.html">findNotes()</a></code>: Added (addresses <a href="https://github.com/droglenc/RFishBC/issues/41">#41</a>; thanks to Rory Feeney).</li>
+<code><a href="../reference/findNotes.html">findNotes()</a></code>: Added (addresses <a href="https://github.com/droglenc/RFishBC/issues/41"><a href='https://github.com/droglenc/RFishBC/issues/41'>#41</a></a>; thanks to Rory Feeney).</li>
 <li>
 <code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code>: Modified. Added <code>addNote</code>, <code>showScaleBarLength=</code>, <code>scaleBarUnits=</code>, and <code>cex.scaleBar=</code>.</li>
 <li>
-<code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>: Modified. Rewrote the function to be less redundant; allow <code>pch.show=</code>, <code>col.show=</code>, and <code>cex.show=</code> to be appropriate vectors (when only one reading is displayed); allowed <code>pch.show="arrows"</code> to plot arrows (addresses <a href="https://github.com/droglenc/RFishBC/issues/38">#38</a>); assure that all values in <code>annuliLabels=</code> exist in the data; allow <code>col.ann=</code> and <code>cex.ann</code> to be appropriate vectors; provide <code>offset.ann=</code>; and show units of the scale-bar beneath the scale-bar (if it was digitized) by adding <code>showScaleBarLength=</code> and <code>cex.scaleBar=</code> (addresses <a href="https://github.com/droglenc/RFishBC/issues/36">#36</a>).</li>
+<code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>: Modified. Rewrote the function to be less redundant; allow <code>pch.show=</code>, <code>col.show=</code>, and <code>cex.show=</code> to be appropriate vectors (when only one reading is displayed); allowed <code>pch.show="arrows"</code> to plot arrows (addresses <a href="https://github.com/droglenc/RFishBC/issues/38"><a href='https://github.com/droglenc/RFishBC/issues/38'>#38</a></a>); assure that all values in <code>annuliLabels=</code> exist in the data; allow <code>col.ann=</code> and <code>cex.ann</code> to be appropriate vectors; provide <code>offset.ann=</code>; and show units of the scale-bar beneath the scale-bar (if it was digitized) by adding <code>showScaleBarLength=</code> and <code>cex.scaleBar=</code> (addresses <a href="https://github.com/droglenc/RFishBC/issues/36"><a href='https://github.com/droglenc/RFishBC/issues/36'>#36</a></a>).</li>
 </ul>
 </div>
     <div id="rfishbc-020-18-dec-18" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.0">
 <a href="#rfishbc-020-18-dec-18" class="anchor"></a>RFishBC 0.2.0 18-Dec-18<small> 2018-12-18 </small>
 </h1>
 <ul>
@@ -204,33 +217,33 @@
 <li>
 <code><a href="../reference/combineData.html">combineData()</a></code>: Modified. Changed <code>outFormat=</code> to <code>formatOut=</code>. Added <code>outType=</code> to allow user to choose either radial or incremental measurements as output.</li>
 <li>
-<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Changed <code>showTransect=</code> to <code>makeTransect</code>. Changed so that <code>snap2Transect</code> is changed to <code>FALSE</code> if it is <code>TRUE</code> and <code>makeTransect=FALSE</code>. Radii are now computed as the cumulative sum of increments rather than the distance from the selected point back to the structure center. This addresses <a href="https://github.com/droglenc/RFishBC/issues/32">#32</a> [Thanks to Alan Hanke].</li>
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Changed <code>showTransect=</code> to <code>makeTransect</code>. Changed so that <code>snap2Transect</code> is changed to <code>FALSE</code> if it is <code>TRUE</code> and <code>makeTransect=FALSE</code>. Radii are now computed as the cumulative sum of increments rather than the distance from the selected point back to the structure center. This addresses <a href="https://github.com/droglenc/RFishBC/issues/32"><a href='https://github.com/droglenc/RFishBC/issues/32'>#32</a></a> [Thanks to Alan Hanke].</li>
 <li>
 <code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code>: Modified. Now includes <code>makeTransect=</code> used in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>. Now includes <code>connect=</code>, <code>col.connect=</code>, and <code>lwd.connect=</code> used in <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>. Because of those changes <code>showTransect=</code> has been removed.</li>
 <li>
-<code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>: Modified. Changed <code>showTransect=</code> to <code>connect=</code>, <code>col.transect=</code> to <code>col.connect=</code>, and <code>lwd.transect=</code> to <code>lwd.connect=</code> (this helps address <a href="https://github.com/droglenc/RFishBC/issues/32">#32</a>) [Thanks to Alan Hanke]. Also removed the points that are plotted at the structure center and, if not an annulus, margin (this addresses <a href="https://github.com/droglenc/RFishBC/issues/31">#31</a>). Made more robust checks for when the user tries to plot two images from different structures.</li>
+<code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>: Modified. Changed <code>showTransect=</code> to <code>connect=</code>, <code>col.transect=</code> to <code>col.connect=</code>, and <code>lwd.transect=</code> to <code>lwd.connect=</code> (this helps address <a href="https://github.com/droglenc/RFishBC/issues/32"><a href='https://github.com/droglenc/RFishBC/issues/32'>#32</a></a>) [Thanks to Alan Hanke]. Also removed the points that are plotted at the structure center and, if not an annulus, margin (this addresses <a href="https://github.com/droglenc/RFishBC/issues/31"><a href='https://github.com/droglenc/RFishBC/issues/31'>#31</a></a>). Made more robust checks for when the user tries to plot two images from different structures.</li>
 </ul>
 </div>
     <div id="rfishbc-012-9-dec-18" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.1.2">
 <a href="#rfishbc-012-9-dec-18" class="anchor"></a>RFishBC 0.1.2 9-Dec-18<small> Unreleased </small>
 </h1>
 <ul>
-<li>Added dependency to <code>cli</code> package for <code><a href="../reference/FSA-internals.html">DONE()</a></code>, <code><a href="../reference/FSA-internals.html">NOTE()</a></code>, and <code>RULE()</code> (see below).</li>
+<li>Added dependency to <code>cli</code> package for <code><a href="../reference/.onAttach.html">DONE()</a></code>, <code><a href="../reference/.onAttach.html">NOTE()</a></code>, and <code>RULE()</code> (see below).</li>
 <li>
-<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Changed console output directions to use <code>RULE()</code> instead of <code><a href="../reference/FSA-internals.html">NOTE()</a></code>. Fixed bug that produced error related to closing the last window when working with multiple images.</li>
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Changed console output directions to use <code>RULE()</code> instead of <code><a href="../reference/.onAttach.html">NOTE()</a></code>. Fixed bug that produced error related to closing the last window when working with multiple images.</li>
 <li>
-<code><a href="../reference/FSA-internals.html">DONE()</a></code>: Modified. Changed to use <code>cat_line()</code> from <code>cli</code> package (removed my hack).</li>
+<code><a href="../reference/.onAttach.html">DONE()</a></code>: Modified. Changed to use <code>cat_line()</code> from <code>cli</code> package (removed my hack).</li>
 <li>
-<code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>: Modified. Changed console output directions to use <code>RULE()</code> instead of <code><a href="../reference/FSA-internals.html">NOTE()</a></code>.</li>
+<code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>: Modified. Changed console output directions to use <code>RULE()</code> instead of <code><a href="../reference/.onAttach.html">NOTE()</a></code>.</li>
 <li>
-<code><a href="../reference/FSA-internals.html">NOTE()</a></code>: Modified. Changed to use <code>cat_line()</code> from <code>cli</code> package (removed my hack).</li>
+<code><a href="../reference/.onAttach.html">NOTE()</a></code>: Modified. Changed to use <code>cat_line()</code> from <code>cli</code> package (removed my hack).</li>
 <li>
 <code>RULE()</code>: Added.</li>
 </ul>
 </div>
     <div id="rfishbc-011-12-nov-18" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.1.1">
 <a href="#rfishbc-011-12-nov-18" class="anchor"></a>RFishBC 0.1.1 12-Nov-18<small> 2018-11-18 </small>
 </h1>
 <ul>
@@ -238,16 +251,16 @@
 <li>Removed automatic webpage construction from Travis-CI. Did not work with some of the updated vignettes.</li>
 <li>Put fishBC in the Description field into single quotes as directed by CRAN.</li>
 <li>
-<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>. Modified. Added a note that draws attention when <code>snap2Transect=TRUE</code> and <code>showTransect=FALSE</code> (i.e., “snapping” to a transect that is not shown). At least partially addresses <a href="https://github.com/droglenc/RFishBC/issues/30">#30</a>.</li>
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>. Modified. Added a note that draws attention when <code>snap2Transect=TRUE</code> and <code>showTransect=FALSE</code> (i.e., “snapping” to a transect that is not shown). At least partially addresses <a href="https://github.com/droglenc/RFishBC/issues/30"><a href='https://github.com/droglenc/RFishBC/issues/30'>#30</a></a>.</li>
 </ul>
 </div>
     <div id="rfishbc-010-7-nov-18" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.1.0">
 <a href="#rfishbc-010-7-nov-18" class="anchor"></a>RFishBC 0.1.0 7-Nov-18<small> Unreleased </small>
 </h1>
 <ul>
 <li>
-<code>iSnap2Transect()</code>: Modified. Changed to handle bugs related to perfectly vertical or perfectly horizontal transects. Addresses <a href="https://github.com/droglenc/RFishBC/issues/27">#27</a> (Thanks to Ben Neely).</li>
+<code>iSnap2Transect()</code>: Modified. Changed to handle bugs related to perfectly vertical or perfectly horizontal transects. Addresses <a href="https://github.com/droglenc/RFishBC/issues/27"><a href='https://github.com/droglenc/RFishBC/issues/27'>#27</a></a> (Thanks to Ben Neely).</li>
 <li>
 <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Removed <code>sepWindow()</code>. Added <code>deviceType=</code>.</li>
 <li>
@@ -263,20 +276,20 @@
 </ul>
 </div>
     <div id="rfishbc-0013-6-oct-18" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0.13">
 <a href="#rfishbc-0013-6-oct-18" class="anchor"></a>RFishBC 0.0.13 6-Oct-18<small> Unreleased </small>
 </h1>
 <ul>
 <li>
 <code><a href="../reference/combineData.html">combineData()</a></code>: Modified. Changed so that an age-0 fish with all plus-growth is still included in the returned data.frame when <code>deletePlusGrowth=TRUE</code> (the <code>ann</code> and <code>rad</code> variables will both be <code>NA</code>). Thanks to Ben Neely.</li>
 <li>
-<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Removed restriction that one point be selected as an annulus, which allows for handling age-0 fish (addresses <a href="https://github.com/droglenc/RFishBC/issues/25">#25</a>; thanks to Ben Neely for the suggestion). Removed the <code>q</code> and <code>r</code> button equivalencies for <code>f</code> and <code>d</code>. Added the ability for the user to start over (resulting in no file to be written, but the current image stays live; uses the <code>z</code> key) (addresses <a href="https://github.com/droglenc/RFishBC/issues/22">#22</a>; thanks to Ben Neely for the suggestion). Added the ability for the user to abort a processing (resulting in no file to be written and moving to the next image if using multiple images; uses the <code>q</code> key) (addresses <a href="https://github.com/droglenc/RFishBC/issues/24">#24</a>; thanks to Ben Neely for the suggestion).</li>
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Removed restriction that one point be selected as an annulus, which allows for handling age-0 fish (addresses <a href="https://github.com/droglenc/RFishBC/issues/25"><a href='https://github.com/droglenc/RFishBC/issues/25'>#25</a></a>; thanks to Ben Neely for the suggestion). Removed the <code>q</code> and <code>r</code> button equivalencies for <code>f</code> and <code>d</code>. Added the ability for the user to start over (resulting in no file to be written, but the current image stays live; uses the <code>z</code> key) (addresses <a href="https://github.com/droglenc/RFishBC/issues/22"><a href='https://github.com/droglenc/RFishBC/issues/22'>#22</a></a>; thanks to Ben Neely for the suggestion). Added the ability for the user to abort a processing (resulting in no file to be written and moving to the next image if using multiple images; uses the <code>q</code> key) (addresses <a href="https://github.com/droglenc/RFishBC/issues/24"><a href='https://github.com/droglenc/RFishBC/issues/24'>#24</a></a>; thanks to Ben Neely for the suggestion).</li>
 <li>
 <code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>: Modified. Changed to allow the user to abort or restart the process, similar to for <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.</li>
 </ul>
 </div>
     <div id="rfishbc-0012-3-oct-18" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0.12">
 <a href="#rfishbc-0012-3-oct-18" class="anchor"></a>RFishBC 0.0.12 3-Oct-18<small> Unreleased </small>
 </h1>
 <ul>
@@ -292,7 +305,7 @@
 </ul>
 </div>
     <div id="rfishbc-0011-26-jul-18" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0.11">
 <a href="#rfishbc-0011-26-jul-18" class="anchor"></a>RFishBC 0.0.11 26-Jul-18<small> Unreleased </small>
 </h1>
 <ul>
@@ -300,15 +313,15 @@
 <li>Updated “Collect Radii Data” and the “Workflow” vignettes for changes below.</li>
 <li>Updated the webpage for changes below.</li>
 <li>
-<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Moved the main code to <code>iDigitizeRadii1()</code>, which is basically the olde <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> for working with only one image. The new <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> allows <code>nm=</code> and <code>id=</code> to be vectors with length greater than 1 so that multiple images (and corresponding IDs) can be given to the function at once (or selected via a dialog box). Thus, this function now handles single or multiple images. This addresses <a href="https://github.com/droglenc/RFishBC/issues/20">#20</a> (thanks to B. Utrup and J-M. Hessenauer). Also changed so that the dialog box for entering fish IDs is populated with a better guess at the fish’s ID by using <code><a href="../reference/getID.html">getID()</a></code> with the new <code>IDpattern=</code>.</li>
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Moved the main code to <code>iDigitizeRadii1()</code>, which is basically the olde <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> for working with only one image. The new <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> allows <code>nm=</code> and <code>id=</code> to be vectors with length greater than 1 so that multiple images (and corresponding IDs) can be given to the function at once (or selected via a dialog box). Thus, this function now handles single or multiple images. This addresses <a href="https://github.com/droglenc/RFishBC/issues/20"><a href='https://github.com/droglenc/RFishBC/issues/20'>#20</a></a> (thanks to B. Utrup and J-M. Hessenauer). Also changed so that the dialog box for entering fish IDs is populated with a better guess at the fish’s ID by using <code><a href="../reference/getID.html">getID()</a></code> with the new <code>IDpattern=</code>.</li>
 <li>
-<code><a href="../reference/getID.html">getID()</a></code>: Added. Part of addressing <a href="https://github.com/droglenc/RFishBC/issues/20">#20</a>.</li>
+<code><a href="../reference/getID.html">getID()</a></code>: Added. Part of addressing <a href="https://github.com/droglenc/RFishBC/issues/20"><a href='https://github.com/droglenc/RFishBC/issues/20'>#20</a></a>.</li>
 <li>
-<code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code>: Modified. Added <code>IDpattern=</code> (Part of addressing <a href="https://github.com/droglenc/RFishBC/issues/20">#20</a>).</li>
+<code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code>: Modified. Added <code>IDpattern=</code> (Part of addressing <a href="https://github.com/droglenc/RFishBC/issues/20"><a href='https://github.com/droglenc/RFishBC/issues/20'>#20</a></a>).</li>
 </ul>
 </div>
     <div id="rfishbc-0010-3-july-18" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0.10">
 <a href="#rfishbc-0010-3-july-18" class="anchor"></a>RFishBC 0.0.10 3-July-18<small> Unreleased </small>
 </h1>
 <ul>
@@ -316,21 +329,21 @@
 <li>Added hex sticker.</li>
 <li>Added workflow vignette.</li>
 <li>
-<code><a href="../reference/combineData.html">combineData()</a></code>: Modified. Allowed first argument to be an <code>RFishBC</code> object saved from <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> (partially addresses <a href="https://github.com/droglenc/RFishBC/issues/16">#16</a>; thanks to <a href="https://github.com/jcdoll79">Jason Doll</a>).</li>
+<code><a href="../reference/combineData.html">combineData()</a></code>: Modified. Allowed first argument to be an <code>RFishBC</code> object saved from <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> (partially addresses <a href="https://github.com/droglenc/RFishBC/issues/16"><a href='https://github.com/droglenc/RFishBC/issues/16'>#16</a></a>; thanks to <a href="https://github.com/jcdoll79">Jason Doll</a>).</li>
 <li>
-<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Added <code>closeWindow=</code> (addresses <a href="https://github.com/droglenc/RFishBC/issues/14">#14</a>). Changed so that the rownames of the <code>pts</code> data.frame in the returned object includes “center” and “edge.” See changes to <code><a href="../reference/FSA-internals.html">iSelectPt()</a></code>.</li>
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Added <code>closeWindow=</code> (addresses <a href="https://github.com/droglenc/RFishBC/issues/14"><a href='https://github.com/droglenc/RFishBC/issues/14'>#14</a></a>). Changed so that the rownames of the <code>pts</code> data.frame in the returned object includes “center” and “edge.” See changes to <code><a href="../reference/.onAttach.html">iSelectPt()</a></code>.</li>
 <li>
-<code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>: Modified. Added <code>closeWindow=</code> (addresses <a href="https://github.com/droglenc/RFishBC/issues/14">#14</a>). See changes to <code><a href="../reference/FSA-internals.html">iSelectPt()</a></code>.</li>
+<code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>: Modified. Added <code>closeWindow=</code> (addresses <a href="https://github.com/droglenc/RFishBC/issues/14"><a href='https://github.com/droglenc/RFishBC/issues/14'>#14</a></a>). See changes to <code><a href="../reference/.onAttach.html">iSelectPt()</a></code>.</li>
 <li>
-<code><a href="../reference/FSA-internals.html">iSelectPt()</a></code>: Modified. Added <code>numPts=</code> with several “catches” for whether this target number of points is met when the “f” key (for “finished”) was pressed. Alters behavior in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> and <code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code> (addresses <a href="https://github.com/droglenc/RFishBC/issues/17">#17</a>; thanks to <a href="https://github.com/jcdoll79">Jason Doll</a>).</li>
+<code><a href="../reference/.onAttach.html">iSelectPt()</a></code>: Modified. Added <code>numPts=</code> with several “catches” for whether this target number of points is met when the “f” key (for “finished”) was pressed. Alters behavior in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> and <code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code> (addresses <a href="https://github.com/droglenc/RFishBC/issues/17"><a href='https://github.com/droglenc/RFishBC/issues/17'>#17</a></a>; thanks to <a href="https://github.com/jcdoll79">Jason Doll</a>).</li>
 <li>
-<code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code>: Modified. Added <code>closeWindow=</code> (addresses <a href="https://github.com/droglenc/RFishBC/issues/14">#14</a>).</li>
+<code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code>: Modified. Added <code>closeWindow=</code> (addresses <a href="https://github.com/droglenc/RFishBC/issues/14"><a href='https://github.com/droglenc/RFishBC/issues/14'>#14</a></a>).</li>
 <li>
-<code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>: Modified. Fixed bug in <code>iShowAnnuliLabels()</code> (addressed <a href="https://github.com/droglenc/RFishBC/issues/12">#12</a>; thanks to <a href="https://github.com/Otoliths">Liuyong Ding</a>). Allowed first argument to be an <code>RFishBC</code> object saved from <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> (partially addresses <a href="https://github.com/droglenc/RFishBC/issues/16">#16</a>; thanks to <a href="https://github.com/jcdoll79">Jason Doll</a>). Changed <code>nm=</code> to <code>nms=</code> to be consistent with <code><a href="../reference/combineData.html">combineData()</a></code>.</li>
+<code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>: Modified. Fixed bug in <code>iShowAnnuliLabels()</code> (addressed <a href="https://github.com/droglenc/RFishBC/issues/12"><a href='https://github.com/droglenc/RFishBC/issues/12'>#12</a></a>; thanks to <a href="https://github.com/Otoliths">Liuyong Ding</a>). Allowed first argument to be an <code>RFishBC</code> object saved from <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> (partially addresses <a href="https://github.com/droglenc/RFishBC/issues/16"><a href='https://github.com/droglenc/RFishBC/issues/16'>#16</a></a>; thanks to <a href="https://github.com/jcdoll79">Jason Doll</a>). Changed <code>nm=</code> to <code>nms=</code> to be consistent with <code><a href="../reference/combineData.html">combineData()</a></code>.</li>
 </ul>
 </div>
     <div id="rfishbc-009-18-may-18" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0.9">
 <a href="#rfishbc-009-18-may-18" class="anchor"></a>RFishBC 0.0.9 18-May-18<small> Unreleased </small>
 </h1>
 <ul>
@@ -339,13 +352,13 @@
 <li>Updated “Collect Data” vignette for changes to <code><a href="../reference/combineData.html">combineData()</a></code>.</li>
 <li>Changed “Back-calculating Lengths” vignette for new <code><a href="../reference/backCalc.html">backCalc()</a></code>.</li>
 <li>
-<code><a href="../reference/aStandard.html">aStandard()</a></code>: Added. Addresses <a href="https://github.com/droglenc/RFishBC/issues/10">#10</a>.</li>
+<code><a href="../reference/aStandard.html">aStandard()</a></code>: Added. Addresses <a href="https://github.com/droglenc/RFishBC/issues/10"><a href='https://github.com/droglenc/RFishBC/issues/10'>#10</a></a>.</li>
 <li>
 <code><a href="../reference/backCalc.html">backCalc()</a></code>: Added.</li>
 <li>
-<code><a href="../reference/bcFuns.html">bcFuns()</a></code>: Modified. Changed to using <code><a href="../reference/FSA-internals.html">STOP()</a></code>. Changed all <code>Lc</code> to <code>Lcap</code>, <code>Rc</code> to <code>Rcap</code>, <code>agec</code> to <code>Acap</code>, and <code>agei</code> to <code>Ai</code>. Changed all BPH-related models to use <code>a</code>, <code>b</code>, and <code>c</code> and all SPH-related models to use <code>A</code>, <code>B</code>, and <code>C</code>. Started using <code>iGetBCMethod()</code>. Removed <code>verbose=</code> (moved to within the returned function).</li>
+<code><a href="../reference/bcFuns.html">bcFuns()</a></code>: Modified. Changed to using <code><a href="../reference/.onAttach.html">STOP()</a></code>. Changed all <code>Lc</code> to <code>Lcap</code>, <code>Rc</code> to <code>Rcap</code>, <code>agec</code> to <code>Acap</code>, and <code>agei</code> to <code>Ai</code>. Changed all BPH-related models to use <code>a</code>, <code>b</code>, and <code>c</code> and all SPH-related models to use <code>A</code>, <code>B</code>, and <code>C</code>. Started using <code>iGetBCMethod()</code>. Removed <code>verbose=</code> (moved to within the returned function).</li>
 <li>
-<code>bcUtilChecker()</code>: Modified. Changed to using <code><a href="../reference/FSA-internals.html">STOP()</a></code> and <code><a href="../reference/FSA-internals.html">WARN()</a></code>.</li>
+<code>bcUtilChecker()</code>: Modified. Changed to using <code><a href="../reference/.onAttach.html">STOP()</a></code> and <code><a href="../reference/.onAttach.html">WARN()</a></code>.</li>
 <li>
 <code><a href="../reference/combineData.html">combineData()</a></code>: Modified. Added <code>outFormat=</code> and <code>deletePlusGrowth=</code> arguments (and corresponding tests).</li>
 <li>
@@ -361,43 +374,43 @@
 </ul>
 </div>
     <div id="rfishbc-008-13-may-18" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0.8">
 <a href="#rfishbc-008-13-may-18" class="anchor"></a>RFishBC 0.0.8 13-May-18<small> Unreleased </small>
 </h1>
 <ul>
 <li>Added tests.</li>
 <li>Changed to using <code>.rds</code> files rather than <code>.RData</code> files to save the data. This required using <code><a href="https://rdrr.io/r/base/readRDS.html">saveRDS()</a></code> in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> and <code><a href="https://rdrr.io/r/base/readRDS.html">readRDS()</a></code> in <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code> and <code><a href="../reference/combineData.html">combineData()</a></code>.</li>
 <li>
-<code><a href="../reference/combineData.html">combineData()</a></code>: Modified. See note above. Added a check that the file is an “R Data” file (using <code><a href="../reference/FSA-internals.html">isRData()</a></code>) and of the <code>RFishBC</code> class.</li>
+<code><a href="../reference/combineData.html">combineData()</a></code>: Modified. See note above. Added a check that the file is an “R Data” file (using <code><a href="../reference/.onAttach.html">isRData()</a></code>) and of the <code>RFishBC</code> class.</li>
 <li>
 <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. See note above. Added the <code>RFishBC</code> class to the saved and returned object.</li>
 <li>
-<code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>: Modified. See note above. Added a check that the file is an “R Data” file (using <code><a href="../reference/FSA-internals.html">isRData()</a></code>) and of the <code>RFishBC</code> class.</li>
+<code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>: Modified. See note above. Added a check that the file is an “R Data” file (using <code><a href="../reference/.onAttach.html">isRData()</a></code>) and of the <code>RFishBC</code> class.</li>
 <li>
 <code>isRdata()</code>: Added.</li>
 </ul>
 </div>
     <div id="rfishbc-007-10-may-18" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0.7">
 <a href="#rfishbc-007-10-may-18" class="anchor"></a>RFishBC 0.0.7 10-May-18<small> Unreleased </small>
 </h1>
 <ul>
 <li>Updated tests.</li>
 <li>
-<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Added ability (using <code><a href="../reference/FSA-internals.html">iSelectPt()</a></code>) to delete points after selection for scale-bar, transect, and annuli selection. This removed the use of <code><a href="https://rdrr.io/r/graphics/locator.html">locator()</a></code> and thus key-presses are used to terminate the selection of points. Added the <code>pch.del=</code> and <code>col.del=</code> arguments. Removed the <code>orig.pts</code> data.frame from the returned object.</li>
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Added ability (using <code><a href="../reference/.onAttach.html">iSelectPt()</a></code>) to delete points after selection for scale-bar, transect, and annuli selection. This removed the use of <code><a href="https://rdrr.io/r/graphics/locator.html">locator()</a></code> and thus key-presses are used to terminate the selection of points. Added the <code>pch.del=</code> and <code>col.del=</code> arguments. Removed the <code>orig.pts</code> data.frame from the returned object.</li>
 <li>
-<code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>: Modified. Added ability (using <code><a href="../reference/FSA-internals.html">iSelectPt()</a></code>) to delete points after selection for scale-bar. Added <code>pch.sel=</code>, <code>col.sel=</code>, <code>cex.sel=</code>, <code>pch.del=</code>, and <code>col.del=</code> arguments.</li>
+<code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>: Modified. Added ability (using <code><a href="../reference/.onAttach.html">iSelectPt()</a></code>) to delete points after selection for scale-bar. Added <code>pch.sel=</code>, <code>col.sel=</code>, <code>cex.sel=</code>, <code>pch.del=</code>, and <code>col.del=</code> arguments.</li>
 <li>
 <code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code>: Modified. Added the <code>pch.del=</code> and <code>col.del=</code> arguments. Removed <code>pch.show2=</code>, <code>col.show2=</code>, and <code>cex.show2=</code>
 </li>
 <li>
 <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>: Modified. Removed the ability to show the original (before snapping to the transect) points. Thus, removed <code>showOrigPts=</code>, <code>pch.show2=</code>, <code>col.show2=</code>, and <code>cex.show2=</code>.</li>
 <li>
-<code><a href="../reference/FSA-internals.html">iSelectPt()</a></code>: Added.</li>
+<code><a href="../reference/.onAttach.html">iSelectPt()</a></code>: Added.</li>
 </ul>
 </div>
     <div id="rfishbc-006-9-may-18" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0.6">
 <a href="#rfishbc-006-9-may-18" class="anchor"></a>RFishBC 0.0.6 9-May-18<small> Unreleased </small>
 </h1>
 <ul>
@@ -408,29 +421,29 @@
 <li>
 <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Fixed bug related to <code>showTransect=</code>. Added <code>clisymbols</code> to messages (and had to change <code><a href="https://rdrr.io/r/base/message.html">message()</a></code>s to <code><a href="https://rdrr.io/r/base/cat.html">cat()</a></code>s). Added tests for the messages related to arguments (found early in the function).</li>
 <li>
-<code><a href="../reference/FSA-internals.html">iHndlFilenames()</a></code>: Modified. Slight modification of the error messages.</li>
+<code><a href="../reference/.onAttach.html">iHndlFilenames()</a></code>: Modified. Slight modification of the error messages.</li>
 </ul>
 </div>
     <div id="rfishbc-005-29-apr-18" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0.5">
 <a href="#rfishbc-005-29-apr-18" class="anchor"></a>RFishBC 0.0.5 29-Apr-18<small> Unreleased </small>
 </h1>
 <ul>
 <li>Changed license from MIT to GPL-3.</li>
 <li>
-<code><a href="../reference/combineData.html">combineData()</a></code>: Modified. Better handles filenames (see <code><a href="../reference/FSA-internals.html">iHndlFilenames()</a></code>).</li>
+<code><a href="../reference/combineData.html">combineData()</a></code>: Modified. Better handles filenames (see <code><a href="../reference/.onAttach.html">iHndlFilenames()</a></code>).</li>
 <li>
-<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Better handles filenames (see <code><a href="../reference/FSA-internals.html">iHndlFilenames()</a></code>).</li>
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Better handles filenames (see <code><a href="../reference/.onAttach.html">iHndlFilenames()</a></code>).</li>
 <li>
-<code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>: Modified. Better handles filenames (see <code><a href="../reference/FSA-internals.html">iHndlFilenames()</a></code>).</li>
+<code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>: Modified. Better handles filenames (see <code><a href="../reference/.onAttach.html">iHndlFilenames()</a></code>).</li>
 <li>
-<code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>: Modified. Better handles filenames (see <code><a href="../reference/FSA-internals.html">iHndlFilenames()</a></code>). Streamlined the looping code. Made a catch for the situation where one of the multiple files selected does not appear to be derived from the same structure image as the first file.</li>
+<code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>: Modified. Better handles filenames (see <code><a href="../reference/.onAttach.html">iHndlFilenames()</a></code>). Streamlined the looping code. Made a catch for the situation where one of the multiple files selected does not appear to be derived from the same structure image as the first file.</li>
 <li>
-<code><a href="../reference/FSA-internals.html">iHndlFilenames()</a></code>: Modified. Streamlined and changed to using <code><a href="https://rdrr.io/r/utils/choose.files.html">choose.files()</a></code> to allow for more efficient selection of multiple files. Filtered the choices to image files or RData files. Now checks to see if the user is using Windows and if the selected files are in the current working directory.</li>
+<code><a href="../reference/.onAttach.html">iHndlFilenames()</a></code>: Modified. Streamlined and changed to using <code><a href="https://rdrr.io/r/utils/choose.files.html">choose.files()</a></code> to allow for more efficient selection of multiple files. Filtered the choices to image files or RData files. Now checks to see if the user is using Windows and if the selected files are in the current working directory.</li>
 </ul>
 </div>
     <div id="rfishbc-004-29-apr-18" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0.4">
 <a href="#rfishbc-004-29-apr-18" class="anchor"></a>RFishBC 0.0.4 29-Apr-18<small> Unreleased </small>
 </h1>
 <ul>
@@ -460,12 +473,12 @@
 </ul>
 </div>
     <div id="rfishbc-003-28-apr-18" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0.3">
 <a href="#rfishbc-003-28-apr-18" class="anchor"></a>RFishBC 0.0.3 28-Apr-18<small> Unreleased </small>
 </h1>
 <ul>
 <li>
-<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Slight modification to the messages in the console. Re worked the code with <code><a href="https://rdrr.io/r/graphics/locator.html">locator()</a></code> so that the points will be shown “snapped to the transect” if <code>snap2Transect=TRUE</code> (this addresses <a href="https://github.com/droglenc/RFishBC/issues/7">#7</a>). Added an <code>orig.pts</code> data.frame to the RData object which contains the original (non-snapped to transect) points (which can be plotted with <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>). Changed <code>addTransect=</code> to <code>showTransect=</code> to make more similar to <code>showDigitezedImages()</code>.</li>
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Slight modification to the messages in the console. Re worked the code with <code><a href="https://rdrr.io/r/graphics/locator.html">locator()</a></code> so that the points will be shown “snapped to the transect” if <code>snap2Transect=TRUE</code> (this addresses <a href="https://github.com/droglenc/RFishBC/issues/7"><a href='https://github.com/droglenc/RFishBC/issues/7'>#7</a></a>). Added an <code>orig.pts</code> data.frame to the RData object which contains the original (non-snapped to transect) points (which can be plotted with <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>). Changed <code>addTransect=</code> to <code>showTransect=</code> to make more similar to <code>showDigitezedImages()</code>.</li>
 <li>
 <code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code>: Modified. Added <code>showAnnuliLabels=</code>, <code>col.ann=</code>, and <code>cex.ann=</code> for use in <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>. Changed defaults of mostly colors, pchs, and cexs.</li>
 <li>
@@ -473,7 +486,7 @@
 <li>
 <code>iFindTransect()</code>: Added. Moved this code out of <code>iSelectAnnuli()</code>.</li>
 <li>
-<code><a href="../reference/FSA-internals.html">iGetImage()</a></code>: Modified. Streamlined code. Added <code>native=TRUE</code> to <code>read.bitmap()</code> call to send to the underlying functions as this is apparently more efficient when using <code><a href="https://rdrr.io/r/graphics/rasterImage.html">rasterImage()</a></code> (which this uses).</li>
+<code><a href="../reference/.onAttach.html">iGetImage()</a></code>: Modified. Streamlined code. Added <code>native=TRUE</code> to <code>read.bitmap()</code> call to send to the underlying functions as this is apparently more efficient when using <code><a href="https://rdrr.io/r/graphics/rasterImage.html">rasterImage()</a></code> (which this uses).</li>
 <li>
 <code>iOrderPts()</code>: Added. Made it easier to add annuli labels in <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>.</li>
 <li>
@@ -485,24 +498,24 @@
 </ul>
 </div>
     <div id="rfishbc-002-27-apr-18" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0.2">
 <a href="#rfishbc-002-27-apr-18" class="anchor"></a>RFishBC 0.0.2 27-Apr-18<small> Unreleased </small>
 </h1>
 <ul>
 <li>
-<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Added <code>snap2Transect=</code> to address <a href="https://github.com/droglenc/RFishBC/issues/1">#1</a>. Modified how <code>fname=</code> was handled if missing (see <code>iHndlfname()</code>) and if selecting an image from outside of the current working directory. Allowed user to choose <code>id=</code> through a dialog box or a console prompt (see <code>iHndlID()</code>), which addresses <a href="https://github.com/droglenc/RFishBC/issues/2">#2</a>. Added <code>popID=</code> (again see <code>iHndlID()</code>). Fixed poor directions about the use of the escape key to terminate <code><a href="https://rdrr.io/r/graphics/locator.html">locator()</a></code>. Added <code>showInfo=</code>, <code>pos.info=</code>, <code>cex.info=</code>, and <code>col.info=</code> to address <a href="https://github.com/droglenc/RFishBC/issues/6">#6</a>.</li>
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>: Modified. Added <code>snap2Transect=</code> to address <a href="https://github.com/droglenc/RFishBC/issues/1"><a href='https://github.com/droglenc/RFishBC/issues/1'>#1</a></a>. Modified how <code>fname=</code> was handled if missing (see <code>iHndlfname()</code>) and if selecting an image from outside of the current working directory. Allowed user to choose <code>id=</code> through a dialog box or a console prompt (see <code>iHndlID()</code>), which addresses <a href="https://github.com/droglenc/RFishBC/issues/2"><a href='https://github.com/droglenc/RFishBC/issues/2'>#2</a></a>. Added <code>popID=</code> (again see <code>iHndlID()</code>). Fixed poor directions about the use of the escape key to terminate <code><a href="https://rdrr.io/r/graphics/locator.html">locator()</a></code>. Added <code>showInfo=</code>, <code>pos.info=</code>, <code>cex.info=</code>, and <code>col.info=</code> to address <a href="https://github.com/droglenc/RFishBC/issues/6"><a href='https://github.com/droglenc/RFishBC/issues/6'>#6</a></a>.</li>
 <li>
-<code><a href="../reference/FSA-internals.html">iGetImage()</a></code>: Added. Was <code>iReadImage()</code>. Calculated the pixel width-to-height ratio (from image dimensions) and returned in list.</li>
+<code><a href="../reference/.onAttach.html">iGetImage()</a></code>: Added. Was <code>iReadImage()</code>. Calculated the pixel width-to-height ratio (from image dimensions) and returned in list.</li>
 <li>
 <code>iHndlfname()</code>: Added. Used in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>, <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>, and <code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code>.</li>
 <li>
-<code>iHndlID()</code>: Added. Used in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>. Was modified from initial to include the image filename sans extension as the default ID in the Windows dialog box (when used with <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>), which partially addresses <a href="https://github.com/droglenc/RFishBC/issues/5">#5</a>.</li>
+<code>iHndlID()</code>: Added. Used in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>. Was modified from initial to include the image filename sans extension as the default ID in the Windows dialog box (when used with <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>), which partially addresses <a href="https://github.com/droglenc/RFishBC/issues/5"><a href='https://github.com/droglenc/RFishBC/issues/5'>#5</a></a>.</li>
 <li>
 <code>iHndlScalingFactor()</code>: Modified. Added <code>pixW2H=</code> argument to receive the pixel width-to-height ratio to adjust distance calculations for non-square images.</li>
 <li>
-<code><a href="../reference/FSA-internals.html">iPlaceText()</a></code>: Added. Used to address <a href="https://github.com/droglenc/RFishBC/issues/6">#6</a>.</li>
+<code><a href="../reference/.onAttach.html">iPlaceText()</a></code>: Added. Used to address <a href="https://github.com/droglenc/RFishBC/issues/6"><a href='https://github.com/droglenc/RFishBC/issues/6'>#6</a></a>.</li>
 <li>
-<code>iReadImage()</code>: Removed. Changed to <code><a href="../reference/FSA-internals.html">iGetImage()</a></code>.</li>
+<code>iReadImage()</code>: Removed. Changed to <code><a href="../reference/.onAttach.html">iGetImage()</a></code>.</li>
 <li>
 <code>iSnap2Transect()</code>: Added. Used in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.</li>
 <li>
@@ -514,7 +527,7 @@
 </ul>
 </div>
     <div id="rfishbc-001-16-apr-18" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0.1">
 <a href="#rfishbc-001-16-apr-18" class="anchor"></a>RFishBC 0.0.1 16-Apr-18<small> Unreleased </small>
 </h1>
 <ul>
@@ -523,33 +536,10 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#rfishbc-023-ongoing">0.2.3</a></li>
-        <li><a href="#rfishbc-023-11-december-19">0.2.3</a></li>
-        <li><a href="#rfishbc-022-2-may-19">0.2.2</a></li>
-        <li><a href="#rfishbc-021-1-may-19">0.2.1</a></li>
-        <li><a href="#rfishbc-020-18-dec-18">0.2.0</a></li>
-        <li><a href="#rfishbc-012-9-dec-18">0.1.2</a></li>
-        <li><a href="#rfishbc-011-12-nov-18">0.1.1</a></li>
-        <li><a href="#rfishbc-010-7-nov-18">0.1.0</a></li>
-        <li><a href="#rfishbc-0013-6-oct-18">0.0.13</a></li>
-        <li><a href="#rfishbc-0012-3-oct-18">0.0.12</a></li>
-        <li><a href="#rfishbc-0011-26-jul-18">0.0.11</a></li>
-        <li><a href="#rfishbc-0010-3-july-18">0.0.10</a></li>
-        <li><a href="#rfishbc-009-18-may-18">0.0.9</a></li>
-        <li><a href="#rfishbc-008-13-may-18">0.0.8</a></li>
-        <li><a href="#rfishbc-007-10-may-18">0.0.7</a></li>
-        <li><a href="#rfishbc-006-9-may-18">0.0.6</a></li>
-        <li><a href="#rfishbc-005-29-apr-18">0.0.5</a></li>
-        <li><a href="#rfishbc-004-29-apr-18">0.0.4</a></li>
-        <li><a href="#rfishbc-003-28-apr-18">0.0.3</a></li>
-        <li><a href="#rfishbc-002-27-apr-18">0.0.2</a></li>
-        <li><a href="#rfishbc-001-16-apr-18">0.0.1</a></li>
-      </ul>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>
@@ -561,7 +551,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
