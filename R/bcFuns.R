@@ -35,7 +35,7 @@
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
-#' @section IFAR Supplement: \url{http://derekogle.com/IFAR/supplements/backcalculation/}
+#' @section IFAR Supplement: \url{https://derekogle.com/IFAR/supplements/backcalculation/}
 #'
 #' @references
 #' Vigliola, L. and M.G. Meekan. 2009. The back-calculation of fish growth from otoliths. pp. 174-211. in B.S. Green et al. (editors). Tropical Fish Otoliths: Information for Assessment, Management and Ecology. Review: Methods and Technologies in Fish Biology and Fisheries 11. Springer. [Was (is?) available from https://www.researchgate.net/publication/226394736_The_Back-Calculation_of_Fish_Growth_From_Otoliths.]

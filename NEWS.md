@@ -1,4 +1,5 @@
-# RFishBC 0.2.4 ongoing
+# RFishBC 0.2.4 12-Feb-2022
+* Last version maintained by Derek Ogle. Transferring to fishR Core Team for next version.
 * Removed Travis-CI and appveyor.
 * No longer using coveralls for coverage statistics. Changed to codecov.io.
 * Added GitHub Action for CI/CD (used `usethis::use_github_action_check_standard()`).

@@ -159,7 +159,7 @@ sumTable(bclen~agecap*ann,data=SMBassWB_FL2,digits=0)
 
 * Carlander, K.D. 1982. Standard intercepts for calculating lengths from scale measurements for some centrarchid and percid fishes. Transactions of the American Fisheries Society 111:332–336. [Abstract](https://www.tandfonline.com/doi/abs/10.1577/1548-8659(1982)111%3C332%3ASIFCLF%3E2.0.CO%3B2)
 
-* Ogle, D.H. 2016. Introductory Fisheries Analyses with R. CRC Press/Chapman & Hall. [Webpage](http://derekogle.com/IFAR/)
+* Ogle, D.H. 2016. Introductory Fisheries Analyses with R. CRC Press/Chapman & Hall. [Webpage](https://derekogle.com/IFAR/)
 
 * Vigliola, L., and M.G. Meekan. 2009. The back-calculation of fish growth from otoliths. Pages 174-211 in Green, B., B. Mapstone, G. Carlos, and G. Begg, editors. Tropical fish otoliths: information for assessment, management and ecology, volume 11. Springer, Dordrecht, Netherlands. [Full Text](https://www.researchgate.net/publication/226394736_The_Back-Calculation_of_Fish_Growth_From_Otoliths)
 

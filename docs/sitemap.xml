@@ -1,7 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://derekogle.com/RFishBC/404.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/RFishBC/articles/BCCalc/BCCalc.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/RFishBC/articles/BCCalc.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/RFishBC/articles/BCIntro/BCIntro.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/RFishBC/articles/BCIntro.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/RFishBC/articles/BCWorkflow.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/RFishBC/articles/collectRadiiData.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/RFishBC/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/RFishBC/articles/MeasureRadii/collectRadiiData.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/RFishBC/articles/MeasureRadii/seeRadiiData.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/RFishBC/articles/Other.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/RFishBC/articles/seeRadiiData.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/RFishBC/articles/Workflow/BCWorkflow.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/RFishBC/authors.html</loc>
+  </url>
+  <url>
     <loc>http://derekogle.com/RFishBC/index.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/RFishBC/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/RFishBC/news/index.html</loc>
   </url>
   <url>
     <loc>http://derekogle.com/RFishBC/reference/addNote.html</loc>
@@ -40,6 +88,9 @@
     <loc>http://derekogle.com/RFishBC/reference/getID.html</loc>
   </url>
   <url>
+    <loc>http://derekogle.com/RFishBC/reference/index.html</loc>
+  </url>
+  <url>
     <loc>http://derekogle.com/RFishBC/reference/listFiles.html</loc>
   </url>
   <url>
@@ -59,23 +110,5 @@
   </url>
   <url>
     <loc>http://derekogle.com/RFishBC/reference/StdIntLit.html</loc>
-  </url>
-  <url>
-    <loc>http://derekogle.com/RFishBC/articles/BCCalc.html</loc>
-  </url>
-  <url>
-    <loc>http://derekogle.com/RFishBC/articles/BCIntro.html</loc>
-  </url>
-  <url>
-    <loc>http://derekogle.com/RFishBC/articles/BCWorkflow.html</loc>
-  </url>
-  <url>
-    <loc>http://derekogle.com/RFishBC/articles/collectRadiiData.html</loc>
-  </url>
-  <url>
-    <loc>http://derekogle.com/RFishBC/articles/Other.html</loc>
-  </url>
-  <url>
-    <loc>http://derekogle.com/RFishBC/articles/seeRadiiData.html</loc>
   </url>
 </urlset>

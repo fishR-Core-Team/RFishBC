@@ -66,7 +66,7 @@ A list that contains the size of the window in \code{windowSize} and the pixel w
 Show points selected on a structure image to represent annuli that were saved to an R data file using \code{\link{digitizeRadii}}. This allows the user to reexaminine the selected points or overlay selected points from multiple readings of the structure.
 }
 \details{
-This function requires interaction from the user. A detailed description of its use is in \href{http://derekogle.com/RFishBC/articles/MeasureRadii/seeRadiiData.html}{this vignette} on the \href{http://derekogle.com/RFishBC/index.html}{RFishBC website}.
+This function requires interaction from the user. A detailed description of its use is in \href{https://derekogle.com/RFishBC/articles/MeasureRadii/seeRadiiData.html}{this vignette} on the \href{https://derekogle.com/RFishBC/index.html}{RFishBC website}.
 }
 \examples{
 ## None because this requires interaction from the user.

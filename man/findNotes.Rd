@@ -16,7 +16,7 @@ A data.frame that contains the \code{id}, \code{reading}, and \code{notes} from 
 Returns the notes from the chosen R data files created with \code{\link{digitizeRadii}}.
 }
 \details{
-A detailed description of its use is in the "Other Features" vignette on the \href{http://derekogle.com/RFishBC/index.html}{RFishBC website}.
+A detailed description of its use is in the "Other Features" vignette on the \href{https://derekogle.com/RFishBC/index.html}{RFishBC website}.
 }
 \examples{
 ## See the link to the extensive documentation in the Details.

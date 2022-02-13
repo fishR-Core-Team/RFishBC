@@ -134,7 +134,7 @@ digitizeRadii(
 The user interactively select points on an image of a calcified structure. When finished, radial measurements (from the structure focus to the selected points) are calculated (either with arbitrary units or actual units if a scale-bar is included on the image) and written to an external file for later use.
 }
 \details{
-This function requires interaction from the user. A detailed description of its use is in the vignettes on the \href{http://derekogle.com/RFishBC/index.html}{RFishBC website}.
+This function requires interaction from the user. A detailed description of its use is in the vignettes on the \href{https://derekogle.com/RFishBC/index.html}{RFishBC website}.
 }
 \examples{
 ## None because this requires interaction from the user.
