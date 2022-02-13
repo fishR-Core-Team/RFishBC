@@ -218,9 +218,9 @@ The linear BPH model produces a family of lines that have an intercept of $\frac
 
 * Vigliola, L., and M.G. Meekan. 2009. The back-calculation of fish growth from otoliths. Pages 174-211 in Green, B., B. Mapstone, G. Carlos, and G. Begg, editors. Tropical fish otoliths: information for assessment, management and ecology, volume 11. Springer, Dordrecht, Netherlands. [Full Text](https://www.researchgate.net/publication/226394736_The_Back-Calculation_of_Fish_Growth_From_Otoliths)
 
-* Weisberg, S. 1993. Using hard-part increment data to estimate age and environmental effects. Canadian Journal of Fisheries and Aquatic Sciences 50:1229–1237. [Abstract](http://www.nrcresearchpress.com/doi/abs/10.1139/f93-139#.WtOBC38h1EY)
+* Weisberg, S. 1993. Using hard-part increment data to estimate age and environmental effects. Canadian Journal of Fisheries and Aquatic Sciences 50:1229–1237. [Abstract](https://www.nrcresearchpress.com/doi/abs/10.1139/f93-139#.WtOBC38h1EY)
 
-* Weisberg, S., G. Spangler, and L.S. Richmond. 2010. Mixed effects models for fish growth. Canadian Journal of Fisheries and Aquatic Sciences 67:269-277. [Abstract](http://www.nrcresearchpress.com/doi/10.1139/F09-181#.WtOBI38h1EY)
+* Weisberg, S., G. Spangler, and L.S. Richmond. 2010. Mixed effects models for fish growth. Canadian Journal of Fisheries and Aquatic Sciences 67:269-277. [Abstract](https://www.nrcresearchpress.com/doi/10.1139/F09-181#.WtOBI38h1EY)
 
 * Whitney, R.R., and K.D. Carlander. 1956. Interpretation of body-scale regression for computing body length of fish. Journal of Wildlife Management 20:21–27. [Abstract](https://www.jstor.org/stable/3797243)
 

@@ -24,7 +24,7 @@ Character vector.
 This returns a vector with all file names with the \code{ext} extension in the \code{path} folder/directory. In \pkg{RfishBC} this is used primarily to create a list of image file names for use in \code{\link{digitizeRadii}} or RData file names created with \code{\link{digitizeRadii}} and to be given to \code{\link{combineData}}.
 }
 \details{
-An example of using this function is in \href{https://derekogle.com/RFishBC/articles/MeasureRadii/collectRadiiData.html}{this vignette} and \href{http://derekogle.com/RFishBC/articles/MeasureRadii/seeRadiiData.html}{this vignette} on the \href{http://derekogle.com/RFishBC/index.html}{RFishBC website}.
+An example of using this function is in \href{https://derekogle.com/RFishBC/articles/MeasureRadii/collectRadiiData.html}{this vignette} and \href{https://derekogle.com/RFishBC/articles/MeasureRadii/seeRadiiData.html}{this vignette} on the \href{https://derekogle.com/RFishBC/index.html}{RFishBC website}.
 }
 \examples{
 ## See the link to the extensive documentation in the Details.

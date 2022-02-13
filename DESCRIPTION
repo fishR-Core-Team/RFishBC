@@ -11,7 +11,7 @@ Description: Helps fisheries scientists collect measurements from calcified
     standard procedures and models. This is intended to replace much of the
     functionality provided by the now out-dated 'fishBC' software
     (<https://fisheries.org/bookstore/all-titles/software/70317/>).
-URL: https://derekogle.com/RFishBC
+URL: https://derekogle.com/RFishBC/
 BugReports: https://github.com/droglenc/RFishBC/issues
 License: GPL-3
 LazyData: true
