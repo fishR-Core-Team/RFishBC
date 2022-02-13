@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -81,13 +83,13 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home fa-2x"></span>
+    <span class="fa fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
-  <a href="https://github.com/droglenc/RFishBC">
-    <span class="fas fa-github fa-2x"></span>
+  <a href="https://github.com/droglenc/RFishBC" class="external-link">
+    <span class="fa fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -105,11 +107,11 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Suggested Workflow for Back-Calculation</h1>
-                        <h4 class="author">Derek H. Ogle</h4>
+                        <h4 data-toc-skip class="author">Derek H. Ogle</h4>
             
-            <h4 class="date">2020-12-17</h4>
+            <h4 data-toc-skip class="date">2022-02-13</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/droglenc/RFishBC/blob/master/vignettes/BCWorkflow.Rmd"><code>vignettes/BCWorkflow.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/droglenc/RFishBC/blob/HEAD/vignettes/BCWorkflow.Rmd" class="external-link"><code>vignettes/BCWorkflow.Rmd</code></a></small>
       <div class="hidden name"><code>BCWorkflow.Rmd</code></div>
 
     </div>
@@ -141,17 +143,17 @@
 <li>
 <p>Start (and save) an R script.</p>
 <ul>
-<li>Include <code><a href="http://derekogle.com/RFishBC">library(RFishBC)</a></code>.
+<li>Include <code><a href="https://derekogle.com/RFishBC" class="external-link">library(RFishBC)</a></code>.
 <ul>
 <li>See the<a href="../index.html#installation">RFishBC webpage</a> for instructions to install the <code>RFishBC</code> package.</li>
 </ul>
 </li>
-<li>Include <code><a href="https://dplyr.tidyverse.org">library(dplyr)</a></code>.
+<li>Include <code><a href="https://dplyr.tidyverse.org" class="external-link">library(dplyr)</a></code>.
 <ul>
 <li>May need to install from CRAN.</li>
 </ul>
 </li>
-<li>Use <code><a href="https://rdrr.io/r/base/getwd.html">setwd()</a></code> to set the working directory to where the script and structure images are saved as described in the <a href="collectRadiiData.html#static-structure-images">“Static Structure Images” section of the Collecting Radii Data</a> vignette.</li>
+<li>Use <code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd()</a></code> to set the working directory to where the script and structure images are saved as described in the <a href="collectRadiiData.html#static-structure-images">“Static Structure Images” section of the Collecting Radii Data</a> vignette.</li>
 </ul>
 </li>
 <li>
@@ -177,7 +179,7 @@
 <li><p>(<em>OPTIONAL, AS NEEDED</em>) Examine the selected annuli with <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code> as described in the <a href="seeRadiiData.html#visualize-one-set-of-annuli">“Visualize One Set of Annuli” section of the Visualize Radii Data</a> vignette.</p></li>
 <li><p>Repeat the previous two steps for each structure in the working directory. Note that <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> can accept more than one image name to streamline the processing of many images. The use of multiple image names is described in <a href="collectRadiiData.html#multipleimages">“Processing Multiple Images” section of the Collecting Radii Data</a> vignette.</p></li>
 <li><p>Use <code><a href="../reference/combineData.html">combineData()</a></code> to combine the radial measurements from all analyzed images into a data.frame as described in the <a href="collectRadiiData.html#multiplestructures">“Combine Data from Multiple Structures” section of the Collecting Radii Data</a> vignette.</p></li>
-<li><p>Use <code><a href="https://rdrr.io/r/utils/write.table.html">write.csv()</a></code> to write the data.frame from the previous step to an external CSV file as described in the <a href="collectRadiiData.html#outputdata">“Output Data File” sections of the Collecting Radii Data</a> vignette.</p></li>
+<li><p>Use <code><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv()</a></code> to write the data.frame from the previous step to an external CSV file as described in the <a href="collectRadiiData.html#outputdata">“Output Data File” sections of the Collecting Radii Data</a> vignette.</p></li>
 <li><p>Back-calculate lengths at previous ages as described in the <a href="BCCalc.html">Compute Back-Calculated Lengths</a> vignette.</p></li>
 </ol>
 </div>
@@ -191,11 +193,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Derek Ogle.</p>
+  <p></p>
+<p>Developed by Derek Ogle.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -203,6 +207,8 @@
 
   
 
+
+  
 
   </body>
 </html>

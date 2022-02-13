@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -81,13 +83,13 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home fa-2x"></span>
+    <span class="fa fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
-  <a href="https://github.com/droglenc/RFishBC">
-    <span class="fas fa-github fa-2x"></span>
+  <a href="https://github.com/droglenc/RFishBC" class="external-link">
+    <span class="fa fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -105,20 +107,20 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Compute Back-Calculated Lengths</h1>
-                        <h4 class="author">Derek H. Ogle</h4>
+                        <h4 data-toc-skip class="author">Derek H. Ogle</h4>
             
-            <h4 class="date">2020-12-17</h4>
+            <h4 data-toc-skip class="date">2022-02-13</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/droglenc/RFishBC/blob/master/vignettes/BCCalc.Rmd"><code>vignettes/BCCalc.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/droglenc/RFishBC/blob/HEAD/vignettes/BCCalc.Rmd" class="external-link"><code>vignettes/BCCalc.Rmd</code></a></small>
       <div class="hidden name"><code>BCCalc.Rmd</code></div>
 
     </div>
 
     
     
-<div id="introduction" class="section level1">
-<h1 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h1>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
 <p>This vignette demonstrates how to back-calculate lengths at previous ages from radial measurements made on calcified structures of fish. This vignette assumes that you have an understanding of</p>
 <ul>
 <li>back-calculation (as described in the <a href="../BCIntro/BCIntro.html">Short Introduction to Back-calculation</a> vignette),</li>
@@ -126,23 +128,23 @@
 </ul>
 <p>Packages used in this vignette are loaded below.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://derekogle.com/RFishBC">RFishBC</a></span><span class="op">)</span>   <span class="co"># for bcFuns()</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/droglenc/FSA">FSA</a></span><span class="op">)</span>       <span class="co"># for validn(), sumTable()</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>     <span class="co"># for %&gt;%, inner_join(), arrange(), group_by, summarize()</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://derekogle.com/RFishBC" class="external-link">RFishBC</a></span><span class="op">)</span>   <span class="co"># for bcFuns()</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/droglenc/FSA" class="external-link">FSA</a></span><span class="op">)</span>       <span class="co"># for validn(), sumTable()</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>     <span class="co"># for %&gt;%, inner_join(), arrange(), group_by, summarize()</span></code></pre></div>
 <p>Finally, some of the data manipulations used in this vignette, which may not be familiar to all readers, are described in detail in Ogle (2016).</p>
 <p> </p>
 <p> </p>
 <hr>
 </div>
-<div id="data-for-back-calculation" class="section level1">
-<h1 class="hasAnchor">
-<a href="#data-for-back-calculation" class="anchor"></a>Data for Back-Calculation</h1>
+<div class="section level2">
+<h2 id="data-for-back-calculation">Data for Back-Calculation<a class="anchor" aria-label="anchor" href="#data-for-back-calculation"></a>
+</h2>
 <p>The radial measurements from multiple fish should be combined into one data.frame using <code><a href="../reference/combineData.html">combineData()</a></code>. In addition, the length-at-capture for each fish should be appended to that data.frame. A method to combine radial measurements from multiple fish and append a length-at-capture variable was demonstrated in the <a href="../MeasureRadii/collectRadiiData.html#outputdata">Output Data File section of the Collecting Radii Data</a> vignette.</p>
 <p>Several of the back-calculation methods require estimating parameters from the relationship between fish length and structure radius or structure radius and fish length (as described in <a href="../BCIntro/BCIntro.html">Short Introduction to Back-calculation</a> vignette). These methods cannot be demonstrated well with a small number of fish (as in the <a href="../MeasureRadii/collectRadiiData.html">Collecting Radii Data</a> vignette). Thus, data from a large number of Smallmouth Bass (<em>Micropterus dolomieu</em>) collected from West Bearskin Lake (MN) in 1990 will be used in this vignette.</p>
 <p>A data.frame of the Smallmouth Bass data as it would appear from <code><a href="../reference/combineData.html">combineData()</a></code> is obtained as follows.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">SMBassWB2</span>,package<span class="op">=</span><span class="st">"RFishBC"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">SMBassWB2</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">SMBassWB2</span>,package<span class="op">=</span><span class="st">"RFishBC"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">SMBassWB2</span><span class="op">)</span>
 <span class="co">#&gt;    id reading agecap  radcap    rad1    rad2 rad3 rad4 rad5 rad6 rad7 rad8 rad9</span>
 <span class="co">#&gt; 1 482     DHO      1 1.51076 1.51076      NA   NA   NA   NA   NA   NA   NA   NA</span>
 <span class="co">#&gt; 2 768     DHO      1 1.57989 1.57989      NA   NA   NA   NA   NA   NA   NA   NA</span>
@@ -152,8 +154,8 @@
 <span class="co">#&gt; 6 477     DHO      2 2.44914 1.32061 2.44914   NA   NA   NA   NA   NA   NA   NA</span></code></pre></div>
 <p>A data.frame of fish-specific information, most importantly the length-at-capture, is obtained as follows.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">SMBassWB1</span>,package<span class="op">=</span><span class="st">"RFishBC"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">SMBassWB1</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">SMBassWB1</span>,package<span class="op">=</span><span class="st">"RFishBC"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">SMBassWB1</span><span class="op">)</span>
 <span class="co">#&gt;   id species lake gear yearcap lencap</span>
 <span class="co">#&gt; 1  5     SMB   WB    E    1988     71</span>
 <span class="co">#&gt; 2  3     SMB   WB    E    1988     64</span>
@@ -163,9 +165,9 @@
 <span class="co">#&gt; 6  7     SMB   WB    E    1988     80</span></code></pre></div>
 <p>These data can be joined by the common <code>id</code> variable as shown in the <a href="../MeasureRadii/collectRadiiData.html#outputdata">Output Data File section of the Collecting Radii Data</a> vignette. The data were also arranged by <code>id</code> to facilitate comparisons throughout this vignette.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">SMBassWB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">SMBassWB1</span>,<span class="va">SMBassWB2</span>,by<span class="op">=</span><span class="st">"id"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">SMBassWB</span>,n<span class="op">=</span><span class="fl">3</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">SMBassWB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join</a></span><span class="op">(</span><span class="va">SMBassWB1</span>,<span class="va">SMBassWB2</span>,by<span class="op">=</span><span class="st">"id"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">SMBassWB</span>,n<span class="op">=</span><span class="fl">3</span><span class="op">)</span>
 <span class="co">#&gt;    id species lake gear yearcap lencap reading agecap  radcap    rad1    rad2</span>
 <span class="co">#&gt; 1 374     SMB   WB    E    1990    243     DHO      7 7.57375 1.01672 2.39296</span>
 <span class="co">#&gt; 2 375     SMB   WB    E    1990    293     DHO      7 9.74397 1.76579 3.26580</span>
@@ -174,7 +176,7 @@
 <span class="co">#&gt; 1 3.47635 4.37718 5.18976 6.09176 7.57375   NA   NA</span>
 <span class="co">#&gt; 2 4.35377 5.41608 7.14118 8.79697 9.74397   NA   NA</span>
 <span class="co">#&gt; 3 2.58000 3.24923 4.05444 4.73920 5.34522   NA   NA</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span><span class="op">(</span><span class="va">SMBassWB</span>,n<span class="op">=</span><span class="fl">3</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">SMBassWB</span>,n<span class="op">=</span><span class="fl">3</span><span class="op">)</span>
 <span class="co">#&gt;      id species lake gear yearcap lencap reading agecap  radcap    rad1    rad2</span>
 <span class="co">#&gt; 179 767     SMB   WB    E    1990     99     DHO      2 2.34205 1.44159 2.34205</span>
 <span class="co">#&gt; 180 768     SMB   WB    E    1990     75     DHO      1 1.57989 1.57989      NA</span>
@@ -210,9 +212,9 @@
 <p> </p>
 <hr>
 </div>
-<div id="computing-back-calculated-lengths" class="section level1">
-<h1 class="hasAnchor">
-<a href="#computing-back-calculated-lengths" class="anchor"></a>Computing Back-Calculated Lengths</h1>
+<div class="section level2">
+<h2 id="computing-back-calculated-lengths">Computing Back-Calculated Lengths<a class="anchor" aria-label="anchor" href="#computing-back-calculated-lengths"></a>
+</h2>
 <p>A data.frame of back-calculated lengths (<span class="math inline">\(L_{i}\)</span>) can be constructed from a data.frame that contains at least the length-at-capture (<span class="math inline">\(L_{cap}\)</span>), structure radius-at-capture (<span class="math inline">\(R_{cap}\)</span>), and the structure radius at each annulus (<span class="math inline">\(R_{i}\)</span>) with <code><a href="../reference/backCalc.html">backCalc()</a></code>.</p>
 <p>The first argument to this function is a data.frame with the <span class="math inline">\(L_{cap}\)</span>, <span class="math inline">\(R_{cap}\)</span>, and <span class="math inline">\(R_{i}\)</span> data in either “long” or “wide” format. A long-format data.frame <strong>MUST</strong> have the following variable names:</p>
 <ul>
@@ -247,8 +249,8 @@
 <p>For example, back-calculated lengths were constructed from the wide-format data in <code>SMBassWB</code>, which has length-at-capture data in the <code>lencap</code> variable, using the Fraser-Lee model (with the “a” parameter estimated from the data) with the code below. The lengths were rounded to whole numbers (i.e., <code>digits=0</code>) and the results were returned in wide-format (the same as the input format).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">SMBassWB_FL</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/backCalc.html">backCalc</a></span><span class="op">(</span><span class="va">SMBassWB</span>,<span class="va">lencap</span>,BCM<span class="op">=</span><span class="st">"FRALE"</span>,inFormat<span class="op">=</span><span class="st">"wide"</span>,digits<span class="op">=</span><span class="fl">0</span><span class="op">)</span>
-<span class="co">#&gt; ✔ Using the Fraser-Lee model with a=41.6516606795389.</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">SMBassWB_FL</span>,n<span class="op">=</span><span class="fl">3</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #00BB00;">✔</span> Using the Fraser-Lee model with a=41.6516606795389.</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">SMBassWB_FL</span>,n<span class="op">=</span><span class="fl">3</span><span class="op">)</span>
 <span class="co">#&gt;    id species lake gear yearcap lencap reading agecap len1 len2 len3 len4 len5</span>
 <span class="co">#&gt; 1 374     SMB   WB    E    1990    243     DHO      7   69  105  134  158  180</span>
 <span class="co">#&gt; 2 375     SMB   WB    E    1990    293     DHO      7   87  126  154  181  226</span>
@@ -257,7 +259,7 @@
 <span class="co">#&gt; 1  204  243   NA   NA</span>
 <span class="co">#&gt; 2  269  293   NA   NA</span>
 <span class="co">#&gt; 3  194  214   NA   NA</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span><span class="op">(</span><span class="va">SMBassWB_FL</span>,n<span class="op">=</span><span class="fl">3</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">SMBassWB_FL</span>,n<span class="op">=</span><span class="fl">3</span><span class="op">)</span>
 <span class="co">#&gt;      id species lake gear yearcap lencap reading agecap len1 len2 len3 len4</span>
 <span class="co">#&gt; 179 767     SMB   WB    E    1990     99     DHO      2   77   99   NA   NA</span>
 <span class="co">#&gt; 180 768     SMB   WB    E    1990     75     DHO      1   75   NA   NA   NA</span>
@@ -270,8 +272,8 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">SMBassWB_FL2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/backCalc.html">backCalc</a></span><span class="op">(</span><span class="va">SMBassWB</span>,<span class="va">lencap</span>,BCM<span class="op">=</span><span class="st">"FRALE"</span>,
                          inFormat<span class="op">=</span><span class="st">"wide"</span>,outFormat<span class="op">=</span><span class="st">"long"</span>,digits<span class="op">=</span><span class="fl">0</span><span class="op">)</span>
-<span class="co">#&gt; ✔ Using the Fraser-Lee model with a=41.6516606795389.</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">SMBassWB_FL2</span>,n<span class="op">=</span><span class="fl">6</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #00BB00;">✔</span> Using the Fraser-Lee model with a=41.6516606795389.</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">SMBassWB_FL2</span>,n<span class="op">=</span><span class="fl">6</span><span class="op">)</span>
 <span class="co">#&gt;      id species lake gear yearcap lencap reading agecap ann bclen</span>
 <span class="co">#&gt; 1   374     SMB   WB    E    1990    243     DHO      7   1    69</span>
 <span class="co">#&gt; 182 374     SMB   WB    E    1990    243     DHO      7   2   105</span>
@@ -279,7 +281,7 @@
 <span class="co">#&gt; 544 374     SMB   WB    E    1990    243     DHO      7   4   158</span>
 <span class="co">#&gt; 725 374     SMB   WB    E    1990    243     DHO      7   5   180</span>
 <span class="co">#&gt; 906 374     SMB   WB    E    1990    243     DHO      7   6   204</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span><span class="op">(</span><span class="va">SMBassWB_FL2</span>,n<span class="op">=</span><span class="fl">6</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">SMBassWB_FL2</span>,n<span class="op">=</span><span class="fl">6</span><span class="op">)</span>
 <span class="co">#&gt;       id species lake gear yearcap lencap reading agecap ann bclen</span>
 <span class="co">#&gt; 362  998     SMB   WB    E    1990    298     DHO      7   2   123</span>
 <span class="co">#&gt; 543  998     SMB   WB    E    1990    298     DHO      7   3   150</span>
@@ -291,18 +293,17 @@
 <p> </p>
 <hr>
 </div>
-<div id="summarizing-back-calculated-lengths" class="section level1">
-<h1 class="hasAnchor">
-<a href="#summarizing-back-calculated-lengths" class="anchor"></a>Summarizing Back-Calculated Lengths</h1>
-<p>For example, the mean back-calculated length-at-age may be computed with <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code> as shown below for the long-format Fraser-Lee results.</p>
+<div class="section level2">
+<h2 id="summarizing-back-calculated-lengths">Summarizing Back-Calculated Lengths<a class="anchor" aria-label="anchor" href="#summarizing-back-calculated-lengths"></a>
+</h2>
+<p>For example, the mean back-calculated length-at-age may be computed with <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize()</a></code> as shown below for the long-format Fraser-Lee results.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="va">SMBassWB_FL2</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">ann</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>n<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/FSA/man/validn.html">validn</a></span><span class="op">(</span><span class="va">bclen</span><span class="op">)</span>,
-            mn<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">bclen</span><span class="op">)</span>,<span class="fl">0</span><span class="op">)</span>,
-            sd<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">bclen</span><span class="op">)</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; `summarise()` ungrouping output (override with `.groups` argument)</span>
+<code class="sourceCode R"><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="va">SMBassWB_FL2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">ann</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span>n<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/FSA/man/validn.html" class="external-link">validn</a></span><span class="op">(</span><span class="va">bclen</span><span class="op">)</span>,
+            mn<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">bclen</span><span class="op">)</span>,<span class="fl">0</span><span class="op">)</span>,
+            sd<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">bclen</span><span class="op">)</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span>
 <span class="va">tmp</span>
 <span class="co">#&gt;   ann   n  mn   sd</span>
 <span class="co">#&gt; 1   1 181  79  6.5</span>
@@ -314,9 +315,9 @@
 <span class="co">#&gt; 7   7  50 269 25.3</span>
 <span class="co">#&gt; 8   8   2 283 26.9</span>
 <span class="co">#&gt; 9   9   2 314 20.5</span></code></pre></div>
-<p>Additionally, the mean length at each back-calculated age computed separately for each age-at-capture is found with <code><a href="https://rdrr.io/pkg/FSA/man/sumTable.html">sumTable()</a></code>, where the left side of the formula is the quantitative variable to be summarized and the right side has grouping variables presented in <code>row*column</code> format.</p>
+<p>Additionally, the mean length at each back-calculated age computed separately for each age-at-capture is found with <code><a href="https://rdrr.io/pkg/FSA/man/sumTable.html" class="external-link">sumTable()</a></code>, where the left side of the formula is the quantitative variable to be summarized and the right side has grouping variables presented in <code>row*column</code> format.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/FSA/man/sumTable.html">sumTable</a></span><span class="op">(</span><span class="va">bclen</span><span class="op">~</span><span class="va">agecap</span><span class="op">*</span><span class="va">ann</span>,data<span class="op">=</span><span class="va">SMBassWB_FL2</span>,digits<span class="op">=</span><span class="fl">0</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/FSA/man/sumTable.html" class="external-link">sumTable</a></span><span class="op">(</span><span class="va">bclen</span><span class="op">~</span><span class="va">agecap</span><span class="op">*</span><span class="va">ann</span>,data<span class="op">=</span><span class="va">SMBassWB_FL2</span>,digits<span class="op">=</span><span class="fl">0</span><span class="op">)</span>
 <span class="co">#&gt;    1   2   3   4   5   6   7   8   9</span>
 <span class="co">#&gt; 1 74  NA  NA  NA  NA  NA  NA  NA  NA</span>
 <span class="co">#&gt; 2 80 113  NA  NA  NA  NA  NA  NA  NA</span>
@@ -329,25 +330,25 @@
 <p> </p>
 <hr>
 </div>
-<div id="references" class="section level1">
-<h1 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h1>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <ul>
-<li><p>Carlander, K.D. 1982. Standard intercepts for calculating lengths from scale measurements for some centrarchid and percid fishes. Transactions of the American Fisheries Society 111:332–336. <a href="https://www.tandfonline.com/doi/abs/10.1577/1548-8659(1982)111%3C332%3ASIFCLF%3E2.0.CO%3B2">Abstract</a></p></li>
-<li><p>Ogle, D.H. 2016. Introductory Fisheries Analyses with R. CRC Press/Chapman &amp; Hall. <a href="http://derekogle.com/IFAR/">Webpage</a></p></li>
-<li><p>Vigliola, L., and M.G. Meekan. 2009. The back-calculation of fish growth from otoliths. Pages 174-211 in Green, B., B. Mapstone, G. Carlos, and G. Begg, editors. Tropical fish otoliths: information for assessment, management and ecology, volume 11. Springer, Dordrecht, Netherlands. <a href="https://www.researchgate.net/publication/226394736_The_Back-Calculation_of_Fish_Growth_From_Otoliths">Full Text</a></p></li>
+<li><p>Carlander, K.D. 1982. Standard intercepts for calculating lengths from scale measurements for some centrarchid and percid fishes. Transactions of the American Fisheries Society 111:332–336. <a href="https://www.tandfonline.com/doi/abs/10.1577/1548-8659(1982)111%3C332%3ASIFCLF%3E2.0.CO%3B2" class="external-link">Abstract</a></p></li>
+<li><p>Ogle, D.H. 2016. Introductory Fisheries Analyses with R. CRC Press/Chapman &amp; Hall. <a href="https://derekogle.com/IFAR/" class="external-link">Webpage</a></p></li>
+<li><p>Vigliola, L., and M.G. Meekan. 2009. The back-calculation of fish growth from otoliths. Pages 174-211 in Green, B., B. Mapstone, G. Carlos, and G. Begg, editors. Tropical fish otoliths: information for assessment, management and ecology, volume 11. Springer, Dordrecht, Netherlands. <a href="https://www.researchgate.net/publication/226394736_The_Back-Calculation_of_Fish_Growth_From_Otoliths" class="external-link">Full Text</a></p></li>
 </ul>
 <p> </p>
 <p> </p>
 </div>
-<div id="footnotes" class="section level1">
-<h1 class="hasAnchor">
-<a href="#footnotes" class="anchor"></a>Footnotes</h1>
+<div class="section level2">
+<h2 id="footnotes">Footnotes<a class="anchor" aria-label="anchor" href="#footnotes"></a>
+</h2>
 </div>
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p>Both of these data.frames are available in the <code>RFishBC</code> package. However, these types of data could be the result of using <code>comineData()</code> and <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join()</a></code> or from loading a relevant CSV file as demonstrated in <a href="../MeasureRadii/collectRadiiData.html#outputdata">Output Data File section of the Collecting Radii Data</a> vignette.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>Both of these data.frames are available in the <code>RFishBC</code> package. However, these types of data could be the result of using <code>comineData()</code> and <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join()</a></code> or from loading a relevant CSV file as demonstrated in <a href="../MeasureRadii/collectRadiiData.html#outputdata">Output Data File section of the Collecting Radii Data</a> vignette.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 <li id="fn2"><p>Note that this file contains information from fish captured in years other than 1990.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 <li id="fn3"><p>Arranging the data by fish id is not required for the work below. It is simply used here for demonstration purposes.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
 <li id="fn4"><p>The <code>species</code>, <code>lake</code>, <code>gear</code>, <code>yearcap</code>, and <code>reading</code> variables are not needed in this vignette, but could be needed in further statistical analyses.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
@@ -368,11 +369,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Derek Ogle.</p>
+  <p></p>
+<p>Developed by Derek Ogle.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -380,6 +383,8 @@
 
   
 
+
+  
 
   </body>
 </html>
