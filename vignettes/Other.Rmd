@@ -67,7 +67,7 @@ showDigitizedImage("DWS_Oto_89765_DHO.rds",
                    annuliLabels=c(1:8,10,12,14,17),cex.ann=0.8)
 ```
 
-![](figures/DWS_Oto_89765_A.jpg)
+![](DWS_Oto_89765_A.jpg)
 
 \  
 
@@ -120,7 +120,7 @@ RFBCoptions(reading="DHO",edgeIsAnnulus=FALSE,windowSize=10,addNote=TRUE)
 digitizeRadii("Scale_1.jpg",id="1")
 ```
 
-![](figures/Scale_1_D.jpg)
+![](Scale_1_D.jpg)
 
 The notes for a list of R Data file names may be found with `findNotes()`. The first argument to this function can be a vector of R Data file names in the current working directory. If this argument is missing, then the user will be prompted to choose R Data files from a dialog box. For example, the following code returns the list of notes for all fish ids and readings in the current working directory (note that the second file listed is not a valid file, so it was excluded from the vector given to `findNotes()`).
 

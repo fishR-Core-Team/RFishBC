@@ -204,7 +204,7 @@
 <p>Finally, note that the R data file that will be created after the annuli have been selected will have the same name as the image file<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> but including the suffix optionally provided in <code>suffix=</code>. If nothing is given in <code>suffix=</code>, then a suffix will be created from <code>reading=</code> (if it exists). For example, if the structure image file was named “Scale_1.jpg”, then the resultant R data file will be named “Scale_1_DHO.rds” if <code>reading="DHO"</code> and <code>suffix=</code> was not set or “Scale_1_TESTING.rds” if <code>reading="DHO"</code> and <code>suffix="TESTING"</code>.</p>
 <p>By default, the fish ID will be shown in the top-left corner of the image. This may be moved by giving a different location to <code>pos.info=</code>. For example, <code>pos.info="bottomright"</code> would move this information to the bottom-right corner of the image. The color of this information may be changed with <code>col.info=</code> and the relative size may be changed with <code>cex.info=</code>.</p>
 <p>At this point, the image may look something like that below.</p>
-<p><img src="figures/Oto140306_A.jpg"></p>
+<p><img src="Oto140306_A.jpg"></p>
 <p> </p>
 <p>Other arguments to <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> are described in the specific sections below.</p>
 </div>
@@ -216,7 +216,7 @@
 <p><strong>Separately Defined Scaling Factor:</strong> In applications where a scale-bar does not exist on the image, the user can provide a value to <code>scalingFactor=</code>, which will be multiplied by lengths on the structure image to derive actual lengths. One way to derive this scaling factor is to capture an image of the structure at a specific magnification on the microscope and then capture a separate image of an object of known length at that same magnification. Note that these captured images must be of the same size so that the aspect ratio is consistent. A scaling factor may then be computed from the image with the object of known length and applied to the structure image. This scaling factor can be found by giving <code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code> the file name with the object of known length and that known length in <code>knownLength=</code>. The value returned from <code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code> can then be given to <code>scalingFactor=</code> in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a></p>
 <p>If no <code>scalingFactor=</code> is derived from a scale-bar or provided, then the radial measurements returned by <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> are simply proportional to the unknown actual lengths on the structure.</p>
 <p>At this point (i.e., after having selected the scale-bar endpoints), the image may look something like that below.</p>
-<p><img src="figures/Oto140306_B.jpg"></p>
+<p><img src="Oto140306_B.jpg"></p>
 <p> </p>
 </div>
 <div class="section level4">
@@ -224,7 +224,7 @@
 </h4>
 <p>After the scaling factor has been determined (or provided) and if <code>makeTransect=TRUE</code> (the default), then you will select a transect on the structure image on which annular marks will be selected. This transect is selected by <strong>first selecting the structure focus</strong> and <strong>then selecting the structure margin/edge</strong> and pressing the ‘f’ key.<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a> The color of the transect may be changed with <code>col.transect=</code>. The width of the transect may be increased by including a number greater than 1 in <code>lwd.transect=</code>.</p>
 <p>At this point (i.e., after having selected the transect endpoints), the image may look something like that below.</p>
-<p><img src="figures/Oto140306_C.jpg"></p>
+<p><img src="Oto140306_C.jpg"></p>
 <p> </p>
 <p>If you prefer not to use a transect, for example if the “growth trajectory” is primarily curved, then set <code>makeTransect=FALSE</code> (which will then change <code>snap2Transect=</code> to <code>FALSE</code>). If you choose not to define a transect, then, in contrast to what is described in the next section, you will be prompted to select the structure center and successive annuli out to the margin.</p>
 <p> </p>
@@ -236,7 +236,7 @@
 <p>Selected points will be marked with the plotting character given in <code>pch.sel=</code> (defaults to a filled circle) with a color given in <code>col.sel=</code> (defaults to yellow). Any deleted points will be marked with the color and character in <code>col.del=</code> and <code>pch.del=</code> (defaults to a red circle with an “x” in it).</p>
 <p>If using a linear transect, many users prefer that all selected points fall exactly on the transect. In practice, some points may be selected that are slightly off the transect. Selected points will be “moved” perpendicularly to fall exactly on the transect when <code>snap2Transect=TRUE</code> (the default).</p>
 <p>At this point, the image may look something like that below (<em>note that two points were deleted in the selection process for this image</em>).</p>
-<p><img src="figures/Oto140306_D.jpg"></p>
+<p><img src="Oto140306_D.jpg"></p>
 <p> </p>
 <p>When you have finished selecting points, information about your selections, including the calculated radial measurements, are saved to the R data file. The contents of this file are described further <a href="https://derekogle.com/RFishBC/reference/digitizeRadii.html#value" class="external-link">here</a>.</p>
 <p> </p>
@@ -251,11 +251,12 @@
 <p>However, if the image file names follow a general pattern, for example always being JPG files and always containing the word “Scale” or “Bass” or something similar, then a list of all image file names in the current working directory can be obtained with <code><a href="../reference/listFiles.html">listFiles()</a></code>. This function takes the common extension as its first argument and the common “other” words in <code>other=</code>. For example, the following code finds all JPG files that also contain the word “Scale” in the current working directory.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span> <span class="va">imgs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/listFiles.html">listFiles</a></span><span class="op">(</span><span class="st">"jpg"</span>,other<span class="op">=</span><span class="st">"Scale"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "Scale_1.jpg" "Scale_2.jpg" "Scale_3.jpg"</span></code></pre></div>
+<span class="co">#&gt; [1] "Scale_1.jpg"   "Scale_1_A.jpg" "Scale_1_B.jpg" "Scale_1_C.jpg"</span>
+<span class="co">#&gt; [5] "Scale_1_D.JPG" "Scale_2.jpg"   "Scale_3.jpg"</span></code></pre></div>
 <p>The user would still need to manually create a vector of corresponding fish IDs. However, if the image file names follow the idiom of having the fish ID after an underscore (i.e., “_“) at the end of the file name (not including the extension) then <code><a href="../reference/getID.html">getID()</a></code> can be used to efficiently extract a vector of fish IDs from the vector of file names. For example,</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span> <span class="va">ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getID.html">getID</a></span><span class="op">(</span><span class="va">imgs</span><span class="op">)</span> <span class="op">)</span>
-<span class="co">#&gt; [1] "1" "2" "3"</span></code></pre></div>
+<span class="co">#&gt; [1] "1" "A" "B" "C" "D" "2" "3"</span></code></pre></div>
 <p>With these vectors, the following call to <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> will bring up the first image on which you can mark annuli as described above. When you have finished with the first image then the second image will automatically appear on which you can then mark annuli. This process will be repeated until the last image in the vector of images has been completed.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/digitizeRadii.html">digitizeRadii</a></span><span class="op">(</span><span class="va">imgs</span>,id<span class="op">=</span><span class="va">ids</span>,reading<span class="op">=</span><span class="st">"DHO"</span>,edgeIsAnnulus<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></code></pre></div>

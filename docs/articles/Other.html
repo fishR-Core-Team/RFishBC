@@ -172,7 +172,7 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/showDigitizedImage.html">showDigitizedImage</a></span><span class="op">(</span><span class="st">"DWS_Oto_89765_DHO.rds"</span>,
                    annuliLabels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span>,<span class="fl">10</span>,<span class="fl">12</span>,<span class="fl">14</span>,<span class="fl">17</span><span class="op">)</span>,cex.ann<span class="op">=</span><span class="fl">0.8</span><span class="op">)</span></code></pre></div>
-<p><img src="figures/DWS_Oto_89765_A.jpg"></p>
+<p><img src="DWS_Oto_89765_A.jpg"></p>
 <p> </p>
 <p>RFishBC calculates radii as the cumulative sum of the annular increments rather than the distance from the structure center to the annuli. These radii or increments can be extracted as described in the <a href="collectRadiiData.html">Collecting Radial Measurements</a> vignette.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -236,7 +236,7 @@
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/RFBCoptions.html">RFBCoptions</a></span><span class="op">(</span>reading<span class="op">=</span><span class="st">"DHO"</span>,edgeIsAnnulus<span class="op">=</span><span class="cn">FALSE</span>,windowSize<span class="op">=</span><span class="fl">10</span>,addNote<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu"><a href="../reference/digitizeRadii.html">digitizeRadii</a></span><span class="op">(</span><span class="st">"Scale_1.jpg"</span>,id<span class="op">=</span><span class="st">"1"</span><span class="op">)</span></code></pre></div>
-<p><img src="figures/Scale_1_D.JPG"></p>
+<p><img src="Scale_1_D.JPG"></p>
 <p>The notes for a list of R Data file names may be found with <code><a href="../reference/findNotes.html">findNotes()</a></code>. The first argument to this function can be a vector of R Data file names in the current working directory. If this argument is missing, then the user will be prompted to choose R Data files from a dialog box. For example, the following code returns the list of notes for all fish ids and readings in the current working directory (note that the second file listed is not a valid file, so it was excluded from the vector given to <code><a href="../reference/findNotes.html">findNotes()</a></code>).</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span> <span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/listFiles.html">listFiles</a></span><span class="op">(</span><span class="st">".rds"</span><span class="op">)</span> <span class="op">)</span>

@@ -51,7 +51,7 @@ You can review the selected annuli on a structure with `showDigitizedImage()`, w
 showDigitizedImage("Scale_1_DHO.rds")
 ```
 
-![](figures/Scale_1_A.jpg)
+![](Scale_1_A.jpg)
 
 \  
 
@@ -64,7 +64,7 @@ showDigitizedImage("Oto140306_DHO.rds",pch.show="+",col.show="blue",
                    annuliLabels=c(1:6,8,10,13))
 ```
 
-![](figures/Oto140306_E.jpg)
+![](Oto140306_E.jpg)
 
 \  
 
@@ -75,7 +75,7 @@ showDigitizedImage("Oto140306_DHO.rds",annuliLabels=c(1:6,8,10,13),
                    connect=FALSE,col.ann=c(rep("black",8),"white"),cex.ann=1)
 ```
 
-![](figures/Oto140306_F.jpg)
+![](Oto140306_F.jpg)
 
 \  
 
@@ -102,7 +102,7 @@ The multiple readings of "Scale_1" can be seen by giving this set of filenames t
 showDigitizedImage(fns)
 ```
 
-![](figures/Scale_1_B.jpg)
+![](Scale_1_B.jpg)
 
 \  
 
@@ -112,7 +112,7 @@ showDigitizedImage(fns,col.show=c("yellow","red","blue"),
                    col.connect=c("red","yellow","green"),lwd.connect=2)
 ```
 
-![](figures/Scale_1_C.jpg)
+![](Scale_1_C.jpg)
 
 \  
 
