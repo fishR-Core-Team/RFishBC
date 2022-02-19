@@ -1,3 +1,8 @@
+# RFishBC 0.2.5 ongoing
+* Updated sticker.
+* Changed pkgdown.yaml action to only run on a release (rather than a push). Thus, the webpage will only be updated at new releases rather than each push.
+* Added Code of Conduct
+
 # RFishBC 0.2.4 12-Feb-2022
 * Last version maintained by Derek Ogle. Transferring to fishR Core Team for next version.
 * Removed Travis-CI and appveyor.
