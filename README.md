@@ -27,7 +27,6 @@ install.packages("RFishBC")
 
 The most recent development version may be installed from GitHub with
 
-
 ```r
 if (!require('remotes')) install.packages('remotes'); require('remotes')
 remotes::install_github('fishr-core-team/RFishBC')
