@@ -12,6 +12,7 @@
 ^docs
 ^data-raw$
 ^cran-comments
+CODE_OF_CONDUCT.md
 
 ^man/figures/logo\.png
 ^inst/sticker
