@@ -106,7 +106,7 @@ By default, the fish ID will be shown in the top-left corner of the image. This 
 
 At this point, the image may look something like that below.
 
-![](oto140306_A.jpg)
+![](Oto140306_A.jpg)
 
 \  
 
@@ -123,7 +123,7 @@ If no `scalingFactor=` is derived from a scale-bar or provided, then the radial 
 
 At this point (i.e., after having selected the scale-bar endpoints), the image may look something like that below.
 
-![](oto140306_B.jpg)
+![](Oto140306_B.jpg)
 
 \  
 
@@ -132,7 +132,7 @@ After the scaling factor has been determined (or provided) and if `makeTransect=
 
 At this point (i.e., after having selected the transect endpoints), the image may look something like that below.
 
-![](oto140306_C.jpg)
+![](Oto140306_C.jpg)
 
 \  
 
@@ -149,7 +149,7 @@ If using a linear transect, many users prefer that all selected points fall exac
 
 At this point, the image may look something like that below (*note that two points were deleted in the selection process for this image*).
 
-![](oto140306_D.jpg)
+![](Oto140306_D.jpg)
 
 \  
 
