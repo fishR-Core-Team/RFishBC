@@ -3,6 +3,7 @@
 * Changed pkgdown.yaml action to only run on a release (rather than a push). Thus, the webpage will only be updated at new releases rather than each push.
 * Added Code of Conduct
 * Fixed issues with static images on the webpage vignettes (they did not work when in a figures subfolder).
+* Updated `R-CMD-check.yaml` GitHub action to [v2](https://github.com/r-lib/actions/tree/v2-branch/examples#standard-ci-workflow). Note that I had to add the [extra code for dealing with graphics on the Mac version](https://github.com/r-lib/actions#common-questions).
 
 # RFishBC 0.2.4 12-Feb-2022
 * Last version maintained by Derek Ogle. Transferring to fishR Core Team for next version.
