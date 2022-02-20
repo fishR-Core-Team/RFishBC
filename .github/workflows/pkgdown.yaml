@@ -29,6 +29,9 @@ jobs:
           extra-packages: any::pkgdown, local::.
           needs: website
 
+      - name: Install dependencies
+        run: Rscript -e 'install.packages(c("prettydoc","captioner"),type="binary")'
+
       - name: Build site
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
         shell: Rscript {0}
