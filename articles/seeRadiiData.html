@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4.9000</span>
       </span>
     </div>
 
@@ -103,13 +103,13 @@
 
       
 
-      </header><script src="seeRadiiData_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Visualize Points Selected on a Calcified Structure</h1>
                         <h4 data-toc-skip class="author">Derek H. Ogle</h4>
             
-            <h4 data-toc-skip class="date">2022-02-13</h4>
+            <h4 data-toc-skip class="date">2022-02-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/droglenc/RFishBC/blob/HEAD/vignettes/seeRadiiData.Rmd" class="external-link"><code>vignettes/seeRadiiData.Rmd</code></a></small>
       <div class="hidden name"><code>seeRadiiData.Rmd</code></div>
@@ -147,20 +147,20 @@
 <p>You can review the selected annuli on a structure with <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>, which requires only the name of an R data file created from <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/showDigitizedImage.html">showDigitizedImage</a></span><span class="op">(</span><span class="st">"Scale_1_DHO.rds"</span><span class="op">)</span></code></pre></div>
-<p><img src="figures/Scale_1_A.jpg"></p>
+<p><img src="Scale_1_A.jpg"></p>
 <p> </p>
 <p>The plotting character, color, and relative size of the selected points may be changed with <code>pch.show=</code>, <code>col.show=</code>, and <code>cex.show=</code>, respectively. By default, the points are connected which will display as a linear transect if <code>makeTransect=TRUE</code> (the default) was used when selecting annuli in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>. The color and width of the connected lines may be changed with <code>col.connect=</code> and <code>lwd.connect=</code>. The connected lines may be excluded altogether with <code>connect=FALSE</code>. Annuli will be numbered if <code>showAnnuliLabels=TRUE</code> (the default) with label colors and relative size changed with <code>col.ann=</code> and <code>cex.ann=</code>, respectively. Annuli for which numbers are plotted may be controlled with <code>annuliLabels=</code> (e.g., only the first six plus several others after that are shown for the Kiyi otolith below). Defaults for all of these arguments may be set with <code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code> as was demonstrated in the <a href="collectRadiiData.html#setoptions1">Setting Arguments section of this vignette</a></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/showDigitizedImage.html">showDigitizedImage</a></span><span class="op">(</span><span class="st">"Oto140306_DHO.rds"</span>,pch.show<span class="op">=</span><span class="st">"+"</span>,col.show<span class="op">=</span><span class="st">"blue"</span>,
                    col.connect<span class="op">=</span><span class="st">"white"</span>,col.ann<span class="op">=</span><span class="st">"black"</span>,cex.ann<span class="op">=</span><span class="fl">1</span>,
                    annuliLabels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>,<span class="fl">8</span>,<span class="fl">10</span>,<span class="fl">13</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="figures/Oto140306_E.jpg"></p>
+<p><img src="Oto140306_E.jpg"></p>
 <p> </p>
 <p>You can also just show the points without the transect and individually control the color of the annuli labels.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/showDigitizedImage.html">showDigitizedImage</a></span><span class="op">(</span><span class="st">"Oto140306_DHO.rds"</span>,annuliLabels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>,<span class="fl">8</span>,<span class="fl">10</span>,<span class="fl">13</span><span class="op">)</span>,
                    connect<span class="op">=</span><span class="cn">FALSE</span>,col.ann<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"black"</span>,<span class="fl">8</span><span class="op">)</span>,<span class="st">"white"</span><span class="op">)</span>,cex.ann<span class="op">=</span><span class="fl">1</span><span class="op">)</span></code></pre></div>
-<p><img src="figures/Oto140306_F.jpg"></p>
+<p><img src="Oto140306_F.jpg"></p>
 <p> </p>
 <p> </p>
 <hr>
@@ -182,13 +182,13 @@
 <p>The multiple readings of “Scale_1” can be seen by giving this set of filenames to <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/showDigitizedImage.html">showDigitizedImage</a></span><span class="op">(</span><span class="va">fns</span><span class="op">)</span></code></pre></div>
-<p><img src="figures/Scale_1_B.jpg"></p>
+<p><img src="Scale_1_B.jpg"></p>
 <p> </p>
 <p>Aspects of the connecting lines and points may be controlled with arguments to <code>showDigitizedData()</code>. For example, the code below uses different colors for each set of connecting lines and points.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/showDigitizedImage.html">showDigitizedImage</a></span><span class="op">(</span><span class="va">fns</span>,col.show<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"yellow"</span>,<span class="st">"red"</span>,<span class="st">"blue"</span><span class="op">)</span>,
                    col.connect<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red"</span>,<span class="st">"yellow"</span>,<span class="st">"green"</span><span class="op">)</span>,lwd.connect<span class="op">=</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
-<p><img src="figures/Scale_1_C.jpg"></p>
+<p><img src="Scale_1_C.jpg"></p>
 <p> </p>
 <p> </p>
 </div>

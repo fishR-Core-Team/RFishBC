@@ -1,4 +1,4 @@
-pandoc: 2.7.3
+pandoc: 2.14.2
 pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
@@ -8,7 +8,7 @@ articles:
   Other: Other.html
   collectRadiiData: collectRadiiData.html
   seeRadiiData: seeRadiiData.html
-last_built: 2022-02-13T12:59Z
+last_built: 2022-02-20T19:47Z
 urls:
   reference: http://derekogle.com/RFishBC/reference
   article: http://derekogle.com/RFishBC/articles
