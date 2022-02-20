@@ -30,7 +30,7 @@ jobs:
           needs: website
 
       - name: Install dependencies
-        run: Rscript -e 'install.packages(c("prettydoc","captioner"),type="binary")'
+        run: Rscript -e 'install.packages(c("prettydoc","captioner"))'
 
       - name: Build site
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
