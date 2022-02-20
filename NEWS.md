@@ -1,8 +1,8 @@
 # RFishBC 0.2.5 ongoing
 * Updated sticker.
-* Changed pkgdown.yaml action to only run on a release (rather than a push). Thus, the webpage will only be updated at new releases rather than each push.
 * Added Code of Conduct
 * Fixed issues with static images on the webpage vignettes (they did not work when in a figures subfolder).
+* Updated `pkgdown.yaml` GitHub action to [v2](https://github.com/r-lib/actions/tree/v2-branch/examples#build-pkgdown-site). Changed action to only run on a release (rather than a push) but it can be [run manually](https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow) as well.
 * Updated `R-CMD-check.yaml` GitHub action to [v2](https://github.com/r-lib/actions/tree/v2-branch/examples#standard-ci-workflow). Note that I had to add the [extra code for dealing with graphics on the Mac version](https://github.com/r-lib/actions#common-questions).
 
 # RFishBC 0.2.4 12-Feb-2022
