@@ -1,6 +1,6 @@
 title: RFishBC
 
-url: http://derekogle.com/RFishBC
+url: https://fishr-core-team.github.io/RFishBC/
 
 authors:
   Derek H. Ogle:
@@ -70,4 +70,4 @@ navbar:
     - icon: fa-home fa-2x
       href: index.html
     - icon: fa-github fa-2x
-      href: https://github.com/droglenc/RFishBC
+      href: https://github.com/fishR-Core-Team/RFishBC
