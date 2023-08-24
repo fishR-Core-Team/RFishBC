@@ -8,7 +8,7 @@ assignees: ''
 
 ---
 
-Below are the steps used to prepare `FSAdata` for submission to CRAN. The steps should generally be followed in order (i.e., don't move to the next step without success at the current step). It is common to have to repeat some previous steps if an error/warning occurs at a subsequent step (in my experience, this most often happens after checking on the development version of R when using R-winbuilder).
+Below are the steps used to prepare `RFishBC` for submission to CRAN. The steps should generally be followed in order (i.e., don't move to the next step without success at the current step). It is common to have to repeat some previous steps if an error/warning occurs at a subsequent step (in my experience, this most often happens after checking on the development version of R when using R-winbuilder).
 
 It is worth noting that this whole process can take 2-3 hours (or more depending on internet speed) with significant "waiting time" for checks and builds.
 
