@@ -7,7 +7,7 @@
 #'
 #' @return None, but the \code{note} object in the R Data file(s) given in \code{nms} will be modified.
 #' 
-#' @details A detailed description of its use is in the "Other Features" vignette on the \href{https://derekogle.com/RFishBC/index.html}{RFishBC website}.
+#' @details A detailed description of its use is in the "Other Features" vignette on the \href{https://fishr-core-team.github.io/RFishBC/index.html}{RFishBC website}.
 #' 
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #' 
@@ -40,7 +40,7 @@ addNote <- function(nms,note) {
 #'
 #' @return A data.frame that contains the \code{id}, \code{reading}, and \code{notes} from the chosen R Data files.
 #' 
-#' @details A detailed description of its use is in the "Other Features" vignette on the \href{https://derekogle.com/RFishBC/index.html}{RFishBC website}.
+#' @details A detailed description of its use is in the "Other Features" vignette on the \href{https://fishr-core-team.github.io/RFishBC/index.html}{RFishBC website}.
 #' 
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #' 

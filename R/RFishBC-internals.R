@@ -13,7 +13,7 @@
 .onAttach <- function(lib,pkg,...) {                               # nocov start
   vers <- read.dcf(system.file("DESCRIPTION",package=pkg,lib.loc=lib),
                    fields="Version")
-  msg <- paste0("## RFishBC v",vers,". See vignettes at derekogle.com/RFishBC/.\n")
+  msg <- paste0("## RFishBC v",vers,". See vignettes at fishr-core-team.github.io/RFishBC/.\n")
   packageStartupMessage(msg)
 }                                                                  # nocov end
 

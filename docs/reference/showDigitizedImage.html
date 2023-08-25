@@ -17,13 +17,13 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.5</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -75,7 +75,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Show points selected on a structure image and saved in an R data file</h1>
-    <small class="dont-index">Source: <a href="https://github.com/droglenc/RFishBC/blob/HEAD/R/showDigitizedImage.R" class="external-link"><code>R/showDigitizedImage.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/RFishBC/blob/HEAD/R/showDigitizedImage.R" class="external-link"><code>R/showDigitizedImage.R</code></a></small>
     <div class="hidden name"><code>showDigitizedImage.Rd</code></div>
     </div>
 
@@ -84,71 +84,106 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">showDigitizedImage</span><span class="op">(</span>
-  <span class="va">nms</span>,
-  <span class="va">deviceType</span>,
-  <span class="va">pch.show</span>,
-  <span class="va">col.show</span>,
-  <span class="va">cex.show</span>,
-  <span class="va">connect</span>,
-  <span class="va">col.connect</span>,
-  <span class="va">lwd.connect</span>,
-  <span class="va">col.scaleBar</span>,
-  <span class="va">lwd.scaleBar</span>,
-  <span class="va">showScaleBarLength</span>,
-  <span class="va">cex.scaleBar</span>,
-  <span class="va">showAnnuliLabels</span>,
-  <span class="va">annuliLabels</span>,
-  <span class="va">col.ann</span>,
-  <span class="va">cex.ann</span>,
-  <span class="va">offset.ann</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">showDigitizedImage</span><span class="op">(</span></span>
+<span>  <span class="va">nms</span>,</span>
+<span>  <span class="va">deviceType</span>,</span>
+<span>  <span class="va">pch.show</span>,</span>
+<span>  <span class="va">col.show</span>,</span>
+<span>  <span class="va">cex.show</span>,</span>
+<span>  <span class="va">connect</span>,</span>
+<span>  <span class="va">col.connect</span>,</span>
+<span>  <span class="va">lwd.connect</span>,</span>
+<span>  <span class="va">col.scaleBar</span>,</span>
+<span>  <span class="va">lwd.scaleBar</span>,</span>
+<span>  <span class="va">showScaleBarLength</span>,</span>
+<span>  <span class="va">cex.scaleBar</span>,</span>
+<span>  <span class="va">showAnnuliLabels</span>,</span>
+<span>  <span class="va">annuliLabels</span>,</span>
+<span>  <span class="va">col.ann</span>,</span>
+<span>  <span class="va">cex.ann</span>,</span>
+<span>  <span class="va">offset.ann</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>nms</dt>
 <dd><p>A string (or vector of strings) that indicates the R data file(s) created with <code><a href="digitizeRadii.html">digitizeRadii</a></code>. If missing the user will be provided a dialog box from which to choose the file(s). The file(s) must be in the current working directory (see <code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></code> result). May also be a single <code>RFishBC</code> object created with <code><a href="digitizeRadii.html">digitizeRadii</a></code>.</p></dd>
+
+
 <dt>deviceType</dt>
 <dd><p>See details in <code><a href="RFBCoptions.html">RFBCoptions</a></code>.</p></dd>
+
+
 <dt>pch.show</dt>
 <dd><p>See details in <code><a href="RFBCoptions.html">RFBCoptions</a></code>.</p></dd>
+
+
 <dt>col.show</dt>
 <dd><p>See details in <code><a href="RFBCoptions.html">RFBCoptions</a></code>.</p></dd>
+
+
 <dt>cex.show</dt>
 <dd><p>See details in <code><a href="RFBCoptions.html">RFBCoptions</a></code>.</p></dd>
+
+
 <dt>connect</dt>
 <dd><p>See details in <code><a href="RFBCoptions.html">RFBCoptions</a></code>.</p></dd>
+
+
 <dt>col.connect</dt>
 <dd><p>See details in <code><a href="RFBCoptions.html">RFBCoptions</a></code>.</p></dd>
+
+
 <dt>lwd.connect</dt>
 <dd><p>See details in <code><a href="RFBCoptions.html">RFBCoptions</a></code>.</p></dd>
+
+
 <dt>col.scaleBar</dt>
 <dd><p>See details in <code><a href="RFBCoptions.html">RFBCoptions</a></code>.</p></dd>
+
+
 <dt>lwd.scaleBar</dt>
 <dd><p>See details in <code><a href="RFBCoptions.html">RFBCoptions</a></code>.</p></dd>
+
+
 <dt>showScaleBarLength</dt>
 <dd><p>See details in <code><a href="RFBCoptions.html">RFBCoptions</a></code>.</p></dd>
+
+
 <dt>cex.scaleBar</dt>
 <dd><p>See details in <code><a href="RFBCoptions.html">RFBCoptions</a></code>.</p></dd>
+
+
 <dt>showAnnuliLabels</dt>
 <dd><p>See details in <code><a href="RFBCoptions.html">RFBCoptions</a></code>.</p></dd>
+
+
 <dt>annuliLabels</dt>
 <dd><p>See details in <code><a href="RFBCoptions.html">RFBCoptions</a></code>.</p></dd>
+
+
 <dt>col.ann</dt>
 <dd><p>See details in <code><a href="RFBCoptions.html">RFBCoptions</a></code>.</p></dd>
+
+
 <dt>cex.ann</dt>
 <dd><p>See details in <code><a href="RFBCoptions.html">RFBCoptions</a></code>.</p></dd>
+
+
 <dt>offset.ann</dt>
 <dd><p>See details in <code><a href="RFBCoptions.html">RFBCoptions</a></code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list that contains the size of the window in <code>windowSize</code> and the pixel width to heigh ration in <code>pixW2H</code>. In addition, an image is plotted with, at least, the selected points.</p>
+    
+
+<p>A list that contains the size of the window in <code>windowSize</code> and the pixel width to heigh ration in <code>pixW2H</code>. In addition, an image is plotted with, at least, the selected points.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>This function requires interaction from the user. A detailed description of its use is in <a href="https://derekogle.com/RFishBC/articles/MeasureRadii/seeRadiiData.html" class="external-link">this vignette</a> on the <a href="https://derekogle.com/RFishBC/index.html" class="external-link">RFishBC website</a>.</p>
+    <p>This function requires interaction from the user. A detailed description of its use is in <a href="https://fishr-core-team.github.io/RFishBC/articles/MeasureRadii/seeRadiiData.html">this vignette</a> on the <a href="https://fishr-core-team.github.io/RFishBC/index.html">RFishBC website</a>.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -161,9 +196,9 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## None because this requires interaction from the user.</span></span>
-<span class="r-in"><span class="co">## See the link to the extensive documentation in the Details.</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## None because this requires interaction from the user.</span></span></span>
+<span class="r-in"><span><span class="co">## See the link to the extensive documentation in the Details.</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
@@ -179,7 +214,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

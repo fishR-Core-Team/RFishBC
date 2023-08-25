@@ -58,7 +58,7 @@
 #'   \item{\code{note}: }{A string that contains a note about the reading (e.g., a note that the image was poor, some annulus were suspect, or the image should be re-read.)}
 #' }.
 #' 
-#' @details This function requires interaction from the user. A detailed description of its use is in the vignettes on the \href{https://derekogle.com/RFishBC/index.html}{RFishBC website}.
+#' @details This function requires interaction from the user. A detailed description of its use is in the vignettes on the \href{https://fishr-core-team.github.io/RFishBC/index.html}{RFishBC website}.
 #' 
 #' @seealso \code{\link{showDigitizedImage}} and \code{\link{RFBCoptions}}.
 #'

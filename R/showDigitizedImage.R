@@ -22,7 +22,7 @@
 #'
 #' @return A list that contains the size of the window in \code{windowSize} and the pixel width to heigh ration in \code{pixW2H}. In addition, an image is plotted with, at least, the selected points.
 #' 
-#' @details This function requires interaction from the user. A detailed description of its use is in \href{https://derekogle.com/RFishBC/articles/MeasureRadii/seeRadiiData.html}{this vignette} on the \href{https://derekogle.com/RFishBC/index.html}{RFishBC website}.
+#' @details This function requires interaction from the user. A detailed description of its use is in \href{https://fishr-core-team.github.io/RFishBC/articles/MeasureRadii/seeRadiiData.html}{this vignette} on the \href{https://fishr-core-team.github.io/RFishBC/index.html}{RFishBC website}.
 #'
 #' @seealso \code{\link{digitizeRadii}} and \code{\link{RFBCoptions}}.
 #' 

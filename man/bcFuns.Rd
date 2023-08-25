@@ -45,7 +45,7 @@ ESPH \tab 22 \tab Exponential Scale Proportional Hypothesis \cr
 }
 }
 \section{IFAR Supplement}{
- \url{https://derekogle.com/IFAR/supplements/backcalculation/}
+ \url{https://derekogle.com/IFAR/supplements/backcalculation.html}
 }
 
 \examples{

@@ -1,6 +1,6 @@
 Package: RFishBC
-Version: 0.2.4.9000
-Date: 2022-2-18
+Version: 0.2.5
+Date: 2023-8-25
 Title: Back-Calculation of Fish Length
 Authors@R: person("Derek","Ogle",
     email="derek@derekogle.com",
@@ -11,8 +11,8 @@ Description: Helps fisheries scientists collect measurements from calcified
     standard procedures and models. This is intended to replace much of the
     functionality provided by the now out-dated 'fishBC' software
     (<https://fisheries.org/bookstore/all-titles/software/70317/>).
-URL: https://derekogle.com/RFishBC/
-BugReports: https://github.com/droglenc/RFishBC/issues
+URL: https://fishr-core-team.github.io/RFishBC/
+BugReports: https://github.com/fishR-Core-Team/RFishBC/issues
 License: GPL-3
 LazyData: true
 Depends: R (>= 3.2.0)
@@ -34,4 +34,4 @@ Suggests:
     pkgdown,
     testthat
 Encoding: UTF-8
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3

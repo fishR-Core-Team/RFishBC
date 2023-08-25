@@ -17,13 +17,13 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.5</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -75,7 +75,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Converts between types of measurements.</h1>
-    <small class="dont-index">Source: <a href="https://github.com/droglenc/RFishBC/blob/HEAD/R/growthDataUtils.R" class="external-link"><code>R/growthDataUtils.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/RFishBC/blob/HEAD/R/growthDataUtils.R" class="external-link"><code>R/growthDataUtils.R</code></a></small>
     <div class="hidden name"><code>gConvert.Rd</code></div>
     </div>
 
@@ -84,31 +84,42 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">gConvert</span><span class="op">(</span>
-  <span class="va">df</span>,
-  in.pre <span class="op">=</span> <span class="cn">NULL</span>,
-  in.var <span class="op">=</span> <span class="cn">NULL</span>,
-  out.type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"inc"</span>, <span class="st">"rad"</span><span class="op">)</span>,
-  out.pre <span class="op">=</span> <span class="va">out.type</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">gConvert</span><span class="op">(</span></span>
+<span>  <span class="va">df</span>,</span>
+<span>  in.pre <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  in.var <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  out.type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"inc"</span>, <span class="st">"rad"</span><span class="op">)</span>,</span>
+<span>  out.pre <span class="op">=</span> <span class="va">out.type</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>df</dt>
 <dd><p>A data.frame that contains the growth measurement data in one-fish-per-line (i.e., “wide”) format.</p></dd>
+
+
 <dt>in.pre</dt>
 <dd><p>A string that indicates the prefix for all variable names in the input data.frame that contain the measurements from the calcified structures. See details.</p></dd>
+
+
 <dt>in.var</dt>
 <dd><p>A vector of column numbers or variable names in the input data.frame that contain the measurements from the calcified structures. See details.</p></dd>
+
+
 <dt>out.type</dt>
 <dd><p>A string that identifies the output format data type (i.e., the format to convert to). If <code>"inc"</code> (the default) the output data frame will be incremental measurements. If <code>"rad"</code> the output data frame will be radial measurements.</p></dd>
+
+
 <dt>out.pre</dt>
 <dd><p>A string that indicates the prefix to use for the newly computed measurements in the output data frame. Defaults to the same string as <code>out.type</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A data.frame with all columns, except for those defined by <code>in.pre</code> or <code>in.var</code>, from the <code>df</code> retained as the left-most columns and the original data in the <code>in.var</code> columns converted to the <code>out.type</code> type as the remaining columns.</p>
+    
+
+<p>A data.frame with all columns, except for those defined by <code>in.pre</code> or <code>in.var</code>, from the <code>df</code> retained as the left-most columns and the original data in the <code>in.var</code> columns converted to the <code>out.type</code> type as the remaining columns.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -127,9 +138,9 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## Get data with radial measurements</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">SMBassWB</span>,package<span class="op">=</span><span class="st">"FSA"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">SMBassWB</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Get data with radial measurements</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">SMBassWB</span>,package<span class="op">=</span><span class="st">"FSA"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">SMBassWB</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   species lake gear yearcap fish agecap lencap    anu1 anu2 anu3 anu4 anu5 anu6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1     SMB   WB    E    1988    5      1     71 1.90606   NA   NA   NA   NA   NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2     SMB   WB    E    1988    3      1     64 1.87707   NA   NA   NA   NA   NA</span>
@@ -144,10 +155,10 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4   NA   NA   NA    NA    NA    NA 1.33108</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5   NA   NA   NA    NA    NA    NA 1.59283</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6   NA   NA   NA    NA    NA    NA 1.91602</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Use in.pre= to convert to increments</span></span>
-<span class="r-in"><span class="va">SMBi1</span> <span class="op">&lt;-</span> <span class="fu">gConvert</span><span class="op">(</span><span class="va">SMBassWB</span>,in.pre<span class="op">=</span><span class="st">"anu"</span>,out.type<span class="op">=</span><span class="st">"inc"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">SMBi1</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Use in.pre= to convert to increments</span></span></span>
+<span class="r-in"><span><span class="va">SMBi1</span> <span class="op">&lt;-</span> <span class="fu">gConvert</span><span class="op">(</span><span class="va">SMBassWB</span>,in.pre<span class="op">=</span><span class="st">"anu"</span>,out.type<span class="op">=</span><span class="st">"inc"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">SMBi1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   species lake gear yearcap fish agecap lencap  radcap    inc1 inc2 inc3 inc4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1     SMB   WB    E    1988    5      1     71 1.90606 1.90606   NA   NA   NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2     SMB   WB    E    1988    3      1     64 1.87707 1.87707   NA   NA   NA</span>
@@ -162,13 +173,13 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4   NA   NA   NA   NA   NA    NA    NA    NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5   NA   NA   NA   NA   NA    NA    NA    NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6   NA   NA   NA   NA   NA    NA    NA    NA</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Use in.var= with column names to convert to increments</span></span>
-<span class="r-in"><span class="va">SMBi2</span> <span class="op">&lt;-</span> <span class="fu">gConvert</span><span class="op">(</span><span class="va">SMBassWB</span>,in.var<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"anu1"</span>,<span class="st">"anu2"</span>,<span class="st">"anu3"</span>,<span class="st">"anu4"</span>,</span>
-<span class="r-in">                                    <span class="st">"anu5"</span>,<span class="st">"anu6"</span>,<span class="st">"anu7"</span>,<span class="st">"anu8"</span>,</span>
-<span class="r-in">                                    <span class="st">"anu9"</span>,<span class="st">"anu10"</span>,<span class="st">"anu11"</span>,<span class="st">"anu12"</span><span class="op">)</span>,</span>
-<span class="r-in">                           out.type<span class="op">=</span><span class="st">"inc"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">SMBi2</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Use in.var= with column names to convert to increments</span></span></span>
+<span class="r-in"><span><span class="va">SMBi2</span> <span class="op">&lt;-</span> <span class="fu">gConvert</span><span class="op">(</span><span class="va">SMBassWB</span>,in.var<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"anu1"</span>,<span class="st">"anu2"</span>,<span class="st">"anu3"</span>,<span class="st">"anu4"</span>,</span></span>
+<span class="r-in"><span>                                    <span class="st">"anu5"</span>,<span class="st">"anu6"</span>,<span class="st">"anu7"</span>,<span class="st">"anu8"</span>,</span></span>
+<span class="r-in"><span>                                    <span class="st">"anu9"</span>,<span class="st">"anu10"</span>,<span class="st">"anu11"</span>,<span class="st">"anu12"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                           out.type<span class="op">=</span><span class="st">"inc"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">SMBi2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   species lake gear yearcap fish agecap lencap  radcap    inc1 inc2 inc3 inc4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1     SMB   WB    E    1988    5      1     71 1.90606 1.90606   NA   NA   NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2     SMB   WB    E    1988    3      1     64 1.87707 1.87707   NA   NA   NA</span>
@@ -183,10 +194,10 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4   NA   NA   NA   NA   NA    NA    NA    NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5   NA   NA   NA   NA   NA    NA    NA    NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6   NA   NA   NA   NA   NA    NA    NA    NA</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Use in.var with column numbers to convert to increments</span></span>
-<span class="r-in"><span class="va">SMBi3</span> <span class="op">&lt;-</span> <span class="fu">gConvert</span><span class="op">(</span><span class="va">SMBassWB</span>,in.var<span class="op">=</span><span class="fl">8</span><span class="op">:</span><span class="fl">19</span>,out.type<span class="op">=</span><span class="st">"inc"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">SMBi3</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Use in.var with column numbers to convert to increments</span></span></span>
+<span class="r-in"><span><span class="va">SMBi3</span> <span class="op">&lt;-</span> <span class="fu">gConvert</span><span class="op">(</span><span class="va">SMBassWB</span>,in.var<span class="op">=</span><span class="fl">8</span><span class="op">:</span><span class="fl">19</span>,out.type<span class="op">=</span><span class="st">"inc"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">SMBi3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   species lake gear yearcap fish agecap lencap  radcap    inc1 inc2 inc3 inc4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1     SMB   WB    E    1988    5      1     71 1.90606 1.90606   NA   NA   NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2     SMB   WB    E    1988    3      1     64 1.87707 1.87707   NA   NA   NA</span>
@@ -201,10 +212,10 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4   NA   NA   NA   NA   NA    NA    NA    NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5   NA   NA   NA   NA   NA    NA    NA    NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6   NA   NA   NA   NA   NA    NA    NA    NA</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Convert back to radial measurements</span></span>
-<span class="r-in"><span class="va">SMBr1</span> <span class="op">&lt;-</span> <span class="fu">gConvert</span><span class="op">(</span><span class="va">SMBi1</span>,in.pre<span class="op">=</span><span class="st">"inc"</span>,out.type<span class="op">=</span><span class="st">"rad"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">SMBr1</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Convert back to radial measurements</span></span></span>
+<span class="r-in"><span><span class="va">SMBr1</span> <span class="op">&lt;-</span> <span class="fu">gConvert</span><span class="op">(</span><span class="va">SMBi1</span>,in.pre<span class="op">=</span><span class="st">"inc"</span>,out.type<span class="op">=</span><span class="st">"rad"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">SMBr1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   species lake gear yearcap fish agecap lencap  radcap    rad1 rad2 rad3 rad4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1     SMB   WB    E    1988    5      1     71 1.90606 1.90606   NA   NA   NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2     SMB   WB    E    1988    3      1     64 1.87707 1.87707   NA   NA   NA</span>
@@ -219,7 +230,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4   NA   NA   NA   NA   NA    NA    NA    NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5   NA   NA   NA   NA   NA    NA    NA    NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6   NA   NA   NA   NA   NA    NA    NA    NA</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -234,7 +245,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
