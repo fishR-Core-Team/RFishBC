@@ -17,13 +17,13 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.5</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -75,7 +75,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>List files with a specific extension in a folder/directory</h1>
-    <small class="dont-index">Source: <a href="https://github.com/droglenc/RFishBC/blob/HEAD/R/listFiles.R" class="external-link"><code>R/listFiles.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/RFishBC/blob/HEAD/R/listFiles.R" class="external-link"><code>R/listFiles.R</code></a></small>
     <div class="hidden name"><code>listFiles.Rd</code></div>
     </div>
 
@@ -84,29 +84,40 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">listFiles</span><span class="op">(</span><span class="va">ext</span>, other <span class="op">=</span> <span class="cn">NULL</span>, path <span class="op">=</span> <span class="st">"."</span>, ignore.case <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">listFiles</span><span class="op">(</span><span class="va">ext</span>, other <span class="op">=</span> <span class="cn">NULL</span>, path <span class="op">=</span> <span class="st">"."</span>, ignore.case <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>ext</dt>
 <dd><p>A single string that contains the file extension pattern to match.</p></dd>
+
+
 <dt>other</dt>
 <dd><p>Other strings to match in file names that were already matched by the extension in <code>ext</code>.</p></dd>
+
+
 <dt>path</dt>
 <dd><p>A single string that contains the full path name for the folder/directory for which to list files. Defaults to the current working directory (see <code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></code> result).</p></dd>
+
+
 <dt>ignore.case</dt>
 <dd><p>A logical for whether pattern matching should be case sensitive (<code>=FALSE</code>) or not (<code>TRUE</code>; DEFAULT).</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Parameters to be given to <code><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Character vector.</p>
+    
+
+<p>Character vector.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>An example of using this function is in <a href="https://derekogle.com/RFishBC/articles/MeasureRadii/collectRadiiData.html" class="external-link">this vignette</a> and <a href="https://derekogle.com/RFishBC/articles/MeasureRadii/seeRadiiData.html" class="external-link">this vignette</a> on the <a href="https://derekogle.com/RFishBC/index.html" class="external-link">RFishBC website</a>.</p>
+    <p>An example of using this function is in <a href="https://fishr-core-team.github.io/RFishBC/articles/MeasureRadii/collectRadiiData.html">this vignette</a> and <a href="https://fishr-core-team.github.io/RFishBC/articles/MeasureRadii/seeRadiiData.html">this vignette</a> on the <a href="https://fishr-core-team.github.io/RFishBC/index.html">RFishBC website</a>.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -119,8 +130,8 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## See the link to the extensive documentation in the Details.</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## See the link to the extensive documentation in the Details.</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
@@ -136,7 +147,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

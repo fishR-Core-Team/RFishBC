@@ -17,13 +17,13 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.5</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -75,7 +75,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Add a note to an existing RData file</h1>
-    <small class="dont-index">Source: <a href="https://github.com/droglenc/RFishBC/blob/HEAD/R/addFindNotes.R" class="external-link"><code>R/addFindNotes.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/RFishBC/blob/HEAD/R/addFindNotes.R" class="external-link"><code>R/addFindNotes.R</code></a></small>
     <div class="hidden name"><code>addNote.Rd</code></div>
     </div>
 
@@ -84,23 +84,28 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">addNote</span><span class="op">(</span><span class="va">nms</span>, <span class="va">note</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">addNote</span><span class="op">(</span><span class="va">nms</span>, <span class="va">note</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>nms</dt>
 <dd><p>A string that indicates the R data file created with <code><a href="digitizeRadii.html">digitizeRadii</a></code> (in the current directory) to which the note should be added.</p></dd>
+
+
 <dt>note</dt>
 <dd><p>The note (as a string) to be added to the R data file. If missing the user will be provided a dialog box in which to enter the note.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>None, but the <code>note</code> object in the R Data file(s) given in <code>nms</code> will be modified.</p>
+    
+
+<p>None, but the <code>note</code> object in the R Data file(s) given in <code>nms</code> will be modified.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>A detailed description of its use is in the "Other Features" vignette on the <a href="https://derekogle.com/RFishBC/index.html" class="external-link">RFishBC website</a>.</p>
+    <p>A detailed description of its use is in the "Other Features" vignette on the <a href="https://fishr-core-team.github.io/RFishBC/index.html">RFishBC website</a>.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -109,8 +114,8 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## See the link to the extensive documentation in the Details.</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## See the link to the extensive documentation in the Details.</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
@@ -126,7 +131,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

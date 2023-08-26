@@ -1,9 +1,12 @@
 # RFishBC 0.2.5 ongoing
 * Updated sticker.
+* Updated `CITATION` file to meet CRAN requirements.
 * Added Code of Conduct
 * Fixed issues with static images on the webpage vignettes (they did not work when in a figures subfolder).
 * Updated `pkgdown.yaml` GitHub action to [v2](https://github.com/r-lib/actions/tree/v2-branch/examples#build-pkgdown-site). Changed action to only run on a release (rather than a push) but it can be [run manually](https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow) as well.
 * Updated `R-CMD-check.yaml` GitHub action to [v2](https://github.com/r-lib/actions/tree/v2-branch/examples#standard-ci-workflow). Note that I had to add the [extra code for dealing with graphics on the Mac version](https://github.com/r-lib/actions#common-questions).
+* Fixed RFishBC-package `\alias` problem using the "automatic approach" (i.e., adding a `"_PACKAGE"` line to RFishBC-package.R) suggested in an e-mail from Kurt Hornik on 19-Aug-2023.
+* Fixed URL links to "issues" in `NEWS`, some of the documentation pages, and some of the vignettes.
 
 # RFishBC 0.2.4 12-Feb-2022
 * Last version maintained by Derek Ogle. Transferring to fishR Core Team for next version.
@@ -13,7 +16,7 @@
 * Added GitHub Action for pkgdown (used `usethis::use_github_action("pkgdown")`).
 * Added GitHub Action for code coverage with codecov.io.
 * Now using ROxygen2 7.1.1.
-* `showDigitizedRadii()`: Modified. Now returns the window size in `windowSize` and the pixel width to height ratio in `pixW2H`. This better allows the user to save the `showDigitizedRadii()` image as an image file in a loop (see examples in aaaMakeDataVignetts.R). Eventually this will be used to address [#43](https://github.com/droglenc/RFishBC/issues/43).
+* `showDigitizedRadii()`: Modified. Now returns the window size in `windowSize` and the pixel width to height ratio in `pixW2H`. This better allows the user to save the `showDigitizedRadii()` image as an image file in a loop (see examples in aaaMakeDataVignetts.R). Eventually this will be used to address [#43](https://github.com/fishR-Core-Team/RFishBC/issues/43).
 
 # RFishBC 0.2.3 11-December-19
 * Now using ROxygen2 7.0.1.
@@ -26,22 +29,22 @@
 # RFishBC 0.2.1 1-May-19
 * Updated vignettes.
 * Added more tests.
-* `addNote()`: Added (addresses [#41](https://github.com/droglenc/RFishBC/issues/41); thanks to Rory Feeney).
-* `backCalc()`: Modfified to address [#34](https://github.com/droglenc/RFishBC/issues/34).
+* `addNote()`: Added (addresses [#41](https://github.com/fishR-Core-Team/RFishBC/issues/41); thanks to Rory Feeney).
+* `backCalc()`: Modfified to address [#34](https://github.com/fishR-Core-Team/RFishBC/issues/34).
 * `combineData()`: Modified. Fixed two bugs related to how age-0 fish with no measured annuli are combined (thanks to Rory Feeney). Fixed how returned results are sorted (by id, reading, and ann; rather than just id and ann).
-* `digitizeRadii()`: Modified. Added `sbUnits=` for addressing [#36](https://github.com/droglenc/RFishBC/issues/36). Added `addNotes` and `note` that allows adding a special note to the R Data file (addresses [#41](https://github.com/droglenc/RFishBC/issues/41); thanks to Rory Feeney) Added "kill" functionality to stop processing of all images in a queue (addresses [#40](https://github.com/droglenc/RFishBC/issues/40); thanks to Rory Feeney). Fixed poor warning message when `snap2transect=TRUE` and `makeTransect=FALSE`.
-* `findNotes()`: Added (addresses [#41](https://github.com/droglenc/RFishBC/issues/41); thanks to Rory Feeney).
+* `digitizeRadii()`: Modified. Added `sbUnits=` for addressing [#36](https://github.com/fishR-Core-Team/RFishBC/issues/36). Added `addNotes` and `note` that allows adding a special note to the R Data file (addresses [#41](https://github.com/fishR-Core-Team/RFishBC/issues/41); thanks to Rory Feeney) Added "kill" functionality to stop processing of all images in a queue (addresses [#40](https://github.com/fishR-Core-Team/RFishBC/issues/40); thanks to Rory Feeney). Fixed poor warning message when `snap2transect=TRUE` and `makeTransect=FALSE`.
+* `findNotes()`: Added (addresses [#41](https://github.com/fishR-Core-Team/RFishBC/issues/41); thanks to Rory Feeney).
 * `RFBCoptions()`: Modified. Added `addNote`, `showScaleBarLength=`, `scaleBarUnits=`, and `cex.scaleBar=`.
-* `showDigitizedImage()`: Modified. Rewrote the function to be less redundant; allow `pch.show=`, `col.show=`, and `cex.show=` to be appropriate vectors (when only one reading is displayed); allowed `pch.show="arrows"` to plot arrows (addresses [#38](https://github.com/droglenc/RFishBC/issues/38)); assure that all values in `annuliLabels=` exist in the data; allow `col.ann=` and `cex.ann` to be appropriate vectors; provide `offset.ann=`; and show units of the scale-bar beneath the scale-bar (if it was digitized) by adding `showScaleBarLength=` and `cex.scaleBar=` (addresses [#36](https://github.com/droglenc/RFishBC/issues/36)).  
+* `showDigitizedImage()`: Modified. Rewrote the function to be less redundant; allow `pch.show=`, `col.show=`, and `cex.show=` to be appropriate vectors (when only one reading is displayed); allowed `pch.show="arrows"` to plot arrows (addresses [#38](https://github.com/fishR-Core-Team/RFishBC/issues/38)); assure that all values in `annuliLabels=` exist in the data; allow `col.ann=` and `cex.ann` to be appropriate vectors; provide `offset.ann=`; and show units of the scale-bar beneath the scale-bar (if it was digitized) by adding `showScaleBarLength=` and `cex.scaleBar=` (addresses [#36](https://github.com/fishR-Core-Team/RFishBC/issues/36)).  
 
 # RFishBC 0.2.0 18-Dec-18
 * Added several items (mostly images) to .Rbuildignore to lower bloat of package.
 * Added .Rbuildignore to remove sticker folder from package directory.
 * Added validation tests (still need to be run manually) from Sullivan data.
 * `combineData()`: Modified. Changed `outFormat=` to `formatOut=`. Added `outType=` to allow user to choose either radial or incremental measurements as output.
-* `digitizeRadii()`: Modified. Changed `showTransect=` to `makeTransect`. Changed so that `snap2Transect` is changed to `FALSE` if it is `TRUE` and `makeTransect=FALSE`. Radii are now computed as the cumulative sum of increments rather than the distance from the selected point back to the structure center. This addresses [#32](https://github.com/droglenc/RFishBC/issues/32) [Thanks to Alan Hanke].
+* `digitizeRadii()`: Modified. Changed `showTransect=` to `makeTransect`. Changed so that `snap2Transect` is changed to `FALSE` if it is `TRUE` and `makeTransect=FALSE`. Radii are now computed as the cumulative sum of increments rather than the distance from the selected point back to the structure center. This addresses [#32](https://github.com/fishR-Core-Team/RFishBC/issues/32) [Thanks to Alan Hanke].
 * `RFBCoptions()`: Modified. Now includes `makeTransect=` used in `digitizeRadii()`. Now includes `connect=`, `col.connect=`, and `lwd.connect=` used in `showDigitizedImage()`. Because of those changes `showTransect=` has been removed.
-* `showDigitizedImage()`: Modified. Changed `showTransect=` to `connect=`, `col.transect=`  to `col.connect=`, and `lwd.transect=` to `lwd.connect=` (this helps address [#32](https://github.com/droglenc/RFishBC/issues/32)) [Thanks to Alan Hanke]. Also removed the points that are plotted at the structure center and, if not an annulus, margin (this addresses [#31](https://github.com/droglenc/RFishBC/issues/31)). Made more robust checks for when the user tries to plot two images from different structures.
+* `showDigitizedImage()`: Modified. Changed `showTransect=` to `connect=`, `col.transect=`  to `col.connect=`, and `lwd.transect=` to `lwd.connect=` (this helps address [#32](https://github.com/fishR-Core-Team/RFishBC/issues/32)) [Thanks to Alan Hanke]. Also removed the points that are plotted at the structure center and, if not an annulus, margin (this addresses [#31](https://github.com/fishR-Core-Team/RFishBC/issues/31)). Made more robust checks for when the user tries to plot two images from different structures.
 
 # RFishBC 0.1.2 9-Dec-18
 * Added dependency to `cli` package for `DONE()`, `NOTE()`, and `RULE()` (see below).
@@ -55,10 +58,10 @@
 * Released to CRAN.
 * Removed automatic webpage construction from Travis-CI. Did not work with some of the updated vignettes.
 * Put fishBC in the Description field into single quotes as directed by CRAN.
-* `digitizeRadii()`. Modified. Added a note that draws attention when `snap2Transect=TRUE` and `showTransect=FALSE` (i.e., "snapping" to a transect that is not shown). At least partially addresses [#30](https://github.com/droglenc/RFishBC/issues/30).
+* `digitizeRadii()`. Modified. Added a note that draws attention when `snap2Transect=TRUE` and `showTransect=FALSE` (i.e., "snapping" to a transect that is not shown). At least partially addresses [#30](https://github.com/fishR-Core-Team/RFishBC/issues/30).
 
 # RFishBC 0.1.0 7-Nov-18
-* `iSnap2Transect()`: Modified. Changed to handle bugs related to perfectly vertical or perfectly horizontal transects. Addresses [#27](https://github.com/droglenc/RFishBC/issues/27) (Thanks to Ben Neely).
+* `iSnap2Transect()`: Modified. Changed to handle bugs related to perfectly vertical or perfectly horizontal transects. Addresses [#27](https://github.com/fishR-Core-Team/RFishBC/issues/27) (Thanks to Ben Neely).
 * `digitizeRadii()`: Modified. Removed `sepWindow()`. Added `deviceType=`.
 * `findScalingFactor()`: Modified. Removed `sepWindow()`. Added `deviceType=`.
 * `getID()`: Modified. Added `IDreplace=`. Added more examples of use of `IDpattern=` and `IDreplace=` and more tests.
@@ -68,7 +71,7 @@
 
 # RFishBC 0.0.13 6-Oct-18
 * `combineData()`: Modified. Changed so that an age-0 fish with all plus-growth is still included in the returned data.frame when `deletePlusGrowth=TRUE` (the `ann` and `rad` variables will both be `NA`). Thanks to Ben Neely.
-* `digitizeRadii()`: Modified. Removed restriction that one point be selected as an annulus, which allows for handling age-0 fish (addresses [#25](https://github.com/droglenc/RFishBC/issues/25); thanks to Ben Neely for the suggestion). Removed the `q` and `r` button equivalencies for `f` and `d`. Added the ability for the user to start over (resulting in no file to be written, but the current image stays live; uses the `z` key) (addresses [#22](https://github.com/droglenc/RFishBC/issues/22); thanks to Ben Neely for the suggestion). Added the ability for the user to abort a processing (resulting in no file to be written and moving to the next image if using multiple images; uses the `q` key) (addresses [#24](https://github.com/droglenc/RFishBC/issues/24); thanks to Ben Neely for the suggestion).
+* `digitizeRadii()`: Modified. Removed restriction that one point be selected as an annulus, which allows for handling age-0 fish (addresses [#25](https://github.com/fishR-Core-Team/RFishBC/issues/25); thanks to Ben Neely for the suggestion). Removed the `q` and `r` button equivalencies for `f` and `d`. Added the ability for the user to start over (resulting in no file to be written, but the current image stays live; uses the `z` key) (addresses [#22](https://github.com/fishR-Core-Team/RFishBC/issues/22); thanks to Ben Neely for the suggestion). Added the ability for the user to abort a processing (resulting in no file to be written and moving to the next image if using multiple images; uses the `q` key) (addresses [#24](https://github.com/fishR-Core-Team/RFishBC/issues/24); thanks to Ben Neely for the suggestion).
 * `findScalingFactor()`: Modified. Changed to allow the user to abort or restart the process, similar to for `digitizeRadii()`.
 
 # RFishBC 0.0.12 3-Oct-18
@@ -80,30 +83,30 @@
 * `getID()`: Modified. Slightly simplified code. Added tests.
 
 # RFishBC 0.0.11 26-Jul-18
-* Set TravisCI to auto-update the webpage documentation ([See this](https://www.datacamp.com/community/tutorials/cd-package-docs-pkgdown-travis)).
+* Set TravisCI to auto-update the webpage documentation ([See this](https://www.datacamp.com/tutorial/cd-package-docs-pkgdown-travis)).
 * Updated "Collect Radii Data" and the "Workflow" vignettes for changes below.
 * Updated the webpage for changes below.
-* `digitizeRadii()`: Modified. Moved the main code to `iDigitizeRadii1()`, which is basically the olde `digitizeRadii()` for working with only one image. The new `digitizeRadii()` allows `nm=` and `id=` to be vectors with length greater than 1 so that multiple images (and corresponding IDs) can be given to the function at once (or selected via a dialog box). Thus, this function now handles single or multiple images. This addresses [#20](https://github.com/droglenc/RFishBC/issues/20) (thanks to B. Utrup and J-M. Hessenauer). Also changed so that the dialog box for entering fish IDs is populated with a better guess at the fish's ID by using `getID()` with the new `IDpattern=`.
-* `getID()`: Added. Part of addressing [#20](https://github.com/droglenc/RFishBC/issues/20).
-* `RFBCoptions()`: Modified. Added `IDpattern=` (Part of addressing [#20](https://github.com/droglenc/RFishBC/issues/20)).
+* `digitizeRadii()`: Modified. Moved the main code to `iDigitizeRadii1()`, which is basically the olde `digitizeRadii()` for working with only one image. The new `digitizeRadii()` allows `nm=` and `id=` to be vectors with length greater than 1 so that multiple images (and corresponding IDs) can be given to the function at once (or selected via a dialog box). Thus, this function now handles single or multiple images. This addresses [#20](https://github.com/fishR-Core-Team/RFishBC/issues/20) (thanks to B. Utrup and J-M. Hessenauer). Also changed so that the dialog box for entering fish IDs is populated with a better guess at the fish's ID by using `getID()` with the new `IDpattern=`.
+* `getID()`: Added. Part of addressing [#20](https://github.com/fishR-Core-Team/RFishBC/issues/20).
+* `RFBCoptions()`: Modified. Added `IDpattern=` (Part of addressing [#20](https://github.com/fishR-Core-Team/RFishBC/issues/20)).
 
 # RFishBC 0.0.10 3-July-18
 * Added CITATION file.
 * Added hex sticker.
 * Added workflow vignette.
-* `combineData()`: Modified. Allowed first argument to be an `RFishBC` object saved from `digitizeRadii()` (partially addresses [#16](https://github.com/droglenc/RFishBC/issues/16); thanks to [Jason Doll](https://github.com/jcdoll79)).
-* `digitizeRadii()`: Modified. Added `closeWindow=` (addresses  [#14](https://github.com/droglenc/RFishBC/issues/14)). Changed so that the rownames of the `pts` data.frame in the returned object includes "center" and "edge." See changes to `iSelectPt()`.
-* `findScalingFactor()`: Modified. Added `closeWindow=` (addresses  [#14](https://github.com/droglenc/RFishBC/issues/14)). See changes to `iSelectPt()`.
-* `iSelectPt()`: Modified. Added `numPts=` with several "catches" for whether this target number of points is met when the "f" key (for "finished") was pressed. Alters behavior in `digitizeRadii()` and `findScalingFactor()` (addresses [#17](https://github.com/droglenc/RFishBC/issues/17); thanks to [Jason Doll](https://github.com/jcdoll79)).
-* `RFBCoptions()`: Modified. Added `closeWindow=` (addresses  [#14](https://github.com/droglenc/RFishBC/issues/14)).
-* `showDigitizedImage()`: Modified. Fixed bug in `iShowAnnuliLabels()` (addressed [#12](https://github.com/droglenc/RFishBC/issues/12); thanks to [Liuyong Ding](https://github.com/Otoliths)). Allowed first argument to be an `RFishBC` object saved from `digitizeRadii()` (partially addresses [#16](https://github.com/droglenc/RFishBC/issues/16); thanks to [Jason Doll](https://github.com/jcdoll79)). Changed `nm=` to `nms=` to be consistent with `combineData()`.
+* `combineData()`: Modified. Allowed first argument to be an `RFishBC` object saved from `digitizeRadii()` (partially addresses [#16](https://github.com/fishR-Core-Team/RFishBC/issues/16); thanks to [Jason Doll](https://github.com/jcdoll79)).
+* `digitizeRadii()`: Modified. Added `closeWindow=` (addresses  [#14](https://github.com/fishR-Core-Team/RFishBC/issues/14)). Changed so that the rownames of the `pts` data.frame in the returned object includes "center" and "edge." See changes to `iSelectPt()`.
+* `findScalingFactor()`: Modified. Added `closeWindow=` (addresses  [#14](https://github.com/fishR-Core-Team/RFishBC/issues/14)). See changes to `iSelectPt()`.
+* `iSelectPt()`: Modified. Added `numPts=` with several "catches" for whether this target number of points is met when the "f" key (for "finished") was pressed. Alters behavior in `digitizeRadii()` and `findScalingFactor()` (addresses [#17](https://github.com/fishR-Core-Team/RFishBC/issues/17); thanks to [Jason Doll](https://github.com/jcdoll79)).
+* `RFBCoptions()`: Modified. Added `closeWindow=` (addresses  [#14](https://github.com/fishR-Core-Team/RFishBC/issues/14)).
+* `showDigitizedImage()`: Modified. Fixed bug in `iShowAnnuliLabels()` (addressed [#12](https://github.com/fishR-Core-Team/RFishBC/issues/12); thanks to [Liuyong Ding](https://github.com/Otoliths)). Allowed first argument to be an `RFishBC` object saved from `digitizeRadii()` (partially addresses [#16](https://github.com/fishR-Core-Team/RFishBC/issues/16); thanks to [Jason Doll](https://github.com/jcdoll79)). Changed `nm=` to `nms=` to be consistent with `combineData()`.
 
 # RFishBC 0.0.9 18-May-18
 * Added `rlang`, `stringr`, and `tidyr` to Imports.
 * Added tests.
 * Updated "Collect Data" vignette for changes to `combineData()`.
 * Changed "Back-calculating Lengths" vignette for new `backCalc()`.
-* `aStandard()`: Added. Addresses [#10](https://github.com/droglenc/RFishBC/issues/10).
+* `aStandard()`: Added. Addresses [#10](https://github.com/fishR-Core-Team/RFishBC/issues/10).
 * `backCalc()`: Added.
 * `bcFuns()`: Modified. Changed to using `STOP()`. Changed all `Lc` to `Lcap`, `Rc` to `Rcap`, `agec` to `Acap`, and `agei` to `Ai`. Changed all BPH-related models to use `a`, `b`, and `c` and all SPH-related models to use `A`, `B`, and `C`. Started using `iGetBCMethod()`. Removed `verbose=` (moved to within the returned function).
 * `bcUtilChecker()`: Modified. Changed to using `STOP()` and `WARN()`.
@@ -160,7 +163,7 @@
 * `iShowTransect()`: Deleted. Deleted. Moved into `digitizeRadii()` and `showDigitizedImage()`.
 
 # RFishBC 0.0.3 28-Apr-18
-* `digitizeRadii()`: Modified. Slight modification to the messages in the console. Re worked the code with `locator()` so that the points will be shown "snapped to the transect" if `snap2Transect=TRUE` (this addresses [#7](https://github.com/droglenc/RFishBC/issues/7)). Added an `orig.pts` data.frame to the RData object which contains the original (non-snapped to transect) points (which can be plotted with `showDigitizedImage()`). Changed `addTransect=` to `showTransect=` to make more similar to `showDigitezedImages()`.
+* `digitizeRadii()`: Modified. Slight modification to the messages in the console. Re worked the code with `locator()` so that the points will be shown "snapped to the transect" if `snap2Transect=TRUE` (this addresses [#7](https://github.com/fishR-Core-Team/RFishBC/issues/7)). Added an `orig.pts` data.frame to the RData object which contains the original (non-snapped to transect) points (which can be plotted with `showDigitizedImage()`). Changed `addTransect=` to `showTransect=` to make more similar to `showDigitezedImages()`.
 * `RFBCoptions()`: Modified. Added `showAnnuliLabels=`, `col.ann=`, and `cex.ann=` for use in `showDigitizedImage()`. Changed defaults of mostly colors, pchs, and cexs.
 * `showDigitizedImage()`: Modified. Added `showAnnuliLabels=`, `col.ann=`, and `cex.ann=` to shown annuli numbers when just one transect is shown. Added `showOrigPts=`, `pch.show2=`, `col.show2=`, and `cex.show2=` to handle including original points on the image.
 * `iFindTransect()`: Added. Moved this code out of `iSelectAnnuli()`.
@@ -171,12 +174,12 @@
 * `ishowTransect()`: Added. Moved this code out of `iSelectAnnuli()`. Also called from `showDigitizedImage()`.
 
 # RFishBC 0.0.2 27-Apr-18
-* `digitizeRadii()`: Modified. Added `snap2Transect=` to address [#1](https://github.com/droglenc/RFishBC/issues/1). Modified how `fname=` was handled if missing (see `iHndlfname()`) and if selecting an image from outside of the current working directory. Allowed user to choose `id=` through a dialog box or a console prompt (see `iHndlID()`), which addresses [#2](https://github.com/droglenc/RFishBC/issues/2). Added `popID=` (again see `iHndlID()`). Fixed poor directions about the use of the escape key to terminate `locator()`. Added `showInfo=`, `pos.info=`, `cex.info=`, and `col.info=` to address [#6](https://github.com/droglenc/RFishBC/issues/6).
+* `digitizeRadii()`: Modified. Added `snap2Transect=` to address [#1](https://github.com/fishR-Core-Team/RFishBC/issues/1). Modified how `fname=` was handled if missing (see `iHndlfname()`) and if selecting an image from outside of the current working directory. Allowed user to choose `id=` through a dialog box or a console prompt (see `iHndlID()`), which addresses [#2](https://github.com/fishR-Core-Team/RFishBC/issues/2). Added `popID=` (again see `iHndlID()`). Fixed poor directions about the use of the escape key to terminate `locator()`. Added `showInfo=`, `pos.info=`, `cex.info=`, and `col.info=` to address [#6](https://github.com/fishR-Core-Team/RFishBC/issues/6).
 * `iGetImage()`: Added. Was `iReadImage()`. Calculated the pixel width-to-height ratio (from image dimensions) and returned in list.
 * `iHndlfname()`: Added. Used in `digitizeRadii()`, `showDigitizedImage()`, and `findScalingFactor()`.
-* `iHndlID()`: Added. Used in `digitizeRadii()`. Was modified from initial to include the image filename sans extension as the default ID in the Windows dialog box (when used with `digitizeRadii()`), which partially addresses [#5](https://github.com/droglenc/RFishBC/issues/5).
+* `iHndlID()`: Added. Used in `digitizeRadii()`. Was modified from initial to include the image filename sans extension as the default ID in the Windows dialog box (when used with `digitizeRadii()`), which partially addresses [#5](https://github.com/fishR-Core-Team/RFishBC/issues/5).
 * `iHndlScalingFactor()`: Modified. Added `pixW2H=` argument to receive the pixel width-to-height ratio to adjust distance calculations for non-square images.
-* `iPlaceText()`: Added. Used to address [#6](https://github.com/droglenc/RFishBC/issues/6).
+* `iPlaceText()`: Added. Used to address [#6](https://github.com/fishR-Core-Team/RFishBC/issues/6).
 * `iReadImage()`: Removed. Changed to `iGetImage()`.
 * `iSnap2Transect()`: Added. Used in `digitizeRadii()`.
 * `iProcessAnnuli()`: Modified. Added `pixW2H=` argument to receive the pixel width-to-height ratio to adjust distance calculations for non-square images.

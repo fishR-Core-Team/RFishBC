@@ -17,13 +17,13 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.5</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -75,7 +75,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Extracts a fish identification from a vector of image file names</h1>
-    <small class="dont-index">Source: <a href="https://github.com/droglenc/RFishBC/blob/HEAD/R/getID.R" class="external-link"><code>R/getID.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/RFishBC/blob/HEAD/R/getID.R" class="external-link"><code>R/getID.R</code></a></small>
     <div class="hidden name"><code>getID.Rd</code></div>
     </div>
 
@@ -84,23 +84,32 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">getID</span><span class="op">(</span><span class="va">x</span>, <span class="va">IDpattern</span>, <span class="va">IDreplace</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">getID</span><span class="op">(</span><span class="va">x</span>, <span class="va">IDpattern</span>, <span class="va">IDreplace</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A charachter vector of image file names.</p></dd>
+
+
 <dt>IDpattern</dt>
 <dd><p>A regular expression used to extract the fish identification value from the image file names in <code>x</code>. Defaults to extracting all values after the last underscore in the image file name (sans extension). Can be set with <code><a href="RFBCoptions.html">RFBCoptions</a></code>.</p></dd>
+
+
 <dt>IDreplace</dt>
 <dd><p>A string to replace the expression matched in <code>IDpattern</code>. Can be set with <code><a href="RFBCoptions.html">RFBCoptions</a></code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Parameters to be given to <code><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Character vector.</p>
+    
+
+<p>Character vector.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -120,47 +129,47 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## These are possible vectors of image file names with the fish ID after</span></span>
-<span class="r-in"><span class="co">##   the last underscore ... which is the default behavior</span></span>
-<span class="r-in"><span class="va">ex1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Scale_1.jpg"</span>,<span class="st">"Scale_2.jpg"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ex2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Kiyi_472.bmp"</span>,<span class="st">"Kiy_567.jpg"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ex3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"PWF_MI345.tiff"</span>,<span class="st">"PWF_WI567.tiff"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ex4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"LKT_oto_23.jpg"</span>,<span class="st">"LKT_finray_34.jpg"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## These are extracted fish IDs</span></span>
-<span class="r-in"><span class="fu">getID</span><span class="op">(</span><span class="va">ex1</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## These are possible vectors of image file names with the fish ID after</span></span></span>
+<span class="r-in"><span><span class="co">##   the last underscore ... which is the default behavior</span></span></span>
+<span class="r-in"><span><span class="va">ex1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Scale_1.jpg"</span>,<span class="st">"Scale_2.jpg"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ex2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Kiyi_472.bmp"</span>,<span class="st">"Kiy_567.jpg"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ex3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"PWF_MI345.tiff"</span>,<span class="st">"PWF_WI567.tiff"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ex4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"LKT_oto_23.jpg"</span>,<span class="st">"LKT_finray_34.jpg"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## These are extracted fish IDs</span></span></span>
+<span class="r-in"><span><span class="fu">getID</span><span class="op">(</span><span class="va">ex1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2"</span>
-<span class="r-in"><span class="fu">getID</span><span class="op">(</span><span class="va">ex2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">getID</span><span class="op">(</span><span class="va">ex2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "472" "567"</span>
-<span class="r-in"><span class="fu">getID</span><span class="op">(</span><span class="va">ex3</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">getID</span><span class="op">(</span><span class="va">ex3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "MI345" "WI567"</span>
-<span class="r-in"><span class="fu">getID</span><span class="op">(</span><span class="va">ex4</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">getID</span><span class="op">(</span><span class="va">ex4</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "23" "34"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## These are possible vectors of image file names with the fish ID NOT after</span></span>
-<span class="r-in"><span class="co">##   the last underscore. This requires judicious use of IDpattern= and</span></span>
-<span class="r-in"><span class="co">##   IDreplace= (similar to pattern= and replacement- as used in sub()).</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### fish ID at the beginning of the name</span></span>
-<span class="r-in"><span class="va">ex5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1_Scale.jpg"</span>,<span class="st">"2_Scale.jpg"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">getID</span><span class="op">(</span><span class="va">ex5</span>,IDpattern<span class="op">=</span><span class="st">"\\_.*"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## These are possible vectors of image file names with the fish ID NOT after</span></span></span>
+<span class="r-in"><span><span class="co">##   the last underscore. This requires judicious use of IDpattern= and</span></span></span>
+<span class="r-in"><span><span class="co">##   IDreplace= (similar to pattern= and replacement- as used in sub()).</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### fish ID at the beginning of the name</span></span></span>
+<span class="r-in"><span><span class="va">ex5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1_Scale.jpg"</span>,<span class="st">"2_Scale.jpg"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">getID</span><span class="op">(</span><span class="va">ex5</span>,IDpattern<span class="op">=</span><span class="st">"\\_.*"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### fish ID between two underscores (might be used if multiple images for one ID)</span></span>
-<span class="r-in"><span class="va">ex6</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DWS_100_1.jpg"</span>,<span class="st">"DWS_101_2,jpg"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">getID</span><span class="op">(</span><span class="va">ex6</span>,IDpattern<span class="op">=</span><span class="st">".*\\_(.+?)\\_.*"</span>,IDreplace<span class="op">=</span><span class="st">"\\1"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### fish ID between two underscores (might be used if multiple images for one ID)</span></span></span>
+<span class="r-in"><span><span class="va">ex6</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DWS_100_1.jpg"</span>,<span class="st">"DWS_101_2,jpg"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">getID</span><span class="op">(</span><span class="va">ex6</span>,IDpattern<span class="op">=</span><span class="st">".*\\_(.+?)\\_.*"</span>,IDreplace<span class="op">=</span><span class="st">"\\1"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "100" "101"</span>
-<span class="r-in"><span class="va">ex7</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DWS_MI100_1.jpg"</span>,<span class="st">"DWS_MI100_2,jpg"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">getID</span><span class="op">(</span><span class="va">ex7</span>,IDpattern<span class="op">=</span><span class="st">".*\\_(.+?)\\_.*"</span>,IDreplace<span class="op">=</span><span class="st">"\\1"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">ex7</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DWS_MI100_1.jpg"</span>,<span class="st">"DWS_MI100_2,jpg"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">getID</span><span class="op">(</span><span class="va">ex7</span>,IDpattern<span class="op">=</span><span class="st">".*\\_(.+?)\\_.*"</span>,IDreplace<span class="op">=</span><span class="st">"\\1"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>All returned IDs are not unique.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "MI100" "MI100"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### Will be warned if the returned IDs are not unique</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="va">ex8</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Ruffe_456.jpg"</span>,<span class="st">"Ruffe_456.jpg"</span>,<span class="st">"Ruffe_567.jpg"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">getID</span><span class="op">(</span><span class="va">ex8</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### Will be warned if the returned IDs are not unique</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">ex8</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Ruffe_456.jpg"</span>,<span class="st">"Ruffe_456.jpg"</span>,<span class="st">"Ruffe_567.jpg"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">getID</span><span class="op">(</span><span class="va">ex8</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -175,7 +184,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

@@ -18,13 +18,13 @@ Additionally, a user may want to change a number of these arguments from their d
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.5</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -76,7 +76,7 @@ Additionally, a user may want to change a number of these arguments from their d
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>See or set arguments for common RFishBC functions</h1>
-    <small class="dont-index">Source: <a href="https://github.com/droglenc/RFishBC/blob/HEAD/R/RFBCoptions.R" class="external-link"><code>R/RFBCoptions.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/RFishBC/blob/HEAD/R/RFBCoptions.R" class="external-link"><code>R/RFBCoptions.R</code></a></small>
     <div class="hidden name"><code>RFBCoptions.Rd</code></div>
     </div>
 
@@ -86,19 +86,24 @@ Additionally, a user may want to change a number of these arguments from their d
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">RFBCoptions</span><span class="op">(</span>reset <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">RFBCoptions</span><span class="op">(</span>reset <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>reset</dt>
 <dd><p>A logical that will reset the values to their “factory-fresh” defaults if <code>TRUE</code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>An arbitrary number of <code>argument</code>=<code>value</code> pairs where <code>argument</code> is one of the argument names and <code>value</code> is the new value for the argument. See details and examples.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>None, but the list in <code>RFBCoptions</code> will be modified.</p>
+    
+
+<p>None, but the list in <code>RFBCoptions</code> will be modified.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -157,8 +162,8 @@ Additionally, a user may want to change a number of these arguments from their d
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## Show all options</span></span>
-<span class="r-in"><span class="fu">RFBCoptions</span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Show all options</span></span></span>
+<span class="r-in"><span><span class="fu">RFBCoptions</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $reading</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -288,20 +293,20 @@ Additionally, a user may want to change a number of these arguments from their d
 <span class="r-out co"><span class="r-pr">#&gt;</span> $addNote</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Show how to see and set one option</span></span>
-<span class="r-in"><span class="fu">RFBCoptions</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">makeTransect</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Show how to see and set one option</span></span></span>
+<span class="r-in"><span><span class="fu">RFBCoptions</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">makeTransect</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="fu">RFBCoptions</span><span class="op">(</span>makeTransect<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">RFBCoptions</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">makeTransect</span></span>
+<span class="r-in"><span><span class="fu">RFBCoptions</span><span class="op">(</span>makeTransect<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">RFBCoptions</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">makeTransect</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
-<span class="r-in"><span class="fu">RFBCoptions</span><span class="op">(</span>reset<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">RFBCoptions</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">makeTransect</span></span>
+<span class="r-in"><span><span class="fu">RFBCoptions</span><span class="op">(</span>reset<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">RFBCoptions</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">makeTransect</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Multiple options can also be set at once</span></span>
-<span class="r-in"><span class="fu">RFBCoptions</span><span class="op">(</span>pch.show<span class="op">=</span><span class="fl">3</span>,col.show<span class="op">=</span><span class="st">"blue"</span>,cex.show<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Multiple options can also be set at once</span></span></span>
+<span class="r-in"><span><span class="fu">RFBCoptions</span><span class="op">(</span>pch.show<span class="op">=</span><span class="fl">3</span>,col.show<span class="op">=</span><span class="st">"blue"</span>,cex.show<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -316,7 +321,7 @@ Additionally, a user may want to change a number of these arguments from their d
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

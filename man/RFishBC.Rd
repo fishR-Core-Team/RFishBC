@@ -3,7 +3,21 @@
 \docType{package}
 \name{RFishBC}
 \alias{RFishBC}
+\alias{RFishBC-package}
 \title{RFishBC.}
 \description{
-The RFishBC package helps fisheries scientists collect growth data from calcified structures and back-calculate estimated lengths at previous ages. The package is intended to replace much of the functionality provided by the now out-date fishBC software. See the package webpage at [https://derekogle.com/RFishBC].
+The RFishBC package helps fisheries scientists collect growth data from calcified structures and back-calculate estimated lengths at previous ages. The package is intended to replace much of the functionality provided by the now out-date fishBC software. See the package webpage at [https://fishr-core-team.github.io/RFishBC/].
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://fishr-core-team.github.io/RFishBC/}
+  \item Report bugs at \url{https://github.com/fishR-Core-Team/RFishBC/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Derek Ogle \email{derek@derekogle.com} (\href{https://orcid.org/0000-0002-0370-9299}{ORCID})
+
+}
+\keyword{internal}

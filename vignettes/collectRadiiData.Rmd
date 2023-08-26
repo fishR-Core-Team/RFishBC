@@ -153,7 +153,7 @@ At this point, the image may look something like that below (*note that two poin
 
 \  
 
-When you have finished selecting points, information about your selections, including the calculated radial measurements, are saved to the R data file. The contents of this file are described further [here](https://derekogle.com/RFishBC/reference/digitizeRadii.html#value).
+When you have finished selecting points, information about your selections, including the calculated radial measurements, are saved to the R data file. The contents of this file are described further [here](fishr-core-team.github.io/RFishBC/reference/digitizeRadii.html#value).
 
 \  
 
@@ -345,9 +345,9 @@ write.csv(fishdat,file="Kiyi2014_BCs.csv",quote=FALSE,row.names=FALSE)
 
 [^X11]: You may find [this resource](https://support.apple.com/en-us/HT201341) useful with respect to the X11 device and Mac OS use.
 
-[^saveex1]: Actually much more than the radial measurements are recorded in the R data file (see [here](https://derekogle.com/RFishBC/reference/digitizeRadii.html#value)). Also note that the radii are on an arbitrary scale in this case because no scale-bar was available on the image.
+[^saveex1]: Actually much more than the radial measurements are recorded in the R data file (see [here](fishr-core-team.github.io/RFishBC/reference/digitizeRadii.html#value)). Also note that the radii are on an arbitrary scale in this case because no scale-bar was available on the image.
 
-[^DRargs]: The many specific arguments to `digitizeRadii()` are controlled with `RFBCoptions()` (described later) and described in detail [here](https://derekogle.com/RFishBC/reference/RFBCoptions.html#details).
+[^DRargs]: The many specific arguments to `digitizeRadii()` are controlled with `RFBCoptions()` (described later) and described in detail [here](fishr-core-team.github.io/RFishBC/reference/RFBCoptions.html#details).
 
 [^excludeextension]: The extension (e.g., "png" or "jpg") will not be included in the resultant R data object file.
 

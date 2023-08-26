@@ -17,13 +17,13 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.5</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -75,7 +75,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Creates a function for a specific model.</h1>
-    <small class="dont-index">Source: <a href="https://github.com/droglenc/RFishBC/blob/HEAD/R/bcFuns.R" class="external-link"><code>R/bcFuns.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/RFishBC/blob/HEAD/R/bcFuns.R" class="external-link"><code>R/bcFuns.R</code></a></small>
     <div class="hidden name"><code>bcFuns.Rd</code></div>
     </div>
 
@@ -84,17 +84,20 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">bcFuns</span><span class="op">(</span><span class="va">BCM</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">bcFuns</span><span class="op">(</span><span class="va">BCM</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>BCM</dt>
 <dd><p>A single numeric between 1 and 22 or a string that indicates which model to use (based on numbers and names in Vigliola and Meekan (2009)).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A function that can be used to predict length at previous age (Li) given length-at-capture (Lcap), hard-part radius-at-age i (Ri), and hard-part radius-at-capture (Rcap). In addition, some functions/models may require the previous age (agei) and the age-at-capture (agec), certain parameters related to the biological intercept (R0p &amp; L0p), or certain parameters estimated from various regression models (a,b,c,A,B,C). See source for more information.</p>
+    
+
+<p>A function that can be used to predict length at previous age (Li) given length-at-capture (Lcap), hard-part radius-at-age i (Ri), and hard-part radius-at-capture (Rcap). In addition, some functions/models may require the previous age (agei) and the age-at-capture (agec), certain parameters related to the biological intercept (R0p &amp; L0p), or certain parameters estimated from various regression models (a,b,c,A,B,C). See source for more information.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -102,7 +105,7 @@
 <table class="table table"><tr><td><b>Abbreviation</b></td><td><b>Number</b></td><td><b>Model</b></td></tr><tr><td>DALE</td><td>1</td><td>Dahl-Lea</td></tr><tr><td>FRALE</td><td>2</td><td>Fraser-Lee</td></tr><tr><td>BI, LBI</td><td>3</td><td>(Linear) Biological Intercept</td></tr><tr><td>BPH, LBPH</td><td>4</td><td>(Linear) Body Proportional Hypothesis</td></tr><tr><td>TVG</td><td>5</td><td>Time-Varying Growth</td></tr><tr><td>SPH, LSPH</td><td>6</td><td>(Linear) Scale Proportional Hypothesis</td></tr><tr><td>AE, AESPH</td><td>7</td><td>(Age Effect) Scale Proportional Hypothesis</td></tr><tr><td>AEBPH</td><td>8</td><td>(Age Effect) Body Proportional Hypothesis</td></tr><tr><td>MONA</td><td>9</td><td>Monastyrsky</td></tr><tr><td>MONA-BPH</td><td>10</td><td>Monastyrsky Body Proportional Hypothesis</td></tr><tr><td>MONA-SPH</td><td>11</td><td>Monastyrsky Scale Proportional Hypothesis</td></tr><tr><td>WAKU</td><td>12</td><td>Watanabe and Kuroki</td></tr><tr><td>FRY</td><td>13</td><td>Fry</td></tr><tr><td>MF, ABI</td><td>14</td><td>Modified Fry, Allometric Biological Intercept</td></tr><tr><td>FRY-BPH, ABPH</td><td>15</td><td>Fry, Allometric Body Proportional Hypothesis</td></tr><tr><td>FRY-SPH, ASPH</td><td>16</td><td>Fry, Allometric Scale Proportional Hypothesis</td></tr><tr><td>QBPH</td><td>17</td><td>Quadratic Body Proportional Hypothesis</td></tr><tr><td>QSPH</td><td>18</td><td>Quadratic Scale Proportional Hypothesis</td></tr><tr><td>PBPH</td><td>19</td><td>Polynomial Body Proportional Hypothesis</td></tr><tr><td>PSPH</td><td>20</td><td>Polynomial Scale Proportional Hypothesis</td></tr><tr><td>EBPH</td><td>21</td><td>Exponential Body Proportional Hypothesis</td></tr><tr><td>ESPH</td><td>22</td><td>Exponential Scale Proportional Hypothesis</td></tr></table></div>
     <div id="ifar-supplement">
     <h2>IFAR Supplement</h2>
-    <p><a href="https://derekogle.com/IFAR/supplements/backcalculation/" class="external-link">https://derekogle.com/IFAR/supplements/backcalculation/</a></p>
+    <p><a href="https://derekogle.com/IFAR/supplements/backcalculation.html" class="external-link">https://derekogle.com/IFAR/supplements/backcalculation.html</a></p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -115,41 +118,41 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## Simple Examples</span></span>
-<span class="r-in"><span class="op">(</span> <span class="va">bcm1</span> <span class="op">&lt;-</span> <span class="fu">bcFuns</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Simple Examples</span></span></span>
+<span class="r-in"><span><span class="op">(</span> <span class="va">bcm1</span> <span class="op">&lt;-</span> <span class="fu">bcFuns</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (Lcap, Ri, Rcap, ..., verbose = TRUE) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     if (verbose) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         DONE("Using the Dahl-Lea model.")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     (Ri/Rcap) * Lcap</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x000000000a5cafa0&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x000000000a582bb0&gt;</span>
-<span class="r-in"><span class="fu">bcm1</span><span class="op">(</span><span class="fl">20</span>,<span class="fl">10</span>,<span class="fl">40</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">v</span> Using the Dahl-Lea model.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x00000211c5bf7668&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x00000211c5bceb20&gt;</span>
+<span class="r-in"><span><span class="fu">bcm1</span><span class="op">(</span><span class="fl">20</span>,<span class="fl">10</span>,<span class="fl">40</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Using the Dahl-Lea model.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Example with dummy length-at-cap, radii-at-cap, and radii-at-age</span></span>
-<span class="r-in"><span class="va">lencap</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>,<span class="fl">100</span>,<span class="fl">100</span>,<span class="fl">150</span>,<span class="fl">150</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">radcap</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>,<span class="fl">20</span>,<span class="fl">20</span>,<span class="fl">30</span>,<span class="fl">30</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">rad</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="fl">5</span>,<span class="fl">10</span>,<span class="fl">15</span>,<span class="fl">15</span>,<span class="fl">25</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">bcm1</span><span class="op">(</span><span class="va">lencap</span>,<span class="va">rad</span>,<span class="va">radcap</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">v</span> Using the Dahl-Lea model.</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Example with dummy length-at-cap, radii-at-cap, and radii-at-age</span></span></span>
+<span class="r-in"><span><span class="va">lencap</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>,<span class="fl">100</span>,<span class="fl">100</span>,<span class="fl">150</span>,<span class="fl">150</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">radcap</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>,<span class="fl">20</span>,<span class="fl">20</span>,<span class="fl">30</span>,<span class="fl">30</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">rad</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="fl">5</span>,<span class="fl">10</span>,<span class="fl">15</span>,<span class="fl">15</span>,<span class="fl">25</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">bcm1</span><span class="op">(</span><span class="va">lencap</span>,<span class="va">rad</span>,<span class="va">radcap</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Using the Dahl-Lea model.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  25  50  75  75 125</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="op">(</span> <span class="va">bcm2</span> <span class="op">&lt;-</span> <span class="fu">bcFuns</span><span class="op">(</span><span class="st">"FRALE"</span><span class="op">)</span> <span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">(</span> <span class="va">bcm2</span> <span class="op">&lt;-</span> <span class="fu">bcFuns</span><span class="op">(</span><span class="st">"FRALE"</span><span class="op">)</span> <span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (Lcap, Ri, Rcap, a, ..., verbose = TRUE) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     if (verbose) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         DONE("Using the Fraser-Lee model with a=", a, ".")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     a + (Lcap - a) * (Ri/Rcap)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x000000000a5cb518&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x000000001f3c75c8&gt;</span>
-<span class="r-in"><span class="fu">bcm2</span><span class="op">(</span><span class="va">lencap</span>,<span class="va">rad</span>,<span class="va">radcap</span>,<span class="fl">2</span><span class="op">)</span>  <span class="co"># demonstrated with a=2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">v</span> Using the Fraser-Lee model with a=2.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x00000211c5bf7ba8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x00000211c8de1c50&gt;</span>
+<span class="r-in"><span><span class="fu">bcm2</span><span class="op">(</span><span class="va">lencap</span>,<span class="va">rad</span>,<span class="va">radcap</span>,<span class="fl">2</span><span class="op">)</span>  <span class="co"># demonstrated with a=2</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Using the Fraser-Lee model with a=2.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  26.5000  51.0000  75.5000  76.0000 125.3333</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -164,7 +167,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

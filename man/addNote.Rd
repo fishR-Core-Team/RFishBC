@@ -18,7 +18,7 @@ None, but the \code{note} object in the R Data file(s) given in \code{nms} will 
 Use this to add a note to a saved R data file that was created with \code{\link{digitizeRadii}}. Can be used to flag the reading for some reason.
 }
 \details{
-A detailed description of its use is in the "Other Features" vignette on the \href{https://derekogle.com/RFishBC/index.html}{RFishBC website}.
+A detailed description of its use is in the "Other Features" vignette on the \href{https://fishr-core-team.github.io/RFishBC/index.html}{RFishBC website}.
 }
 \examples{
 ## See the link to the extensive documentation in the Details.

@@ -17,13 +17,13 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.5</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -75,7 +75,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Combines radii data from multiple files into one data.frame</h1>
-    <small class="dont-index">Source: <a href="https://github.com/droglenc/RFishBC/blob/HEAD/R/combineData.R" class="external-link"><code>R/combineData.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/RFishBC/blob/HEAD/R/combineData.R" class="external-link"><code>R/combineData.R</code></a></small>
     <div class="hidden name"><code>combineData.Rd</code></div>
     </div>
 
@@ -84,32 +84,41 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">combineData</span><span class="op">(</span>
-  <span class="va">nms</span>,
-  formatOut <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"long"</span>, <span class="st">"wide"</span><span class="op">)</span>,
-  typeOut <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"radii"</span>, <span class="st">"increments"</span><span class="op">)</span>,
-  deletePlusGrowth <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">combineData</span><span class="op">(</span></span>
+<span>  <span class="va">nms</span>,</span>
+<span>  formatOut <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"long"</span>, <span class="st">"wide"</span><span class="op">)</span>,</span>
+<span>  typeOut <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"radii"</span>, <span class="st">"increments"</span><span class="op">)</span>,</span>
+<span>  deletePlusGrowth <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>nms</dt>
 <dd><p>A string (or vector of strings) that indicates the R data file(s) created with <code><a href="digitizeRadii.html">digitizeRadii</a></code>. If missing the user will be provided a dialog box from which to choose the file(s). The file(s) must be in the current working directory (see <code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></code> result). May also be a single <code>RFishBC</code> object created with <code><a href="digitizeRadii.html">digitizeRadii</a></code>.</p></dd>
+
+
 <dt>formatOut</dt>
 <dd><p>A string that indicates the output format for the combined data. The <code>"wide"</code> (DEFAULT) format has one-radius-per-line (i.e., each radial measurement for a fish in on a separate row), whereas the <code>"long"</code> format has one-fish-per-line (i.e., each radial measurement for a fish is in a separate column).</p></dd>
+
+
 <dt>typeOut</dt>
 <dd><p>A string that indicated output type for the combined data. The <code>"radii"</code> (DEFAULT) type will output the radial measurements, whereas the <code>"increments"</code> will output incremental measurements.</p></dd>
+
+
 <dt>deletePlusGrowth</dt>
 <dd><p>A logical that indicates whether the radial measurement that corresponds to “plus-growth” should be deleted from the returned data.frame (<code>TRUE</code>; DEFAULT) or not (<code>FALSE</code>).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A data.frame that contains the radii data created with <code><a href="digitizeRadii.html">digitizeRadii</a></code> for all files given in <code>nms</code>.</p>
+    
+
+<p>A data.frame that contains the radii data created with <code><a href="digitizeRadii.html">digitizeRadii</a></code> for all files given in <code>nms</code>.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>A detailed description of its use is in <a href="https://derekogle.com/RFishBC/articles/MeasureRadii/collectRadiiData.html" class="external-link">this vignette</a> on the <a href="https://derekogle.com/RFishBC/index.html" class="external-link">RFishBC website</a>. The list of R data file names may be efficiently created with <code><a href="listFiles.html">listFiles</a></code> as described in that vignette. The R data file names may also be selected from a dialog box if using Windows.</p>
+    <p>A detailed description of its use is in <a href="https://fishr-core-team.github.io/articles/collectRadiiData.html" class="external-link">this vignette</a> on the <a href="https://fishr-core-team.github.io/RFishBC/index.html">RFishBC website</a>. The list of R data file names may be efficiently created with <code><a href="listFiles.html">listFiles</a></code> as described in that vignette. The R data file names may also be selected from a dialog box if using Windows.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -118,8 +127,8 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## See the link to the extensive documentation in the Details.</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## See the link to the extensive documentation in the Details.</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
@@ -135,7 +144,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
