@@ -1,4 +1,8 @@
-# RFishBC 0.2.5 ongoing
+# RFishBC 0.2.5.9000
+* Updated `test-coverage.yaml` to [latest version](https://github.com/r-lib/actions/blob/v2/examples/test-coverage.yaml).
+* Updated `pkgdown.yaml` to [latest version](https://github.com/r-lib/actions/blob/v2/examples/pkgdown.yaml).
+
+# RFishBC 0.2.5 25-Aug-2023
 * Updated sticker.
 * Updated `CITATION` file to meet CRAN requirements.
 * Added Code of Conduct
