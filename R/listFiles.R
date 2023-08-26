@@ -10,7 +10,7 @@
 #' 
 #' @seealso \code{\link{digitizeRadii}} and \code{\link{combineData}}; and \code{\link{list.files}} in base R.
 #'
-#' @details An example of using this function is in \href{https://fishr-core-team.github.io/RFishBC/articles/MeasureRadii/collectRadiiData.html}{this vignette} and \href{https://fishr-core-team.github.io/RFishBC/articles/MeasureRadii/seeRadiiData.html}{this vignette} on the \href{https://fishr-core-team.github.io/RFishBC/index.html}{RFishBC website}.
+#' @details An example of using this function is in \href{https://fishr-core-team.github.io/RFishBC/articles/collectRadiiData.html}{this vignette} and \href{https://fishr-core-team.github.io/RFishBC/articles/seeRadiiData.html}{this vignette} on the \href{https://fishr-core-team.github.io/RFishBC/index.html}{RFishBC website}.
 #'
 #' @return Character vector.
 #' 
