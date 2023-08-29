@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6</span>
       </span>
     </div>
 
@@ -109,7 +109,7 @@
       <h1 data-toc-skip>Compute Back-Calculated Lengths</h1>
                         <h4 data-toc-skip class="author">Derek H. Ogle</h4>
             
-            <h4 data-toc-skip class="date">2023-08-25</h4>
+            <h4 data-toc-skip class="date">2023-08-28</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/RFishBC/blob/HEAD/vignettes/BCCalc.Rmd" class="external-link"><code>vignettes/BCCalc.Rmd</code></a></small>
       <div class="hidden name"><code>BCCalc.Rmd</code></div>
@@ -123,8 +123,8 @@
 </h2>
 <p>This vignette demonstrates how to back-calculate lengths at previous ages from radial measurements made on calcified structures of fish. This vignette assumes that you have an understanding of</p>
 <ul>
-<li>back-calculation (as described in the <a href="../BCIntro/BCIntro.html">Short Introduction to Back-calculation</a> vignette),</li>
-<li>how to use <code><a href="../reference/combineData.html">combineData()</a></code> to combine R data files created from <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> and join fish-specific information as described in the <a href="../MeasureRadii/collectRadiiData.html">Collecting Radii Data</a> vignette.</li>
+<li>back-calculation (as described in the <a href="BCIntro.html">Short Introduction to Back-calculation</a> vignette),</li>
+<li>how to use <code><a href="../reference/combineData.html">combineData()</a></code> to combine R data files created from <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> and join fish-specific information as described in the <a href="collectRadiiData.html">Collecting Radii Data</a> vignette.</li>
 </ul>
 <p>Packages used in this vignette are loaded below.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -139,8 +139,8 @@
 <div class="section level2">
 <h2 id="data-for-back-calculation">Data for Back-Calculation<a class="anchor" aria-label="anchor" href="#data-for-back-calculation"></a>
 </h2>
-<p>The radial measurements from multiple fish should be combined into one data.frame using <code><a href="../reference/combineData.html">combineData()</a></code>. In addition, the length-at-capture for each fish should be appended to that data.frame. A method to combine radial measurements from multiple fish and append a length-at-capture variable was demonstrated in the <a href="../MeasureRadii/collectRadiiData.html#outputdata">Output Data File section of the Collecting Radii Data</a> vignette.</p>
-<p>Several of the back-calculation methods require estimating parameters from the relationship between fish length and structure radius or structure radius and fish length (as described in <a href="../BCIntro/BCIntro.html">Short Introduction to Back-calculation</a> vignette). These methods cannot be demonstrated well with a small number of fish (as in the <a href="../MeasureRadii/collectRadiiData.html">Collecting Radii Data</a> vignette). Thus, data from a large number of Smallmouth Bass (<em>Micropterus dolomieu</em>) collected from West Bearskin Lake (MN) in 1990 will be used in this vignette.</p>
+<p>The radial measurements from multiple fish should be combined into one data.frame using <code><a href="../reference/combineData.html">combineData()</a></code>. In addition, the length-at-capture for each fish should be appended to that data.frame. A method to combine radial measurements from multiple fish and append a length-at-capture variable was demonstrated in the <a href="collectRadiiData.html#outputdata">Output Data File section of the Collecting Radii Data</a> vignette.</p>
+<p>Several of the back-calculation methods require estimating parameters from the relationship between fish length and structure radius or structure radius and fish length (as described in <a href="BCIntro.html">Short Introduction to Back-calculation</a> vignette). These methods cannot be demonstrated well with a small number of fish (as in the <a href="collectRadiiData.html">Collecting Radii Data</a> vignette). Thus, data from a large number of Smallmouth Bass (<em>Micropterus dolomieu</em>) collected from West Bearskin Lake (MN) in 1990 will be used in this vignette.</p>
 <p>A data.frame of the Smallmouth Bass data as it would appear from <code><a href="../reference/combineData.html">combineData()</a></code> is obtained as follows.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">SMBassWB2</span>,package<span class="op">=</span><span class="st">"RFishBC"</span><span class="op">)</span></span>
@@ -163,7 +163,7 @@
 <span><span class="co">#&gt; 4  4     SMB   WB    E    1988     68</span></span>
 <span><span class="co">#&gt; 5  6     SMB   WB    E    1988     72</span></span>
 <span><span class="co">#&gt; 6  7     SMB   WB    E    1988     80</span></span></code></pre></div>
-<p>These data can be joined by the common <code>id</code> variable as shown in the <a href="../MeasureRadii/collectRadiiData.html#outputdata">Output Data File section of the Collecting Radii Data</a> vignette. The data were also arranged by <code>id</code> to facilitate comparisons throughout this vignette.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+<p>These data can be joined by the common <code>id</code> variable as shown in the <a href="collectRadiiData.html#outputdata">Output Data File section of the Collecting Radii Data</a> vignette. The data were also arranged by <code>id</code> to facilitate comparisons throughout this vignette.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">SMBassWB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join</a></span><span class="op">(</span><span class="va">SMBassWB1</span>,<span class="va">SMBassWB2</span>,by<span class="op">=</span><span class="st">"id"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
@@ -243,8 +243,8 @@
 <p>These data.frames will be in these required formats if the data originated from the <code><a href="../reference/combineData.html">combineData()</a></code> function.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> Other variables may exist in the data.frame, but these variables must exist with the names and contents shown here.</p>
 <p>The data.frame <strong>MUST</strong> also have a variable that contains the fish’s length-at-capture. The name for this variable <strong>MUST</strong> be given (without quotes) in the second or <code>lencap=</code> argument.</p>
 <p>The format for the input data.frame <strong>MUST</strong> be given in <code>inFormat=</code>. The two choices for this argument are <code>"long"</code> and <code>"wide"</code>.</p>
-<p>Finally, one of the many back-calculation models discussed in Vigliola and Meekan (2009) must be selected for use with the <code>BCM=</code> argument. The back-calculation model can be chosen by “name” or number, both of which can be seen in <a href="../../reference/bcFuns.html">the documentation for <code>bcFuns()</code></a>. For example, the popular Fraser-Lee model can be selected with <code>BCM="FRALE"</code> or <code>BCM=2</code>.</p>
-<p>Some of the models require parameters estimated from models fit to the relationship between fish length and structure radius or structure radius and fish length. These models will be fit “behind-the-scenes” in <code><a href="../reference/backCalc.html">backCalc()</a></code>. However, some models also require parameters estimated without the observed data, which must then be provided by the user. For example, the Fraser-Lee model uses a length correction factor that may be the estimated length when the structure first forms or a standard published value for a species (Carlander 1980). If the user wants to provide one of these values, then it is given in the <code>a=</code> argument.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> Other parameters for other models may be given in other arguments to <code><a href="../reference/backCalc.html">backCalc()</a></code> (see <a href="../../reference/backCalc.html">the documentation for <code>backCalc()</code></a>).</p>
+<p>Finally, one of the many back-calculation models discussed in Vigliola and Meekan (2009) must be selected for use with the <code>BCM=</code> argument. The back-calculation model can be chosen by “name” or number, both of which can be seen in <a href="../reference/bcFuns.html">the documentation for <code>bcFuns()</code></a>. For example, the popular Fraser-Lee model can be selected with <code>BCM="FRALE"</code> or <code>BCM=2</code>.</p>
+<p>Some of the models require parameters estimated from models fit to the relationship between fish length and structure radius or structure radius and fish length. These models will be fit “behind-the-scenes” in <code><a href="../reference/backCalc.html">backCalc()</a></code>. However, some models also require parameters estimated without the observed data, which must then be provided by the user. For example, the Fraser-Lee model uses a length correction factor that may be the estimated length when the structure first forms or a standard published value for a species (Carlander 1980). If the user wants to provide one of these values, then it is given in the <code>a=</code> argument.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> Other parameters for other models may be given in other arguments to <code><a href="../reference/backCalc.html">backCalc()</a></code> (see <a href="../reference/backCalc.html">the documentation for <code>backCalc()</code></a>).</p>
 <p>The results of <code><a href="../reference/backCalc.html">backCalc()</a></code> can be returned in either “long” or “wide” format as identified with <code>outFormat=</code> (which defaults to be the same as <code>inFormat=</code>). The number of digits for the back-calculated lengths may be controlled with <code>digits=</code>.</p>
 <p>For example, back-calculated lengths were constructed from the wide-format data in <code>SMBassWB</code>, which has length-at-capture data in the <code>lencap</code> variable, using the Fraser-Lee model (with the “a” parameter estimated from the data) with the code below. The lengths were rounded to whole numbers (i.e., <code>digits=0</code>) and the results were returned in wide-format (the same as the input format).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -348,7 +348,7 @@
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p>Both of these data.frames are available in the <code>RFishBC</code> package. However, these types of data could be the result of using <code>comineData()</code> and <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join()</a></code> or from loading a relevant CSV file as demonstrated in <a href="../MeasureRadii/collectRadiiData.html#outputdata">Output Data File section of the Collecting Radii Data</a> vignette.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>Both of these data.frames are available in the <code>RFishBC</code> package. However, these types of data could be the result of using <code>comineData()</code> and <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join()</a></code> or from loading a relevant CSV file as demonstrated in <a href="collectRadiiData.html#outputdata">Output Data File section of the Collecting Radii Data</a> vignette.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 <li id="fn2"><p>Note that this file contains information from fish captured in years other than 1990.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 <li id="fn3"><p>Arranging the data by fish id is not required for the work below. It is simply used here for demonstration purposes.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
 <li id="fn4"><p>The <code>species</code>, <code>lake</code>, <code>gear</code>, <code>yearcap</code>, and <code>reading</code> variables are not needed in this vignette, but could be needed in further statistical analyses.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>

@@ -18,8 +18,8 @@ knitr::opts_chunk$set(
 # Introduction
 This vignette demonstrates how to back-calculate lengths at previous ages from radial measurements made on calcified structures of fish. This vignette assumes that you have an understanding of
 
-* back-calculation (as described in the [Short Introduction to Back-calculation](../BCIntro/BCIntro.html) vignette),
-* how to use `combineData()` to combine R data files created from `digitizeRadii()` and join fish-specific information as described in the [Collecting Radii Data](../MeasureRadii/collectRadiiData.html) vignette.
+* back-calculation (as described in the [Short Introduction to Back-calculation](BCIntro.html) vignette),
+* how to use `combineData()` to combine R data files created from `digitizeRadii()` and join fish-specific information as described in the [Collecting Radii Data](collectRadiiData.html) vignette.
 
 Packages used in this vignette are loaded below.
 ```{r message=FALSE, warning=FALSE}
@@ -38,9 +38,9 @@ Finally, some of the data manipulations used in this vignette, which may not be 
 
 # Data for Back-Calculation
 
-The radial measurements from multiple fish should be combined into one data.frame using `combineData()`. In addition, the length-at-capture for each fish should be appended to that data.frame. A method to combine radial measurements from multiple fish and append a length-at-capture variable was demonstrated in the [Output Data File section of the Collecting Radii Data](../MeasureRadii/collectRadiiData.html#outputdata) vignette.
+The radial measurements from multiple fish should be combined into one data.frame using `combineData()`. In addition, the length-at-capture for each fish should be appended to that data.frame. A method to combine radial measurements from multiple fish and append a length-at-capture variable was demonstrated in the [Output Data File section of the Collecting Radii Data](collectRadiiData.html#outputdata) vignette.
 
-Several of the back-calculation methods require estimating parameters from the relationship between fish length and structure radius or structure radius and fish length (as described in [Short Introduction to Back-calculation](../BCIntro/BCIntro.html) vignette). These methods cannot be demonstrated well with a small number of fish (as in the [Collecting Radii Data](../MeasureRadii/collectRadiiData.html) vignette). Thus, data from a large number of Smallmouth Bass (*Micropterus dolomieu*) collected from West Bearskin Lake (MN) in 1990 will be used in this vignette.
+Several of the back-calculation methods require estimating parameters from the relationship between fish length and structure radius or structure radius and fish length (as described in [Short Introduction to Back-calculation](BCIntro.html) vignette). These methods cannot be demonstrated well with a small number of fish (as in the [Collecting Radii Data](collectRadiiData.html) vignette). Thus, data from a large number of Smallmouth Bass (*Micropterus dolomieu*) collected from West Bearskin Lake (MN) in 1990 will be used in this vignette.
 
 A data.frame of the Smallmouth Bass data as it would appear from `combineData()` is obtained as follows.[^dataexplain]
 ```{r}
@@ -54,7 +54,7 @@ data(SMBassWB1,package="RFishBC")
 head(SMBassWB1)
 ```
 
-These data can be joined by the common `id` variable as shown in the [Output Data File section of the Collecting Radii Data](../MeasureRadii/collectRadiiData.html#outputdata) vignette. The data were also arranged by `id` to facilitate comparisons throughout this vignette.[^arrangenotrequired]
+These data can be joined by the common `id` variable as shown in the [Output Data File section of the Collecting Radii Data](collectRadiiData.html#outputdata) vignette. The data were also arranged by `id` to facilitate comparisons throughout this vignette.[^arrangenotrequired]
 ```{r}
 SMBassWB <- inner_join(SMBassWB1,SMBassWB2,by="id") %>%
   arrange(id)
@@ -105,9 +105,9 @@ The data.frame **MUST** also have a variable that contains the fish's length-at-
 
 The format for the input data.frame **MUST** be given in `inFormat=`. The two choices for this argument are `"long"` and `"wide"`.
 
-Finally, one of the many back-calculation models discussed in Vigliola and Meekan (2009) must be selected for use with the `BCM=` argument. The back-calculation model can be chosen by "name" or number, both of which can be seen in [the documentation for `bcFuns()`](../../reference/bcFuns.html). For example, the popular Fraser-Lee model can be selected with `BCM="FRALE"` or `BCM=2`.
+Finally, one of the many back-calculation models discussed in Vigliola and Meekan (2009) must be selected for use with the `BCM=` argument. The back-calculation model can be chosen by "name" or number, both of which can be seen in [the documentation for `bcFuns()`](../reference/bcFuns.html). For example, the popular Fraser-Lee model can be selected with `BCM="FRALE"` or `BCM=2`.
 
-Some of the models require parameters estimated from models fit to the relationship between fish length and structure radius or structure radius and fish length. These models will be fit "behind-the-scenes" in `backCalc()`. However, some models also require parameters estimated without the observed data, which must then be provided by the user. For example, the Fraser-Lee model uses a length correction factor that may be the estimated length when the structure first forms or a standard published value for a species (Carlander 1980). If the user wants to provide one of these values, then it is given in the `a=` argument.[^FraserLeea] Other parameters for other models may be given in other arguments to `backCalc()` (see [the documentation for `backCalc()`](../../reference/backCalc.html)).
+Some of the models require parameters estimated from models fit to the relationship between fish length and structure radius or structure radius and fish length. These models will be fit "behind-the-scenes" in `backCalc()`. However, some models also require parameters estimated without the observed data, which must then be provided by the user. For example, the Fraser-Lee model uses a length correction factor that may be the estimated length when the structure first forms or a standard published value for a species (Carlander 1980). If the user wants to provide one of these values, then it is given in the `a=` argument.[^FraserLeea] Other parameters for other models may be given in other arguments to `backCalc()` (see [the documentation for `backCalc()`](../reference/backCalc.html)).
 
 The results of `backCalc()` can be returned in either "long" or "wide" format as identified with `outFormat=` (which defaults to be the same as `inFormat=`). The number of digits for the back-calculated lengths may be controlled with `digits=`.
 
@@ -169,7 +169,7 @@ sumTable(bclen~agecap*ann,data=SMBassWB_FL2,digits=0)
 
 # Footnotes
 
-[^dataexplain]: Both of these data.frames are available in the `RFishBC` package. However, these types of data could be the result of using `comineData()` and `inner_join()` or from loading a relevant CSV file as demonstrated in [Output Data File section of the Collecting Radii Data](../MeasureRadii/collectRadiiData.html#outputdata) vignette.
+[^dataexplain]: Both of these data.frames are available in the `RFishBC` package. However, these types of data could be the result of using `comineData()` and `inner_join()` or from loading a relevant CSV file as demonstrated in [Output Data File section of the Collecting Radii Data](collectRadiiData.html#outputdata) vignette.
 
 [^SMBassWB1yearnote]: Note that this file contains information from fish captured in years other than 1990.
 
