@@ -2,6 +2,8 @@
 * Updated `test-coverage.yaml` to [latest version](https://github.com/r-lib/actions/blob/v2/examples/test-coverage.yaml).
 * Updated `pkgdown.yaml` to [latest version](https://github.com/r-lib/actions/blob/v2/examples/pkgdown.yaml).
 * `listFiles()`: Corrected URL errors in documentation.
+* Fixed URL issues in `listFiles()` update (per CRAN request on 28-Aug-2023).
+* Corrected many (all?) internal URLs in vignettes.
 
 # RFishBC 0.2.5 25-Aug-2023
 * Updated sticker.

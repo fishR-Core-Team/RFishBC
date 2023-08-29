@@ -5,5 +5,5 @@
 # Temporary plots from running tests
 tests/testthat/Rplots*.*
 # RDS files for vignettes (can be re-made from code)
-vignettes/MeasureRadii/*.rds
-vignettes/MeasureRadii/zzzTempRdsFiles/
+vignettes/*.rds
+vignettes/zzzTempRdsFiles/
