@@ -108,27 +108,25 @@ digitizeRadii(
 \item{note}{A specific note about this reading (e.g., a note that the image was poor, some annulus were suspect, or the image should be re-read.). If missing then the user will be prompted to include a note if \code{addNote=TRUE}.}
 }
 \value{
-\code{NULL} if more than one file was given in \code{img} or, if only one file was given, a list that contains the following:
-\itemize{
-  \item{\code{image}: }{The full filename given in \code{img}.}
-  \item{\code{datanm}: }{The R data filename.}
-  \item{\code{description}: }{The description given in \code{description}.}
-  \item{\code{edgeIsAnnulus}: }{The logical given in \code{edgeIsAnnulus} that identified whether the structure edge/margin should be considered as an annulus.}
-  \item{\code{snap2Transect}: }{The logical from \code{snap2Transect} that identified whether the selected points were \dQuote{snapped} to the transect or not.}
-  \item{\code{scalingFactor}: }{A single numeric used to convert measurements on the structure image to actual measurements on the structure. Measurements on the structure image were multiplied by this value.}
-  \item{\code{sfSource}: }{A character string that identifies whether the scaling factor was \code{"Provided"} through the \code{scalingFactor} argument or derived from a \code{"scaleBar"}.}
-  \item{\code{sbPts}: }{A data.frame of \code{x} and \code{y} coordinates for the endpoints of the scale-bar if the scaling factor was derived from a scale-bar.}
-  \item{\code{sbLength}: }{A single numeric that is the known (actual) length of the scale-bar if the scaling factor was derived from a scale-bar.}
-  \item{\code{sbUnits}: }{A single character that is the units of measurement for the known (actual) length of the scale-bar if the scaling factor was derived from a scale-bar.}
-  \item{\code{slpTransect}: }{The slope of the transect.}
-  \item{\code{intTransect}: }{The intercept of the transect.}
-  \item{\code{slpPerpTransect}: }{The slope of the line perpendicular to the transect.}
-  \item{\code{windowSize}: }{A numeric of length two that contains the width and height of the window used to display the structure image. One of these units was set by the given \code{windowSize} value.}
-  \item{\code{pixW2H}: }{The ratio of pixel width to height. This is used to correct measurements for when an image is not square.}
-  \item{\code{pts}: }{A data.frame that contains the \code{x} and \code{y} coordinates on the image for the selected annuli. These points may have been \dQuote{snapped} to the transect if \code{snap2Transect==TRUE}.}
-  \item{\code{radii}: }{A data.frame that contains the unique \code{id}, the \code{reading} code, the age-at-capture in \code{agecap}, the annulus number in \code{ann}, the radial measurements in \code{rad}, and the radial measurement at capture in \code{radcap}.}
-  \item{\code{note}: }{A string that contains a note about the reading (e.g., a note that the image was poor, some annulus were suspect, or the image should be re-read.)}
-}.
+\code{NULL} if more than one file was given in \code{img}; otherwise (i.e., only one file was given) a list with the following:
+ \item{\code{image}: }{The full filename given in \code{img}.}
+ \item{\code{datanm}: }{The R data filename.}
+ \item{\code{description}: }{The description given in \code{description}.}
+ \item{\code{edgeIsAnnulus}: }{The logical given in \code{edgeIsAnnulus} that identified whether the structure edge/margin should be considered as an annulus.}
+ \item{\code{snap2Transect}: }{The logical from \code{snap2Transect} that identified whether the selected points were \dQuote{snapped} to the transect or not.}
+ \item{\code{scalingFactor}: }{A single numeric used to convert measurements on the structure image to actual measurements on the structure. Measurements on the structure image were multiplied by this value.}
+ \item{\code{sfSource}: }{A character string that identifies whether the scaling factor was \code{"Provided"} through the \code{scalingFactor} argument or derived from a \code{"scaleBar"}.}
+ \item{\code{sbPts}: }{A data.frame of \code{x} and \code{y} coordinates for the endpoints of the scale-bar if the scaling factor was derived from a scale-bar.}
+ \item{\code{sbLength}: }{A single numeric that is the known (actual) length of the scale-bar if the scaling factor was derived from a scale-bar.}
+ \item{\code{sbUnits}: }{A single character that is the units of measurement for the known (actual) length of the scale-bar if the scaling factor was derived from a scale-bar.}
+ \item{\code{slpTransect}: }{The slope of the transect.}
+ \item{\code{intTransect}: }{The intercept of the transect.}
+ \item{\code{slpPerpTransect}: }{The slope of the line perpendicular to the transect.}
+ \item{\code{windowSize}: }{A numeric of length two that contains the width and height of the window used to display the structure image. One of these units was set by the given \code{windowSize} value.}
+ \item{\code{pixW2H}: }{The ratio of pixel width to height. This is used to correct measurements for when an image is not square.}
+ \item{\code{pts}: }{A data.frame that contains the \code{x} and \code{y} coordinates on the image for the selected annuli. These points may have been \dQuote{snapped} to the transect if \code{snap2Transect==TRUE}.}
+ \item{\code{radii}: }{A data.frame that contains the unique \code{id}, the \code{reading} code, the age-at-capture in \code{agecap}, the annulus number in \code{ann}, the radial measurements in \code{rad}, and the radial measurement at capture in \code{radcap}.}
+ \item{\code{note}: }{A string that contains a note about the reading (e.g., a note that the image was poor, some annulus were suspect, or the image should be re-read.)}
 }
 \description{
 The user interactively select points on an image of a calcified structure. When finished, radial measurements (from the structure focus to the selected points) are calculated (either with arbitrary units or actual units if a scale-bar is included on the image) and written to an external file for later use.

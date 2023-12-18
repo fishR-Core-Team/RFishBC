@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7</span>
       </span>
     </div>
 
@@ -159,9 +159,161 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## None yet.</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Get some data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">SMBassWB1</span>,package<span class="op">=</span><span class="st">"RFishBC"</span><span class="op">)</span> <span class="co">## fish data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">SMBassWB2</span>,package<span class="op">=</span><span class="st">"RFishBC"</span><span class="op">)</span> <span class="co">## rad data</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="co"># Simplify to 3 fish so we can see what is going on</span></span></span>
+<span class="r-in"><span><span class="va">tmp1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">SMBassWB1</span>,<span class="va">id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">377</span>,<span class="fl">378</span>,<span class="fl">379</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tmp2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">SMBassWB2</span>,<span class="va">id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">377</span>,<span class="fl">378</span>,<span class="fl">379</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Combine data frames to form a wide data frame (i.e., a left join)</span></span></span>
+<span class="r-in"><span><span class="va">wdat1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span><span class="va">tmp1</span>,<span class="va">tmp2</span>,by<span class="op">=</span><span class="st">"id"</span>,all.x<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">wdat1</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    id species lake gear yearcap lencap reading agecap  radcap    rad1    rad2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 377     SMB   WB    E    1990    244     DHO      7 7.32901 1.14855 2.40505</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 378     SMB   WB    E    1990    205     DHO      6 5.68903 1.44620 2.30517</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 379     SMB   WB    E    1990    117     DHO      2 3.05503 1.59628 3.05503</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      rad3    rad4    rad5    rad6    rad7 rad8 rad9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 3.43185 4.32332 5.25482 6.36840 7.32901   NA   NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 3.24254 4.23761 4.91082 5.68903      NA   NA   NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      NA      NA      NA      NA      NA   NA   NA</span>
+<span class="r-in"><span> </span></span>
+<span class="r-in"><span><span class="co"># Make a long data frame for examples (remove annuli with NA rads)</span></span></span>
+<span class="r-in"><span><span class="va">ldat1</span> <span class="op">&lt;-</span> <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span><span class="va">wdat1</span>,<span class="va">rad1</span><span class="op">:</span><span class="va">rad9</span>,names_to<span class="op">=</span><span class="st">"ann"</span>,names_prefix<span class="op">=</span><span class="st">"rad"</span>,</span></span>
+<span class="r-in"><span>                             values_to<span class="op">=</span><span class="st">"rad"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ldat1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">ldat1</span>,<span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">rad</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ldat1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">ldat1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ldat1</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     id species lake gear yearcap lencap reading agecap  radcap ann     rad</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  377     SMB   WB    E    1990    244     DHO      7 7.32901   1 1.14855</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  377     SMB   WB    E    1990    244     DHO      7 7.32901   2 2.40505</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  377     SMB   WB    E    1990    244     DHO      7 7.32901   3 3.43185</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  377     SMB   WB    E    1990    244     DHO      7 7.32901   4 4.32332</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  377     SMB   WB    E    1990    244     DHO      7 7.32901   5 5.25482</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  377     SMB   WB    E    1990    244     DHO      7 7.32901   6 6.36840</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  377     SMB   WB    E    1990    244     DHO      7 7.32901   7 7.32901</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  378     SMB   WB    E    1990    205     DHO      6 5.68903   1 1.44620</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  378     SMB   WB    E    1990    205     DHO      6 5.68903   2 2.30517</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 378     SMB   WB    E    1990    205     DHO      6 5.68903   3 3.24254</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 378     SMB   WB    E    1990    205     DHO      6 5.68903   4 4.23761</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 378     SMB   WB    E    1990    205     DHO      6 5.68903   5 4.91082</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 378     SMB   WB    E    1990    205     DHO      6 5.68903   6 5.68903</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 379     SMB   WB    E    1990    117     DHO      2 3.05503   1 1.59628</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 379     SMB   WB    E    1990    117     DHO      2 3.05503   2 3.05503</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Back-calculate using Dahl-Lea method</span></span></span>
+<span class="r-in"><span><span class="co"># wide in and wide out</span></span></span>
+<span class="r-in"><span><span class="va">wwres1</span> <span class="op">&lt;-</span> <span class="fu">backCalc</span><span class="op">(</span><span class="va">wdat1</span>,<span class="va">lencap</span>,BCM<span class="op">=</span><span class="st">"DALE"</span>,inFormat<span class="op">=</span><span class="st">"wide"</span>,digits<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Using the Dahl-Lea model.</span>
+<span class="r-in"><span><span class="va">wwres1</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 15</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      id species lake  gear  yearcap lencap reading agecap  len1  len2  len3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>   377 SMB     WB    E        <span style="text-decoration: underline;">1</span>990    244 DHO          7    38    80   114</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>   378 SMB     WB    E        <span style="text-decoration: underline;">1</span>990    205 DHO          6    52    83   117</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>   379 SMB     WB    E        <span style="text-decoration: underline;">1</span>990    117 DHO          2    61   117    <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 4 more variables: len4 &lt;dbl&gt;, len5 &lt;dbl&gt;, len6 &lt;dbl&gt;, len7 &lt;dbl&gt;</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># wide in and long out</span></span></span>
+<span class="r-in"><span><span class="va">wlres1</span> <span class="op">&lt;-</span> <span class="fu">backCalc</span><span class="op">(</span><span class="va">wdat1</span>,<span class="va">lencap</span>,BCM<span class="op">=</span><span class="st">"DALE"</span>,inFormat<span class="op">=</span><span class="st">"wide"</span>,</span></span>
+<span class="r-in"><span>                   outFormat<span class="op">=</span><span class="st">"long"</span>,digits<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Using the Dahl-Lea model.</span>
+<span class="r-in"><span><span class="va">wlres1</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 15 × 10</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       id species lake  gear  yearcap lencap reading agecap   ann bclen</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>   377 SMB     WB    E        <span style="text-decoration: underline;">1</span>990    244 DHO          7     1    38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>   377 SMB     WB    E        <span style="text-decoration: underline;">1</span>990    244 DHO          7     2    80</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>   377 SMB     WB    E        <span style="text-decoration: underline;">1</span>990    244 DHO          7     3   114</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>   377 SMB     WB    E        <span style="text-decoration: underline;">1</span>990    244 DHO          7     4   144</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>   377 SMB     WB    E        <span style="text-decoration: underline;">1</span>990    244 DHO          7     5   175</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>   377 SMB     WB    E        <span style="text-decoration: underline;">1</span>990    244 DHO          7     6   212</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>   377 SMB     WB    E        <span style="text-decoration: underline;">1</span>990    244 DHO          7     7   244</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>   378 SMB     WB    E        <span style="text-decoration: underline;">1</span>990    205 DHO          6     1    52</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>   378 SMB     WB    E        <span style="text-decoration: underline;">1</span>990    205 DHO          6     2    83</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>   378 SMB     WB    E        <span style="text-decoration: underline;">1</span>990    205 DHO          6     3   117</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span>   378 SMB     WB    E        <span style="text-decoration: underline;">1</span>990    205 DHO          6     4   153</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span>   378 SMB     WB    E        <span style="text-decoration: underline;">1</span>990    205 DHO          6     5   177</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span>   378 SMB     WB    E        <span style="text-decoration: underline;">1</span>990    205 DHO          6     6   205</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span>   379 SMB     WB    E        <span style="text-decoration: underline;">1</span>990    117 DHO          2     1    61</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span>   379 SMB     WB    E        <span style="text-decoration: underline;">1</span>990    117 DHO          2     2   117</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># long in and wide out</span></span></span>
+<span class="r-in"><span><span class="va">lwres1</span> <span class="op">&lt;-</span> <span class="fu">backCalc</span><span class="op">(</span><span class="va">ldat1</span>,<span class="va">lencap</span>,BCM<span class="op">=</span><span class="st">"DALE"</span>,inFormat<span class="op">=</span><span class="st">"long"</span>,digits<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Using the Dahl-Lea model.</span>
+<span class="r-in"><span><span class="va">lwres1</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     id species lake gear yearcap lencap reading agecap ann bclen</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  377     SMB   WB    E    1990    244     DHO      7   1    38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  377     SMB   WB    E    1990    244     DHO      7   2    80</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  377     SMB   WB    E    1990    244     DHO      7   3   114</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  377     SMB   WB    E    1990    244     DHO      7   4   144</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  377     SMB   WB    E    1990    244     DHO      7   5   175</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  377     SMB   WB    E    1990    244     DHO      7   6   212</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  377     SMB   WB    E    1990    244     DHO      7   7   244</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  378     SMB   WB    E    1990    205     DHO      6   1    52</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  378     SMB   WB    E    1990    205     DHO      6   2    83</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 378     SMB   WB    E    1990    205     DHO      6   3   117</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 378     SMB   WB    E    1990    205     DHO      6   4   153</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 378     SMB   WB    E    1990    205     DHO      6   5   177</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 378     SMB   WB    E    1990    205     DHO      6   6   205</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 379     SMB   WB    E    1990    117     DHO      2   1    61</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 379     SMB   WB    E    1990    117     DHO      2   2   117</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># wide in and long out</span></span></span>
+<span class="r-in"><span><span class="va">llres1</span> <span class="op">&lt;-</span> <span class="fu">backCalc</span><span class="op">(</span><span class="va">ldat1</span>,<span class="va">lencap</span>,BCM<span class="op">=</span><span class="st">"DALE"</span>,inFormat<span class="op">=</span><span class="st">"long"</span>,</span></span>
+<span class="r-in"><span>                   outFormat<span class="op">=</span><span class="st">"long"</span>,digits<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Using the Dahl-Lea model.</span>
+<span class="r-in"><span><span class="va">llres1</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     id species lake gear yearcap lencap reading agecap ann bclen</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  377     SMB   WB    E    1990    244     DHO      7   1    38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  377     SMB   WB    E    1990    244     DHO      7   2    80</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  377     SMB   WB    E    1990    244     DHO      7   3   114</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  377     SMB   WB    E    1990    244     DHO      7   4   144</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  377     SMB   WB    E    1990    244     DHO      7   5   175</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  377     SMB   WB    E    1990    244     DHO      7   6   212</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  377     SMB   WB    E    1990    244     DHO      7   7   244</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  378     SMB   WB    E    1990    205     DHO      6   1    52</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  378     SMB   WB    E    1990    205     DHO      6   2    83</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 378     SMB   WB    E    1990    205     DHO      6   3   117</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 378     SMB   WB    E    1990    205     DHO      6   4   153</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 378     SMB   WB    E    1990    205     DHO      6   5   177</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 378     SMB   WB    E    1990    205     DHO      6   6   205</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 379     SMB   WB    E    1990    117     DHO      2   1    61</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 379     SMB   WB    E    1990    117     DHO      2   2   117</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Situation with no radial measurements for some fish</span></span></span>
+<span class="r-in"><span><span class="co"># Create an extra fish with length (tmp1) but no rad</span></span></span>
+<span class="r-in"><span><span class="va">tmp1a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">tmp1</span>,</span></span>
+<span class="r-in"><span>               <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id<span class="op">=</span><span class="fl">999</span>,</span></span>
+<span class="r-in"><span>               species<span class="op">=</span><span class="st">"SMB"</span>,lake<span class="op">=</span><span class="st">"WB"</span>,gear<span class="op">=</span><span class="st">"E"</span>,</span></span>
+<span class="r-in"><span>               yearcap<span class="op">=</span><span class="fl">1990</span>,lencap<span class="op">=</span><span class="fl">225</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">wdat2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span><span class="va">tmp1a</span>,<span class="va">tmp2</span>,by<span class="op">=</span><span class="st">"id"</span>,all.x<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">wdat2</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    id species lake gear yearcap lencap reading agecap  radcap    rad1    rad2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 377     SMB   WB    E    1990    244     DHO      7 7.32901 1.14855 2.40505</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 378     SMB   WB    E    1990    205     DHO      6 5.68903 1.44620 2.30517</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 379     SMB   WB    E    1990    117     DHO      2 3.05503 1.59628 3.05503</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 999     SMB   WB    E    1990    225    &lt;NA&gt;     NA      NA      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      rad3    rad4    rad5    rad6    rad7 rad8 rad9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 3.43185 4.32332 5.25482 6.36840 7.32901   NA   NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 3.24254 4.23761 4.91082 5.68903      NA   NA   NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      NA      NA      NA      NA      NA   NA   NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      NA      NA      NA      NA      NA   NA   NA</span>
+<span class="r-in"><span>                </span></span>
+<span class="r-in"><span><span class="co"># wide in and wide out</span></span></span>
+<span class="r-in"><span><span class="va">wwres2</span> <span class="op">&lt;-</span> <span class="fu">backCalc</span><span class="op">(</span><span class="va">wdat2</span>,<span class="va">lencap</span>,BCM<span class="op">=</span><span class="st">"DALE"</span>,inFormat<span class="op">=</span><span class="st">"wide"</span>,digits<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Using the Dahl-Lea model.</span>
+<span class="r-in"><span><span class="va">wwres2</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 15</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      id species lake  gear  yearcap lencap reading agecap  len1  len2  len3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>   377 SMB     WB    E        <span style="text-decoration: underline;">1</span>990    244 DHO          7    38    80   114</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>   378 SMB     WB    E        <span style="text-decoration: underline;">1</span>990    205 DHO          6    52    83   117</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>   379 SMB     WB    E        <span style="text-decoration: underline;">1</span>990    117 DHO          2    61   117    <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>   999 SMB     WB    E        <span style="text-decoration: underline;">1</span>990    225 <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 4 more variables: len4 &lt;dbl&gt;, len5 &lt;dbl&gt;, len6 &lt;dbl&gt;, len7 &lt;dbl&gt;</span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -172,7 +324,7 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Derek Ogle.</p>
+  <p></p><p>Developed by <a href="http://derekogle.com" class="external-link">Derek H. Ogle</a>.</p>
 </div>
 
 <div class="pkgdown">

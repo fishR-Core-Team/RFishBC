@@ -1,4 +1,14 @@
-# RFishBC 0.2.6.9000
+# RFishBC 0.2.7 18-Dec-2023
+* Updated my e-mail address.
+* Removed use of `captioner` package in vignettes as it is no longer available on CRAN (address [#54](https://github.com/fishR-Core-Team/RFishBC/issues/54)).
+* Removed `itemize()` in `@return` section of `digitizeRadii()` documentation (addresses note in R-devel CRAN check).
+* Replaced `itemize()` with `describe()` in `@details` section of `RFBCoptions()` documentation (addresses note in R-devel CRAN check).
+* `backCalc()`: replaced use of `gather()` and `spread()` with `pivot_longer()` and `pivot_wider()` as `gather()` and `spread()` are no longer actively developed.
+* `backCalc()`: added ability to retain fish for which no radial measurements were made (addresses [#49](https://github.com/fishR-Core-Team/RFishBC/issues/49)).
+* `backCalc()`: added a warning if the r-squared value for the length-structure relationship used in the back-calculation technique is below 0.80 (only for those functions that use a linear model). This attempts to address [#47](https://github.com/fishR-Core-Team/RFishBC/issues/47).
+* `backCalc()`: Added simple examples to documentation.
+* `saveDigitizedImage()`: Added (address [#44](https://github.com/fishR-Core-Team/RFishBC/issues/44)).
+* `showDigitizedImage()`: Added `Encoding()` to unicode "arrows" for plotting to address an issue in the upcoming R v4.4.0 (will address [#59](https://github.com/fishR-Core-Team/RFishBC/issues/59)).
 
 # RFishBC 0.2.6 28-Aug-2023
 * Updated `test-coverage.yaml` to [latest version](https://github.com/r-lib/actions/blob/v2/examples/test-coverage.yaml).

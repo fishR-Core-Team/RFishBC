@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7</span>
       </span>
     </div>
 
@@ -259,26 +259,62 @@
     <h2>Value</h2>
     
 
-<p><code>NULL</code> if more than one file was given in <code>img</code> or, if only one file was given, a list that contains the following:</p><ul><li><p><code>image</code>: The full filename given in <code>img</code>.</p></li>
-<li><p><code>datanm</code>: The R data filename.</p></li>
-<li><p><code>description</code>: The description given in <code>description</code>.</p></li>
-<li><p><code>edgeIsAnnulus</code>: The logical given in <code>edgeIsAnnulus</code> that identified whether the structure edge/margin should be considered as an annulus.</p></li>
-<li><p><code>snap2Transect</code>: The logical from <code>snap2Transect</code> that identified whether the selected points were “snapped” to the transect or not.</p></li>
-<li><p><code>scalingFactor</code>: A single numeric used to convert measurements on the structure image to actual measurements on the structure. Measurements on the structure image were multiplied by this value.</p></li>
-<li><p><code>sfSource</code>: A character string that identifies whether the scaling factor was <code>"Provided"</code> through the <code>scalingFactor</code> argument or derived from a <code>"scaleBar"</code>.</p></li>
-<li><p><code>sbPts</code>: A data.frame of <code>x</code> and <code>y</code> coordinates for the endpoints of the scale-bar if the scaling factor was derived from a scale-bar.</p></li>
-<li><p><code>sbLength</code>: A single numeric that is the known (actual) length of the scale-bar if the scaling factor was derived from a scale-bar.</p></li>
-<li><p><code>sbUnits</code>: A single character that is the units of measurement for the known (actual) length of the scale-bar if the scaling factor was derived from a scale-bar.</p></li>
-<li><p><code>slpTransect</code>: The slope of the transect.</p></li>
-<li><p><code>intTransect</code>: The intercept of the transect.</p></li>
-<li><p><code>slpPerpTransect</code>: The slope of the line perpendicular to the transect.</p></li>
-<li><p><code>windowSize</code>: A numeric of length two that contains the width and height of the window used to display the structure image. One of these units was set by the given <code>windowSize</code> value.</p></li>
-<li><p><code>pixW2H</code>: The ratio of pixel width to height. This is used to correct measurements for when an image is not square.</p></li>
-<li><p><code>pts</code>: A data.frame that contains the <code>x</code> and <code>y</code> coordinates on the image for the selected annuli. These points may have been “snapped” to the transect if <code>snap2Transect==TRUE</code>.</p></li>
-<li><p><code>radii</code>: A data.frame that contains the unique <code>id</code>, the <code>reading</code> code, the age-at-capture in <code>agecap</code>, the annulus number in <code>ann</code>, the radial measurements in <code>rad</code>, and the radial measurement at capture in <code>radcap</code>.</p></li>
-<li><p><code>note</code>: A string that contains a note about the reading (e.g., a note that the image was poor, some annulus were suspect, or the image should be re-read.)</p></li>
-</ul><p>.</p>
-    </div>
+<p><code>NULL</code> if more than one file was given in <code>img</code>; otherwise (i.e., only one file was given) a list with the following:</p>
+<dl><dt><code>image</code>: </dt>
+<dd><p>The full filename given in <code>img</code>.</p></dd>
+
+ <dt><code>datanm</code>: </dt>
+<dd><p>The R data filename.</p></dd>
+
+ <dt><code>description</code>: </dt>
+<dd><p>The description given in <code>description</code>.</p></dd>
+
+ <dt><code>edgeIsAnnulus</code>: </dt>
+<dd><p>The logical given in <code>edgeIsAnnulus</code> that identified whether the structure edge/margin should be considered as an annulus.</p></dd>
+
+ <dt><code>snap2Transect</code>: </dt>
+<dd><p>The logical from <code>snap2Transect</code> that identified whether the selected points were “snapped” to the transect or not.</p></dd>
+
+ <dt><code>scalingFactor</code>: </dt>
+<dd><p>A single numeric used to convert measurements on the structure image to actual measurements on the structure. Measurements on the structure image were multiplied by this value.</p></dd>
+
+ <dt><code>sfSource</code>: </dt>
+<dd><p>A character string that identifies whether the scaling factor was <code>"Provided"</code> through the <code>scalingFactor</code> argument or derived from a <code>"scaleBar"</code>.</p></dd>
+
+ <dt><code>sbPts</code>: </dt>
+<dd><p>A data.frame of <code>x</code> and <code>y</code> coordinates for the endpoints of the scale-bar if the scaling factor was derived from a scale-bar.</p></dd>
+
+ <dt><code>sbLength</code>: </dt>
+<dd><p>A single numeric that is the known (actual) length of the scale-bar if the scaling factor was derived from a scale-bar.</p></dd>
+
+ <dt><code>sbUnits</code>: </dt>
+<dd><p>A single character that is the units of measurement for the known (actual) length of the scale-bar if the scaling factor was derived from a scale-bar.</p></dd>
+
+ <dt><code>slpTransect</code>: </dt>
+<dd><p>The slope of the transect.</p></dd>
+
+ <dt><code>intTransect</code>: </dt>
+<dd><p>The intercept of the transect.</p></dd>
+
+ <dt><code>slpPerpTransect</code>: </dt>
+<dd><p>The slope of the line perpendicular to the transect.</p></dd>
+
+ <dt><code>windowSize</code>: </dt>
+<dd><p>A numeric of length two that contains the width and height of the window used to display the structure image. One of these units was set by the given <code>windowSize</code> value.</p></dd>
+
+ <dt><code>pixW2H</code>: </dt>
+<dd><p>The ratio of pixel width to height. This is used to correct measurements for when an image is not square.</p></dd>
+
+ <dt><code>pts</code>: </dt>
+<dd><p>A data.frame that contains the <code>x</code> and <code>y</code> coordinates on the image for the selected annuli. These points may have been “snapped” to the transect if <code>snap2Transect==TRUE</code>.</p></dd>
+
+ <dt><code>radii</code>: </dt>
+<dd><p>A data.frame that contains the unique <code>id</code>, the <code>reading</code> code, the age-at-capture in <code>agecap</code>, the annulus number in <code>ann</code>, the radial measurements in <code>rad</code>, and the radial measurement at capture in <code>radcap</code>.</p></dd>
+
+ <dt><code>note</code>: </dt>
+<dd><p>A string that contains a note about the reading (e.g., a note that the image was poor, some annulus were suspect, or the image should be re-read.)</p></dd>
+
+</dl></div>
     <div id="details">
     <h2>Details</h2>
     <p>This function requires interaction from the user. A detailed description of its use is in the vignettes on the <a href="https://fishr-core-team.github.io/RFishBC/index.html">RFishBC website</a>.</p>
@@ -308,7 +344,7 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Derek Ogle.</p>
+  <p></p><p>Developed by <a href="http://derekogle.com" class="external-link">Derek H. Ogle</a>.</p>
 </div>
 
 <div class="pkgdown">

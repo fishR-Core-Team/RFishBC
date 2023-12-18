@@ -1,4 +1,4 @@
-pandoc: 2.11.3.1
+pandoc: 3.1.1
 pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
@@ -8,7 +8,7 @@ articles:
   collectRadiiData: collectRadiiData.html
   Other: Other.html
   seeRadiiData: seeRadiiData.html
-last_built: 2023-08-28T23:32Z
+last_built: 2023-12-18T13:52Z
 urls:
   reference: https://fishr-core-team.github.io/RFishBC/reference
   article: https://fishr-core-team.github.io/RFishBC/articles

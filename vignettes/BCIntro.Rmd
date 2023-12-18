@@ -13,18 +13,6 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-
-library(captioner)
-figcaps <- captioner(prefix="Figure")
-figcaps("BackCalcEx704","Plot of length-at-capture versus scale radius for West Bearskin Lake Smallmouth Bass in 1990. All four methods of backcalculation are shown for fish 704 ($R_{2}$=3.498, $L_{Cap}$=218, and $R_{Cap}$=7.44389; red point and line) with calculational steps shown with the arrows. Fish 701 is shown as the green point and line for comparative purposes.")
-
-eqncaps <- captioner(prefix="Equation")
-eqncaps("BackCalcELS")
-eqncaps("BackCalcESL")
-eqncaps("BackCalcDahlLea")
-eqncaps("BackCalcFraserLee")
-eqncaps("BackCalcSPHLinear")
-eqncaps("BackCalcBPHLinear")
 ```
 
 # What is Back-Calculation
@@ -46,9 +34,9 @@ Two types of measurements can be made on structures. A **radial** measurement is
 
 Back-calculation models estimate length at previous age $i$ (i.e., $L_{i}$) from known values of length at time of capture ($L_{Cap}$), scale radius to the $i$th annulus ($R_{i}$), and scale radius at time of capture ($R_{Cap}$). Several back-calculation models rely on the relationship between $R_{Cap}$ and $L_{Cap}$. Depending on the model, a function of mean $R_{Cap}$ for a given $L_{Cap}$ (i.e., $E(R_{Cap}|L_{Cap})$ ) or mean $L_{Cap}$ for a given $R_{Cap}$ (i.e., $E(L_{Cap}|R_{Cap})$) is used. These functions are not required to be linear, but often are, and in their linear form are represented as
 
-$$ E(L_{Cap}|R_{Cap})=a+bR_{Cap} \quad \quad \text{`r paste0("(",eqncaps("BackCalcELS",display="num"),")")`} $$
+$$ E(L_{Cap}|R_{Cap})=a+bR_{Cap} \quad \quad \text{(1)} $$
 
-$$ E(R_{Cap}|L_{Cap})=A+BL_{Cap} \quad \quad \text{`r paste0("(",eqncaps("BackCalcESL",display="num"),")")`} $$
+$$ E(R_{Cap}|L_{Cap})=A+BL_{Cap} \quad \quad \text{(2)} $$
 
 \  
 
@@ -62,9 +50,9 @@ $$ E(R_{Cap}|L_{Cap})=A+BL_{Cap} \quad \quad \text{`r paste0("(",eqncaps("BackCa
 
 The first back-calculation model was jointly developed by Knut Dahl and Einar Lea and appeared in Lea (1910). The underlying concept of the *Dahl-Lea model* is that growth of the calcified structure is in exact proportion to growth in length of the fish. With this, the ratio of $R_{i}$ to $R_{Cap}$ is the same as the ratio of $L_{i}$ to $L_{Cap}$. Rearrangement of this equality yields the Dahl-Lea back-calculation model
 
-$$ L_{i}=\frac{R_{i}}{R_{Cap}}L_{Cap} \quad \quad \text{`r paste0("(",eqncaps("BackCalcDahlLea",display="num"),")")`} $$
+$$ L_{i}=\frac{R_{i}}{R_{Cap}}L_{Cap} \quad \quad \text{(3)} $$
 
-The Dahl-Lea model describes a family of straight lines that pass through the **origin** and each observed ($R_{Cap},L_{Cap}$) point. Visually (`r figcaps("BackCalcEx704",display="cite")`), the estimated $L_{i}$ for a particular fish is found by locating $R_{i}$ along the x-axis, moving vertically until the straight line for that fish is met, and then moving horizontally to the point on the y-axis.
+The Dahl-Lea model describes a family of straight lines that pass through the **origin** and each observed ($R_{Cap},L_{Cap}$) point. Visually (Figure 1), the estimated $L_{i}$ for a particular fish is found by locating $R_{i}$ along the x-axis, moving vertically until the straight line for that fish is met, and then moving horizontally to the point on the y-axis.
 
 \  
 
@@ -152,43 +140,43 @@ Li <- Lc*(c+d*Ri)/(c+d*Rc)
 addCalc(Ri,Li,Rc,Lc,int)
 ```
 
-`r figcaps("BackCalcEx704")`
+Figure 1. Plot of length-at-capture versus scale radius for West Bearskin Lake Smallmouth Bass in 1990. All four methods of backcalculation are shown for fish 704 ($R_{2}$=3.498, $L_{Cap}$=218, and $R_{Cap}$=7.44389; red point and line) with calculational steps shown with the arrows. Fish 701 is shown as the green point and line for comparative purposes.
 
 \  
 
 Fraser (1916) was the first to describe, but Lee (1920) was the first to formally derive, the back-calculation model from the concept that "the growth *increment* of the scale is, on the average ..., a constant proportion of the growth *increment* of the fish" (Francis 1990). In practice, the *Fraser-Lee model* modified the Dahl-Lea model by adjusting for the length of the fish when the structure forms (i.e., $L=c$ when $R=0$), that is,
 
-$$ L_{i}=\frac{R_{i}}{R_{Cap}}(L_{Cap}-a)+a \quad \quad \text{`r paste0("(",eqncaps("BackCalcFraserLee",display="num"),")")`} $$
+$$ L_{i}=\frac{R_{i}}{R_{Cap}}(L_{Cap}-a)+a \quad \quad \text{(4)} $$
 
-\noindent where $a$ comes from the length of the fish at the time of structure formation, the intercept of the length-structure relationship regression (e.g., from `r eqncaps("BackCalcELS",display="cite")`), or, when using scales, from published "standards" for a species (Carlander 1982). The Fraser-Lee model describes a family of lines with an intercept of $a$ that pass through the ($R_{Cap},L_{Cap}$) point (Francis 1990; `r figcaps("BackCalcEx704",display="cite")`).
+\noindent where $a$ comes from the length of the fish at the time of structure formation, the intercept of the length-structure relationship regression (e.g., from Equation 1), or, when using scales, from published "standards" for a species (Carlander 1982). The Fraser-Lee model describes a family of lines with an intercept of $a$ that pass through the ($R_{Cap},L_{Cap}$) point (Francis 1990; Figure 1).
 
 The *scale proportional hypothesis* (SPH) model was named by Francis (1990), but was first recognized by Whitney and Carlander (1956) when they said "*{i}f the scale was 10 per cent larger when the fish was caught than the average scale for that size of fish, [then] the scale would be 10 per cent larger than normal throughout the life.*"  If "average" and "normal" are considered to be expected values, then this hypothesis can be written as
 
 $$ \frac{R_{i}}{E[R|L_{i}]}=\frac{R_{Cap}}{E[R|L_{Cap}]} $$
 
-If it is assumed that the scale-length relationship is linear, then the two expected values in these ratios are computed by plugging $L_{i}$ and $L_{Cap}$, respectively, into the scale-length relationship (i.e., `r eqncaps("BackCalcESL",display="cite")`) to produce
+If it is assumed that the scale-length relationship is linear, then the two expected values in these ratios are computed by plugging $L_{i}$ and $L_{Cap}$, respectively, into the scale-length relationship (i.e., Equation 2) to produce
 
 $$ \frac{R_{i}}{A+BL_{i}}=\frac{R_{Cap}}{A+BL_{Cap}} $$
 
 which can be solved for $L_{i}$ to yield the general SPH back-calculation model
 
-$$ L_{i} = \frac{R_{i}}{R_{Cap}}\left(L_{Cap}+\frac{A}{B}\right) - \frac{A}{B} \quad \quad \text{`r paste0("(",eqncaps("BackCalcSPHLinear",display="num"),")")`} $$
+$$ L_{i} = \frac{R_{i}}{R_{Cap}}\left(L_{Cap}+\frac{A}{B}\right) - \frac{A}{B} \quad \quad \text{(5)} $$
 
-The linear SPH model produces a family of lines that all have an intercept of $-\frac{A}{B}$ and pass through each observed ($R_{Cap},L_{Cap}$) point (`r figcaps("BackCalcEx704",display="cite")`). The SPH model is the same as the Fraser-Lee model except that the intercept from `r eqncaps("BackCalcELS",display="cite")` is replaced with $-\frac{A}{B}$. The SPH model is the same as the Dahl-Lea model if $A=0$.
+The linear SPH model produces a family of lines that all have an intercept of $-\frac{A}{B}$ and pass through each observed ($R_{Cap},L_{Cap}$) point (Figure 1). The SPH model is the same as the Fraser-Lee model except that the intercept from Equation 1 is replaced with $-\frac{A}{B}$. The SPH model is the same as the Dahl-Lea model if $A=0$.
 
 The *body proportional hypothesis* (BPH) model was also named by Francis (1990) and was also first recognized by Whitney and Carlander (1956) when they said "*{i}f a fish at time of capture were 10 per cent smaller than the average fish with that size of scale, [then] the fish would be 10 per cent smaller than the expected length for the size of that scale throughout life.*"  This hypothesis can be written as
 
 $$ \frac{L_{i}}{E[L|R_{i}]}=\frac{L_{Cap}}{E[L|R_{Cap}]} $$
 
-If the length-scale relationship is linear then the expected values can be found by plugging $R_{i}$ and $R_{Cap}$ into `r eqncaps("BackCalcELS",display="cite")` to get
+If the length-scale relationship is linear then the expected values can be found by plugging $R_{i}$ and $R_{Cap}$ into Equation 1 to get
 
 $$ \frac{L_{i}}{a+bR_{i}}=\frac{L_{Cap}}{a+bR_{Cap}} $$
 
 which can be solved for $L_{i}$ to yield the general BPH back-calculation model
 
-$$ L_{i}=L_{Cap}\frac{a+bR_{i}}{a+bR_{Cap}} \quad \quad \text{`r paste0("(",eqncaps("BackCalcBPHLinear",display="num"),")")`} $$
+$$ L_{i}=L_{Cap}\frac{a+bR_{i}}{a+bR_{Cap}} \quad \quad \text{(6)} $$
 
-The linear BPH model produces a family of lines that have an intercept of $\frac{aL_{Cap}}{a+bR_{Cap}}$ and pass through each observed ($R_{Cap},L_{Cap}$) point (`r figcaps("BackCalcEx704",display="cite")`). In contrast to the other back-calculation models, the BPH model uses lines with a different intercept for each fish. The linear BPH model is the same as the Dahl-Lea model if $a=0$.
+The linear BPH model produces a family of lines that have an intercept of $\frac{aL_{Cap}}{a+bR_{Cap}}$ and pass through each observed ($R_{Cap},L_{Cap}$) point (Figure 1). In contrast to the other back-calculation models, the BPH model uses lines with a different intercept for each fish. The linear BPH model is the same as the Dahl-Lea model if $a=0$.
 
 \  
 

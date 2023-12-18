@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7</span>
       </span>
     </div>
 
@@ -79,12 +79,30 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.2.5.9000" id="rfishbc-0259000">RFishBC 0.2.5.9000<a class="anchor" aria-label="anchor" href="#rfishbc-0259000"></a></h2>
+<h2 class="page-header" data-toc-text="0.2.7" id="rfishbc-027-18-dec-2023">RFishBC 0.2.7 18-Dec-2023<a class="anchor" aria-label="anchor" href="#rfishbc-027-18-dec-2023"></a></h2>
+<ul><li>Updated my e-mail address.</li>
+<li>Removed use of <code>captioner</code> package in vignettes as it is no longer available on CRAN (address <a href="https://github.com/fishR-Core-Team/RFishBC/issues/54" class="external-link">#54</a>).</li>
+<li>Removed <code>itemize()</code> in <code>@return</code> section of <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> documentation (addresses note in R-devel CRAN check).</li>
+<li>Replaced <code>itemize()</code> with <code>describe()</code> in <code>@details</code> section of <code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code> documentation (addresses note in R-devel CRAN check).</li>
+<li>
+<code><a href="../reference/backCalc.html">backCalc()</a></code>: replaced use of <code>gather()</code> and <code>spread()</code> with <code>pivot_longer()</code> and <code>pivot_wider()</code> as <code>gather()</code> and <code>spread()</code> are no longer actively developed.</li>
+<li>
+<code><a href="../reference/backCalc.html">backCalc()</a></code>: added ability to retain fish for which no radial measurements were made (addresses <a href="https://github.com/fishR-Core-Team/RFishBC/issues/49" class="external-link">#49</a>).</li>
+<li>
+<code><a href="../reference/backCalc.html">backCalc()</a></code>: added a warning if the r-squared value for the length-structure relationship used in the back-calculation technique is below 0.80 (only for those functions that use a linear model). This attempts to address <a href="https://github.com/fishR-Core-Team/RFishBC/issues/47" class="external-link">#47</a>.</li>
+<li>
+<code><a href="../reference/backCalc.html">backCalc()</a></code>: Added simple examples to documentation.</li>
+<li>
+<code>showDigitizedImages()</code>: Added <code><a href="https://rdrr.io/r/base/Encoding.html" class="external-link">Encoding()</a></code> to unicode “arrows” for plotting to address an issue in the upcoming R v4.4.0 (will address <a href="https://github.com/fishR-Core-Team/RFishBC/issues/59" class="external-link">#59</a>).</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.2.6" id="rfishbc-026-28-aug-2023">RFishBC 0.2.6 28-Aug-2023<small>2023-08-29</small><a class="anchor" aria-label="anchor" href="#rfishbc-026-28-aug-2023"></a></h2>
 <ul><li>Updated <code>test-coverage.yaml</code> to <a href="https://github.com/r-lib/actions/blob/v2/examples/test-coverage.yaml" class="external-link">latest version</a>.</li>
 <li>Updated <code>pkgdown.yaml</code> to <a href="https://github.com/r-lib/actions/blob/v2/examples/pkgdown.yaml" class="external-link">latest version</a>.</li>
 <li>
 <code><a href="../reference/listFiles.html">listFiles()</a></code>: Corrected URL errors in documentation.</li>
 <li>Fixed URL issues in <code><a href="../reference/listFiles.html">listFiles()</a></code> update (per CRAN request on 28-Aug-2023).</li>
+<li>Corrected many (all?) internal URLs in vignettes.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.2.5" id="rfishbc-025-25-aug-2023">RFishBC 0.2.5 25-Aug-2023<a class="anchor" aria-label="anchor" href="#rfishbc-025-25-aug-2023"></a></h2>
@@ -397,7 +415,8 @@
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.0.1" id="rfishbc-001-16-apr-18">RFishBC 0.0.1 16-Apr-18<a class="anchor" aria-label="anchor" href="#rfishbc-001-16-apr-18"></a></h2>
-<ul><li>First version. Everything is new.</li></ul></div>
+<ul><li>First version. Everything is new.</li>
+</ul></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -408,7 +427,7 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Derek Ogle.</p>
+  <p></p><p>Developed by <a href="http://derekogle.com" class="external-link">Derek H. Ogle</a>.</p>
 </div>
 
 <div class="pkgdown">

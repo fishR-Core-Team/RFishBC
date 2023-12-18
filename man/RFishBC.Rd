@@ -17,7 +17,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Derek Ogle \email{derek@derekogle.com} (\href{https://orcid.org/0000-0002-0370-9299}{ORCID})
+\strong{Maintainer}: Derek H. Ogle \email{DerekOgle51@gmail.com} (\href{https://orcid.org/0000-0002-0370-9299}{ORCID})
 
 }
 \keyword{internal}
