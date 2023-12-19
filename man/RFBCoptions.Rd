@@ -21,7 +21,7 @@ Additionally, a user may want to change a number of these arguments from their d
 }
 \details{
 The arguments that can be set with this function are:
-\itemize{
+\describe{
 \item{\code{reading}: }{A single character string (or an object that can be coerced to a character) that identifies the reading for a structure. If the structure will be read multiple times, then this may be used to specify the particular reading. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
 \item{\code{description}: }{A single character string that contains a short (but more detailed than in \code{reading}) description for a reading of a structure. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
 \item{\code{suffix}: }{A single character string that will be added to the RData file name. If \code{NULL} and \code{reading} is not \code{NULL}, then this will be replaced with the value in \code{reading}. Defaults to \code{NULL}. Used in \code{\link{digitizeRadii}}.}
@@ -88,5 +88,5 @@ RFBCoptions(pch.show=3,col.show="blue",cex.show=3)
 \code{\link{digitizeRadii}} and \code{\link{showDigitizedImage}}
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }

@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7</span>
       </span>
     </div>
 
@@ -107,9 +107,10 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Suggested Workflow for Back-Calculation</h1>
-                        <h4 data-toc-skip class="author">Derek H. Ogle</h4>
+                        <h4 data-toc-skip class="author">Derek H.
+Ogle</h4>
             
-            <h4 data-toc-skip class="date">2023-08-28</h4>
+            <h4 data-toc-skip class="date">2023-12-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/RFishBC/blob/HEAD/vignettes/BCWorkflow.Rmd" class="external-link"><code>vignettes/BCWorkflow.Rmd</code></a></small>
       <div class="hidden name"><code>BCWorkflow.Rmd</code></div>
@@ -118,26 +119,44 @@
 
     
     
-<p>This vignette suggests a workflow for back-calculating fish length at a previous age from measurements made to annuli on a calcified structure. This vignette assumes that you have a general understanding of the purpose and methods of back-calculation as described in the <a href="BCIntro.html">Short Introduction to Back-Calculation</a> vignette.</p>
+<p>This vignette suggests a workflow for back-calculating fish length at
+a previous age from measurements made to annuli on a calcified
+structure. This vignette assumes that you have a general understanding
+of the purpose and methods of back-calculation as described in the <a href="BCIntro.html">Short Introduction to Back-Calculation</a>
+vignette.</p>
 <ol style="list-style-type: decimal">
 <li>
 <p>Create a folder/directory for all files created below.</p>
 <ul>
-<li>Generally, all files in this folder/directory should pertain to one “set” of fish (perhaps a species for a particular year at a particular location).</li>
+<li>Generally, all files in this folder/directory should pertain to one
+“set” of fish (perhaps a species for a particular year at a particular
+location).</li>
 </ul>
 </li>
 <li>
-<p>Create a data file that contains all pertinent information about each individual fish to be examined.</p>
+<p>Create a data file that contains all pertinent information about
+each individual fish to be examined.</p>
 <ul>
-<li>This file should contain <em>at least</em> the fish’s unique identification number and length at the time of capture. Other information may include the date of capture, capture gear, location of capture, and sex of the fish, for example.</li>
+<li>This file should contain <em>at least</em> the fish’s unique
+identification number and length at the time of capture. Other
+information may include the date of capture, capture gear, location of
+capture, and sex of the fish, for example.</li>
 </ul>
 </li>
 <li>
-<p>Obtain quality digital images of calcified structures on which annuli can be identified.</p>
+<p>Obtain quality digital images of calcified structures on which
+annuli can be identified.</p>
 <ul>
-<li>Images should be saved in one of the following “bitmapped” formats – JPG/JPEG, PNG, BMP, TIFF/TIF.</li>
-<li>The filename should be “informative” (suggest having at least the fish’s unique identification number).</li>
-<li>Preferably, these images should have a “scale” of known length on the image. If not, then the image should be obtained at a known magnification and another image with an object of known length should be obtained at the same magnification. This image will be used to define a scaling factor to convert pixels on the image to actual lenths on the structure.</li>
+<li>Images should be saved in one of the following “bitmapped” formats –
+JPG/JPEG, PNG, BMP, TIFF/TIF.</li>
+<li>The filename should be “informative” (suggest having at least the
+fish’s unique identification number).</li>
+<li>Preferably, these images should have a “scale” of known length on
+the image. If not, then the image should be obtained at a known
+magnification and another image with an object of known length should be
+obtained at the same magnification. This image will be used to define a
+scaling factor to convert pixels on the image to actual lenths on the
+structure.</li>
 </ul>
 </li>
 <li>
@@ -145,7 +164,8 @@
 <ul>
 <li>Include <code><a href="https://fishr-core-team.github.io/RFishBC/">library(RFishBC)</a></code>.
 <ul>
-<li>See the<a href="../index.html#installation">RFishBC webpage</a> for instructions to install the <code>RFishBC</code> package.</li>
+<li>See the<a href="../index.html#installation">RFishBC webpage</a> for
+instructions to install the <code>RFishBC</code> package.</li>
 </ul>
 </li>
 <li>Include <code><a href="https://dplyr.tidyverse.org" class="external-link">library(dplyr)</a></code>.
@@ -153,34 +173,67 @@
 <li>May need to install from CRAN.</li>
 </ul>
 </li>
-<li>Use <code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd()</a></code> to set the working directory to where the script and structure images are saved as described in the <a href="collectRadiiData.html#static-structure-images">“Static Structure Images” section of the Collecting Radii Data</a> vignette.</li>
+<li>Use <code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd()</a></code> to set the working directory to where the
+script and structure images are saved as described in the <a href="collectRadiiData.html#static-structure-images">“Static Structure
+Images” section of the Collecting Radii Data</a> vignette.</li>
 </ul>
 </li>
 <li>
-<p>(<em>OPTIONAL</em>) Use <code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code> with the image of an object of known length at a specific magnification to derive an appropriate scaling factor for converting image pixels to actual lengths on the structure.</p>
+<p>(<em>OPTIONAL</em>) Use <code><a href="../reference/findScalingFactor.html">findScalingFactor()</a></code> with the
+image of an object of known length at a specific magnification to derive
+an appropriate scaling factor for converting image pixels to actual
+lengths on the structure.</p>
 <ul>
 <li>This is <strong>NOT</strong> required if
 <ul>
 <li>each structure image has a “scale” of known length on it.</li>
-<li>you will back-calculate lengths at previous ages using a model that does not require the relationship between fish length and structure length to be known (e.g., the Dahl-Lea method or Fraser-Lee method using a known length correction), or</li>
-<li>you don’t plan to back-calculate lengths at previous ages (i.e., you will simply record annuli).</li>
+<li>you will back-calculate lengths at previous ages using a model that
+does not require the relationship between fish length and structure
+length to be known (e.g., the Dahl-Lea method or Fraser-Lee method using
+a known length correction), or</li>
+<li>you don’t plan to back-calculate lengths at previous ages (i.e., you
+will simply record annuli).</li>
 </ul>
 </li>
-<li>This may need to be repeated if your structure images were captured at more than one magnification. In that case, you will need to keep track of the correction factor for each magnification.</li>
+<li>This may need to be repeated if your structure images were captured
+at more than one magnification. In that case, you will need to keep
+track of the correction factor for each magnification.</li>
 </ul>
 </li>
 <li>
-<p>(<em>OPTIONAL, BUT SUGGESTED</em>) Use <code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code> as described in the <a href="collectRadiiData.html#setoptions1">“Setting Argument Defaults for a Session” section of the Collecting Radii Data</a> vignette to set options used by <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> for all images to be digitized during the session.</p>
+<p>(<em>OPTIONAL, BUT SUGGESTED</em>) Use <code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code>
+as described in the <a href="collectRadiiData.html#setoptions1">“Setting
+Argument Defaults for a Session” section of the Collecting Radii
+Data</a> vignette to set options used by <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>
+for all images to be digitized during the session.</p>
 <ul>
-<li>Options commonly set at this time are <code>reading</code>; <code>description</code>; <code>suffix</code>; <code>edgeIsAnnulus</code>; and <code>scalingFactor</code> or <code>scaleBar</code> and <code>scaleBarLength</code>. Descriptions for each option are in the documentation for <code><a href="../reference/RFishBC.html">RFishBC()</a></code>.</li>
+<li>Options commonly set at this time are <code>reading</code>;
+<code>description</code>; <code>suffix</code>;
+<code>edgeIsAnnulus</code>; and <code>scalingFactor</code> or
+<code>scaleBar</code> and <code>scaleBarLength</code>. Descriptions for
+each option are in the documentation for <code><a href="../reference/RFishBC.html">RFishBC()</a></code>.</li>
 </ul>
 </li>
-<li><p>Use <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> to mark annuli on a structure image as described in the <a href="collectRadiiData.html#measurereadii">“Measure Radii” section of the Collecting Radii Data</a> vignette.</p></li>
-<li><p>(<em>OPTIONAL, AS NEEDED</em>) Examine the selected annuli with <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code> as described in the <a href="seeRadiiData.html#visualize-one-set-of-annuli">“Visualize One Set of Annuli” section of the Visualize Radii Data</a> vignette.</p></li>
-<li><p>Repeat the previous two steps for each structure in the working directory. Note that <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> can accept more than one image name to streamline the processing of many images. The use of multiple image names is described in <a href="collectRadiiData.html#multipleimages">“Processing Multiple Images” section of the Collecting Radii Data</a> vignette.</p></li>
-<li><p>Use <code><a href="../reference/combineData.html">combineData()</a></code> to combine the radial measurements from all analyzed images into a data.frame as described in the <a href="collectRadiiData.html#multiplestructures">“Combine Data from Multiple Structures” section of the Collecting Radii Data</a> vignette.</p></li>
-<li><p>Use <code><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv()</a></code> to write the data.frame from the previous step to an external CSV file as described in the <a href="collectRadiiData.html#outputdata">“Output Data File” sections of the Collecting Radii Data</a> vignette.</p></li>
-<li><p>Back-calculate lengths at previous ages as described in the <a href="BCCalc.html">Compute Back-Calculated Lengths</a> vignette.</p></li>
+<li><p>Use <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> to mark annuli on a structure
+image as described in the <a href="collectRadiiData.html#measurereadii">“Measure Radii” section of
+the Collecting Radii Data</a> vignette.</p></li>
+<li><p>(<em>OPTIONAL, AS NEEDED</em>) Examine the selected annuli with
+<code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code> as described in the <a href="seeRadiiData.html#visualize-one-set-of-annuli">“Visualize One Set
+of Annuli” section of the Visualize Radii Data</a> vignette.</p></li>
+<li><p>Repeat the previous two steps for each structure in the working
+directory. Note that <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> can accept more than
+one image name to streamline the processing of many images. The use of
+multiple image names is described in <a href="collectRadiiData.html#multipleimages">“Processing Multiple Images”
+section of the Collecting Radii Data</a> vignette.</p></li>
+<li><p>Use <code><a href="../reference/combineData.html">combineData()</a></code> to combine the radial measurements
+from all analyzed images into a data.frame as described in the <a href="collectRadiiData.html#multiplestructures">“Combine Data from
+Multiple Structures” section of the Collecting Radii Data</a>
+vignette.</p></li>
+<li><p>Use <code><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv()</a></code> to write the data.frame from the
+previous step to an external CSV file as described in the <a href="collectRadiiData.html#outputdata">“Output Data File” sections of
+the Collecting Radii Data</a> vignette.</p></li>
+<li><p>Back-calculate lengths at previous ages as described in the <a href="BCCalc.html">Compute Back-Calculated Lengths</a>
+vignette.</p></li>
 </ol>
 </div>
 
@@ -194,7 +247,7 @@
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Derek Ogle.</p>
+<p>Developed by <a href="http://derekogle.com" class="external-link">Derek H. Ogle</a>.</p>
 </div>
 
 <div class="pkgdown">

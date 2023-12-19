@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7</span>
       </span>
     </div>
 
@@ -106,10 +106,12 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Visualize Points Selected on a Calcified Structure</h1>
-                        <h4 data-toc-skip class="author">Derek H. Ogle</h4>
+      <h1 data-toc-skip>Visualize Points Selected on a Calcified
+Structure</h1>
+                        <h4 data-toc-skip class="author">Derek H.
+Ogle</h4>
             
-            <h4 data-toc-skip class="date">2023-08-28</h4>
+            <h4 data-toc-skip class="date">2023-12-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/RFishBC/blob/HEAD/vignettes/seeRadiiData.Rmd" class="external-link"><code>vignettes/seeRadiiData.Rmd</code></a></small>
       <div class="hidden name"><code>seeRadiiData.Rmd</code></div>
@@ -121,20 +123,35 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>A method for visualizing annular points that a user (or users) selected on a calcified structure is described in this vignette. This vignette assumes that you have an R data file or files created from selecting points on a calcified structure using <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> as described in the <a href="collectRadiiData.html">Collecting Radial Measurements</a> vignette. It also assumes that you understand the language and functions introducted in that vignette.</p>
+<p>A method for visualizing annular points that a user (or users)
+selected on a calcified structure is described in this vignette. This
+vignette assumes that you have an R data file or files created from
+selecting points on a calcified structure using
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> as described in the <a href="collectRadiiData.html">Collecting Radial Measurements</a>
+vignette. It also assumes that you understand the language and functions
+introducted in that vignette.</p>
 <p>This vignette will use the following R data files:</p>
 <ul>
-<li>“Scale_1_DHO.rds”: annular points selected on the “Scale_1.jpg” file in the <a href="collectRadiiData.html">Collecting Radial Measurements</a> vignette.</li>
-<li>“Scale_1_ODH.rds”: a second set of annular points selected on the “Scale_1.jpg” file in the <a href="collectRadiiData.html">Collecting Radial Measurements</a> vignette.</li>
-<li>“Scale_1_OHD.rds”: a third set of annular points selected on the “Scale_1.jpg” file in the <a href="collectRadiiData.html">Collecting Radial Measurements</a> vignette.</li>
-<li>“Oto140306_DHO.rds”: annular points selected on the “Oto140306.jpg” file. In contrast to the previous images, this image had a 1-mm scale-bar. This R data file was created with the following code.</li>
+<li>“Scale_1_DHO.rds”: annular points selected on the “Scale_1.jpg” file
+in the <a href="collectRadiiData.html">Collecting Radial
+Measurements</a> vignette.</li>
+<li>“Scale_1_ODH.rds”: a second set of annular points selected on the
+“Scale_1.jpg” file in the <a href="collectRadiiData.html">Collecting
+Radial Measurements</a> vignette.</li>
+<li>“Scale_1_OHD.rds”: a third set of annular points selected on the
+“Scale_1.jpg” file in the <a href="collectRadiiData.html">Collecting
+Radial Measurements</a> vignette.</li>
+<li>“Oto140306_DHO.rds”: annular points selected on the “Oto140306.jpg”
+file. In contrast to the previous images, this image had a 1-mm
+scale-bar. This R data file was created with the following code.</li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/digitizeRadii.html">digitizeRadii</a></span><span class="op">(</span><span class="st">"Oto140306.jpg"</span>,id<span class="op">=</span><span class="st">"140306"</span>,reading<span class="op">=</span><span class="st">"DHO"</span>,</span>
 <span>              description<span class="op">=</span><span class="st">"Used to demonstrate use of scale-bar."</span>,</span>
 <span>              scaleBar<span class="op">=</span><span class="cn">TRUE</span>,scaleBarLength<span class="op">=</span><span class="fl">1</span>,edgeIsAnnulus<span class="op">=</span><span class="cn">TRUE</span>,</span>
 <span>              windowSize<span class="op">=</span><span class="fl">12</span><span class="op">)</span></span></code></pre></div>
-<p>Only the <code>RFishBC</code> package is needed for this vignette.</p>
+<p>Only the <code>RFishBC</code> package is needed for this
+vignette.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://fishr-core-team.github.io/RFishBC/">RFishBC</a></span><span class="op">)</span></span></code></pre></div>
 <p> </p>
@@ -144,19 +161,38 @@
 <div class="section level2">
 <h2 id="visualize-one-set-of-annuli">Visualize One Set of Annuli<a class="anchor" aria-label="anchor" href="#visualize-one-set-of-annuli"></a>
 </h2>
-<p>You can review the selected annuli on a structure with <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>, which requires only the name of an R data file created from <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p>You can review the selected annuli on a structure with
+<code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>, which requires only the name of an R
+data file created from <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/showDigitizedImage.html">showDigitizedImage</a></span><span class="op">(</span><span class="st">"Scale_1_DHO.rds"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Scale_1_A.jpg"></p>
 <p> </p>
-<p>The plotting character, color, and relative size of the selected points may be changed with <code>pch.show=</code>, <code>col.show=</code>, and <code>cex.show=</code>, respectively. By default, the points are connected which will display as a linear transect if <code>makeTransect=TRUE</code> (the default) was used when selecting annuli in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>. The color and width of the connected lines may be changed with <code>col.connect=</code> and <code>lwd.connect=</code>. The connected lines may be excluded altogether with <code>connect=FALSE</code>. Annuli will be numbered if <code>showAnnuliLabels=TRUE</code> (the default) with label colors and relative size changed with <code>col.ann=</code> and <code>cex.ann=</code>, respectively. Annuli for which numbers are plotted may be controlled with <code>annuliLabels=</code> (e.g., only the first six plus several others after that are shown for the Kiyi otolith below). Defaults for all of these arguments may be set with <code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code> as was demonstrated in the <a href="collectRadiiData.html#setoptions1">Setting Arguments section of this vignette</a></p>
+<p>The plotting character, color, and relative size of the selected
+points may be changed with <code>pch.show=</code>,
+<code>col.show=</code>, and <code>cex.show=</code>, respectively. By
+default, the points are connected which will display as a linear
+transect if <code>makeTransect=TRUE</code> (the default) was used when
+selecting annuli in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>. The color and width of
+the connected lines may be changed with <code>col.connect=</code> and
+<code>lwd.connect=</code>. The connected lines may be excluded
+altogether with <code>connect=FALSE</code>. Annuli will be numbered if
+<code>showAnnuliLabels=TRUE</code> (the default) with label colors and
+relative size changed with <code>col.ann=</code> and
+<code>cex.ann=</code>, respectively. Annuli for which numbers are
+plotted may be controlled with <code>annuliLabels=</code> (e.g., only
+the first six plus several others after that are shown for the Kiyi
+otolith below). Defaults for all of these arguments may be set with
+<code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code> as was demonstrated in the <a href="collectRadiiData.html#setoptions1">Setting Arguments section of
+this vignette</a></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/showDigitizedImage.html">showDigitizedImage</a></span><span class="op">(</span><span class="st">"Oto140306_DHO.rds"</span>,pch.show<span class="op">=</span><span class="st">"+"</span>,col.show<span class="op">=</span><span class="st">"blue"</span>,</span>
 <span>                   col.connect<span class="op">=</span><span class="st">"white"</span>,col.ann<span class="op">=</span><span class="st">"black"</span>,cex.ann<span class="op">=</span><span class="fl">1</span>,</span>
 <span>                   annuliLabels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>,<span class="fl">8</span>,<span class="fl">10</span>,<span class="fl">13</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Oto140306_E.jpg"></p>
 <p> </p>
-<p>You can also just show the points without the transect and individually control the color of the annuli labels.</p>
+<p>You can also just show the points without the transect and
+individually control the color of the annuli labels.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/showDigitizedImage.html">showDigitizedImage</a></span><span class="op">(</span><span class="st">"Oto140306_DHO.rds"</span>,annuliLabels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>,<span class="fl">8</span>,<span class="fl">10</span>,<span class="fl">13</span><span class="op">)</span>,</span>
 <span>                   connect<span class="op">=</span><span class="cn">FALSE</span>,col.ann<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"black"</span>,<span class="fl">8</span><span class="op">)</span>,<span class="st">"white"</span><span class="op">)</span>,cex.ann<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
@@ -168,23 +204,37 @@
 <div class="section level2">
 <h2 id="visualize-multiple-readings-of-same-structure">Visualize Multiple Readings of Same Structure<a class="anchor" aria-label="anchor" href="#visualize-multiple-readings-of-same-structure"></a>
 </h2>
-<p>In some instances, you may be interested in visually comparing the selected points from multiple readings of the same structure. The <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code> function can accomplish this if it is given a vector of R data file names created from the same structure.</p>
-<p>The <code><a href="../reference/listFiles.html">listFiles()</a></code> function (described in the <a href="collectRadiiData.html">Collecting Radial Measurements</a> vignette) may be used to identify all filenames in the current working directory that have the file extension given in the first argument. For example, all files with the “rds” extension are found below.</p>
+<p>In some instances, you may be interested in visually comparing the
+selected points from multiple readings of the same structure. The
+<code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code> function can accomplish this if it is
+given a vector of R data file names created from the same structure.</p>
+<p>The <code><a href="../reference/listFiles.html">listFiles()</a></code> function (described in the <a href="collectRadiiData.html">Collecting Radial Measurements</a>
+vignette) may be used to identify all filenames in the current working
+directory that have the file extension given in the first argument. For
+example, all files with the “rds” extension are found below.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/listFiles.html">listFiles</a></span><span class="op">(</span><span class="st">"rds"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "DWS_Oto_89765_DHO.rds"  "Oto140306_DHO.rds"      "Oto140306_OHD.rds"     </span></span>
 <span><span class="co">#&gt; [4] "Scale_1_DHO.rds"        "Scale_1_ODH.rds"        "Scale_1_OHD.rds"       </span></span>
 <span><span class="co">#&gt; [7] "Scale_2_DHO.rds"        "Scale_2_OLDwNoNote.rds" "Scale_3_DHO.rds"</span></span></code></pre></div>
-<p>This list of names can be further filtered by including other key words for the filenames in <code>other=</code>. For example, all files with the “rds” extension that contain the keyword “Scale_1” are returned below. For our purposes here, these filenames are saved into an object (e.g., <code>fns</code>).</p>
+<p>This list of names can be further filtered by including other key
+words for the filenames in <code>other=</code>. For example, all files
+with the “rds” extension that contain the keyword “Scale_1” are returned
+below. For our purposes here, these filenames are saved into an object
+(e.g., <code>fns</code>).</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span> <span class="va">fns</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/listFiles.html">listFiles</a></span><span class="op">(</span><span class="st">"rds"</span>,other<span class="op">=</span><span class="st">"Scale_1"</span><span class="op">)</span> <span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Scale_1_DHO.rds" "Scale_1_ODH.rds" "Scale_1_OHD.rds"</span></span></code></pre></div>
-<p>The multiple readings of “Scale_1” can be seen by giving this set of filenames to <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>The multiple readings of “Scale_1” can be seen by giving this set of
+filenames to <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code>.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/showDigitizedImage.html">showDigitizedImage</a></span><span class="op">(</span><span class="va">fns</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Scale_1_B.jpg"></p>
 <p> </p>
-<p>Aspects of the connecting lines and points may be controlled with arguments to <code>showDigitizedData()</code>. For example, the code below uses different colors for each set of connecting lines and points.</p>
+<p>Aspects of the connecting lines and points may be controlled with
+arguments to <code>showDigitizedData()</code>. For example, the code
+below uses different colors for each set of connecting lines and
+points.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/showDigitizedImage.html">showDigitizedImage</a></span><span class="op">(</span><span class="va">fns</span>,col.show<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"yellow"</span>,<span class="st">"red"</span>,<span class="st">"blue"</span><span class="op">)</span>,</span>
 <span>                   col.connect<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red"</span>,<span class="st">"yellow"</span>,<span class="st">"green"</span><span class="op">)</span>,lwd.connect<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
@@ -196,11 +246,14 @@
 <h2 id="footnotes">Footnotes<a class="anchor" aria-label="anchor" href="#footnotes"></a>
 </h2>
 </div>
-<div class="footnotes">
+<div class="footnotes footnotes-end-of-document">
 <hr>
 <ol>
-<li id="fn1"><p>If no file name is given, then a dialog box will appear from which the data file can be selected. It is assumed that the file is in the current working directory.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>If no file names are given, then a dialog box will appear from which multiple data files can be selected.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>If no file name is given, then a dialog box will appear
+from which the data file can be selected. It is assumed that the file is
+in the current working directory.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>If no file names are given, then a dialog box will
+appear from which multiple data files can be selected.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>
@@ -217,7 +270,7 @@
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Derek Ogle.</p>
+<p>Developed by <a href="http://derekogle.com" class="external-link">Derek H. Ogle</a>.</p>
 </div>
 
 <div class="pkgdown">

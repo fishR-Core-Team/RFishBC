@@ -9,7 +9,7 @@
 #' 
 #' @details A detailed description of its use is in the "Other Features" vignette on the \href{https://fishr-core-team.github.io/RFishBC/index.html}{RFishBC website}.
 #' 
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #' 
 #' @export
 #'
@@ -42,7 +42,7 @@ addNote <- function(nms,note) {
 #' 
 #' @details A detailed description of its use is in the "Other Features" vignette on the \href{https://fishr-core-team.github.io/RFishBC/index.html}{RFishBC website}.
 #' 
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #' 
 #' @export
 #'

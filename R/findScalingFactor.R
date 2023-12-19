@@ -19,7 +19,7 @@
 #'
 #' @return A single numeric that is the scaling factor (a multiplier that is used to convert image lengths to actual lengths).
 #' 
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #' 
 #' @export
 #'

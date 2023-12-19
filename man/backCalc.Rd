@@ -34,7 +34,7 @@ backCalc(
 
 \item{L0p}{The length at the \dQuote{Biological Intercept} point. Only used in the \dQuote{Biological Intercept} (\code{BCM=3}), \dQuote{Watanabe and Kuroki} (\code{BCM=12}), and \dQuote{Modified Fry} (\code{BCM=14}) models.}
 
-\item{R0p}{The stucture radius at the \dQuote{Biological Intercept} point. Only used in the \dQuote{Biological Intercept} (\code{BCM=3}), \dQuote{Watanabe and Kuroki} (\code{BCM=12}), and \dQuote{Modified Fry} (\code{BCM=14}) models.}
+\item{R0p}{The structure radius at the \dQuote{Biological Intercept} point. Only used in the \dQuote{Biological Intercept} (\code{BCM=3}), \dQuote{Watanabe and Kuroki} (\code{BCM=12}), and \dQuote{Modified Fry} (\code{BCM=14}) models.}
 
 \item{L0}{The length at the arbitrarily selected point in the \dQuote{Fry} (\code{BCM=13}) model.}
 
@@ -51,6 +51,59 @@ A data.frame similar to \code{dat} but with the radial measurements replaced by 
 Back-calculates length at previous ages from a data.frame that was primarily created from \code{\link{combineData}} and \code{\link{digitizeRadii}}. One of several back-calculation models, described in \code{\link{bcFuns}} and Vigliola and Meekan (2009), can be used. Parameter estimates from various models of fish length on structure radius or structure radius on fish length are computed internally and used in the back-calculations. This function is intended to make back-calculation of fish length at previous ages as streamlined as possible.
 }
 \examples{
-## None yet.
+## Get some data
+data(SMBassWB1,package="RFishBC") ## fish data
+data(SMBassWB2,package="RFishBC") ## rad data
+
+# Simplify to 3 fish so we can see what is going on
+tmp1 <- subset(SMBassWB1,id \%in\% c(377,378,379))
+tmp2 <- subset(SMBassWB2,id \%in\% c(377,378,379))
+
+# Combine data frames to form a wide data frame (i.e., a left join)
+wdat1 <- merge(tmp1,tmp2,by="id",all.x=TRUE)
+wdat1
+ 
+# Make a long data frame for examples (remove annuli with NA rads)
+ldat1 <- tidyr::pivot_longer(wdat1,rad1:rad9,names_to="ann",names_prefix="rad",
+                             values_to="rad")
+ldat1 <- subset(ldat1,!is.na(rad))
+ldat1 <- as.data.frame(ldat1)
+ldat1
+
+## Back-calculate using Dahl-Lea method
+# wide in and wide out
+wwres1 <- backCalc(wdat1,lencap,BCM="DALE",inFormat="wide",digits=0)
+wwres1
+
+# wide in and long out
+wlres1 <- backCalc(wdat1,lencap,BCM="DALE",inFormat="wide",
+                   outFormat="long",digits=0)
+wlres1
+
+# long in and wide out
+lwres1 <- backCalc(ldat1,lencap,BCM="DALE",inFormat="long",digits=0)
+lwres1
+
+# wide in and long out
+llres1 <- backCalc(ldat1,lencap,BCM="DALE",inFormat="long",
+                   outFormat="long",digits=0)
+llres1
+
+## Situation with no radial measurements for some fish
+# Create an extra fish with length (tmp1) but no rad
+tmp1a <- rbind(tmp1,
+               data.frame(id=999,
+               species="SMB",lake="WB",gear="E",
+               yearcap=1990,lencap=225))
+wdat2 <- merge(tmp1a,tmp2,by="id",all.x=TRUE)
+wdat2
+                
+# wide in and wide out
+wwres2 <- backCalc(wdat2,lencap,BCM="DALE",inFormat="wide",digits=0)
+wwres2
 
 }
+\author{
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
+}
+\keyword{manip}

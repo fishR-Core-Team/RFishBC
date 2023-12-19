@@ -25,5 +25,5 @@ A detailed description of its use is in the "Other Features" vignette on the \hr
 
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }

@@ -1,6 +1,6 @@
 #' @title Show points selected on a structure image and saved in an R data file
 #' 
-#' @description Show points selected on a structure image to represent annuli that were saved to an R data file using \code{\link{digitizeRadii}}. This allows the user to reexaminine the selected points or overlay selected points from multiple readings of the structure.
+#' @description Show points selected on a structure image to represent annuli that were saved to an R data file using \code{\link{digitizeRadii}}. This allows the user to reexamine the selected points or overlay selected points from multiple readings of the structure.
 #' 
 #' @param nms A string (or vector of strings) that indicates the R data file(s) created with \code{\link{digitizeRadii}}. If missing the user will be provided a dialog box from which to choose the file(s). The file(s) must be in the current working directory (see \code{\link{getwd}} result). May also be a single \code{RFishBC} object created with \code{\link{digitizeRadii}}.
 #' @param deviceType See details in \code{\link{RFBCoptions}}.
@@ -26,7 +26,7 @@
 #'
 #' @seealso \code{\link{digitizeRadii}} and \code{\link{RFBCoptions}}.
 #' 
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #' 
 #' @export
 #'
@@ -197,6 +197,7 @@ iShowOneDigitizedImage <- function(dat,deviceType,
   if (useArrows) {
     pos <- iFindLabelPos(dat)
     lbl <- intToUtf8(c(9650,9658,9660,9668)[pos])
+    lbl <- Encoding(lbl)
     graphics::text(y~x,data=dat$pts[2:(nrow(dat$pts)-1),],labels=lbl,
                    col=col.show,cex=cex.show,pos=pos,offset=0)
     if (dat$edgeIsAnnulus)

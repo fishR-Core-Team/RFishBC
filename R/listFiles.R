@@ -14,7 +14,7 @@
 #'
 #' @return Character vector.
 #' 
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #' 
 #' @export
 #'

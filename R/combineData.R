@@ -11,7 +11,7 @@
 #' 
 #' @details A detailed description of its use is in \href{https://fishr-core-team.github.io/RFishBC/articles/collectRadiiData.html}{this vignette} on the \href{https://fishr-core-team.github.io/RFishBC/index.html}{RFishBC website}. The list of R data file names may be efficiently created with \code{\link{listFiles}} as described in that vignette. The R data file names may also be selected from a dialog box if using Windows.
 #' 
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #' 
 #' @export
 #'

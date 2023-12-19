@@ -16,7 +16,7 @@
 #'
 #' The newly computed data will be labeled with a prefix the same as \code{out.type=} (i.e., \code{"rad"} or \code{"inc"}) unless \code{out.pre=} is set by the user. For example, if the data are converted to radial measurements, then the output variables will be \dQuote{rad1}, \dQuote{rad2}, etc. unless \code{out.pre=} was changed from the default. This function assumes that the measurements start with age-1.
 #'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
 #' @seealso See \code{\link{addRadCap}} for related functionality.
 #'
@@ -92,7 +92,7 @@ gConvert<-function(df,in.pre=NULL,in.var=NULL,
 #'
 #' @seealso See \code{\link{gConvert}} for related functionality.
 #'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
 #' @keywords manip
 #'

@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7</span>
       </span>
     </div>
 
@@ -107,9 +107,10 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Other Features / Common Questions</h1>
-                        <h4 data-toc-skip class="author">Derek H. Ogle</h4>
+                        <h4 data-toc-skip class="author">Derek H.
+Ogle</h4>
             
-            <h4 data-toc-skip class="date">2023-08-28</h4>
+            <h4 data-toc-skip class="date">2023-12-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/RFishBC/blob/HEAD/vignettes/Other.Rmd" class="external-link"><code>vignettes/Other.Rmd</code></a></small>
       <div class="hidden name"><code>Other.Rmd</code></div>
@@ -121,11 +122,22 @@
 <div class="section level2">
 <h2 id="collect-just-age-data">Collect Just Age Data<a class="anchor" aria-label="anchor" href="#collect-just-age-data"></a>
 </h2>
-<p>Some researchers would like to use RFishBC to collect age data only without any concern for measurements on the image for the purposes of back-calculation. RFishBC will record measurements on the structure but these measurements can ultimately be ignored if you simply want to have a data.frame of estimated ages. This is demonstrated below using a few functions from the <code>dplyr</code> package.</p>
+<p>Some researchers would like to use RFishBC to collect age data only
+without any concern for measurements on the image for the purposes of
+back-calculation. RFishBC will record measurements on the structure but
+these measurements can ultimately be ignored if you simply want to have
+a data.frame of estimated ages. This is demonstrated below using a few
+functions from the <code>dplyr</code> package.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://fishr-core-team.github.io/RFishBC/">RFishBC</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></code></pre></div>
-<p>This example also uses the “DHO” readings of “Scale_1.jpg”, “Scale_2.jpg”, and “Scale_3.jpg” demonstrated in the <a href="collectRadiiData.html#multiplestructures">Combine Data from Multiple Structures section of the Collecting Radial Measurements</a> vignette. These readings are put into a list using <code><a href="../reference/listFiles.html">listFiles()</a></code> and their data are combined into a <strong>WIDE</strong> format data.frame below (as described in <a href="collectRadiiData.html#multiplestructures">the Collecting Radial Measurements</a> vignette).</p>
+<p>This example also uses the “DHO” readings of “Scale_1.jpg”,
+“Scale_2.jpg”, and “Scale_3.jpg” demonstrated in the <a href="collectRadiiData.html#multiplestructures">Combine Data from
+Multiple Structures section of the Collecting Radial Measurements</a>
+vignette. These readings are put into a list using
+<code><a href="../reference/listFiles.html">listFiles()</a></code> and their data are combined into a
+<strong>WIDE</strong> format data.frame below (as described in <a href="collectRadiiData.html#multiplestructures">the Collecting Radial
+Measurements</a> vignette).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span> <span class="va">fns</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/listFiles.html">listFiles</a></span><span class="op">(</span><span class="st">"rds"</span>,other<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Scale"</span>,<span class="st">"DHO"</span><span class="op">)</span><span class="op">)</span> <span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Scale_1_DHO.rds" "Scale_2_DHO.rds" "Scale_3_DHO.rds"</span></span>
@@ -134,7 +146,14 @@
 <span><span class="co">#&gt; 1  1     DHO      5 0.5163737 0.2208691 0.2893299 0.3259383 0.4626601 0.5017862</span></span>
 <span><span class="co">#&gt; 2  2     DHO      4 0.3908662 0.1377625 0.2236611 0.3026716 0.3530492        NA</span></span>
 <span><span class="co">#&gt; 3  3     DHO      1 0.5202232 0.5202232        NA        NA        NA        NA</span></span></code></pre></div>
-<p>A data.frame of just ages is created from this data.frame by removing all variables that contain the word “rad” using <code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select()</a></code> from <code>dplyr</code>. The <code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select()</a></code> function requires the original data.frame as its first argument and then directions on variables to select as the ensuing arguments. There are several ways to get the required data.frame with these simple data as shown below – one can select variables individually, select contiguous variables, or deselect (negative sign) variables that contain the word “rad”.</p>
+<p>A data.frame of just ages is created from this data.frame by removing
+all variables that contain the word “rad” using <code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select()</a></code>
+from <code>dplyr</code>. The <code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select()</a></code> function requires the
+original data.frame as its first argument and then directions on
+variables to select as the ensuing arguments. There are several ways to
+get the required data.frame with these simple data as shown below – one
+can select variables individually, select contiguous variables, or
+deselect (negative sign) variables that contain the word “rad”.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span> <span class="va">dfrad2ages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">dfrad2</span>,<span class="va">id</span>,<span class="va">reading</span>,<span class="va">agecap</span><span class="op">)</span> <span class="op">)</span></span>
 <span><span class="co">#&gt;   id reading agecap</span></span>
@@ -151,7 +170,8 @@
 <span><span class="co">#&gt; 1  1     DHO      5</span></span>
 <span><span class="co">#&gt; 2  2     DHO      4</span></span>
 <span><span class="co">#&gt; 3  3     DHO      1</span></span></code></pre></div>
-<p>The <code>agecap</code> variable can be renamed with <code><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename()</a></code> from <code>dplyr</code>.</p>
+<p>The <code>agecap</code> variable can be renamed with
+<code><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename()</a></code> from <code>dplyr</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span> <span class="va">dfrad2ages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span><span class="va">dfrad2ages</span>,age<span class="op">=</span><span class="va">agecap</span><span class="op">)</span> <span class="op">)</span></span>
 <span><span class="co">#&gt;   id reading age</span></span>
@@ -164,17 +184,32 @@
 <div class="section level2">
 <h2 id="curved-growth-trajectories">Curved Growth Trajectories<a class="anchor" aria-label="anchor" href="#curved-growth-trajectories"></a>
 </h2>
-<p>Some structures, especially otoliths, often have “growth trajectories” on which the user wants to mark annuli that are nonlinear. In these instances, the use of a linear transect is inappropriate. RFishBC can handle such circumstances by using <code>makeTransect=FALSE</code> in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>. When using <code>makeTransect=FALSE</code> the user will not select a transect as shown in the <a href="collectRadiiData.html">Collecting Radial Measurements</a> vignette. The user will instead be prompted to successively mark the structure center, annuli, and structure margin.</p>
+<p>Some structures, especially otoliths, often have “growth
+trajectories” on which the user wants to mark annuli that are nonlinear.
+In these instances, the use of a linear transect is inappropriate.
+RFishBC can handle such circumstances by using
+<code>makeTransect=FALSE</code> in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>. When
+using <code>makeTransect=FALSE</code> the user will not select a
+transect as shown in the <a href="collectRadiiData.html">Collecting
+Radial Measurements</a> vignette. The user will instead be prompted to
+successively mark the structure center, annuli, and structure
+margin.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/digitizeRadii.html">digitizeRadii</a></span><span class="op">(</span><span class="st">"DWS_Oto_89765.jpg"</span>,id<span class="op">=</span><span class="fl">89765</span>,reading<span class="op">=</span><span class="st">"DHO"</span>,edgeIsAnnulus<span class="op">=</span><span class="cn">TRUE</span>,</span>
 <span>              makeTransect<span class="op">=</span><span class="cn">FALSE</span>,windowSize<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></code></pre></div>
-<p>The results can be seen with <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code> as described in the <a href="seeRadiiData.html">Visualize Radial Data</a> vignette.</p>
+<p>The results can be seen with <code><a href="../reference/showDigitizedImage.html">showDigitizedImage()</a></code> as
+described in the <a href="seeRadiiData.html">Visualize Radial Data</a>
+vignette.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/showDigitizedImage.html">showDigitizedImage</a></span><span class="op">(</span><span class="st">"DWS_Oto_89765_DHO.rds"</span>,</span>
 <span>                   annuliLabels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span>,<span class="fl">10</span>,<span class="fl">12</span>,<span class="fl">14</span>,<span class="fl">17</span><span class="op">)</span>,cex.ann<span class="op">=</span><span class="fl">0.8</span><span class="op">)</span></span></code></pre></div>
 <p><img src="DWS_Oto_89765_A.jpg"></p>
 <p> </p>
-<p>RFishBC calculates radii as the cumulative sum of the annular increments rather than the distance from the structure center to the annuli. These radii or increments can be extracted as described in the <a href="collectRadiiData.html">Collecting Radial Measurements</a> vignette.</p>
+<p>RFishBC calculates radii as the cumulative sum of the annular
+increments rather than the distance from the structure center to the
+annuli. These radii or increments can be extracted as described in the
+<a href="collectRadiiData.html">Collecting Radial Measurements</a>
+vignette.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/combineData.html">combineData</a></span><span class="op">(</span><span class="st">"DWS_Oto_89765_DHO.rds"</span>,formatOut<span class="op">=</span><span class="st">"wide"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      id reading agecap  radcap      rad1      rad2      rad3      rad4</span></span>
@@ -196,7 +231,16 @@
 <div class="section level2">
 <h2 id="extract-increments-rather-than-radii">Extract Increments Rather than Radii<a class="anchor" aria-label="anchor" href="#extract-increments-rather-than-radii"></a>
 </h2>
-<p>As noted in the <a href="BCIntro.html">Introduction to Back-calculation</a> vignette, radial measurements are the distance from the structure center to the annulus.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> In some instances, the user may desire incremental rather than radial measurements. Incremental measurements are the distances between successive annuli, with the first increment being the distance from the structure center to the first annulus. Increments may be extracted from the data stored in the R data file with <code><a href="../reference/combineData.html">combineData()</a></code> using <code>typeOut="inc"</code>. For example, the radial and incremental measurements for the “DHO” reading of “Scale_1.jpg” in wide format are shown below.</p>
+<p>As noted in the <a href="BCIntro.html">Introduction to
+Back-calculation</a> vignette, radial measurements are the distance from
+the structure center to the annulus.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> In some instances, the user may desire
+incremental rather than radial measurements. Incremental measurements
+are the distances between successive annuli, with the first increment
+being the distance from the structure center to the first annulus.
+Increments may be extracted from the data stored in the R data file with
+<code><a href="../reference/combineData.html">combineData()</a></code> using <code>typeOut="inc"</code>. For
+example, the radial and incremental measurements for the “DHO” reading
+of “Scale_1.jpg” in wide format are shown below.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/combineData.html">combineData</a></span><span class="op">(</span><span class="st">"Scale_1_DHO.rds"</span>,formatOut<span class="op">=</span><span class="st">"wide"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   id reading agecap    radcap      rad1      rad2      rad3      rad4      rad5</span></span>
@@ -206,7 +250,9 @@
 <span><span class="co">#&gt; 1  1     DHO      5 0.5163737 0.2208691 0.06846078 0.03660836 0.1367218</span></span>
 <span><span class="co">#&gt;         inc5</span></span>
 <span><span class="co">#&gt; 1 0.03912615</span></span></code></pre></div>
-<p>Of course, increments from several sets of measurements may also be extracted (note that the list of R data files in <code>fns</code> was created <a href="l#collect-just-age-data">above</a>)</p>
+<p>Of course, increments from several sets of measurements may also be
+extracted (note that the list of R data files in <code>fns</code> was
+created <a href="l#collect-just-age-data">above</a>)</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/combineData.html">combineData</a></span><span class="op">(</span><span class="va">fns</span>,formatOut<span class="op">=</span><span class="st">"wide"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   id reading agecap    radcap      rad1      rad2      rad3      rad4      rad5</span></span>
@@ -228,16 +274,47 @@
 <div class="section level2">
 <h2 id="using-flagging-notes">Using “Flagging” Notes<a class="anchor" aria-label="anchor" href="#using-flagging-notes"></a>
 </h2>
-<p>A user may want to include a “flagging note” for a particular reading in the corresponding R Data file. These notes may be used, for example, to indicate that the reading was particularly difficult, needs to be reviewed, or needs to be re-read. As of version 0.2.1, notes may be added to the <code>note</code> object in the R Data files in two ways.</p>
-<p>First, a note may be added to an already saved R Data file with <code><a href="../reference/addNote.html">addNote()</a></code>. If no arguments are included in this function then the user will be prompted to choose the existing R Data file and then to enter the note. If the R Data file previously had a note then that note will be over-written with the new note. The user may also supply the name of the R Data file as the first argument and the note as the second argument to <code><a href="../reference/addNote.html">addNote()</a></code>. For example, the following code would add a simple note to the “Scale_1_DHO.rds” file.</p>
+<p>A user may want to include a “flagging note” for a particular reading
+in the corresponding R Data file. These notes may be used, for example,
+to indicate that the reading was particularly difficult, needs to be
+reviewed, or needs to be re-read. As of version 0.2.1, notes may be
+added to the <code>note</code> object in the R Data files in two
+ways.</p>
+<p>First, a note may be added to an already saved R Data file with
+<code><a href="../reference/addNote.html">addNote()</a></code>. If no arguments are included in this function
+then the user will be prompted to choose the existing R Data file and
+then to enter the note. If the R Data file previously had a note then
+that note will be over-written with the new note. The user may also
+supply the name of the R Data file as the first argument and the note as
+the second argument to <code><a href="../reference/addNote.html">addNote()</a></code>. For example, the
+following code would add a simple note to the “Scale_1_DHO.rds”
+file.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/addNote.html">addNote</a></span><span class="op">(</span><span class="st">"Scale_1_DHO.rds"</span>,<span class="st">"3rd annulus location was difficult"</span><span class="op">)</span></span></code></pre></div>
-<p>Second, a note may be added before the R Data file is written by including <code>addNote=TRUE</code> to <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>. The note may be provided before processing the image by including the note in <code>note=</code> in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>. However, the user is more likely to not have a note about the reading of the image until after the image has been read. If no note is given in <code>note=</code> (the default behavior) then the user will be prompted to enter a note after the image has been read but before the R Data file is written. This option may be set for the session with <code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code> (as demonstrated in the <a href="collectRadiiData.html">Collecting Radial Measurements</a> vignette). For example, the following code would result in the dialog box shown below.</p>
+<p>Second, a note may be added before the R Data file is written by
+including <code>addNote=TRUE</code> to <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>. The
+note may be provided before processing the image by including the note
+in <code>note=</code> in <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>. However, the user
+is more likely to not have a note about the reading of the image until
+after the image has been read. If no note is given in <code>note=</code>
+(the default behavior) then the user will be prompted to enter a note
+after the image has been read but before the R Data file is written.
+This option may be set for the session with <code><a href="../reference/RFBCoptions.html">RFBCoptions()</a></code>
+(as demonstrated in the <a href="collectRadiiData.html">Collecting
+Radial Measurements</a> vignette). For example, the following code would
+result in the dialog box shown below.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/RFBCoptions.html">RFBCoptions</a></span><span class="op">(</span>reading<span class="op">=</span><span class="st">"DHO"</span>,edgeIsAnnulus<span class="op">=</span><span class="cn">FALSE</span>,windowSize<span class="op">=</span><span class="fl">10</span>,addNote<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/digitizeRadii.html">digitizeRadii</a></span><span class="op">(</span><span class="st">"Scale_1.jpg"</span>,id<span class="op">=</span><span class="st">"1"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Scale_1_D.jpg"></p>
-<p>The notes for a list of R Data file names may be found with <code><a href="../reference/findNotes.html">findNotes()</a></code>. The first argument to this function can be a vector of R Data file names in the current working directory. If this argument is missing, then the user will be prompted to choose R Data files from a dialog box. For example, the following code returns the list of notes for all fish ids and readings in the current working directory (note that the second file listed is not a valid file, so it was excluded from the vector given to <code><a href="../reference/findNotes.html">findNotes()</a></code>).</p>
+<p>The notes for a list of R Data file names may be found with
+<code><a href="../reference/findNotes.html">findNotes()</a></code>. The first argument to this function can be a
+vector of R Data file names in the current working directory. If this
+argument is missing, then the user will be prompted to choose R Data
+files from a dialog box. For example, the following code returns the
+list of notes for all fish ids and readings in the current working
+directory (note that the second file listed is not a valid file, so it
+was excluded from the vector given to <code><a href="../reference/findNotes.html">findNotes()</a></code>).</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span> <span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/listFiles.html">listFiles</a></span><span class="op">(</span><span class="st">".rds"</span><span class="op">)</span> <span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "DWS_Oto_89765_DHO.rds"  "Oto140306_DHO.rds"      "Oto140306_OHD.rds"     </span></span>
@@ -253,7 +330,9 @@
 <span><span class="co">#&gt; 6      2     DHO                                   </span></span>
 <span><span class="co">#&gt; 7      2     DHO                                   </span></span>
 <span><span class="co">#&gt; 8      3     DHO</span></span></code></pre></div>
-<p>The results from <code><a href="../reference/findNotes.html">findNotes()</a></code> is a vector that can be manipulated. For example, the following shows the list for only those ids and readings for which a note was made.</p>
+<p>The results from <code><a href="../reference/findNotes.html">findNotes()</a></code> is a vector that can be
+manipulated. For example, the following shows the list for only those
+ids and readings for which a note was made.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">notes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/findNotes.html">findNotes</a></span><span class="op">(</span><span class="va">tmp</span><span class="op">[</span><span class="op">-</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">notes</span>,<span class="va">note</span><span class="op">!=</span><span class="st">""</span><span class="op">)</span></span>
@@ -261,7 +340,9 @@
 <span><span class="co">#&gt; 1  1     DHO 3rd annulus location was difficult</span></span>
 <span><span class="co">#&gt; 2  1     ODH              Test note as argument</span></span>
 <span><span class="co">#&gt; 3  1     OHD             Test not as dialog box</span></span></code></pre></div>
-<p>Additionally, one can append the notes to the radial (or incremental) measurements returned from <code><a href="../reference/combineData.html">combineData()</a></code> (e.g., <a href="l#collect-just-age-data">as shown above</a>) using <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join()</a></code> from <code>dplyr</code> as shown below.</p>
+<p>Additionally, one can append the notes to the radial (or incremental)
+measurements returned from <code><a href="../reference/combineData.html">combineData()</a></code> (e.g., <a href="l#collect-just-age-data">as shown above</a>) using
+<code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join()</a></code> from <code>dplyr</code> as shown below.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span> <span class="va">fns</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/listFiles.html">listFiles</a></span><span class="op">(</span><span class="st">"rds"</span>,other<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Scale"</span>,<span class="st">"DHO"</span><span class="op">)</span><span class="op">)</span> <span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Scale_1_DHO.rds" "Scale_2_DHO.rds" "Scale_3_DHO.rds"</span></span>
@@ -288,10 +369,13 @@
 <h2 id="footnotes">Footnotes<a class="anchor" aria-label="anchor" href="#footnotes"></a>
 </h2>
 </div>
-<div class="footnotes">
+<div class="footnotes footnotes-end-of-document">
 <hr>
 <ol>
-<li id="fn1"><p>Note that with <a href="#curved-growth-trajectories">curved growth trajectories</a>, radial measurements are the cumulative sum of the distances between annuli with the first distance being from the structure center to the first annulus.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>Note that with <a href="#curved-growth-trajectories">curved growth trajectories</a>,
+radial measurements are the cumulative sum of the distances between
+annuli with the first distance being from the structure center to the
+first annulus.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>
@@ -308,7 +392,7 @@
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Derek Ogle.</p>
+<p>Developed by <a href="http://derekogle.com" class="external-link">Derek H. Ogle</a>.</p>
 </div>
 
 <div class="pkgdown">

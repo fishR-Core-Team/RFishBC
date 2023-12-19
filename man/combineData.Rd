@@ -34,5 +34,5 @@ A detailed description of its use is in \href{https://fishr-core-team.github.io/
 
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
