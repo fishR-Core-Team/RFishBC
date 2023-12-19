@@ -18,7 +18,56 @@
 #' @return A data.frame similar to \code{dat} but with the radial measurements replaced by back-calculated lengths at previous ages.
 #'
 #' @examples
-#' ## None yet.
+#' ## Get some data
+#' data(SMBassWB1,package="RFishBC") ## fish data
+#' data(SMBassWB2,package="RFishBC") ## rad data
+#' 
+#' # Simplify to 3 fish so we can see what is going on
+#' tmp1 <- subset(SMBassWB1,id %in% c(377,378,379))
+#' tmp2 <- subset(SMBassWB2,id %in% c(377,378,379))
+#' 
+#' # Combine data frames to form a wide data frame (i.e., a left join)
+#' wdat1 <- merge(tmp1,tmp2,by="id",all.x=TRUE)
+#' wdat1
+#'  
+#' # Make a long data frame for examples (remove annuli with NA rads)
+#' ldat1 <- tidyr::pivot_longer(wdat1,rad1:rad9,names_to="ann",names_prefix="rad",
+#'                              values_to="rad")
+#' ldat1 <- subset(ldat1,!is.na(rad))
+#' ldat1 <- as.data.frame(ldat1)
+#' ldat1
+#' 
+#' ## Back-calculate using Dahl-Lea method
+#' # wide in and wide out
+#' wwres1 <- backCalc(wdat1,lencap,BCM="DALE",inFormat="wide",digits=0)
+#' wwres1
+#' 
+#' # wide in and long out
+#' wlres1 <- backCalc(wdat1,lencap,BCM="DALE",inFormat="wide",
+#'                    outFormat="long",digits=0)
+#' wlres1
+#' 
+#' # long in and wide out
+#' lwres1 <- backCalc(ldat1,lencap,BCM="DALE",inFormat="long",digits=0)
+#' lwres1
+#' 
+#' # wide in and long out
+#' llres1 <- backCalc(ldat1,lencap,BCM="DALE",inFormat="long",
+#'                    outFormat="long",digits=0)
+#' llres1
+#' 
+#' ## Situation with no radial measurements for some fish
+#' # Create an extra fish with length (tmp1) but no rad
+#' tmp1a <- rbind(tmp1,
+#'                data.frame(id=999,
+#'                species="SMB",lake="WB",gear="E",
+#'                yearcap=1990,lencap=225))
+#' wdat2 <- merge(tmp1a,tmp2,by="id",all.x=TRUE)
+#' wdat2
+#'                 
+#' # wide in and wide out
+#' wwres2 <- backCalc(wdat2,lencap,BCM="DALE",inFormat="wide",digits=0)
+#' wwres2
 #' 
 #' @export
 backCalc <- function(dat,lencap,BCM,inFormat,outFormat=inFormat,
@@ -48,20 +97,25 @@ backCalc <- function(dat,lencap,BCM,inFormat,outFormat=inFormat,
     ## Convert wide to long
     nms <- names(dat)
     rads <- nms[grepl("rad",nms) & !grepl("radcap",nms)]
-    dat <- tidyr::gather(dat,key=ann,value=rad,rads[1]:rads[length(rads)])
+    dat <- tidyr::pivot_longer(dat,rads[1]:rads[length(rads)],
+                               names_to="ann",values_to="rad")
     ## Change annuli labels into annuli numbers
     dat$ann <- as.numeric(stringr::str_replace_all(dat$ann,"rad",""))
-    ## Remove annuli where the radius was missing
-    dat <- dat[!is.na(dat$rad),]
-    ## Delete plus-growth if asked to do so
-    if (deletePlusGrowth) dat <- dat[dat$ann<=dat$agecap,]
-    ## Sort by id and then ann number
-    dat <- dat[order(dat$id,dat$ann),]
   }
+  ## Extract fish for which a radius was not measured (save to add back at end)
+  ##   assumes no rads measured if first was not measured
+  norad_dat <- dat[dat$ann==1 & is.na(dat$rad),]
+  
+  ## Remove annuli where the radius was missing
+  dat <- dat[!is.na(dat$rad),]
+  ## Delete plus-growth if asked to do so
+  if (deletePlusGrowth) dat <- dat[dat$ann<=dat$agecap,]
+  ## Sort by id and then ann number
+  dat <- dat[order(dat$id,dat$ann),]
   
   ## Perform relevant regressions if needed
   ### initiate all possible regression variables (except for a)
-  b <- c <- A <- B <- C <- NULL
+  b <- c <- A <- B <- C <- rsq <- NULL
   ### Get data (one lencap and one radcap per id) for regressions
   regdat <- dat[dat$ann==1,]
   regLcap <- regdat[,rlang::quo_name(rlang::enquo(lencap)),drop=TRUE]
@@ -72,23 +126,28 @@ backCalc <- function(dat,lencap,BCM,inFormat,outFormat=inFormat,
     regLR <- stats::lm(regLcap~regRcap)
     if (is.null(a) | BCM!=2) a <- stats::coef(regLR)[[1]]
     b <- stats::coef(regLR)[[2]]
+    rsq <- FSA::rSquared(regLR)
   } else if (BCM==6) { # SLR of R on L (extract A, B)
     regRL <- stats::lm(regRcap~regLcap)
     A <- stats::coef(regRL)[[1]]
     B <- stats::coef(regRL)[[2]]
+    rsq <- FSA::rSquared(regRL)
   } else if (BCM==7) { # MLR of R on L and A (extract A, B, C)
     regRLA <- stats::lm(regRcap~regLcap+regAcap)
     A <- stats::coef(regRLA)[[1]]
     B <- stats::coef(regRLA)[[2]]
     C <- stats::coef(regRLA)[[3]]
+    rsq <- FSA::rSquared(regRLA)
   } else if (BCM==8) { # MLR of L on R and A (extract a, b, c)
     regLRA <- stats::lm(regLcap~regRcap+regAcap)
     a <- stats::coef(regLRA)[[1]]
     b <- stats::coef(regLRA)[[2]]
     c <- stats::coef(regLRA)[[3]]
+    rsq <- FSA::rSquared(regLRA)
   } else if (BCM==9) { # SLR of log(L) on log(R) (extract c)
     regLR2 <- stats::lm(log(regLcap)~log(regRcap))
     c <- stats::coef(regLR2)[[2]]
+    rsq <- FSA::rSquared(regLR2)
   } else if (BCM==10) { # NLS of L on R (extract c)
     tmp <- stats::lm(log(regLcap)~log(regRcap))
     sv <- stats::coef(tmp)
@@ -122,11 +181,13 @@ backCalc <- function(dat,lencap,BCM,inFormat,outFormat=inFormat,
     a <- stats::coef(qregLR)[[1]]
     b <- stats::coef(qregLR)[[2]]
     c <- stats::coef(qregLR)[[3]]
+    rsq <- FSA::rSquared(qregLR)
   } else if (BCM==18) { # QR of R on L (extract A,B,C)
     qregRL <- stats::lm(regRcap~regLcap+I(regLcap^2))
     A <- stats::coef(qregRL)[[1]]
     B <- stats::coef(qregRL)[[2]]
     C <- stats::coef(qregRL)[[3]]
+    rsq <- FSA::rSquared(qregRL)
   } else if (BCM==21) { # NLS L on R (extract a, bb)
     tmp <- stats::lm(log(regLcap)~regRcap)
     sv <- stats::coef(tmp)
@@ -144,6 +205,15 @@ backCalc <- function(dat,lencap,BCM,inFormat,outFormat=inFormat,
     B <- stats::coef(nlsRL)[[2]]
   }
   
+  # Warn about possible poor back-calculation values
+  if (!is.null(rsq)) {
+    if (rsq<0.80) 
+      WARN("R-squared for the length-structure relationship is low (",
+           formatC(rsq,format="f",digits=3),"). The\n",
+           "computed model coefficients and resulting back-calculated lengths\n",
+           "may be suspect! Examine the length-structure plot for your data.\n")
+  }
+  
   ## Perform the back-calculation
   ### Get the back-calculation model function
   BCFUN <- bcFuns(BCM)
@@ -158,12 +228,17 @@ backCalc <- function(dat,lencap,BCM,inFormat,outFormat=inFormat,
   dat$bclen <- round(dat$bclen,digits=digits)
   
   ## Prepare data to return
+  ### Add back fish with no radial measurements if they exist
+  if (nrow(norad_dat)>0) {
+    norad_dat$bclen <- NA
+    dat <- rbind(dat,norad_dat)
+  }
   ### Remove radii information
   dat <- dat[,!grepl("rad",names(dat))]
   ### Convert to wide format (if asked to do so)
   if (outFormat=="wide") {
-    dat <- tidyr::spread(dat,key=ann,value=bclen,sep="len")
-    names(dat) <- gsub("ann","",names(dat))
+    dat <- tidyr::pivot_wider(dat,names_from="ann",names_prefix="len",
+                              values_from="bclen")
   }
   ## Return the data
   dat

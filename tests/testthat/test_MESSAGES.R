@@ -91,7 +91,10 @@ test_that("digitizeRadii() error messages",{
   expect_error(digitizeRadii(c("Scale_1_DHO.rds","Scale_1_DHO2.rds"),id=1,
                edgeIsAnnulus=TRUE),
                "Lengths of image file names and IDs must be equal")
-  expect_error(digitizeRadii("testdata/small_ex.jpg",id=1,edgeIsAnnulus=TRUE),
+  ## Need to suppress warning to focus on error
+  expect_error(suppressWarnings(
+    digitizeRadii("testdata/small_ex.jpg",id=1,edgeIsAnnulus=TRUE)
+    ),
                "which is NOT")
   
   ## Errors in options arguments  
@@ -206,9 +209,24 @@ test_that("showDigitizedImage() messages",{
   expect_warning(showDigitizedImage("Oto140306_DHO.rds",
                                     annuliLabels=1:5,cex.ann=1:3),
                  "was recycled")
-  grDevices::dev.off()
+  dev.off()
 })
 
+
+
+test_that("saveDigitizedImage() messages",{
+  expect_warning(saveDigitizedImage("small_ex.jpg"),
+                 "not an RData file")
+  expect_warning(saveDigitizedImage("notRFishBC.rds"),
+                 "does not appear to be from")
+  ## Don't run the next two as they write to working directory
+#  expect_warning(saveDigitizedImage(c("small_ex.jpg","Scale_1_DHO.rds")),
+#                 "not an RData file")
+#  expect_warning(saveDigitizedImage(c("notRFishBC.rds","Scale_1_DHO.rds")),
+#                 "does not appear to be from")
+  expect_error(saveDigitizedImage("Oto140306_DHO.rds",fileType="rad"),
+               "should be one of")
+})
 
 
 test_that("findScalingFactor() error messages",{
