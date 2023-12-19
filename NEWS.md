@@ -1,3 +1,5 @@
+# RFishBC 0.2.7.9000
+
 # RFishBC 0.2.7
 * Updated my (DHO) e-mail address in description and all `@author` tags in the documentation files.
 * Removed use of `captioner` package in vignettes as it is no longer available on CRAN (address [#54](https://github.com/fishR-Core-Team/RFishBC/issues/54)).
