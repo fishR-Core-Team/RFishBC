@@ -88,5 +88,5 @@ RFBCoptions(pch.show=3,col.show="blue",cex.show=3)
 \code{\link{digitizeRadii}} and \code{\link{showDigitizedImage}}
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }

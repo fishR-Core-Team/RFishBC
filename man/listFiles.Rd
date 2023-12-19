@@ -34,5 +34,5 @@ An example of using this function is in \href{https://fishr-core-team.github.io/
 \code{\link{digitizeRadii}} and \code{\link{combineData}}; and \code{\link{list.files}} in base R.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }

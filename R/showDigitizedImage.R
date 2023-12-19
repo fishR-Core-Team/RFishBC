@@ -26,7 +26,7 @@
 #'
 #' @seealso \code{\link{digitizeRadii}} and \code{\link{RFBCoptions}}.
 #' 
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #' 
 #' @export
 #'

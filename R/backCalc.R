@@ -7,7 +7,7 @@
 #' @param BCM A single numeric between 1 and 22 or a string that indicates which model to use (based on numbers and names in Vigliola and Meekan (2009)). See Details in \code{\link{bcFuns}} for the list of available models.
 #' @param a The fish length when the structure first forms as used in the Fraser-Lee model (i.e., \code{BCM=1} or \code{BCM="FRALE"}). If this is missing then \code{a} will be estimated as the intercept from the fish length on structure radius linear regression.
 #' @param L0p The length at the \dQuote{Biological Intercept} point. Only used in the \dQuote{Biological Intercept} (\code{BCM=3}), \dQuote{Watanabe and Kuroki} (\code{BCM=12}), and \dQuote{Modified Fry} (\code{BCM=14}) models.
-#' @param R0p The stucture radius at the \dQuote{Biological Intercept} point. Only used in the \dQuote{Biological Intercept} (\code{BCM=3}), \dQuote{Watanabe and Kuroki} (\code{BCM=12}), and \dQuote{Modified Fry} (\code{BCM=14}) models.
+#' @param R0p The structure radius at the \dQuote{Biological Intercept} point. Only used in the \dQuote{Biological Intercept} (\code{BCM=3}), \dQuote{Watanabe and Kuroki} (\code{BCM=12}), and \dQuote{Modified Fry} (\code{BCM=14}) models.
 #' @param L0 The length at the arbitrarily selected point in the \dQuote{Fry} (\code{BCM=13}) model.
 #' @param R0 The structure radius at the arbitrarily selected point in the \dQuote{Fry} (\code{BCM=13}) model.
 #' @param inFormat The format of the data in \code{dat}. The two choices are \code{"long"} with one radial measurement per line (and all radial measurements for a fish in separate rows) and \code{"wide"} with one fish per line (and all radial measurements in separate variables). Defaults to \code{"long"}.
@@ -16,6 +16,10 @@
 #' @param digits Number of digits to which the back-calculated lengths should be rounded. Defaults to the value returned by \code{getOptions("digits")}, which is generally 7 digits.
 #'
 #' @return A data.frame similar to \code{dat} but with the radial measurements replaced by back-calculated lengths at previous ages.
+#'
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
+#' 
+#' @keywords manip
 #'
 #' @examples
 #' ## Get some data

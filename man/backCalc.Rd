@@ -34,7 +34,7 @@ backCalc(
 
 \item{L0p}{The length at the \dQuote{Biological Intercept} point. Only used in the \dQuote{Biological Intercept} (\code{BCM=3}), \dQuote{Watanabe and Kuroki} (\code{BCM=12}), and \dQuote{Modified Fry} (\code{BCM=14}) models.}
 
-\item{R0p}{The stucture radius at the \dQuote{Biological Intercept} point. Only used in the \dQuote{Biological Intercept} (\code{BCM=3}), \dQuote{Watanabe and Kuroki} (\code{BCM=12}), and \dQuote{Modified Fry} (\code{BCM=14}) models.}
+\item{R0p}{The structure radius at the \dQuote{Biological Intercept} point. Only used in the \dQuote{Biological Intercept} (\code{BCM=3}), \dQuote{Watanabe and Kuroki} (\code{BCM=12}), and \dQuote{Modified Fry} (\code{BCM=14}) models.}
 
 \item{L0}{The length at the arbitrarily selected point in the \dQuote{Fry} (\code{BCM=13}) model.}
 
@@ -103,3 +103,7 @@ wwres2 <- backCalc(wdat2,lencap,BCM="DALE",inFormat="wide",digits=0)
 wwres2
 
 }
+\author{
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
+}
+\keyword{manip}

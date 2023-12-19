@@ -5,7 +5,7 @@
 #' @param species A string that contains the species name for which to find teh standard intercept value.
 #' @return A single value from \code{\link{StdIntLit}} that is the standard intercept value (a; mm) for the species provided in \code{species}.
 #' 
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
 #' @seealso \code{\link{StdIntLit}}
 #' 

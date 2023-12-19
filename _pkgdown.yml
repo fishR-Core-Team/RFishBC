@@ -20,6 +20,7 @@ reference:
       - RFBCoptions
       - digitizeRadii
       - showDigitizedImage
+      - saveDigitizedImage
       - combineData
       - findScalingFactor
   - title: Back-calculation

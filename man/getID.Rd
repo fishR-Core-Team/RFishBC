@@ -69,5 +69,5 @@ getID(ex8)
 \code{\link{listFiles}} and \code{\link{digitizeRadii}}.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }

@@ -57,5 +57,5 @@ To apply the scaling factor determined with this function to images opened in \c
 ## None yet
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
