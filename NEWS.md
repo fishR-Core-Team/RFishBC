@@ -1,5 +1,7 @@
 # RFishBC 0.2.7.9000
+* `iHndlFilenames()`: Used `sringr::str_wrap()` to better handle a long error message.
 * `reviewDigitizedImages()`: Added (this address [#43](https://github.com/fishR-Core-Team/RFishBC/issues/43).
+* `showDigitizedImage()`: Added `Encoding()` in another spot for unicode "arrows" when plotting (see news for v0.2.7).
 
 # RFishBC 0.2.7
 * Updated my (DHO) e-mail address in description and all `@author` tags in the documentation files.

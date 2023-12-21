@@ -66,10 +66,12 @@ iHndlFilenames <- function(nm,filter,multi=TRUE) {
   dn <- dirname(nm[1])
   wd <- getwd()
   if (!dn %in% c(".",wd)) {
-    STOP("The file is in ",normalizePath(dn),", which is NOT\n",
-         "       the current working directory of ",normalizePath(wd),".\n",
-         "       Please use 'setwd()' to change the working directory\n",
-         "       and then try the function again.")
+    tmp <- paste0("The file is in ",normalizePath(dn),
+                  ", which is NOT the current working directory of ",
+                  normalizePath(wd),
+                  ". Please use 'setwd()' to change the working directory ",
+                  "and then try the function again.")
+    STOP(stringr::str_wrap(tmp,exdent=2))
   }
   #### Make sure just the filenames (no path info) is returned
   basename(nm)

@@ -146,6 +146,7 @@ showDigitizedImage <- function(nms,deviceType,
         if (useArrows) {
           pos <- iFindLabelPos(dat)
           lbl <- intToUtf8(c(9650,9658,9660,9668)[pos])
+          lbl <- Encoding(lbl)
           graphics::text(y~x,data=dat$pts[2:(nrow(dat$pts)-1),],labels=lbl,
                          col=col.show[i],cex=cex.show[i],pos=pos,offset=0)
           if (dat$edgeIsAnnulus)
