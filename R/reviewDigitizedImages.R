@@ -42,7 +42,10 @@ reviewDigitizedImages <- function(nms,
                                   col.ann,cex.ann,offset.ann) {
 
   ## Internal function for handling key press event
-  keyPress <- function(key) ifelse(key=="f","DONE",ifelse(key=="n","Next","Prev"))
+  keyPress <- function(key) ifelse(key %in% c("f","q"),"DONE",
+                                   ifelse(key %in% c("n","Right","Up"),"Next",
+                                          ifelse(key %in% c("p","Left","Down"),"Prev",
+                                                 "NONE")))
   
   ## Internal function for showing image
   iReviewDigitizedImage <- function(nm,msg1,
@@ -75,7 +78,8 @@ reviewDigitizedImages <- function(nms,
   num_imgs <- length(nms)
   i <- 0
   act <- "Next"
-  msg2 <- ": 'f'=DONE, 'n'=Next, 'p'=Previous"
+  msg2 <- ": 'f'/'q'=DONE, 'n'/'>'=Next, 'p'/'<'=Previous"
+  cat("Use",msg2,"\n",sep="")
   
   ## Access images until users says "Done" #####################################
   ### The use if iReviewDigitizedImage() looks redundant below, but doing this
@@ -97,7 +101,7 @@ reviewDigitizedImages <- function(nms,
         cat("There is no 'Next' image. ")
         i <- i
       }
-    } else {
+    } else if (act=="Prev") {
       if (i>1) {
         i <- i-1
         msg1 <- tools::file_path_sans_ext(nms[i])
@@ -112,9 +116,10 @@ reviewDigitizedImages <- function(nms,
         cat("There is no 'Prev'ious image. ")
         i <- i
       }
-    }
-    act <- grDevices::getGraphicsEvent(paste0(msg1,msg2),onKeybd=keyPress,
-                                       consolePrompt="",onMouseDown="")
+    } else cat("Must use",msg2,sep="")
+    act <- grDevices::getGraphicsEvent(paste0(msg1,msg2),
+                                       consolePrompt="",
+                                       onKeybd=keyPress,onMouseDown="")
   }
   grDevices::dev.off()
   cat("Done.")                                                       # nocov end
