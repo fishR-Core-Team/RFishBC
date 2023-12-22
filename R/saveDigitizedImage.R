@@ -24,7 +24,7 @@
 #'
 #' @return None, but a file is created in the working directory.
 #' 
-#' @details None.
+#' @details Images with marked annuli recorded from \code{\link{digitizeRadii}} and saved in an RData file can be saved to JPEG, PNG, or PDF files with this function. Appropriate RData files in the current working directory can be given as a vector (see \code{\link{listFiles}} to \code{nms} or selected from a dialog box if the first argument is left blank. The type of output file is JPEG by default but can be changed with \code{fileType} (e.g., to \code{"png"} or \code{"pdf"}). The resultant files will be saved in the same directory with the same filename as the original RData file but with \dQuote{_marked} appended to the name (the appended string can be changed with \code{suffix}).
 #'
 #' @seealso \code{\link{showDigitizedImage}}, \code{\link{digitizeRadii}}, \code{\link{RFBCoptions}}, and \code{\link{jpeg}}, \code{\link{png}}, and \code{\link{pdf}}.
 #' 

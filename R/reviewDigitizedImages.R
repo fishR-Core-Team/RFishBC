@@ -20,9 +20,9 @@
 #' @param cex.ann See details in \code{\link{RFBCoptions}}.
 #' @param offset.ann See details in \code{\link{RFBCoptions}}.
 #'
-#' @return None, but a file is created in the working directory.
+#' @return None.
 #' 
-#' @details None.
+#' @details Multiple images with marked annuli recorded from \code{\link{digitizeRadii}} and saved in an RData file are viewed efficiently with this function. Appropriate RData files in the current working directory can be given as a vector (see \code{\link{listFiles}}) to \code{nms}. The image from the first first file will be displayed in a stand-along window. The image in the next file can be viewed by pressing the \sQuote{n} or \sQuote{>} keys. Previous images can be returned to by pressing the \sQuote{p} or \sQuote{<} keys. Press the \sQuote{f} or \sQuote{d} key to close the window when done reviewing the images.
 #'
 #' @seealso \code{\link{showDigitizedImage}}, \code{\link{saveDigitizedImage}}, \code{\link{digitizeRadii}}, \code{\link{RFBCoptions}}, and \code{\link{jpeg}}, \code{\link{png}}, and \code{\link{pdf}}.
 #' 

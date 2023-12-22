@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RFishBC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7.9000</span>
       </span>
     </div>
 
@@ -110,7 +110,7 @@
                         <h4 data-toc-skip class="author">Derek H.
 Ogle</h4>
             
-            <h4 data-toc-skip class="date">2023-12-19</h4>
+            <h4 data-toc-skip class="date">2023-12-22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/RFishBC/blob/HEAD/vignettes/Other.Rmd" class="external-link"><code>vignettes/Other.Rmd</code></a></small>
       <div class="hidden name"><code>Other.Rmd</code></div>
@@ -362,6 +362,45 @@ measurements returned from <code><a href="../reference/combineData.html">combine
 <span><span class="co">#&gt; 2                                   </span></span>
 <span><span class="co">#&gt; 3                                   </span></span>
 <span><span class="co">#&gt; 4</span></span></code></pre></div>
+<p> </p>
+<p> </p>
+</div>
+<div class="section level2">
+<h2 id="saving-images-with-marks-to-other-formats">Saving Images with Marks to Other Formats<a class="anchor" aria-label="anchor" href="#saving-images-with-marks-to-other-formats"></a>
+</h2>
+<p>Images with marked annuli recorded from <code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code>
+and saved in an RData file as described in the <a href="collectRadiiData.html">Collecting Radial Measurements</a> vignette
+can be saved to JPEG, PNG, or PDF files with
+<code><a href="../reference/saveDigitizedImage.html">saveDigitizedImage()</a></code>. Appropriate RData files in the
+current working directory can be given as a vector (see
+<code><a href="../reference/listFiles.html">listFiles()</a></code>) to the first argument of
+<code><a href="../reference/saveDigitizedImage.html">saveDigitizedImage()</a></code> or selected from a dialog box if the
+first argument is left blank. The type of output file is JPEG by default
+but can be changed with <code>fileType=</code> (e.g., to
+<code>"png"</code> or <code>"pdf"</code>). The resultant files will be
+saved in the same directory with the same filename as the original RData
+file but with “_marked” appended to the name (the appended string can be
+changed with <code>suffix=</code>).</p>
+<p> </p>
+<p> </p>
+</div>
+<div class="section level2">
+<h2 id="reviewing-multiple-images-efficiently">Reviewing Multiple Images Efficiently<a class="anchor" aria-label="anchor" href="#reviewing-multiple-images-efficiently"></a>
+</h2>
+<p>Multiple images with marked annuli recorded from
+<code><a href="../reference/digitizeRadii.html">digitizeRadii()</a></code> and saved in an RData file as described in
+the <a href="collectRadiiData.html">Collecting Radial Measurements</a>
+vignette can be viewed efficiently with
+<code><a href="../reference/reviewDigitizedImages.html">reviewDigitizedImages()</a></code>. Appropriate RData files in the
+current working directory can be given as a vector (see
+<code><a href="../reference/listFiles.html">listFiles()</a></code>) to the first argument of
+<code>reviewDigitizedImage()</code> or selected from a dialog box if the
+first argument is left blank. The image from the first first file will
+be displayed in a stand-along window. The image in the next file can be
+viewed by pressing the <code>n</code> or <code>&gt;</code> keys.
+Previous images can be returned to by pressing the <code>p</code> or
+<code>&lt;</code> keys. Press the <code>f</code> or <code>d</code> key
+to close the window when done reviewing the images.</p>
 <p> </p>
 <p> </p>
 </div>

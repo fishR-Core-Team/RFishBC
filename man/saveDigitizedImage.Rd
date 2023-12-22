@@ -72,7 +72,7 @@ None, but a file is created in the working directory.
 Save to a file the structure image with points to represent annuli that were saved to an R data file using \code{\link{digitizeRadii}}. This allows the user to create a file of their selections that could be printed.
 }
 \details{
-None.
+Images with marked annuli recorded from \code{\link{digitizeRadii}} and saved in an RData file can be saved to JPEG, PNG, or PDF files with this function. Appropriate RData files in the current working directory can be given as a vector (see \code{\link{listFiles}} to \code{nms} or selected from a dialog box if the first argument is left blank. The type of output file is JPEG by default but can be changed with \code{fileType} (e.g., to \code{"png"} or \code{"pdf"}). The resultant files will be saved in the same directory with the same filename as the original RData file but with \dQuote{_marked} appended to the name (the appended string can be changed with \code{suffix}).
 }
 \examples{
 ## None because this requires interaction from the user.

@@ -146,6 +146,22 @@ dplyr::left_join(dfrad2,notes,by=c("id","reading"))
 
 \  
 
+\ 
+
+
+# Saving Images with Marks to Other Formats
+Images with marked annuli recorded from `digitizeRadii()` and saved in an RData file as described in the [Collecting Radial Measurements](collectRadiiData.html) vignette can be saved to JPEG, PNG, or PDF files with `saveDigitizedImage()`. Appropriate RData files in the current working directory can be given as a vector (see `listFiles()`) to the first argument of `saveDigitizedImage()` or selected from a dialog box if the first argument is left blank. The type of output file is JPEG by default but can be changed with `fileType=` (e.g., to `"png"` or `"pdf"`). The resultant files will be saved in the same directory with the same filename as the original RData file but with "_marked" appended to the name (the appended string can be changed with `suffix=`).
+
+\  
+
+\ 
+
+
+# Reviewing Multiple Images Efficiently
+Multiple images with marked annuli recorded from `digitizeRadii()` and saved in an RData file as described in the [Collecting Radial Measurements](collectRadiiData.html) vignette can be viewed efficiently with `reviewDigitizedImages()`. Appropriate RData files in the current working directory can be given as a vector (see `listFiles()`) to the first argument of `reviewDigitizedImage()` or selected from a dialog box if the first argument is left blank. The image from the first first file will be displayed in a stand-along window. The image in the next file can be viewed by pressing the `n` or `>` keys. Previous images can be returned to by pressing the `p` or `<` keys. Press the `f` or `d` key to close the window when done reviewing the images.
+
+\  
+
 \  
 
 
