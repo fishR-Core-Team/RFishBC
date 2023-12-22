@@ -1,4 +1,5 @@
 # RFishBC 0.2.7.9000
+* Updated DOI.
 * `iCheckFiles()`: Added to provide simplicity of use with `reviewDigitized Images()`, `saveDigitizedImage()`, and `showDigitizedImage()`.
 * `iHndlFilenames()`: Used `sringr::str_wrap()` to better handle a long error message.
 * `reviewDigitizedImages()`: Added (this address [#43](https://github.com/fishR-Core-Team/RFishBC/issues/43).

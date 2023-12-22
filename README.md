@@ -1,5 +1,5 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1218245.svg)](https://doi.org/10.5281/zenodo.1218245)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10426347.svg)](https://doi.org/10.5281/zenodo.10426347)
 [![CRAN Status](http://www.r-pkg.org/badges/version/RFishBC)](http://www.r-pkg.org/pkg/RFishBC)
 [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%203%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-3.0.html)
 [![R-CMD-check](https://github.com/fishr-core-team/RFishBC/workflows/R-CMD-check/badge.svg)](https://github.com/fishr-core-team/RFishBC/actions)
@@ -29,7 +29,7 @@ The most recent development version may be installed from GitHub with
 
 ```r
 if (!require('remotes')) install.packages('remotes'); require('remotes')
-remotes::install_github('fishr-core-team/RFishBC')
+remotes::install_github('fishr-core-team/RFishBC',ref="dev")
 ```
 
 You may need to have R Tools installed on your system to use the two lines above. See the instructions for ([R Tools for Windows](https://cran.r-project.org/bin/windows/Rtools/) or [R Tools for Mac OS X](https://cran.r-project.org/bin/macosx/tools/)). Additionally, you may need the X11 graphics functionality if using Mac OS.
