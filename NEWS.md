@@ -1,4 +1,9 @@
 # RFishBC 0.2.7.9000
+* `iCheckFiles()`: Added to provide simplicity of use with `reviewDigitized Images()`, `saveDigitizedImage()`, and `showDigitizedImage()`.
+* `iHndlFilenames()`: Used `sringr::str_wrap()` to better handle a long error message.
+* `reviewDigitizedImages()`: Added (this address [#43](https://github.com/fishR-Core-Team/RFishBC/issues/43).
+* `saveDigitizedImage()`: Implemented `iCheckFiles()`. Removed file based tests and included them in tests for `iCheckFiles()`.
+* `showDigitizedImage()`: Added `Encoding()` in another spot for unicode "arrows" when plotting (see news for v0.2.7). Implemented `iCheckFiles()`. Adjusted the method for checking whether two files used the same underlying image. Moved the recycling of `pch.show=` *et al* to outside of the loop (so as not to repeat the same recycling for each iteration of the loop). Removed file based tests and included them in tests for `iCheckFiles()`.
 
 # RFishBC 0.2.7
 * Updated my (DHO) e-mail address in description and all `@author` tags in the documentation files.

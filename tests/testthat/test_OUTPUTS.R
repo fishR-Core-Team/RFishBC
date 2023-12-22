@@ -416,8 +416,10 @@ test_that("backCalc() output values",{
   ### Fraser-Lee
   a <- aStandard("Smallmouth Bass")
   tmp <- SMBassWB[1,]
-  capture.output(out <- backCalc(tmp,lencap,BCM="FRALE",a=a,inFormat="wide",
-                                 outFormat="long",digits=1))
+  capture.output(suppressWarnings(
+    out <- backCalc(tmp,lencap,BCM="FRALE",a=a,inFormat="wide",
+                    outFormat="long",digits=1))
+  )
   exp1 <- round(with(tmp,(lencap-a)*rad1/radcap+a),1)
   expect_equal(out$bclen[1],exp1)
   
@@ -431,8 +433,10 @@ test_that("backCalc() output values",{
   exp9 <- round(with(tmp,lencap*rad9/radcap),1)
   expect_equal(out$bclen[9],exp9)
   ### Fraser-Lee
-  capture.output(out <- backCalc(tmp,lencap,BCM="FRALE",a=a,inFormat="wide",
-                                 outFormat="long",digits=1))
+  capture.output(suppressWarnings(
+    out <- backCalc(tmp,lencap,BCM="FRALE",a=a,inFormat="wide",
+                    outFormat="long",digits=1))
+  )
   exp1 <- round(with(tmp,(lencap-a)*rad1/radcap+a),1)
   expect_equal(out$bclen[1],exp1)
   exp9 <- round(with(tmp,(lencap-a)*rad9/radcap+a),1)
