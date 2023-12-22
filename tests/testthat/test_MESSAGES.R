@@ -169,15 +169,20 @@ test_that("combineData() messages",{
 
 
 
+test_that("iCheckFiles() messages",{
+  expect_warning(RFishBC:::iCheckFiles(c("small_ex.jpg","Scale_1_DHO.rds")),
+                 "not an RData file")
+  expect_warning(RFishBC:::iCheckFiles(c("notRFishBC.rds","Scale_1_DHO.rds")),
+                 "does not appear to be from")
+  expect_error(RFishBC:::iCheckFiles("small_ex.jpg",showWarnings=FALSE),
+               "no files left in the provided list")
+  expect_error(RFishBC:::iCheckFiles("notRFishBC.rds",showWarnings=FALSE),
+               "no files left in the provided list")
+})
+
+
+
 test_that("showDigitizedImage() messages",{
-  expect_error(showDigitizedImage("small_ex.jpg"),
-               "not an RData file")
-  expect_error(showDigitizedImage(c("small_ex.jpg","Scale_1_DHO.rds")),
-               "not an RData file")
-  expect_error(showDigitizedImage("notRFishBC.rds"),
-               "does not appear to be from")
-  expect_error(showDigitizedImage(c("notRFishBC.rds","Scale_1_DHO.rds")),
-               "does not appear to be from")
   expect_error(showDigitizedImage(c("Scale_1_DHO.rds","Scale_2_DHO.rds")),
                "from different structure images")
   expect_error(showDigitizedImage(c("Scale_1_DHO.rds","Oto140306_DHO.rds")),
@@ -209,24 +214,16 @@ test_that("showDigitizedImage() messages",{
   expect_warning(showDigitizedImage("Oto140306_DHO.rds",
                                     annuliLabels=1:5,cex.ann=1:3),
                  "was recycled")
-  dev.off()
+  grDevices::dev.off()
 })
 
 
 
 test_that("saveDigitizedImage() messages",{
-  expect_warning(saveDigitizedImage("small_ex.jpg"),
-                 "not an RData file")
-  expect_warning(saveDigitizedImage("notRFishBC.rds"),
-                 "does not appear to be from")
-  ## Don't run the next two as they write to working directory
-#  expect_warning(saveDigitizedImage(c("small_ex.jpg","Scale_1_DHO.rds")),
-#                 "not an RData file")
-#  expect_warning(saveDigitizedImage(c("notRFishBC.rds","Scale_1_DHO.rds")),
-#                 "does not appear to be from")
   expect_error(saveDigitizedImage("Oto140306_DHO.rds",fileType="rad"),
                "should be one of")
 })
+
 
 
 test_that("findScalingFactor() error messages",{

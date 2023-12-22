@@ -54,41 +54,37 @@ saveDigitizedImage <- function(nms,fileType=c("jpeg","png","pdf"),
   ##   filename otherwise process the filename(s)
   if (inherits(nms,"RFishBC")) nms <- nms$datanm                         # nocov end
     else nms <- iHndlFilenames(nms,filter="RData",multi=TRUE)
-  
-  ## Get number of readings ####################################################
+
+  ## Make sure files are from digitizeRadii
+  nms <- iCheckFiles(nms)
+    
+  ## Cycle through files #######################################################
   for (i in nms) {
-    if (!isRData(i)) {
-      WARN(i," is not an RData file saved from 'digitizeRadii().")
+    # start to make the filename
+    nm <- paste0(tools::file_path_sans_ext(i),suffix)
+    # display image ...
+    d <- showDigitizedImage(i,"default",
+                            pch.show,col.show,cex.show,
+                            connect,col.connect,lwd.connect,
+                            col.scaleBar,lwd.scaleBar,
+                            showScaleBarLength,cex.scaleBar,
+                            showAnnuliLabels,annuliLabels,
+                            col.ann,cex.ann,offset.ann)
+    # ... and then send to file
+    if (fileType=="jpeg") {
+      grDevices::dev.copy(grDevices::jpeg,paste0(nm,".jpg"),
+                          width=d$windowSize[1],height=d$windowSize[2],
+                          units="in",res=res)
+    } else if (fileType=="png") {
+      grDevices::dev.copy(grDevices::png,paste0(nm,".png"),
+                          width=d$windowSize[1],height=d$windowSize[2],
+                          units="in",res=res)
     } else {
-      dat <- NULL # try to avoid "no visible binding" note
-      dat <- readRDS(i)
-      if (!inherits(dat,"RFishBC")) 
-        WARN(i," does not appear to be from 'digitizeRadii().")
-      else {
-        d <- showDigitizedImage(dat,"default",
-                                pch.show,col.show,cex.show,
-                                connect,col.connect,lwd.connect,
-                                col.scaleBar,lwd.scaleBar,
-                                showScaleBarLength,cex.scaleBar,
-                                showAnnuliLabels,annuliLabels,
-                                col.ann,cex.ann,offset.ann)
-        if (fileType=="jpeg") {
-          nm <- paste0(tools::file_path_sans_ext(i),suffix,".jpg")
-          grDevices::dev.copy(grDevices::jpeg,nm,
-                              width=d$windowSize[1],height=d$windowSize[2],
-                              units="in",res=res)
-        } else if (fileType=="png") {
-          nm <- paste0(tools::file_path_sans_ext(i),suffix,".png")
-          grDevices::dev.copy(grDevices::png,nm,
-                              width=d$windowSize[1],height=d$windowSize[2],
-                              units="in",res=res)
-        } else {
-          nm <- paste0(tools::file_path_sans_ext(i),suffix,".pdf")
-          grDevices::dev.copy(grDevices::pdf,nm,
-                              width=d$windowSize[1],height=d$windowSize[2])
-        }
-        grDevices::dev.off()
-      }
+      grDevices::dev.copy(grDevices::pdf,paste0(nm,".pdf"),
+                          width=d$windowSize[1],height=d$windowSize[2])
     }
+    grDevices::dev.off()
   }
+  # close device if one is left open
+  if (!is.null(grDevices::dev.list())) invisible(grDevices::dev.off())
 }

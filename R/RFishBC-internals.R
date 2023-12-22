@@ -78,6 +78,37 @@ iHndlFilenames <- function(nm,filter,multi=TRUE) {
 }
 
 
+########################################################################
+## Checks to make sure that all files in a list of files come from
+##   digitizeRadii(). Those that do not are removed from the list. An
+##   error is thrown if the list is empty after all have been checked.
+########################################################################
+iCheckFiles <- function(nms,showWarnings=TRUE) {
+  i2drop <- NULL
+  for (i in seq_along(nms)) {
+    ### Make sure each file is an RData file from digitizeRadii()
+    if (!isRData(nms[i])) {
+      tmp <- paste(nms[i],
+                   "is not an RData file saved from 'digitizeRadii().",
+                   "It will be dropped from provided list of files.")
+      if (showWarnings) WARN(stringr::str_wrap(tmp,exdent=2))
+      i2drop <- c(i2drop,i)
+    } else {
+      dat <- readRDS(nms[i])
+      if (!inherits(dat,"RFishBC")) {
+        tmp <- paste(nms[i],
+                     "does not appear to be from 'digitizeRadii().",
+                     "It will be dropped from provided list of files.")
+        if (showWarnings) WARN(stringr::str_wrap(tmp,exdent=2))
+        i2drop <- c(i2drop,i)
+      }
+    }
+  }
+  ## Return modified list of filenames
+  if (!is.null(i2drop)) nms <- nms[-i2drop]
+  if (length(nms)==0) STOP("There are no files left in the provided list.")
+  else invisible(nms)
+}
 
 ########################################################################
 ## Load and displays a structure image.

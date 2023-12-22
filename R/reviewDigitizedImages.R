@@ -3,6 +3,7 @@
 #' @description Allows user to efficiently view images with points to represent annuli that were saved to multiple R data files using \code{\link{digitizeRadii}}. The user can press keyboard buttons to move between (forward and backward) images.
 #' 
 #' @param nms A string (or vector of strings) that indicates the R data file(s) created with \code{\link{digitizeRadii}}. If missing the user will be provided a dialog box from which to choose the file(s). The file(s) must be in the current working directory (see \code{\link{getwd}} result). May also be a single \code{RFishBC} object created with \code{\link{digitizeRadii}}.
+#' @param deviceType See details in \code{\link{RFBCoptions}}.
 #' @param pch.show See details in \code{\link{RFBCoptions}}.
 #' @param col.show See details in \code{\link{RFBCoptions}}.
 #' @param cex.show See details in \code{\link{RFBCoptions}}.
@@ -33,7 +34,7 @@
 #' ## None because this requires interaction from the user.
 #' ## See the link to the extensive documentation in the Details.
 #' 
-reviewDigitizedImages <- function(nms,
+reviewDigitizedImages <- function(nms,deviceType,
                                   pch.show,col.show,cex.show,
                                   connect,col.connect,lwd.connect,
                                   col.scaleBar,lwd.scaleBar,
@@ -48,7 +49,7 @@ reviewDigitizedImages <- function(nms,
                                                  "NONE")))
   
   ## Internal function for showing image
-  iReviewDigitizedImage <- function(nm,msg1,
+  iReviewDigitizedImage <- function(nm,msg1,deviceType,
                                     pch.show,col.show,cex.show,
                                     connect,col.connect,lwd.connect,
                                     col.scaleBar,lwd.scaleBar,
@@ -56,7 +57,7 @@ reviewDigitizedImages <- function(nms,
                                     showAnnuliLabels,annuliLabels,
                                     col.ann,cex.ann,offset.ann) {
     cat("Showing ",msg1,".",sep="")
-    showDigitizedImage(nm,"default",
+    showDigitizedImage(nm,deviceType,
                        pch.show,col.show,cex.show,
                        connect,col.connect,lwd.connect,
                        col.scaleBar,lwd.scaleBar,
@@ -74,13 +75,15 @@ reviewDigitizedImages <- function(nms,
   if (inherits(nms,"RFishBC")) nms <- nms$datanm
     else nms <- iHndlFilenames(nms,filter="RData",multi=TRUE)
   
+  ## Make sure files are from digitizeRadii
+  nms <- iCheckFiles(nms)
+  
   ## Setup for the loop ########################################################
   num_imgs <- length(nms)
   i <- 0
   act <- "Next"
   msg2 <- ": 'f'/'q'=DONE, 'n'/'>'=Next, 'p'/'<'=Previous"
-  cat("Use",msg2,"\n",sep="")
-  
+
   ## Access images until users says "Done" #####################################
   ### The use if iReviewDigitizedImage() looks redundant below, but doing this
   ###   means that the image will not be redisplayed when trying to go to next
@@ -90,7 +93,7 @@ reviewDigitizedImages <- function(nms,
       if (i<num_imgs) {
         i <- i+1
         msg1 <- tools::file_path_sans_ext(nms[i])
-        iReviewDigitizedImage(nms[i],msg1,
+        iReviewDigitizedImage(nms[i],msg1,deviceType,
                               pch.show,col.show,cex.show,
                               connect,col.connect,lwd.connect,
                               col.scaleBar,lwd.scaleBar,
@@ -105,7 +108,7 @@ reviewDigitizedImages <- function(nms,
       if (i>1) {
         i <- i-1
         msg1 <- tools::file_path_sans_ext(nms[i])
-        iReviewDigitizedImage(nms[i],msg1,
+        iReviewDigitizedImage(nms[i],msg1,deviceType,
                               pch.show,col.show,cex.show,
                               connect,col.connect,lwd.connect,
                               col.scaleBar,lwd.scaleBar,

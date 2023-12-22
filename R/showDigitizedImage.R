@@ -85,18 +85,16 @@ showDigitizedImage <- function(nms,deviceType,
   ##   filename otherwise process the filename(s)
   if (inherits(nms,"RFishBC")) nms <- nms$datanm                         # nocov end
     else nms <- iHndlFilenames(nms,filter="RData",multi=TRUE)
+
+  ## Make sure files are from digitizeRadii
+  nms <- iCheckFiles(nms)
   
   ## Get number of readings ####################################################
   num2do <- length(nms)
 
   ## Show the reading(s) ... handle one and multiple readings differently ######
   if (num2do==1) {
-    ### Make sure file is an RData file from digitizeRadii()
-    if (!isRData(nms)) 
-      STOP(nms," is not an RData file saved from 'digitizeRadii().")
     dat <- readRDS(nms)
-    if (!inherits(dat,"RFishBC")) 
-      STOP(nms," does not appear to be from 'digitizeRadii().")
     img <- iShowOneDigitizedImage(dat,deviceType,
                                   showScaleBarLength,col.scaleBar,
                                   lwd.scaleBar,cex.scaleBar,
@@ -105,31 +103,18 @@ showDigitizedImage <- function(nms,deviceType,
                                   showAnnuliLabels,annuliLabels,
                                   col.ann,cex.ann,offset.ann)
   } else {
-    tmp <- NULL
+    ### expand pchs, colors, cexs, lwds to number of readings/transects
+    pch.show <- rep(pch.show,ceiling(num2do/length(pch.show)))
+    col.show <- rep(col.show,ceiling(num2do/length(col.show)))
+    cex.show <- rep(cex.show,ceiling(num2do/length(cex.show)))
+    col.connect <- rep(col.connect,ceiling(num2do/length(col.connect)))
+    lwd.connect <- rep(lwd.connect,ceiling(num2do/length(lwd.connect)))
+
     for (i in seq_along(nms)) {
-      ### Make sure each file is an RData file from digitizeRadii()
-      if (!isRData(nms[i]))
-        STOP(nms[i]," is not an RData file saved from 'digitizeRadii().")
       dat <- readRDS(nms[i])
-      if (!inherits(dat,"RFishBC"))
-        STOP(nms[i]," does not appear to be from 'digitizeRadii().")
-      if (!is.null(tmp)) {
-        if (dat$image!=tmp) {
-          grDevices::dev.off()
-          STOP("Files appear to derive from different structure images.")
-        }
-      }
-      tmp <- dat$image
       
-      ### expand pchs, colors, cexs, lwds to number of readings/transects
-      pch.show <- rep(pch.show,ceiling(num2do/length(pch.show)))
-      col.show <- rep(col.show,ceiling(num2do/length(col.show)))
-      cex.show <- rep(cex.show,ceiling(num2do/length(cex.show)))
-      col.connect <- rep(col.connect,ceiling(num2do/length(col.connect)))
-      lwd.connect <- rep(lwd.connect,ceiling(num2do/length(lwd.connect)))
-      
-      ### Make or add to image
-      if (i==1) 
+      ### Make (i=1) or add (i>1) to image
+      if (i==1) {
         img <- iShowOneDigitizedImage(dat,deviceType,
                                       showScaleBarLength,col.scaleBar,
                                       lwd.scaleBar,cex.scaleBar,
@@ -137,7 +122,15 @@ showDigitizedImage <- function(nms,deviceType,
                                       useArrows,pch.show[i],col.show[i],cex.show[i],
                                       showAnnuliLabels=FALSE,annuliLabels="",
                                       col.ann[i],cex.ann[i],offset.ann[i])
-      else {                                                       # nocov start
+        ### sav image for comparison to image in next file
+        tmp <- dat$image
+      } else {                                                       # nocov start
+        # if not first file, check to make sure files use same image
+        if (dat$image!=tmp) {
+          grDevices::dev.off()
+          STOP("Files appear to derive from different structure images.")
+        }
+        
         ## Show connected points if asked to do so
         if (connect) graphics::lines(y~x,data=dat$pts,
                                      lwd=lwd.connect[i],col=col.connect[i],
